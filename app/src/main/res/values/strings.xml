@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Digital Learning Tree</string>
+    <string name="drawer_open">Menu opened</string>
+    <string name="drawer_close">Menu closed</string>
 </resources>
