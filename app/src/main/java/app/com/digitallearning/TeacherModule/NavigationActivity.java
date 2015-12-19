@@ -1,6 +1,7 @@
 package app.com.digitallearning.TeacherModule;
 
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -10,6 +11,7 @@ import android.view.WindowManager;
 
 import app.com.digitallearning.NavigationDrawerCallbacks;
 import app.com.digitallearning.R;
+import app.com.digitallearning.TeacherModule.Classes.ClassesDetailFragment;
 
 /**
  * Created by ${ShalviSharma} on 12/18/15.
@@ -17,6 +19,7 @@ import app.com.digitallearning.R;
 public class NavigationActivity extends AppCompatActivity implements NavigationDrawerCallbacks {
     private Toolbar mToolbar;
     private NavigationDrawerFragment mNavigationDrawerFragment;
+    Fragment mFragment;
     @Override
     protected void onCreate( Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,19 +50,20 @@ public class NavigationActivity extends AppCompatActivity implements NavigationD
 
     @Override
     public void onNavigationDrawerItemSelected(int position) {
+
         //  headerTitle = (TextView) mToolbar.findViewById(R.id.mytext);
         FragmentManager mFragmentManager = getSupportFragmentManager();
         //Toast.makeText(this, "Menu item selected -> " + position, Toast.LENGTH_SHORT).show();
 
 
-      /*  switch (position) {
+        switch (position) {
             case 0:
 
-                mFragment = HomeFragment.newInstance("");
+                mFragment = ClassesDetailFragment.newInstance();
 
 
                 break;
-            case 1:
+            /*case 1:
                 headerTitle.setText("Search");
                 mFragment = AdvanceSearchFragment.newInstance();
 
@@ -86,7 +90,7 @@ public class NavigationActivity extends AppCompatActivity implements NavigationD
             case 6:
 
 
-                AlertDialog.Builder alertDialog = new AlertDialog.Builder(NavigationActivity.this);
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(MainActivity.this);
 
                 // Setting Dialog Title
                 alertDialog.setTitle("Logged out");
@@ -128,12 +132,13 @@ public class NavigationActivity extends AppCompatActivity implements NavigationD
 */
         }
 
-/*
 
         if (mFragment != null) {
             mFragmentManager.beginTransaction().replace(R.id.container, mFragment).commit();
         }
-*/
+
+
+    }
 
 
 

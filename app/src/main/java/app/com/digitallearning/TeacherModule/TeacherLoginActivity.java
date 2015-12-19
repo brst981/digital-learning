@@ -1,31 +1,26 @@
 package app.com.digitallearning.TeacherModule;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
-
-import com.andexert.library.RippleView;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 
 import app.com.digitallearning.R;
 
 /**
  * Created by ${ShalviSharma} on 12/18/15.
  */
-public class TeacherLoginActivity extends Activity {
-    RippleView rippleViewLogin;
+public class TeacherLoginActivity extends FragmentActivity {
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_teacher_login);
-        rippleViewLogin=(RippleView)findViewById(R.id.ripple_login);
-        rippleViewLogin.setOnRippleCompleteListener(new RippleView.OnRippleCompleteListener() {
-            @Override
-            public void onComplete(RippleView rippleView) {
-                Intent intent = new Intent(TeacherLoginActivity.this,NavigationActivity.class);
-                startActivity(intent);
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        TeacherLoginFragment teacherLoginFragment = new TeacherLoginFragment();
+        fragmentTransaction.replace(R.id.container, teacherLoginFragment);
 
-
-            }
-        });
+        fragmentTransaction.commit();
     }
 }

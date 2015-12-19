@@ -48,20 +48,27 @@
 
     </RelativeLayout>
 
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayout"
+        android:layout_width="match_parent"
+        android:layout_below="@+id/relative_header"
+        android:layout_above="@+id/ripple_login"
+        android:layout_height="match_parent">
 
     <android.support.v7.widget.RecyclerView
-        android:layout_below="@+id/relative_header"
-        android:id="@+id/recycler_view_question"
+
+        android:id="@+id/recycler_view_class"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clipToPadding="false"
         android:scrollbars="vertical" />
+    </android.support.v4.widget.SwipeRefreshLayout>
 
     <com.andexert.library.RippleView
         android:id="@+id/ripple_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/linear_checkbox"
+
         android:layout_alignParentBottom="true"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
