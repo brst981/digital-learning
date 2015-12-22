@@ -17,7 +17,7 @@
         card_view:contentPadding="5dp">
 
         <com.andexert.library.RippleView
-            android:id="@+id/relative_video_it"
+            android:id="@+id/ripple_main"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:rv_color="#000"

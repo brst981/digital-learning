@@ -11,50 +11,55 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.Toast;
+
+import com.andexert.library.RippleView;
 
 public class MainActivity extends Activity {
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-    ImageButton imageButtonZoomIn,imageButtonZoomOut;
+    ImageButton imageButtonZoomIn, imageButtonZoomOut;
+
     //  RelativeLayout relativeLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mRecyclerView = (RecyclerView)findViewById(R.id.recycler_view_question);
-        imageButtonZoomIn=(ImageButton)findViewById(R.id.img_zoom_in);
-        imageButtonZoomOut=(ImageButton)findViewById(R.id.img_zoom_out);
+        mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view_question);
+        imageButtonZoomIn = (ImageButton) findViewById(R.id.img_zoom_in);
+        imageButtonZoomOut = (ImageButton) findViewById(R.id.img_zoom_out);
         // relativeLayout=(RelativeLayout)findViewById(R.id.)
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(MainActivity.this);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mAdapter = new MyRecyclerViewAdapter();
         mRecyclerView.setAdapter(mAdapter);
-        mRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(MainActivity.this, new RecyclerItemClickListener.OnItemClickListener() {
+       /* mRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(MainActivity.this, new RecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-               /* Toast.makeText(MainActivity.this,"clicked"+" "+position,Toast.LENGTH_SHORT).show();*/
+               *//* Toast.makeText(MainActivity.this,"clicked"+" "+position,Toast.LENGTH_SHORT).show();*//*
                 Intent intent = new Intent(MainActivity.this, LoginActivity.class);
                 startActivity(intent);
 
             }
-        }));
+        }));*/
 
         imageButtonZoomIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                zoom(1.5f,1.5f,new PointF(0,0));
+                zoom(1.5f, 1.5f, new PointF(0, 0));
             }
         });
 
         imageButtonZoomOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                zoom(1f,1f,new PointF(0,0));
+                zoom(1f, 1f, new PointF(0, 0));
             }
         });
     }
+
     class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAdapter.ViewHolder> {
         // List<HomeModal> homeModals;
         private Context mContext;
@@ -81,11 +86,12 @@ public class MainActivity extends Activity {
         }
 
         public class ViewHolder extends RecyclerView.ViewHolder {
-           /* ImageView imageView;
-            TextView textView;
-            RippleView relativeLayout;
-            LinearLayout imageButtonAnswer;
-            FrameLayout frameLayout;*/
+            /* ImageView imageView;
+             TextView textView;
+             RippleView relativeLayout;
+             LinearLayout imageButtonAnswer;
+             FrameLayout frameLayout;*/
+            RippleView rippleView;
 
             public ViewHolder(View itemView) {
                 super(itemView);
@@ -98,6 +104,16 @@ public class MainActivity extends Activity {
                 frameLayout.setOnClickListener(this);
 
                 imageButtonAnswer.setOnClickListener(this);*/
+                rippleView = (RippleView) itemView.findViewById(R.id.ripple_main);
+                rippleView.setOnRippleCompleteListener(new RippleView.OnRippleCompleteListener() {
+                    @Override
+                    public void onComplete(RippleView rippleView) {
+                        int position = getLayoutPosition(); // gets item position
+                        Toast.makeText(MainActivity.this, "clicked" + " " + position, Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                        startActivity(intent);
+                    }
+                });
             }
 
             /*@Override
@@ -149,9 +165,10 @@ public class MainActivity extends Activity {
     }
 
 
-
-    /** zooming is done from here */
-    public void zoom(Float scaleX,Float scaleY,PointF pivot){
+    /**
+     * zooming is done from here
+     */
+    public void zoom(Float scaleX, Float scaleY, PointF pivot) {
         mRecyclerView.setPivotX(pivot.x);
         mRecyclerView.setPivotY(pivot.y);
         mRecyclerView.setScaleX(scaleX);

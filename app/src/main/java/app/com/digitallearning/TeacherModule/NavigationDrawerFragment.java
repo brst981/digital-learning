@@ -147,13 +147,13 @@ public class NavigationDrawerFragment extends Fragment implements NavigationDraw
 
     public List<NavigationItem> getMenu() {
         List<NavigationItem> items = new ArrayList<NavigationItem>();
-        items.add(new NavigationItem("HOME", getResources().getDrawable(R.drawable.ic_launcher)));
-        items.add(new NavigationItem("SEARCH CARS", getResources().getDrawable(R.drawable.ic_launcher)));
-        items.add(new NavigationItem("SPARE PARTS", getResources().getDrawable(R.drawable.ic_launcher)));
-        items.add(new NavigationItem(" ADD YOUR CAR", getResources().getDrawable(R.drawable.ic_launcher)));
-        items.add(new NavigationItem("ADD YOUR SPARE PARTS", getResources().getDrawable(R.drawable.ic_launcher)));
-        items.add(new NavigationItem("SETTINGS", getResources().getDrawable(R.drawable.ic_launcher)));
-        items.add(new NavigationItem("SIGN OUT",getResources().getDrawable(R.drawable.ic_launcher)));
+        items.add(new NavigationItem("CLASS", getResources().getDrawable(R.drawable.ic_class)));
+        items.add(new NavigationItem("LESSONS", getResources().getDrawable(R.drawable.ic_lesson)));
+        items.add(new NavigationItem("RESOURCES", getResources().getDrawable(R.drawable.ic_resource)));
+        items.add(new NavigationItem("QUIZ", getResources().getDrawable(R.drawable.ic_quiz)));
+        items.add(new NavigationItem("STUDENTS", getResources().getDrawable(R.drawable.ic_student)));
+        items.add(new NavigationItem("GRADE", getResources().getDrawable(R.drawable.ic_grade)));
+        items.add(new NavigationItem("LOGOUT",getResources().getDrawable(R.drawable.ic_logout)));
 
         return items;
     }

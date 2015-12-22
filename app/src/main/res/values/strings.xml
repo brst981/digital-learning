@@ -2,4 +2,8 @@
     <string name="app_name">Digital Learning Tree</string>
     <string name="drawer_open">Menu opened</string>
     <string name="drawer_close">Menu closed</string>
+    <string name="upload_text">Include links to uploaded files for students?</string>
+
+    <string name="changePic_text">(Note: Upload only .jpeg, .jpg, .png filetype)</string>
+    <string name="deletePic_text">When you delete a class, all of its assignments and grades are also deleted. To confirm that you really want to delete the class, enter your login password and press "\"Delete\""</string>
 </resources>

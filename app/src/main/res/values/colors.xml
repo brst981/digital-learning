@@ -6,4 +6,6 @@
     <color name="colorlima">#89C139</color>
     <color name="color_darker_grey">#A0A0A0</color>
     <color name="color_light_grey">#B3B3B3</color>
+    <color name="color_red">#FF4A4A</color>
+
 </resources>

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <ImageView
+                android:id="@+id/img_delete_picture"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:background="@android:color/white"
+                android:scaleType="fitXY"
+                android:src="@drawable/img_class" />
+
+
+            <TextView
+                android:id="@+id/text_heading"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/img_delete_picture"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:text="@string/deletePic_text"
+                android:textColor="@android:color/black"
+                android:textSize="16sp" />
+
+
+            <TextView
+                android:id="@+id/text_heading_"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_below="@+id/text_heading"
+                android:layout_marginTop="15dp"
+                android:gravity="center|left"
+                android:paddingLeft="10dp"
+                android:text="Password"
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+
+            <TextView
+                android:id="@+id/text_heading2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/text_heading_"
+                android:layout_marginTop="5dp"
+                android:gravity="center|left"
+                android:paddingLeft="10dp"
+                android:text="(Note for Security purpose)"
+                android:textColor="@color/color_light_grey"
+
+                android:textSize="14sp" />
+
+            <EditText
+                android:id="@+id/edt_password"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_below="@+id/text_heading2"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/edittext_rectangle_selector"
+                android:inputType="textPassword"
+                android:paddingLeft="5dp"
+                android:textColor="@android:color/black"
+                android:textCursorDrawable="@null"
+                android:textSize="14sp" />
+
+            <com.andexert.library.RippleView
+                android:id="@+id/ripple_delete"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_below="@+id/edt_password"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="20dp"
+                app:rv_color="#000"
+                app:rv_rippleDuration="100"
+                app:rv_type="rectangle"
+                app:rv_zoom="true">
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/color_red"
+                    android:elevation="8dp"
+                    android:gravity="center"
+                    android:text="Delete"
+                    android:textAllCaps="true"
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp" />
+            </com.andexert.library.RippleView>
+        </RelativeLayout>
+    </ScrollView>
+</RelativeLayout>

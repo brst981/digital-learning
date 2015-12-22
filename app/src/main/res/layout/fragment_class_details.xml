@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
     android:background="@android:color/white">
 
     <ScrollView
@@ -20,109 +21,138 @@
                 android:scaleType="fitXY"
                 android:src="@drawable/img_class" />
 
-            <TextView
-                android:id="@+id/text_passcode"
-                android:layout_width="170dp"
-                android:layout_height="35dp"
-                android:layout_below="@+id/img_class_picture"
-
-                android:gravity="left|center"
-                android:paddingLeft="5dp"
-                android:text="Enrollment Passcode :"
-                android:textColor="@android:color/black"
-                android:textSize="16sp" />
-
-            <TextView
-                android:id="@+id/text_passcode_detail"
+            <RelativeLayout
+                android:id="@+id/relative_pass"
                 android:layout_width="match_parent"
-                android:layout_height="35dp"
+                android:layout_height="wrap_content"
                 android:layout_below="@+id/img_class_picture"
-                android:layout_toRightOf="@+id/text_passcode"
-                android:gravity="right|center"
-                android:paddingRight="10dp"
-                android:text="2013"
-                android:textColor="@color/color_light_grey"
-                android:textSize="14sp" />
+                android:padding="5dp">
+
+
+                <TextView
+                    android:id="@+id/text_passcode"
+                    android:layout_width="170dp"
+                    android:layout_height="35dp"
+
+
+                    android:gravity="left|center"
+                    android:paddingLeft="5dp"
+                    android:text="Enrollment Passcode :"
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/text_passcode_detail"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:layout_toRightOf="@+id/text_passcode"
+                    android:gravity="right|center"
+                    android:paddingRight="10dp"
+
+                    android:text="2013"
+                    android:textColor="@color/color_light_grey"
+                    android:textSize="14sp" />
+            </RelativeLayout>
 
             <View
+                android:id="@+id/view_sep"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_below="@+id/text_passcode"
+                android:layout_below="@+id/relative_pass"
                 android:background="@color/color_darker_grey" />
 
-            <TextView
-                android:id="@+id/text_school"
-                android:layout_width="170dp"
-                android:layout_height="35dp"
-                android:layout_below="@+id/text_passcode"
-                android:gravity="left|center"
-
-                android:paddingLeft="5dp"
-                android:text="School :"
-                android:textColor="@android:color/black"
-                android:textSize="16sp" />
-
-            <TextView
-                android:id="@+id/text_school_name"
+            <RelativeLayout
+                android:id="@+id/relative_school"
                 android:layout_width="match_parent"
-                android:layout_height="35dp"
-                android:layout_below="@+id/text_passcode"
-                android:layout_toRightOf="@+id/text_school"
-                android:gravity="right|center"
-                android:paddingRight="5dp"
-                android:singleLine="true"
-                android:text="Optional(American College)"
-                android:textColor="@color/color_light_grey"
-                android:textSize="14sp" />
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/view_sep"
+                android:padding="5dp">
+
+                <TextView
+                    android:id="@+id/text_school"
+                    android:layout_width="150dp"
+                    android:layout_height="35dp"
+
+                    android:gravity="left|center"
+
+                    android:paddingLeft="5dp"
+                    android:text="School :"
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/text_school_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:layout_toRightOf="@+id/text_school"
+                    android:gravity="right|center"
+                    android:paddingRight="10dp"
+
+                    android:singleLine="true"
+                    android:text="Optional(American College)"
+                    android:textColor="@color/color_light_grey"
+                    android:textSize="14sp" />
+            </RelativeLayout>
 
             <View
+                android:id="@+id/view_sep_"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_below="@+id/text_school"
+                android:layout_below="@+id/relative_school"
                 android:background="@color/color_darker_grey" />
 
-            <TextView
-                android:id="@+id/text_topic"
-                android:layout_width="170dp"
-                android:layout_height="35dp"
-                android:layout_below="@+id/text_school"
-                android:gravity="left|center"
-                android:paddingLeft="5dp"
-                android:text="Topic :"
-                android:textColor="@android:color/black"
-                android:textSize="16sp" />
-
-            <TextView
-                android:id="@+id/text_topic_name"
+            <RelativeLayout
+                android:id="@+id/relative_topic"
                 android:layout_width="match_parent"
-                android:layout_height="35dp"
-                android:layout_below="@+id/text_school"
-                android:layout_toRightOf="@+id/text_topic"
-                android:gravity="right|center"
-                android:paddingRight="5dp"
-                android:singleLine="true"
-                android:text="Math"
-                android:textColor="@color/color_light_grey"
-                android:textSize="14sp" />
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/view_sep_"
+                android:padding="5dp">
+
+                <TextView
+                    android:id="@+id/text_topic"
+                    android:layout_width="170dp"
+                    android:layout_height="35dp"
+
+                    android:gravity="left|center"
+                    android:paddingLeft="5dp"
+                    android:text="Topic :"
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/text_topic_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+
+                    android:layout_toRightOf="@+id/text_topic"
+                    android:gravity="right|center"
+                    android:paddingRight="10dp"
+                    android:singleLine="true"
+                    android:text="Math"
+                    android:textColor="@color/color_light_grey"
+                    android:textSize="14sp" />
+            </RelativeLayout>
 
             <View
+                android:id="@+id/view_sep1"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_below="@+id/text_topic"
+                android:layout_below="@+id/relative_topic"
                 android:background="@color/color_darker_grey" />
 
 
             <RelativeLayout
                 android:id="@+id/relative_teacher_collaboration"
                 android:layout_width="match_parent"
-                android:layout_height="35dp"
-                android:layout_below="@+id/text_topic"
-                android:gravity="center">
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/view_sep1"
+                android:gravity="center"
+                android:padding="5dp">
 
                 <TextView
                     android:id="@+id/text_collab"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_width="170dp"
+                    android:layout_height="35dp"
                     android:layout_alignParentLeft="true"
                     android:gravity="left|center"
                     android:paddingLeft="5dp"
@@ -136,7 +166,7 @@
                     android:layout_height="30dp"
                     android:layout_alignParentRight="true"
                     android:background="@android:color/transparent"
-                    android:paddingRight="5dp"
+
                     android:src="@drawable/ic_arrow" />
             </RelativeLayout>
 
@@ -149,14 +179,15 @@
             <RelativeLayout
                 android:id="@+id/relative_teacher_curriculum"
                 android:layout_width="match_parent"
-                android:layout_height="35dp"
+                android:layout_height="wrap_content"
                 android:layout_below="@+id/relative_teacher_collaboration"
-                android:gravity="center">
+                android:gravity="center"
+                android:padding="5dp">
 
                 <TextView
                     android:id="@+id/text_curric"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_width="170dp"
+                    android:layout_height="35dp"
                     android:layout_alignParentLeft="true"
                     android:gravity="left|center"
                     android:paddingLeft="5dp"
@@ -166,7 +197,7 @@
 
                 <TextView
                     android:layout_width="150dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="35dp"
                     android:layout_marginRight="10dp"
                     android:layout_toLeftOf="@+id/img_back"
                     android:layout_toRightOf="@+id/text_curric"
@@ -184,7 +215,7 @@
                     android:layout_height="30dp"
                     android:layout_alignParentRight="true"
                     android:background="@android:color/transparent"
-                    android:paddingRight="5dp"
+
                     android:src="@drawable/ic_arrow" />
             </RelativeLayout>
 
@@ -197,14 +228,15 @@
             <RelativeLayout
                 android:id="@+id/relative_teacher_schedule"
                 android:layout_width="match_parent"
-                android:layout_height="35dp"
+                android:layout_height="wrap_content"
                 android:layout_below="@+id/relative_teacher_curriculum"
-                android:gravity="center">
+                android:gravity="center"
+                android:padding="5dp">
 
                 <TextView
                     android:id="@+id/text_schedule"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_width="170dp"
+                    android:layout_height="35dp"
                     android:layout_alignParentLeft="true"
                     android:gravity="left|center"
                     android:paddingLeft="5dp"
@@ -214,7 +246,7 @@
 
                 <TextView
                     android:layout_width="150dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="35dp"
                     android:layout_marginRight="10dp"
                     android:layout_toLeftOf="@+id/img_back_schedule"
                     android:layout_toRightOf="@+id/text_schedule"
@@ -232,7 +264,7 @@
                     android:layout_height="30dp"
                     android:layout_alignParentRight="true"
                     android:background="@android:color/transparent"
-                    android:paddingRight="5dp"
+
                     android:src="@drawable/ic_arrow" />
             </RelativeLayout>
 
@@ -245,14 +277,15 @@
             <RelativeLayout
                 android:id="@+id/relative_teacher_syllabus"
                 android:layout_width="match_parent"
-                android:layout_height="35dp"
+                android:layout_height="wrap_content"
                 android:layout_below="@+id/relative_teacher_schedule"
-                android:gravity="center">
+                android:gravity="center"
+                android:padding="5dp">
 
                 <TextView
                     android:id="@+id/text_syllabus"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_width="170dp"
+                    android:layout_height="35dp"
                     android:layout_alignParentLeft="true"
                     android:gravity="left|center"
                     android:paddingLeft="5dp"
@@ -262,7 +295,7 @@
 
                 <TextView
                     android:layout_width="150dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="35dp"
                     android:layout_marginRight="10dp"
                     android:layout_toLeftOf="@+id/img_back_syllabus"
                     android:layout_toRightOf="@+id/text_syllabus"
@@ -280,7 +313,7 @@
                     android:layout_height="30dp"
                     android:layout_alignParentRight="true"
                     android:background="@android:color/transparent"
-                    android:paddingRight="5dp"
+
                     android:src="@drawable/ic_arrow" />
             </RelativeLayout>
 
@@ -297,20 +330,101 @@
                 android:layout_height="35dp"
                 android:layout_below="@+id/view"
                 android:gravity="left|center"
-                android:paddingLeft="5dp"
+                android:padding="5dp"
                 android:text="Description:"
                 android:textColor="@android:color/black"
                 android:textSize="16sp" />
 
             <TextView
-                android:layout_below="@+id/text_des"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp"
-                android:textSize="14sp"
+                android:layout_below="@+id/text_des"
+                android:padding="5dp"
+                android:text="Dummy"
                 android:textColor="@android:color/black"
-                android:text="Dummy"/>
+                android:textSize="14sp" />
+
+
+
         </RelativeLayout>
+
     </ScrollView>
+
+    <com.github.clans.fab.FloatingActionMenu
+        android:id="@+id/menu_main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        fab:menu_fab_size="normal"
+        fab:menu_showShadow="true"
+        fab:menu_shadowColor="#66000000"
+        fab:menu_shadowRadius="4dp"
+        fab:menu_shadowXOffset="1dp"
+        fab:menu_shadowYOffset="3dp"
+        fab:menu_colorNormal="#89C139"
+        fab:menu_colorPressed="#7AAE30"
+        fab:menu_colorRipple="#99FFFFFF"
+        fab:menu_animationDelayPerItem="50"
+        fab:menu_icon="@drawable/ic_edit"
+        fab:menu_buttonSpacing="0dp"
+        fab:menu_labels_margin="0dp"
+        fab:menu_labels_showAnimation="@anim/fab_slide_in_from_right"
+        fab:menu_labels_hideAnimation="@anim/fab_slide_out_to_right"
+        fab:menu_labels_paddingTop="4dp"
+        fab:menu_labels_paddingRight="8dp"
+        fab:menu_labels_paddingBottom="4dp"
+        fab:menu_labels_paddingLeft="8dp"
+        fab:menu_labels_padding="8dp"
+        fab:menu_labels_textColor="#FFFFFF"
+        fab:menu_labels_textSize="14sp"
+        fab:menu_labels_cornerRadius="3dp"
+        fab:menu_labels_colorNormal="#89C139"
+        fab:menu_labels_colorPressed="#444444"
+        fab:menu_labels_colorRipple="#66FFFFFF"
+        fab:menu_labels_showShadow="true"
+        fab:menu_labels_singleLine="false"
+        fab:menu_labels_ellipsize="none"
+        fab:menu_labels_maxLines="-1"
+        fab:menu_labels_style="@style/MenuLabelsStyle"
+        fab:menu_labels_position="left"
+        fab:menu_openDirection="up"
+        fab:menu_backgroundColor="#cc000000"
+
+        fab:menu_fab_show_animation="@anim/jump_from_down"
+        fab:menu_fab_hide_animation="@anim/jump_to_down">
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/menu_item_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_delete"
+            fab:fab_size="mini"
+            style="@style/MenuButtonsStyle"
+            fab:fab_label="Delete" />
+
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/menu_item_change_pic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_change_pic"
+            fab:fab_size="mini"
+            style="@style/MenuButtonsStyle"
+            fab:fab_label="Change Picture" />
+
+
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/menu_item_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/MenuButtonsStyle"
+            android:src="@drawable/ic_edit_"
+            fab:fab_size="mini"
+            fab:fab_label="Edit" />
+
+
+    </com.github.clans.fab.FloatingActionMenu>
 </RelativeLayout>

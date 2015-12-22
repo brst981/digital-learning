@@ -1,98 +1,36 @@
-package app.com.digitallearning.TeacherModule;
+package app.com.digitallearning.TeacherModule.Classes;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
-
-import com.andexert.library.RippleView;
 
 import app.com.digitallearning.R;
-import app.com.digitallearning.TeacherModule.Classes.CreateClassFragment;
 
 /**
- * Created by ${ShalviSharma} on 12/18/15.
+ * Created by ${ShalviSharma} on 12/21/15.
  */
-public class ClassFragment extends Fragment {
+public class TeacherCollabrationFragment extends Fragment {
+    View rootview;
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-    SwipeRefreshLayout swipeRefreshLayout;
-    View rootview;
-    RippleView rippleViewCreate;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        rootview = inflater.inflate(R.layout.fragment_class, container, false);
+        rootview = inflater.inflate(R.layout.fragment_teacher_collab, container, false);
         mRecyclerView = (RecyclerView)rootview.findViewById(R.id.recycler_view_class);
-        rippleViewCreate=(RippleView)rootview.findViewById(R.id.ripple_create);
-        swipeRefreshLayout = (SwipeRefreshLayout)rootview.findViewById(R.id.swipeRefreshLayout);
-        swipeRefreshLayout.setColorSchemeColors(R.color.colorlima);
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
         mAdapter = new MyRecyclerViewAdapter();
         mRecyclerView.setAdapter(mAdapter);
-        /*mRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getActivity(), new RecyclerItemClickListener.OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, int position) {
-               *//* Toast.makeText(MainActivity.this,"clicked"+" "+position,Toast.LENGTH_SHORT).show();*//*
-                Intent intent = new Intent(getActivity(), NavigationActivity.class);
-                startActivity(intent);
-
-            }
-        }));*/
-
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                // Refresh items
-                refreshItems();
-            }
-        });
-
-
-        rippleViewCreate.setOnRippleCompleteListener(new RippleView.OnRippleCompleteListener() {
-            @Override
-            public void onComplete(RippleView rippleView) {
-                FragmentManager fragmentManager = getFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                CreateClassFragment classFragment = new CreateClassFragment();
-                fragmentTransaction.replace(R.id.container, classFragment).addToBackStack(null);
-                fragmentTransaction.commit();
-            }
-        });
-
-
-
-
         return rootview;
     }
-
-    private void refreshItems() {
-        // Load items
-        // ...
-
-        // Load complete
-        onItemsLoadComplete();
-    }
-
-    private void onItemsLoadComplete() {
-        // Update the adapter and notify data set changed
-        // ...
-
-        // Stop refresh animation
-        swipeRefreshLayout.setRefreshing(false);
-    }
-
     class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAdapter.ViewHolder> {
         // List<HomeModal> homeModals;
         private Context mContext;
@@ -101,7 +39,7 @@ public class ClassFragment extends Fragment {
         @Override
         public MyRecyclerViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View view = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.classes_item_list, parent, false);
+                    .inflate(R.layout.teachercollab_item_list, parent, false);
 
             ViewHolder viewHolder = new ViewHolder(view);
             return viewHolder;
@@ -124,7 +62,6 @@ public class ClassFragment extends Fragment {
             RippleView relativeLayout;
             LinearLayout imageButtonAnswer;
             FrameLayout frameLayout;*/
-           RippleView relativeLayout;
 
             public ViewHolder(View itemView) {
                 super(itemView);
@@ -137,17 +74,6 @@ public class ClassFragment extends Fragment {
                 frameLayout.setOnClickListener(this);
 
                 imageButtonAnswer.setOnClickListener(this);*/
-                relativeLayout = (RippleView) itemView.findViewById(R.id.relative_video_item);
-                relativeLayout.setOnRippleCompleteListener(new RippleView.OnRippleCompleteListener() {
-                    @Override
-                    public void onComplete(RippleView rippleView) {
-                        int position = getLayoutPosition(); // gets item position
-                           Toast.makeText(getActivity(),"clicked"+" "+position,Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(getActivity(), NavigationActivity.class);
-                        startActivity(intent);
-
-                    }
-                });
             }
 
             /*@Override
