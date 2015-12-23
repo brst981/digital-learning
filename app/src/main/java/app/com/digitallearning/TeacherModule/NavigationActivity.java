@@ -12,6 +12,7 @@ import android.view.WindowManager;
 import app.com.digitallearning.NavigationDrawerCallbacks;
 import app.com.digitallearning.R;
 import app.com.digitallearning.TeacherModule.Classes.ClassesDetailFragment;
+import app.com.digitallearning.TeacherModule.Lessons.LessonFragment;
 
 /**
  * Created by ${ShalviSharma} on 12/18/15.
@@ -60,6 +61,12 @@ public class NavigationActivity extends AppCompatActivity implements NavigationD
             case 0:
 
                 mFragment = ClassesDetailFragment.newInstance();
+
+
+                break;
+            case 1:
+
+                mFragment = LessonFragment.newInstance();
 
 
                 break;

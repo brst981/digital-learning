@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.view.animation.OvershootInterpolator;
 import android.widget.TextView;
 
+import com.andexert.library.RippleView;
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
 
@@ -28,6 +29,7 @@ public class ClassesDetailFragment extends Fragment {
     FloatingActionMenu menu_main;
     FloatingActionButton floatingActionButtonEdit,floatingActionButtonChange,floatingActionButtonDelete;
     TextView headerTitle;
+    RippleView rippleViewTeacherCollab;
 
 
     public static ClassesDetailFragment newInstance() {
@@ -45,6 +47,9 @@ public class ClassesDetailFragment extends Fragment {
         floatingActionButtonEdit=(FloatingActionButton)rootview.findViewById(R.id.menu_item_edit);
         floatingActionButtonChange=(FloatingActionButton)rootview.findViewById(R.id.menu_item_change_pic);
         floatingActionButtonDelete=(FloatingActionButton)rootview.findViewById(R.id.menu_item_delete);
+        rippleViewTeacherCollab = (RippleView)rootview.findViewById(R.id.ripple_teacher_collaboration) ;
+
+
         AppCompatActivity activity = (AppCompatActivity) getActivity();
 
         activity.getSupportActionBar().setTitle("");
@@ -92,6 +97,18 @@ public class ClassesDetailFragment extends Fragment {
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 DeleteClassFragment classFragment = new DeleteClassFragment();
+                fragmentTransaction.replace(R.id.container, classFragment).addToBackStack(null);
+                fragmentTransaction.commit();
+            }
+        });
+
+
+        rippleViewTeacherCollab.setOnRippleCompleteListener(new RippleView.OnRippleCompleteListener() {
+            @Override
+            public void onComplete(RippleView rippleView) {
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                TeacherCollabrationFragment classFragment = new TeacherCollabrationFragment();
                 fragmentTransaction.replace(R.id.container, classFragment).addToBackStack(null);
                 fragmentTransaction.commit();
             }
