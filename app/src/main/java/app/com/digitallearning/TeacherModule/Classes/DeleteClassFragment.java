@@ -23,10 +23,14 @@ public class DeleteClassFragment extends Fragment {
         AppCompatActivity activity = (AppCompatActivity) getActivity();
 
         activity.getSupportActionBar().setTitle("");
+        //activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         headerTitle = (TextView) activity.findViewById(R.id.mytext);
 
         headerTitle.setText("Delete");
+
+
         return rootview;
     }
+
 }

@@ -3,6 +3,8 @@ package app.com.digitallearning.TeacherModule.Lessons;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -35,11 +37,12 @@ public class LessonFragment extends Fragment {
         mFragment.setArguments(mBundle);*/
         return mFragment;
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootview = inflater.inflate(R.layout.fragment_lesson, container, false);
-        mRecyclerView = (RecyclerView)rootview.findViewById(R.id.recycler_view_lesson);
-        rippleViewCreate=(RippleView)rootview.findViewById(R.id.ripple_create_lesson);
+        mRecyclerView = (RecyclerView) rootview.findViewById(R.id.recycler_view_lesson);
+        rippleViewCreate = (RippleView) rootview.findViewById(R.id.ripple_create_lesson);
 
         AppCompatActivity activity = (AppCompatActivity) getActivity();
 
@@ -62,9 +65,9 @@ public class LessonFragment extends Fragment {
         rippleViewCreate.setOnRippleCompleteListener(new RippleView.OnRippleCompleteListener() {
             @Override
             public void onComplete(RippleView rippleView) {
-                /*FragmentManager fragmentManager = getFragmentManager();
+               /* FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                CreateClassFragment classFragment = new CreateClassFragment();
+                LessonDetailFragment classFragment = new LessonDetailFragment();
                 fragmentTransaction.replace(R.id.container, classFragment).addToBackStack(null);
                 fragmentTransaction.commit();*/
             }
@@ -122,9 +125,12 @@ public class LessonFragment extends Fragment {
                     @Override
                     public void onComplete(RippleView rippleView) {
                         int position = getLayoutPosition(); // gets item position
-                        Toast.makeText(getActivity(),"clicked"+" "+position,Toast.LENGTH_SHORT).show();
-                       /* Intent intent = new Intent(getActivity(), NavigationActivity.class);
-                        startActivity(intent);*/
+                        Toast.makeText(getActivity(), "clicked" + " " + position, Toast.LENGTH_SHORT).show();
+                        FragmentManager fragmentManager = getFragmentManager();
+                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                        LessonDetailFragment classFragment = new LessonDetailFragment();
+                        fragmentTransaction.replace(R.id.container, classFragment).addToBackStack(null);
+                        fragmentTransaction.commit();
 
                     }
                 });
