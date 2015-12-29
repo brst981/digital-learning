@@ -8,7 +8,9 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import app.com.digitallearning.R;
 
@@ -35,6 +37,7 @@ public class LessonDetailFragment extends Fragment {
 
             @Override
             public void onPageSelected(int position) {
+               // Log.e("position--",""+position);
 
             }
 
@@ -78,6 +81,19 @@ public class LessonDetailFragment extends Fragment {
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             View itemView = mLayoutInflater.inflate(R.layout.layout_lesson_items, container,
                     false);
+
+            TextView textView = (TextView)itemView.findViewById(R.id.textView_lesson_count);
+            ImageView imageViewLeft =(ImageView)itemView.findViewById(R.id.img_left_icon);
+            ImageView imageViewRight =(ImageView)itemView.findViewById(R.id.img_right_icon);
+           if (position==4){
+               imageViewRight.setVisibility(View.GONE);
+           }
+
+            if (position==0){
+                imageViewLeft.setVisibility(View.GONE);
+            }
+
+            textView.setText("Lesson"+" "+ ++position +" "+"of"+" "+"5");
 
 
             container.addView(itemView);

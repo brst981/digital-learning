@@ -65,11 +65,11 @@ public class LessonFragment extends Fragment {
         rippleViewCreate.setOnRippleCompleteListener(new RippleView.OnRippleCompleteListener() {
             @Override
             public void onComplete(RippleView rippleView) {
-               /* FragmentManager fragmentManager = getFragmentManager();
+                FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                LessonDetailFragment classFragment = new LessonDetailFragment();
+                AddLessonFragment classFragment = new AddLessonFragment();
                 fragmentTransaction.replace(R.id.container, classFragment).addToBackStack(null);
-                fragmentTransaction.commit();*/
+                fragmentTransaction.commit();
             }
         });
 

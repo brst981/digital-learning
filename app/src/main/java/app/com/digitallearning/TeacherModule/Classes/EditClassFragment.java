@@ -27,6 +27,7 @@ public class EditClassFragment extends Fragment {
         headerTitle = (TextView) activity.findViewById(R.id.mytext);
 
         headerTitle.setText("Edit Class");
+
         return rootview;
     }
 }
