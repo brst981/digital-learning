@@ -17,7 +17,7 @@
         card_view:contentPadding="5dp">
 
         <com.andexert.library.RippleView
-            android:id="@+id/relative_video_item"
+            android:id="@+id/relative_resource"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:rv_color="#000"
@@ -28,13 +28,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <ImageView
-                    android:id="@+id/image_view"
+                    android:id="@+id/image_view_resource"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:background="@android:color/transparent"
                     android:src="@drawable/ic_launcher"/>
                 <TextView
-                    android:layout_toRightOf="@+id/image_view"
+                    android:layout_toRightOf="@+id/image_view_resource"
                     android:layout_width="170dp"
                     android:id="@+id/text_view"
                     android:text=""
@@ -44,7 +44,7 @@
                     android:layout_marginTop="10dp"
                     android:layout_height="30dp" />
                 <TextView
-                    android:layout_toRightOf="@+id/image_view"
+                    android:layout_toRightOf="@+id/image_view_resource"
                     android:layout_width="170dp"
                     android:id="@+id/text_view_"
                     android:text="sdhfygsjdgf"

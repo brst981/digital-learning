@@ -9,12 +9,12 @@
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipeRefreshLayout"
         android:layout_width="match_parent"
-        android:layout_above="@+id/ripple_create_lesson"
+        android:layout_above="@+id/ripple_create_resource"
         android:layout_height="match_parent">
 
     <android.support.v7.widget.RecyclerView
 
-        android:id="@+id/recycler_view_class"
+        android:id="@+id/recycler_view_resource"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clipToPadding="false"
@@ -22,7 +22,7 @@
     </android.support.v4.widget.SwipeRefreshLayout>
 
     <com.andexert.library.RippleView
-        android:id="@+id/ripple_create_lesson"
+        android:id="@+id/ripple_create_resource"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
@@ -42,7 +42,7 @@
             android:layout_height="50dp"
             android:background="@color/colorlima"
             android:elevation="8dp"
-            android:text="Create a new class"
+            android:text="ADD RESOURCE"
             android:textAllCaps="true"
             android:drawableLeft="@drawable/ic_plus"
             android:drawablePadding="1dp"

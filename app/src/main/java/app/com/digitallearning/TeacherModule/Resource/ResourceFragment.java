@@ -1,4 +1,4 @@
-package app.com.digitallearning.TeacherModule.Lessons;
+package app.com.digitallearning.TeacherModule.Resource;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -21,7 +21,7 @@ import app.com.digitallearning.R;
 /**
  * Created by ${ShalviSharma} on 12/23/15.
  */
-public class LessonFragment extends Fragment {
+public class ResourceFragment extends Fragment {
     View rootview;
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
@@ -31,8 +31,8 @@ public class LessonFragment extends Fragment {
     String textHeader;
 
 
-    public static LessonFragment newInstance() {
-        LessonFragment mFragment = new LessonFragment();
+    public static ResourceFragment newInstance() {
+        ResourceFragment mFragment = new ResourceFragment();
         /*Bundle mBundle = new Bundle();
         mBundle.putString(TEXT_FRAGMENT, text);
         mFragment.setArguments(mBundle);*/
@@ -41,9 +41,9 @@ public class LessonFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        rootview = inflater.inflate(R.layout.fragment_lesson, container, false);
-        mRecyclerView = (RecyclerView) rootview.findViewById(R.id.recycler_view_lesson);
-        rippleViewCreate = (RippleView) rootview.findViewById(R.id.ripple_create_lesson);
+        rootview = inflater.inflate(R.layout.fragment_resource, container, false);
+        mRecyclerView = (RecyclerView) rootview.findViewById(R.id.recycler_view_resource);
+        rippleViewCreate = (RippleView) rootview.findViewById(R.id.ripple_create_resource);
 
         AppCompatActivity activity = (AppCompatActivity) getActivity();
 
@@ -51,7 +51,7 @@ public class LessonFragment extends Fragment {
 
         headerTitle = (TextView) activity.findViewById(R.id.mytext);
 
-        headerTitle.setText("Choose Lesson");
+        headerTitle.setText("CLASS RESOURCES");
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
@@ -69,7 +69,7 @@ public class LessonFragment extends Fragment {
             public void onComplete(RippleView rippleView) {
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                AddLessonFragment classFragment = new AddLessonFragment();
+                AddResourceFragment classFragment = new AddResourceFragment();
                 fragmentTransaction.replace(R.id.container, classFragment).addToBackStack(null);
                 fragmentTransaction.commit();
             }
@@ -86,7 +86,7 @@ public class LessonFragment extends Fragment {
         @Override
         public MyRecyclerViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View view = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.lesson_item_list, parent, false);
+                    .inflate(R.layout.resource_item_list, parent, false);
 
             ViewHolder viewHolder = new ViewHolder(view);
             return viewHolder;
@@ -128,7 +128,7 @@ public class LessonFragment extends Fragment {
                 textView=(TextView)itemView.findViewById(R.id.text_view);
 
 
-                relativeLayout = (RippleView) itemView.findViewById(R.id.relative_video_item);
+                relativeLayout = (RippleView) itemView.findViewById(R.id.relative_resource);
                 relativeLayout.setOnRippleCompleteListener(new RippleView.OnRippleCompleteListener() {
                     @Override
                     public void onComplete(RippleView rippleView) {
@@ -136,12 +136,12 @@ public class LessonFragment extends Fragment {
                         Toast.makeText(getActivity(), "clicked" + " " + position, Toast.LENGTH_SHORT).show();
                         FragmentManager fragmentManager = getFragmentManager();
                         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                        LessonDetailFragment lessonDetailFragment = new LessonDetailFragment();
-                        Bundle savedInstanceState = new Bundle();
+                        ResourceDetailFragment resourceDetailFragment = new ResourceDetailFragment();
+                        /*Bundle savedInstanceState = new Bundle();
                         savedInstanceState.putString("HEADER_TEXT", textHeader);
-                        savedInstanceState.putInt("POSITION", position);
-                        fragmentTransaction.replace(R.id.container, lessonDetailFragment).addToBackStack(null);
-                        lessonDetailFragment.setArguments(savedInstanceState);
+                        savedInstanceState.putInt("POSITION", position);*/
+                        fragmentTransaction.replace(R.id.container, resourceDetailFragment).addToBackStack(null);
+                        /*lessonDetailFragment.setArguments(savedInstanceState);*/
                         fragmentTransaction.commit();
 
                     }

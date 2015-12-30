@@ -13,6 +13,7 @@ import app.com.digitallearning.NavigationDrawerCallbacks;
 import app.com.digitallearning.R;
 import app.com.digitallearning.TeacherModule.Classes.ClassesDetailFragment;
 import app.com.digitallearning.TeacherModule.Lessons.LessonFragment;
+import app.com.digitallearning.TeacherModule.Resource.ResourceFragment;
 
 /**
  * Created by ${ShalviSharma} on 12/18/15.
@@ -67,6 +68,13 @@ public class NavigationActivity extends AppCompatActivity implements NavigationD
             case 1:
 
                 mFragment = LessonFragment.newInstance();
+
+
+                break;
+
+            case 2:
+
+                mFragment = ResourceFragment.newInstance();
 
 
                 break;

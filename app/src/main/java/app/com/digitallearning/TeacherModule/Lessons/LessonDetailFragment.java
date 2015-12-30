@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +23,9 @@ public class LessonDetailFragment extends Fragment {
     View rootview;
     ViewPager _mViewPager;
     CustomPagerAdapter mPagerAdapter;
+    TextView headerTitle;
+    String txtHeader;
+    int positionValue;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootview = inflater.inflate(R.layout.fragment_lesson_detail, container, false);
@@ -29,23 +34,23 @@ public class LessonDetailFragment extends Fragment {
 
         _mViewPager.setAdapter(mPagerAdapter);
 
-        _mViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+        if (getArguments() != null) {
+            Bundle bundle = this.getArguments();
+            txtHeader = bundle.getString("HEADER_TEXT");
+            positionValue = bundle.getInt("POSITION");
+        }
 
-            }
 
-            @Override
-            public void onPageSelected(int position) {
-               // Log.e("position--",""+position);
+        Log.e("txtHeader",""+txtHeader);
+        Log.e("positionValue",""+positionValue);
+        AppCompatActivity activity = (AppCompatActivity) getActivity();
 
-            }
+        activity.getSupportActionBar().setTitle("");
 
-            @Override
-            public void onPageScrollStateChanged(int state) {
+        headerTitle = (TextView) activity.findViewById(R.id.mytext);
 
-            }
-        });
+        headerTitle.setText(txtHeader);
+
         return rootview;
     }
 
@@ -85,15 +90,15 @@ public class LessonDetailFragment extends Fragment {
             TextView textView = (TextView)itemView.findViewById(R.id.textView_lesson_count);
             ImageView imageViewLeft =(ImageView)itemView.findViewById(R.id.img_left_icon);
             ImageView imageViewRight =(ImageView)itemView.findViewById(R.id.img_right_icon);
-           if (position==4){
+         /*  if (position==4){
                imageViewRight.setVisibility(View.GONE);
-           }
+           }*/
 
             if (position==0){
                 imageViewLeft.setVisibility(View.GONE);
             }
 
-            textView.setText("Lesson"+" "+ ++position +" "+"of"+" "+"5");
+            textView.setText("Lesson"+" "+ positionValue++ +" "+"of"+" "+"5");
 
 
             container.addView(itemView);
