@@ -14,7 +14,7 @@
         android:text="my Title"
         android:textStyle="bold"
         android:textColor="#ffffff"
-        android:textSize="22sp" />
+        android:textSize="20sp" />
 
     <ImageButton
         android:id="@+id/img_zoom_out"

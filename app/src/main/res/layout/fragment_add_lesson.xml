@@ -101,7 +101,7 @@
                     android:textAllCaps="true"
                     android:gravity="center"
                     android:textColor="@android:color/white"
-                    android:textSize="20sp" />
+                    android:textSize="16sp" />
             </com.andexert.library.RippleView>
 
             <com.andexert.library.RippleView
@@ -127,7 +127,7 @@
                     android:textAllCaps="true"
                     android:gravity="center"
                     android:textColor="@android:color/white"
-                    android:textSize="20sp" />
+                    android:textSize="16sp" />
             </com.andexert.library.RippleView>
 
 
@@ -155,7 +155,7 @@
                     android:textAllCaps="true"
                     android:gravity="center"
                     android:textColor="@android:color/white"
-                    android:textSize="20sp" />
+                    android:textSize="16sp" />
             </com.andexert.library.RippleView>
 
         </RelativeLayout>

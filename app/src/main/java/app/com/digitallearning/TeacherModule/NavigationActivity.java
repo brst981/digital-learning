@@ -14,6 +14,7 @@ import app.com.digitallearning.R;
 import app.com.digitallearning.TeacherModule.Classes.ClassesDetailFragment;
 import app.com.digitallearning.TeacherModule.Lessons.LessonFragment;
 import app.com.digitallearning.TeacherModule.Resource.ResourceFragment;
+import app.com.digitallearning.TeacherModule.Students.StudentFragment;
 
 /**
  * Created by ${ShalviSharma} on 12/18/15.
@@ -75,6 +76,13 @@ public class NavigationActivity extends AppCompatActivity implements NavigationD
             case 2:
 
                 mFragment = ResourceFragment.newInstance();
+
+
+                break;
+
+            case 4:
+
+                mFragment = StudentFragment.newInstance();
 
 
                 break;

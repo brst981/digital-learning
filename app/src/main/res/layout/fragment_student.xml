@@ -3,26 +3,25 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@android:color/white">
-
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/swipeRefreshLayout"
+    android:layout_height="match_parent">
+    <app.com.digitallearning.SlidingLayout.SlidingTabLayout
+        android:id="@+id/tabs"
         android:layout_width="match_parent"
-        android:layout_above="@+id/ripple_create_resource"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:background="@color/colorlima"
+        android:elevation="2dp">
 
-    <android.support.v7.widget.RecyclerView
-
-        android:id="@+id/recycler_view_resource"
+    </app.com.digitallearning.SlidingLayout.SlidingTabLayout>
+    <android.support.v4.view.ViewPager
+        android:id="@+id/pager"
+        android:layout_below="@+id/tabs"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:clipToPadding="false"
-        android:scrollbars="vertical" />
-    </android.support.v4.widget.SwipeRefreshLayout>
+        android:layout_weight="1">
 
+    </android.support.v4.view.ViewPager>
     <com.andexert.library.RippleView
-        android:id="@+id/ripple_create_resource"
+        android:id="@+id/ripple_add_student"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
@@ -37,12 +36,12 @@
         app:rv_zoom="true">
 
         <Button
-            android:id="@+id/button_create"
+            android:id="@+id/button_add_student"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="@color/colorlima"
             android:elevation="8dp"
-            android:text="ADD RESOURCE"
+            android:text="ADD STUDENT(S)"
             android:textAllCaps="true"
             android:drawableLeft="@drawable/ic_plus"
             android:drawablePadding="1dp"
@@ -51,5 +50,6 @@
             android:textColor="@android:color/white"
             android:textSize="16sp" />
     </com.andexert.library.RippleView>
+
 
 </RelativeLayout>
