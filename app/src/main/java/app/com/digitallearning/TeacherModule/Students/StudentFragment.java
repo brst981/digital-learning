@@ -79,7 +79,7 @@ public class StudentFragment extends Fragment {
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 AddStudentFragment classFragment = new AddStudentFragment();
-                fragmentTransaction.replace(R.id.container, classFragment).addToBackStack(null);
+                fragmentTransaction.replace(R.id.container, classFragment);
                 fragmentTransaction.commit();
             }
         });
