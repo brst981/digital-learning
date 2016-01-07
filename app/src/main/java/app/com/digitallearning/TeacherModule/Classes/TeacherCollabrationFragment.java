@@ -3,9 +3,7 @@ package app.com.digitallearning.TeacherModule.Classes;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
@@ -41,39 +39,17 @@ public class TeacherCollabrationFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 /*((SwipeLayout)(mListView.getChildAt(position - mListView.getFirstVisiblePosition()))).open(true);*/
                 Toast.makeText(getActivity(), ""+position, Toast.LENGTH_SHORT).show();
-            }
-        });
-        mListView.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                Log.e("ListView", "OnTouch");
-                return false;
-            }
-        });
-        mListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getActivity(), "OnItemLongClickListener", Toast.LENGTH_SHORT).show();
-
-                return true;
+               /* FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                CurriculumFragment classFragment = new CurriculumFragment();
+                fragmentTransaction.replace(R.id.container, classFragment).addToBackStack(null);
+                fragmentTransaction.commit();*/
             }
         });
 
 
-        mListView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Log.e("ListView", "onItemSelected:" + position);
-                mSelectedItem=position;
 
 
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                Log.e("ListView", "onNothingSelected:");
-            }
-        });
         return rootview;
     }
     class ListViewAdapter extends BaseSwipeAdapter {
@@ -108,12 +84,7 @@ public class TeacherCollabrationFragment extends Fragment {
 
                 }
             });
-            swipeLayout.setOnDoubleClickListener(new SwipeLayout.DoubleClickListener() {
-                @Override
-                public void onDoubleClick(SwipeLayout layout, boolean surface) {
-                    Toast.makeText(mContext, "DoubleClick", Toast.LENGTH_SHORT).show();
-                }
-            });
+
             v.findViewById(R.id.delete).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -136,7 +107,7 @@ public class TeacherCollabrationFragment extends Fragment {
 
         @Override
         public Object getItem(int position) {
-            return null;
+            return position;
         }
 
         @Override

@@ -29,7 +29,7 @@ public class ClassesDetailFragment extends Fragment {
     FloatingActionMenu menu_main;
     FloatingActionButton floatingActionButtonEdit,floatingActionButtonChange,floatingActionButtonDelete;
     TextView headerTitle;
-    RippleView rippleViewTeacherCollab;
+    RippleView rippleViewTeacherCollab,rippleViewCurriculum;
 
 
     public static ClassesDetailFragment newInstance() {
@@ -48,6 +48,8 @@ public class ClassesDetailFragment extends Fragment {
         floatingActionButtonChange=(FloatingActionButton)rootview.findViewById(R.id.menu_item_change_pic);
         floatingActionButtonDelete=(FloatingActionButton)rootview.findViewById(R.id.menu_item_delete);
         rippleViewTeacherCollab = (RippleView)rootview.findViewById(R.id.ripple_teacher_collaboration) ;
+        rippleViewCurriculum = (RippleView)rootview.findViewById(R.id. ripple_teacher_curriculum) ;
+
 
 
         AppCompatActivity activity = (AppCompatActivity) getActivity();
@@ -109,6 +111,17 @@ public class ClassesDetailFragment extends Fragment {
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 TeacherCollabrationFragment classFragment = new TeacherCollabrationFragment();
+                fragmentTransaction.replace(R.id.container, classFragment).addToBackStack(null);
+                fragmentTransaction.commit();
+            }
+        });
+
+        rippleViewCurriculum.setOnRippleCompleteListener(new RippleView.OnRippleCompleteListener() {
+            @Override
+            public void onComplete(RippleView rippleView) {
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                CurriculumFragment classFragment = new CurriculumFragment();
                 fragmentTransaction.replace(R.id.container, classFragment).addToBackStack(null);
                 fragmentTransaction.commit();
             }

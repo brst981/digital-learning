@@ -62,7 +62,8 @@
     <ListView
         android:id="@+id/listview_teacher_collab"
         android:layout_width="match_parent"
-        android:background="?android:attr/selectableItemBackground"
+        android:cacheColorHint="@android:color/black"
+
         android:layout_height="match_parent" />
 
 </RelativeLayout>

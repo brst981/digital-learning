@@ -9,7 +9,7 @@
             android:id="@+id/swipe"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:color/white"
+
             swipe:leftEdgeSwipeOffset="0dp"
             swipe:rightEdgeSwipeOffset="0dp">
 
@@ -47,18 +47,21 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@android:color/white"
+                android:background="@drawable/item_selector"
+
                 android:orientation="vertical">
 
                 <FrameLayout
                     android:id="@+id/web_frame_layout"
                     android:layout_width="80dp"
                     android:layout_height="80dp"
+                    android:background="@android:color/transparent"
                     android:layout_margin="5dp">
 
                     <WebView
                         android:id="@+id/webview_collab"
                         android:layout_width="match_parent"
+                        android:background="@android:color/transparent"
                         android:layout_height="match_parent"></WebView>
                 </FrameLayout>
 
