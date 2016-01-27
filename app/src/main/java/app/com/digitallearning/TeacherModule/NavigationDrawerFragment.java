@@ -150,10 +150,10 @@ public class NavigationDrawerFragment extends Fragment implements NavigationDraw
         items.add(new NavigationItem("CLASS", getResources().getDrawable(R.drawable.ic_class)));
         items.add(new NavigationItem("LESSONS", getResources().getDrawable(R.drawable.ic_lesson)));
         items.add(new NavigationItem("RESOURCES", getResources().getDrawable(R.drawable.ic_resource)));
-        items.add(new NavigationItem("QUIZ", getResources().getDrawable(R.drawable.ic_quiz)));
+        items.add(new NavigationItem(" QUIZ", getResources().getDrawable(R.drawable.ic_quiz)));
         items.add(new NavigationItem("STUDENTS", getResources().getDrawable(R.drawable.ic_student)));
-        items.add(new NavigationItem("GRADE", getResources().getDrawable(R.drawable.ic_grade)));
-        items.add(new NavigationItem("LOGOUT",getResources().getDrawable(R.drawable.ic_logout)));
+        items.add(new NavigationItem("  GRADE", getResources().getDrawable(R.drawable.ic_grade)));
+        items.add(new NavigationItem(" LOGOUT",getResources().getDrawable(R.drawable.ic_logout)));
 
         return items;
     }

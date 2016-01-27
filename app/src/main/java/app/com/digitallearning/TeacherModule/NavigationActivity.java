@@ -12,6 +12,9 @@ import android.view.WindowManager;
 import app.com.digitallearning.NavigationDrawerCallbacks;
 import app.com.digitallearning.R;
 import app.com.digitallearning.TeacherModule.Classes.ClassesDetailFragment;
+import app.com.digitallearning.TeacherModule.Lessons.LessonFragment;
+import app.com.digitallearning.TeacherModule.Resource.ResourceFragment;
+import app.com.digitallearning.TeacherModule.Students.StudentFragment;
 
 /**
  * Created by ${ShalviSharma} on 12/18/15.
@@ -60,6 +63,26 @@ public class NavigationActivity extends AppCompatActivity implements NavigationD
             case 0:
 
                 mFragment = ClassesDetailFragment.newInstance();
+
+
+                break;
+            case 1:
+
+                mFragment = LessonFragment.newInstance();
+
+
+                break;
+
+            case 2:
+
+                mFragment = ResourceFragment.newInstance();
+
+
+                break;
+
+            case 4:
+
+                mFragment = StudentFragment.newInstance();
 
 
                 break;
@@ -138,6 +161,7 @@ public class NavigationActivity extends AppCompatActivity implements NavigationD
         }
 
 
+
     }
 
 
@@ -148,10 +172,12 @@ public class NavigationActivity extends AppCompatActivity implements NavigationD
 
     @Override
     public void onBackPressed() {
-        if (mNavigationDrawerFragment.isDrawerOpen())
+        if (mNavigationDrawerFragment.isDrawerOpen()){
             mNavigationDrawerFragment.closeDrawer();
-        else
-            super.onBackPressed();
+        }
+
+        else{
+            super.onBackPressed();}
 
 
     }

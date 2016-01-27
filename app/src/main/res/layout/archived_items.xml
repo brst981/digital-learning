@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.daimajia.swipe.SwipeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:swipe="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/swipe"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white"
+    swipe:leftEdgeSwipeOffset="0dp"
+    swipe:rightEdgeSwipeOffset="0dp">
+
+    <LinearLayout
+        android:id="@+id/bottom_wrapper"
+        android:layout_width="160dp"
+        android:layout_height="match_parent"
+        android:background="#66ddff00"
+        android:tag="Bottom1"
+        android:weightSum="1">
+
+        <TextView
+            android:id="@+id/archive"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:background="#C7C7CC"
+            android:clickable="true"
+            android:gravity="center"
+            android:text="Un-Archive"
+            android:textColor="#fff" />
+
+        <TextView
+            android:id="@+id/delete"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:textColor="#fff"
+            android:background="@drawable/red_selector"
+            android:gravity="center"
+            android:text="Delete" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:id="@+id/relative_content"
+        android:layout_height="70dp">
+
+        <TextView
+            android:id="@+id/text_enrolled_name"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@android:color/transparent"
+            android:padding="5dp"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:gravity="center|left"
+            android:textColor="@android:color/black"
+            android:tag="Hover"
+            android:text="ABC" />
+
+        <TextView
+            android:id="@+id/text_enrolled_name_"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/text_enrolled_name"
+            android:background="@android:color/transparent"
+            android:textSize="12sp"
+            android:textColor="@color/color_light_grey"
+            android:tag="Hover"
+            android:paddingLeft="5dp"
+            android:text="View details" />
+
+
+    </RelativeLayout>
+
+
+</com.daimajia.swipe.SwipeLayout>
