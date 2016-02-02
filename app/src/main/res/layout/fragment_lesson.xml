@@ -12,13 +12,10 @@
         android:layout_above="@+id/ripple_create_lesson"
         android:layout_height="match_parent">
 
-    <android.support.v7.widget.RecyclerView
-
-        android:id="@+id/recycler_view_lesson"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:clipToPadding="false"
-        android:scrollbars="vertical" />
+        <ListView
+            android:id="@+id/listview_archieved"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
     </android.support.v4.widget.SwipeRefreshLayout>
 
     <com.andexert.library.RippleView

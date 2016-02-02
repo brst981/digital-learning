@@ -148,6 +148,7 @@
                 android:layout_below="@+id/view_sep1"
                 android:padding="5dp"
                 app:rv_color="#000"
+                android:visibility="gone"
                 app:rv_rippleDuration="100"
                 app:rv_type="rectangle"
                 app:rv_zoom="true">
@@ -183,6 +184,7 @@
                 android:id="@+id/view1"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
+                android:visibility="gone"
                 android:layout_below="@+id/ripple_teacher_collaboration"
                 android:background="@color/color_darker_grey" />
 
@@ -375,13 +377,20 @@
             <TextView
                 android:id="@+id/text_des"
                 android:layout_width="match_parent"
-                android:layout_height="35dp"
+                android:layout_height="45dp"
                 android:layout_below="@+id/view"
                 android:gravity="left|center"
                 android:padding="5dp"
+
                 android:text="Description:"
                 android:textColor="@android:color/black"
                 android:textSize="16sp" />
+            <View
+                android:id="@+id/view12"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@+id/text_des"
+                android:background="@color/color_darker_grey" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -389,6 +398,7 @@
                 android:layout_below="@+id/text_des"
                 android:padding="5dp"
                 android:text="Dummy"
+                android:visibility="gone"
                 android:textColor="@android:color/black"
                 android:textSize="14sp" />
 

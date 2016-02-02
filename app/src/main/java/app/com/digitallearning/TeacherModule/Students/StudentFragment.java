@@ -40,7 +40,7 @@ public class StudentFragment extends Fragment {
     }
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootview = inflater.inflate(R.layout.fragment_student, container, false);
         AppCompatActivity activity = (AppCompatActivity) getActivity();
 
@@ -48,7 +48,6 @@ public class StudentFragment extends Fragment {
         headerTitle = (TextView) activity.findViewById(R.id.mytext);
 
         headerTitle.setText("Students");
-
         adapter =  new ViewPagerAdapter(getActivity().getSupportFragmentManager(),Titles,Numboftabs);
 
         // Assigning ViewPager View and setting the adapter

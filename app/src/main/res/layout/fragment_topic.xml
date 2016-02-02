@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:id="@+id/relative_header"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@color/colorlima">
+
+        <RelativeLayout
+
+            android:id="@+id/relback"
+            android:layout_width="90dp"
+            android:layout_height="70dp">
+
+            <ImageButton
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="15dp"
+                android:background="@android:color/transparent"
+                android:src="@drawable/ic_back"
+                android:scaleType="fitXY"
+                android:id="@+id/back"
+                android:padding="7dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+            <TextView
+                android:text="Back"
+                android:textSize="20sp"
+                android:textColor="#fff"
+                android:layout_toRightOf="@+id/back"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_alignParentLeft="@+id/back"
+                android:layout_alignParentStart="@+id/back"
+                android:layout_marginTop="15dp" />
+        </RelativeLayout>
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="Topic"
+            android:textColor="@android:color/white"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <ImageButton
+            android:id="@+id/img_zoom_in"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/img_zoom_out"
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_toLeftOf="@+id/img_zoom_out"
+            android:layout_toStartOf="@+id/img_zoom_out"
+            android:background="@android:color/transparent"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_plus" />
+
+        <ImageButton
+            android:id="@+id/img_zoom_out"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@android:color/transparent"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_minus" />
+
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/rellogin"
+        android:layout_below="@+id/relative_header"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/myrecycler"
+            android:layout_width="match_parent"
+            android:layout_height="440dp"
+            android:clipToPadding="false"
+            android:scrollbars="vertical" />
+
+    <com.andexert.library.RippleView
+        android:id="@+id/ripple_topic_save"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="20dp"
+        android:layout_below="@+id/myrecycler"
+        android:layout_marginRight="20dp"
+        app:rv_color="#000"
+        android:gravity="bottom"
+        app:rv_rippleDuration="50"
+        app:rv_type="rectangle"
+        app:rv_zoom="true">
+
+        <Button
+            android:id="@+id/button_create"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/colorlima"
+            android:elevation="8dp"
+            android:text="SAVe"
+            android:textAllCaps="true"
+            android:gravity="center"
+            android:textColor="@android:color/white"
+            android:textSize="16sp" />
+    </com.andexert.library.RippleView>
+    </RelativeLayout>
+
+</LinearLayout>

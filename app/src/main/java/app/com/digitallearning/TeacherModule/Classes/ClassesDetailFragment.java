@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,16 +21,18 @@ import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
 
 import app.com.digitallearning.R;
+import app.com.digitallearning.TeacherModule.ClassFragment;
 
 /**
  * Created by ${ShalviSharma} on 12/19/15.
  */
-public class ClassesDetailFragment extends Fragment {
+public class ClassesDetailFragment extends Fragment{
     View rootview;
     FloatingActionMenu menu_main;
     FloatingActionButton floatingActionButtonEdit,floatingActionButtonChange,floatingActionButtonDelete;
     TextView headerTitle;
-    RippleView rippleViewTeacherCollab,rippleViewCurriculum;
+    String title;
+    RippleView rippleViewTeacherCollab,rippleViewCurriculum,ripple_teacher_syllabus;
 
 
     public static ClassesDetailFragment newInstance() {
@@ -49,8 +52,10 @@ public class ClassesDetailFragment extends Fragment {
         floatingActionButtonDelete=(FloatingActionButton)rootview.findViewById(R.id.menu_item_delete);
         rippleViewTeacherCollab = (RippleView)rootview.findViewById(R.id.ripple_teacher_collaboration) ;
         rippleViewCurriculum = (RippleView)rootview.findViewById(R.id. ripple_teacher_curriculum) ;
+        ripple_teacher_syllabus=(RippleView) rootview.findViewById(R.id.ripple_teacher_syllabus);
 
-
+        title= ClassFragment.titleheader;
+        Log.e("DetailClasstitle",""+title);
 
         AppCompatActivity activity = (AppCompatActivity) getActivity();
 
@@ -58,16 +63,18 @@ public class ClassesDetailFragment extends Fragment {
         headerTitle = (TextView) activity.findViewById(R.id.mytext);
 
 
+
         createCustomAnimation();
         initData();
+
         return rootview;
     }
 
     private void initData() {
 
+        headerTitle.setText(title);
 
 
-        headerTitle.setText("");
         floatingActionButtonEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -124,6 +131,17 @@ public class ClassesDetailFragment extends Fragment {
                 CurriculumFragment classFragment = new CurriculumFragment();
                 fragmentTransaction.replace(R.id.container, classFragment).addToBackStack(null);
                 fragmentTransaction.commit();
+            }
+        });
+        ripple_teacher_syllabus.setOnRippleCompleteListener(new RippleView.OnRippleCompleteListener() {
+            @Override
+            public void onComplete(RippleView rippleView) {
+                FragmentManager fragmentManager=getFragmentManager();
+                FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
+                SyllabusFragment syllabusFragment=new SyllabusFragment();
+                fragmentTransaction.replace(R.id.container, syllabusFragment).addToBackStack(null);
+                fragmentTransaction.commit();
+
             }
         });
     }

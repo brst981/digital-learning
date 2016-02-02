@@ -24,9 +24,8 @@
         android:layout_gravity="center|right"
         android:layout_marginEnd="10dp"
         android:layout_marginRight="10dp"
-
         android:background="@android:color/transparent"
-        android:padding="5dp"
+        android:padding="3dp"
         android:scaleType="fitXY"
         android:src="@drawable/ic_minus" />
 
@@ -39,7 +38,7 @@
         android:layout_marginEnd="10dp"
         android:layout_marginRight="10dp"
         android:background="@android:color/transparent"
-        android:padding="5dp"
+
         android:scaleType="fitXY"
         android:src="@drawable/ic_plus" />
 

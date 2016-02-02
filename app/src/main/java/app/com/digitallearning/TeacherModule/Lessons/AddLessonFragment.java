@@ -33,6 +33,7 @@ public class AddLessonFragment extends Fragment{
         AppCompatActivity activity = (AppCompatActivity) getActivity();
 
         activity.getSupportActionBar().setTitle("");
+     //   getActivity().getActionBar().setHomeButtonEnabled(false);
 
         headerTitle = (TextView) activity.findViewById(R.id.mytext);
 

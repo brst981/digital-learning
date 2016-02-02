@@ -9,7 +9,7 @@ import android.os.Handler;
  * Created by ${ShalviSharma} on 12/17/15.
  */
 public class SplashActivity extends Activity {
-    private int SPLASH_TIME_OUT = 1000;
+    private int SPLASH_TIME_OUT = 5000;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

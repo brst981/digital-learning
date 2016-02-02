@@ -1,12 +1,25 @@
 package app.com.digitallearning.TeacherModule.Classes;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import java.io.File;
 
 import app.com.digitallearning.R;
 
@@ -16,11 +29,58 @@ import app.com.digitallearning.R;
 public class ChangePictureFragment extends Fragment {
     View rootview;
     TextView headerTitle;
-
+    ImageView img_edit_icon, img_edit_picture;
+    int j;
+    AlertDialog alert;
+    File destination = null;
+    public static final int CAMERA_CAPTURE_IMAGE_REQUEST_CODE = 100;
+    public static int RESULT_LOAD_IMAGE = 1;
+    String picturePath, filePath;
+    Uri selectedImage;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootview = inflater.inflate(R.layout.fragment_change_pic, container, false);
+        img_edit_icon = (ImageView) rootview.findViewById(R.id.img_edit_icon);
+        img_edit_picture = (ImageView) rootview.findViewById(R.id.img_edit_picture);
+        img_edit_icon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                String[] items = {"Camera", "Gallery", "Cancel"};
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                // builder.setTitle("Select");
+                builder.setItems(items, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int item) {
+                        // Do something with the selection
+                        // alert.dismiss();
+                        if (item == 0) {
+                            j = 1;
+                            captureImage();
+
+                        }
+
+
+                        if (item == 1) {
+                            j = 2;
+
+                            Intent i = new Intent(
+                                    Intent.ACTION_PICK,
+                                    MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+
+                            startActivityForResult(i, RESULT_LOAD_IMAGE);
+
+                        } else if (item == 2) {
+                            alert.dismiss();
+                        }
+                    }
+                });
+                alert = builder.create();
+                alert.show();
+
+            }
+        });
 
         AppCompatActivity activity = (AppCompatActivity) getActivity();
 
@@ -31,4 +91,95 @@ public class ChangePictureFragment extends Fragment {
         headerTitle.setText("Change Picture");
         return rootview;
     }
-}
+
+    private void captureImage() {
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
+        destination = new File(Environment.getExternalStorageDirectory(),
+                System.currentTimeMillis() + ".jpg");
+
+        picturePath = String.valueOf(new File(Environment.getExternalStorageDirectory(),
+                System.currentTimeMillis() + ".jpg"));
+
+        destination = new File(picturePath);
+        //   long lenght= destination.length();
+        //    strlenght = Long.toString(lenght);
+
+        Log.e("FileDestination", "" + destination);
+        Log.e("picturePath", "" + picturePath);
+
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(destination));
+        startActivityForResult(intent, CAMERA_CAPTURE_IMAGE_REQUEST_CODE);
+    }
+
+
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+
+        if (requestCode == RESULT_LOAD_IMAGE && null != data) {
+            selectedImage = data.getData();
+
+          /*  long lenght= destination.length();
+            lenght = lenght/1024;
+            Log.e("lenghtgal", "" + lenght);
+*/
+
+            String[] filePathColumn = {MediaStore.Images.Media.DATA};
+
+            Cursor cursor = getActivity().getContentResolver().query(selectedImage,
+                    filePathColumn, null, null, null);
+            cursor.moveToFirst();
+
+            int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+            filePath = cursor.getString(columnIndex);
+
+            picturePath = cursor.getString(columnIndex);
+            Log.e("PICTUREPATHgallery", "" + picturePath);
+
+            cursor.close();
+
+            try {
+
+                BitmapFactory.Options options;
+
+                options = new BitmapFactory.Options();
+                options.inSampleSize = 2;
+                Log.e("PICTUREPATHgallery1", "" + picturePath);
+
+                Bitmap bitmap = BitmapFactory.decodeFile(picturePath, options);
+                bitmap.getScaledHeight(bitmap.getDensity());
+                bitmap.getDensity();
+                Log.e("bitmap",""+ bitmap.getScaledHeight(bitmap.getDensity()));
+                Log.e("getDensity",""+ bitmap.getDensity());
+                String filepath = Environment.getExternalStorageDirectory() +picturePath;
+                destination = new File(filepath);
+                Log.e("filepath", "" + filepath);
+                img_edit_picture.setImageBitmap(bitmap);
+
+
+            } catch (NullPointerException e) {
+                e.printStackTrace();
+            }
+
+
+        } else if (requestCode == CAMERA_CAPTURE_IMAGE_REQUEST_CODE) {
+            BitmapFactory.Options options;
+
+            options = new BitmapFactory.Options();
+            options.inSampleSize = 2;
+
+            Bitmap bitmap = BitmapFactory.decodeFile(
+                    destination.getAbsolutePath(), options);
+
+
+            img_edit_picture.setImageBitmap(bitmap);
+            Log.e("destinationCamera", "" + destination);
+
+        }
+    }
+
+    }

@@ -6,6 +6,7 @@
     android:background="@android:color/white">
 
     <ScrollView
+        android:id="@+id/scroll"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -31,7 +32,7 @@
                     android:paddingLeft="5dp"
                     android:paddingRight="5dp"
                     android:paddingTop="5dp"
-                    android:text="101 teaching"
+                    android:hint="Title"
                     android:textColor="@android:color/black"
                     android:textSize="16sp" />
 
@@ -116,7 +117,7 @@
                     android:gravity="right|center"
                     android:paddingRight="5dp"
                     android:singleLine="true"
-                    android:text="101 teacher"
+                    android:text="Math"
                     android:textColor="@color/color_light_grey"
                     android:textSize="14sp" />
 
@@ -138,7 +139,7 @@
                 android:background="@color/color_darker_grey" />
 
             <com.andexert.library.RippleView
-                android:id="@+id/ripple_teacher_collaboration"
+                android:id="@+id/ripple_teacher_country"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/view_sep1"
@@ -149,23 +150,36 @@
                 app:rv_zoom="true">
 
                 <RelativeLayout
-                    android:id="@+id/relative_teacher_collaboration"
+                    android:id="@+id/relative_teacher_country"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
                     <TextView
-                        android:id="@+id/text_collab"
+                        android:id="@+id/text_country"
                         android:layout_width="170dp"
                         android:layout_height="35dp"
                         android:layout_alignParentLeft="true"
                         android:gravity="left|center"
                         android:paddingLeft="5dp"
-                        android:text="Teacher Collaboration"
+                        android:text="Country (Optional)"
                         android:textColor="@android:color/black"
                         android:textSize="16sp" />
-
+                    <TextView
+                        android:layout_width="150dp"
+                        android:layout_height="35dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_toLeftOf="@+id/img_back_country"
+                        android:layout_toRightOf="@+id/text_country"
+                        android:layout_toStartOf="@+id/img_back_country"
+                        android:gravity="right|center"
+                        android:paddingRight="5dp"
+                        android:singleLine="true"
+                        android:text="United States of America"
+                        android:textColor="@color/color_light_grey"
+                        android:textSize="14sp" />
 
                     <ImageView
+                        android:id="@+id/img_back_country"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:layout_alignParentRight="true"
@@ -179,11 +193,11 @@
                 android:id="@+id/view1"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_below="@+id/ripple_teacher_collaboration"
+                android:layout_below="@+id/ripple_teacher_country"
                 android:background="@color/color_darker_grey" />
 
             <com.andexert.library.RippleView
-                android:id="@+id/ripple_teacher_curriculum"
+                android:id="@+id/ripple_teacher_Description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/view1"
@@ -194,39 +208,40 @@
                 app:rv_zoom="true">
 
                 <RelativeLayout
-                    android:id="@+id/relative_teacher_curriculum"
+                    android:id="@+id/relative_teacher_Description"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/ripple_teacher_collaboration"
+                    android:layout_below="@+id/ripple_teacher_Description"
                     android:gravity="center">
 
                     <TextView
-                        android:id="@+id/text_curric"
+                        android:id="@+id/text_Description"
                         android:layout_width="170dp"
                         android:layout_height="35dp"
                         android:layout_alignParentLeft="true"
                         android:gravity="left|center"
                         android:paddingLeft="5dp"
-                        android:text="Curriculum"
+                        android:text="Description"
                         android:textColor="@android:color/black"
                         android:textSize="16sp" />
 
                     <TextView
+                        android:id="@+id/text_input_Description"
                         android:layout_width="150dp"
                         android:layout_height="35dp"
                         android:layout_marginRight="10dp"
-                        android:layout_toLeftOf="@+id/img_back"
-                        android:layout_toRightOf="@+id/text_curric"
-                        android:layout_toStartOf="@+id/img_back"
+                        android:layout_toLeftOf="@+id/img_back_Description"
+                        android:layout_toRightOf="@+id/text_Description"
+                        android:layout_toStartOf="@+id/img_back_Description"
                         android:gravity="right|center"
                         android:paddingRight="5dp"
                         android:singleLine="true"
-                        android:text="101 teacher"
+                        android:text="Hello teacher"
                         android:textColor="@color/color_light_grey"
                         android:textSize="14sp" />
 
                     <ImageView
-                        android:id="@+id/img_back"
+                        android:id="@+id/img_back_Description"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:layout_alignParentRight="true"
@@ -240,7 +255,7 @@
                 android:id="@+id/view2"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_below="@+id/ripple_teacher_curriculum"
+                android:layout_below="@+id/ripple_teacher_Description"
                 android:background="@color/color_darker_grey" />
 
             <com.andexert.library.RippleView
@@ -256,7 +271,7 @@
 
 
                 <RelativeLayout
-                    android:id="@+id/relative_teacher_schedule"
+                    android:id="@+id/relative_teacher_library"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/view2"
@@ -264,13 +279,13 @@
                     android:padding="5dp">
 
                     <TextView
-                        android:id="@+id/text_schedule"
+                        android:id="@+id/text_library"
                         android:layout_width="170dp"
                         android:layout_height="35dp"
                         android:layout_alignParentLeft="true"
                         android:gravity="left|center"
 
-                        android:text="Schedule"
+                        android:text="Library"
                         android:textColor="@android:color/black"
                         android:textSize="16sp" />
 
@@ -279,7 +294,7 @@
                         android:layout_height="35dp"
                         android:layout_marginRight="10dp"
                         android:layout_toLeftOf="@+id/img_back_schedule"
-                        android:layout_toRightOf="@+id/text_schedule"
+                        android:layout_toRightOf="@+id/text_library"
                         android:layout_toStartOf="@+id/img_back_schedule"
                         android:gravity="right|center"
                         android:paddingRight="5dp"
@@ -332,7 +347,7 @@
                         android:layout_alignParentLeft="true"
                         android:gravity="left|center"
 
-                        android:text="Syllabus"
+                        android:text="Grade From"
                         android:textColor="@android:color/black"
                         android:textSize="16sp" />
 
@@ -368,10 +383,76 @@
                 android:layout_below="@+id/ripple_teacher_syllabus"
                 android:background="@color/color_darker_grey" />
 
+
+
+            <com.andexert.library.RippleView
+                android:id="@+id/ripple_GradeFrom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/view"
+                android:padding="5dp"
+                app:rv_color="#000"
+                app:rv_rippleDuration="100"
+                app:rv_type="rectangle"
+                app:rv_zoom="true">
+
+                <RelativeLayout
+                    android:id="@+id/relative_GradeFrom"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/relative_teacher_schedule"
+                    android:gravity="center"
+                    android:padding="5dp">
+
+                    <TextView
+                        android:id="@+id/text_GradeFrom"
+                        android:layout_width="170dp"
+                        android:layout_height="35dp"
+                        android:layout_alignParentLeft="true"
+                        android:gravity="left|center"
+
+                        android:text="Grade From"
+                        android:textColor="@android:color/black"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:layout_width="150dp"
+                        android:layout_height="35dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_toLeftOf="@+id/img_back_GradeFrom"
+                        android:layout_toRightOf="@+id/text_GradeFrom"
+                        android:layout_toStartOf="@+id/img_back_GradeFrom"
+                        android:gravity="right|center"
+                        android:paddingRight="5dp"
+                        android:singleLine="true"
+                        android:text="Hello"
+                        android:textColor="@color/color_light_grey"
+                        android:textSize="14sp" />
+
+                    <ImageView
+                        android:id="@+id/img_back_GradeFrom"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_alignParentRight="true"
+                        android:background="@android:color/transparent"
+
+                        android:src="@drawable/ic_arrow" />
+                </RelativeLayout>
+            </com.andexert.library.RippleView>
+
+            <View
+                android:id="@+id/view_GradeFrom"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@+id/ripple_teacher_syllabus"
+                android:background="@color/color_darker_grey" />
+
+
             <TextView
                 android:id="@+id/text_des"
                 android:layout_width="match_parent"
                 android:layout_height="35dp"
+                android:visibility="gone"
                 android:layout_below="@+id/view"
                 android:gravity="left|center"
                 android:padding="5dp"
@@ -385,6 +466,7 @@
                 android:layout_below="@+id/text_des"
                 android:padding="5dp"
                 android:text="Dummy"
+                android:visibility="gone"
                 android:textColor="@android:color/black"
                 android:textSize="14sp" />
 
@@ -392,5 +474,42 @@
         </RelativeLayout>
 
     </ScrollView>
+    <View
+
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/scroll"
+        android:background="@color/color_darker_grey" />
+
+
+    <com.andexert.library.RippleView
+        android:id="@+id/ripple_create"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        app:rv_color="#000"
+        app:rv_rippleDuration="50"
+        app:rv_type="rectangle"
+        app:rv_zoom="true">
+
+        <Button
+            android:id="@+id/button_create"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/colorlima"
+            android:elevation="8dp"
+            android:text="Save"
+            android:textAllCaps="true"
+            android:drawablePadding="1dp"
+            android:paddingLeft="10dp"
+            android:gravity="center"
+            android:textColor="@android:color/white"
+            android:textSize="16sp" />
+    </com.andexert.library.RippleView>
 
 </RelativeLayout>

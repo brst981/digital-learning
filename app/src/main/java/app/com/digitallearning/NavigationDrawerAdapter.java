@@ -57,21 +57,20 @@ public class NavigationDrawerAdapter extends RecyclerView.Adapter<NavigationDraw
 //                                               }
 //        );
         viewholder.itemView.setOnClickListener(new View.OnClickListener() {
-                                                   @Override
-                                                   public void onClick(View v) {
-                                                       if (mNavigationDrawerCallbacks != null) {
+        @Override
+         public void onClick(View v) {
+         if (mNavigationDrawerCallbacks != null) {
 
-
-                                                           mNavigationDrawerCallbacks.onNavigationDrawerItemSelected(viewholder.getAdapterPosition());
+     mNavigationDrawerCallbacks.onNavigationDrawerItemSelected(viewholder.getAdapterPosition());
                                                        }
-                                                       else {
+                                    else {
 
 
-                                                           mNavigationDrawerCallbacks.onNavigationDrawerItemSelected(viewholder.getAdapterPosition());
-                                                       }
-                                                   }
+               mNavigationDrawerCallbacks.onNavigationDrawerItemSelected(viewholder.getAdapterPosition());
+                                             }
+                                              }
 
-                                               }
+                                  }
         );
         return viewholder;
     }

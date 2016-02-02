@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:textColor="#000"
+        android:textSize="16sp"
+        android:background="#D3D3D3"
+        android:padding="10dp"
+        android:text="Please enter the class id and passcode that has been provided from your teacher"
+        android:layout_width="match_parent"
+        android:layout_height="150sp" />
+    
+    <EditText
+        android:layout_marginTop='10dp'
+        android:layout_width="match_parent"
+        android:layout_height="40dp" />
+    <EditText
+        android:layout_marginTop='10dp'
+        android:layout_width="match_parent"
+        android:layout_height="40dp" />
+
+    <com.andexert.library.RippleView
+        android:id="@+id/ripple_create"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        app:rv_color="#000"
+        app:rv_rippleDuration="50"
+        app:rv_type="rectangle"
+        app:rv_zoom="true">
+
+        <Button
+            android:id="@+id/button_create"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/colorlima"
+            android:elevation="8dp"
+            android:text="Save"
+            android:textAllCaps="true"
+            android:gravity="center"
+            android:textColor="@android:color/white"
+            android:textSize="16sp" />
+    </com.andexert.library.RippleView>
+</LinearLayout>

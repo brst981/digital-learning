@@ -25,7 +25,7 @@
             android:src="@drawable/ic_plus"
             android:scaleType="fitXY"
             android:id="@+id/img_zoom_in"
-            android:padding="5dp"
+
             android:layout_marginRight="10dp"
             android:layout_marginEnd="10dp"
             android:layout_alignBottom="@+id/img_zoom_out"
@@ -38,7 +38,6 @@
             android:src="@drawable/ic_minus"
             android:layout_centerVertical="true"
             android:scaleType="fitXY"
-            android:padding="5dp"
             android:id="@+id/img_zoom_out"
             android:layout_marginRight="10dp"
             android:layout_marginEnd="10dp"
@@ -47,9 +46,21 @@
 
     </RelativeLayout>
 
+<EditText
+    android:id="@+id/search"
+    android:padding="5dp"
+    android:cursorVisible="false"
+    android:drawableLeft="@drawable/se"
+    android:layout_margin="3dp"
+    android:background="@drawable/edittext_selector"
+    android:layout_below="@+id/relative_header"
+    android:layout_width="match_parent"
+    android:layout_height="40dp"
+    android:hint="Search"/>
 
     <android.support.v7.widget.RecyclerView
-        android:layout_below="@+id/relative_header"
+        android:layout_below="@+id/search"
+
         android:id="@+id/recycler_view_question"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
