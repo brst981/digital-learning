@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:id="@+id/relative_class"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/edt_title"
+        android:gravity="center"
+        android:layout_marginTop="5dp"
+        android:padding="5dp">
+        <android.support.v7.widget.CardView
+            android:id="@+id/card_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="5dp"
+            card_view:cardCornerRadius="2dp"
+            card_view:contentPadding="5dp">
+
+            <com.andexert.library.RippleView
+                android:id="@+id/a3ripple"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:rv_color="#000"
+                android:layout_marginTop="5dp"
+                app:rv_rippleDuration="5"
+                app:rv_type="rectangle"
+                app:rv_zoom="true">
+
+                <TextView
+                    android:layout_marginTop="5dp"
+                    android:id="@+id/a3cat"
+                    android:padding="4dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="@android:color/transparent"
+                    android:textAllCaps="false"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp"
+                    android:layout_marginLeft="5dp"
+                    android:text="newlsh"/>
+                <ImageView
+                    android:visibility="gone"
+                    android:id="@+id/img_Art"
+                    android:layout_width="30dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentRight="true"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/ic_arrow" />
+                <CheckBox
+                    android:visibility="gone"
+                    android:id="@+id/checkbox"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/colorAccent"
+                    android:layout_alignParentRight="true"
+                    android:layout_width="30dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_height="30dp" />
+
+            </com.andexert.library.RippleView>
+        </android.support.v7.widget.CardView>
+
+    </RelativeLayout>
+</LinearLayout>

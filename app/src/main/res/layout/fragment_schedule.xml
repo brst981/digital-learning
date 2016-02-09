@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/schedule"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_marginTop="10dp"
+            android:text="Select Day"
+            android:gravity="left|center"
+            android:textColor="#000"
+            android:padding="4dp"
+            android:background="#F4F4F4"
+            android:textSize="18sp"
+            android:id="@+id/day"
+            android:layout_width="match_parent"
+            android:layout_height="40dp" />
+
+        <TextView
+            android:layout_marginTop="10dp"
+            android:text="Description"
+            android:gravity="left|center"
+            android:textColor="#000"
+            android:padding="4dp"
+            android:layout_below="@+id/day"
+            android:background="#F4F4F4"
+            android:textSize="18sp"
+            android:id="@+id/description"
+            android:layout_width="match_parent"
+            android:layout_height="40dp" />
+
+        <TextView
+            android:padding="8dp"
+            android:hint="Start Time"
+            android:id="@+id/starttime"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/description"
+            android:textSize="18sp"
+            android:layout_width="match_parent"
+            android:layout_height="40dp" />
+        <View
+            android:layout_below="@+id/starttime"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:id="@+id/view"
+            android:background="#CACACA" />
+
+
+
+        <TextView
+            android:padding="8dp"
+            android:hint="End Time"
+            android:id="@+id/endtime"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/view"
+            android:textSize="18sp"
+            android:layout_width="match_parent"
+            android:layout_height="40dp" />
+        <View
+            android:layout_below="@+id/endtime"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:id="@+id/view1"
+            android:background="#CACACA" />
+
+
+        <EditText
+            android:padding="8dp"
+            android:hint="Location(Optional)"
+            android:id="@+id/loc"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/view1"
+            android:textSize="18sp"
+            android:layout_width="match_parent"
+            android:layout_height="40dp" />
+        <View
+            android:layout_below="@+id/loc"
+            android:layout_width="match_parent"
+            android:visibility="gone"
+            android:layout_height="1dp"
+            android:id="@+id/view2"
+
+            android:background="#CACACA" />
+    </RelativeLayout>
+    <com.andexert.library.RippleView
+        android:id="@+id/ripple_edit_save"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_below="@+id/schedule"
+        app:rv_color="#000"
+        android:layout_margin="20dp"
+        android:layout_marginTop="20dp"
+        app:rv_rippleDuration="100"
+        app:rv_type="rectangle"
+        app:rv_zoom="true">
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorlima"
+            android:elevation="8dp"
+            android:gravity="center"
+            android:text="Save"
+            android:textAllCaps="true"
+            android:textColor="@android:color/white"
+            android:textSize="16sp" />
+    </com.andexert.library.RippleView>
+
+</LinearLayout>

@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="#fff"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:layout_marginTop="10dp"
+        android:text="Lesson"
+       android:gravity="left|center"
+        android:textColor="#000"
+        android:padding="4dp"
+        android:background="#F4F4F4"
+        android:textSize="18sp"
+        android:id="@+id/lesson"
+        android:layout_width="match_parent"
+        android:layout_height="40dp" />
+
+    <LinearLayout
+        android:layout_marginTop="5dp"
+        android:id="@+id/main"
+        android:weightSum="2"
+        android:layout_below="@+id/lesson"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+        <LinearLayout
+            android:layout_weight="1"
+            android:weightSum="2"
+            android:orientation="horizontal"
+            android:layout_width="0dp"
+            android:layout_height="match_parent">
+
+        <TextView
+            android:layout_marginLeft="10dp"
+            android:text="Total:"
+            android:textColor="#000"
+            android:gravity="center|left"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="50dp" />
+
+        <EditText
+            android:hint="200"
+            android:layout_marginLeft="30dp"
+            android:textColor="#000"
+            android:textSize="12sp"
+            android:padding="4dp"
+            android:id="@+id/edittotal"
+            android:background="@drawable/edittext_rectangle_selector"
+            android:layout_gravity="center"
+            android:layout_weight="0.7"
+            android:layout_width="0dp"
+            android:layout_height="30dp" />
+
+        </LinearLayout>
+
+    <LinearLayout
+        android:layout_weight="1"
+        android:weightSum="2"
+        android:layout_width="0dp"
+        android:layout_height="match_parent">
+        <TextView
+            android:text="Grade:"
+            android:textColor="#000"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="50dp"  />
+        <TextView
+            android:text="A"
+            android:layout_marginLeft="30dp"
+            android:textColor="#000"
+            android:background="@drawable/edittext_rectangle_selector"
+            android:gravity="center"
+            android:layout_marginRight="10dp"
+            android:padding="4dp"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="30dp"  />
+    </LinearLayout>
+    </LinearLayout>
+
+
+    <TextView
+        android:layout_marginTop="10dp"
+        android:text="Quiz"
+        android:gravity="left|center"
+        android:textColor="#000"
+        android:padding="4dp"
+        android:layout_below="@+id/main"
+        android:background="#F4F4F4"
+        android:textSize="18sp"
+        android:id="@+id/quiz"
+        android:layout_width="match_parent"
+        android:layout_height="40dp" />
+
+    <ListView
+        android:id="@+id/list"
+        android:layout_above="@+id/total"
+android:layout_below="@+id/quiz"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </ListView>
+
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:weightSum="2"
+        android:id="@+id/total"
+        android:layout_above="@+id/ripple_edit_update"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+        <TextView
+            android:text="Total Grade For Class:"
+            android:textColor="#000"
+            android:textSize="18sp"
+            android:layout_above="@+id/ripple_edit_update"
+            android:padding="5dp"
+            android:layout_marginTop="10dp"
+            android:layout_width="0dp"
+            android:layout_weight="1.2"
+            android:layout_height="wrap_content" />
+        <EditText
+            android:layout_weight="0.3"
+            android:layout_marginTop="10dp"
+            android:layout_width="0dp"
+            android:background="@drawable/edittext_rectangle_selector"
+            android:layout_margin="5dp"
+            android:layout_height="30dp" />
+    </LinearLayout>
+
+    <com.andexert.library.RippleView
+        android:id="@+id/ripple_edit_update"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+      android:layout_alignParentBottom="true"
+        android:layout_margin="10dp"
+        app:rv_color="#000"
+        app:rv_rippleDuration="100"
+        app:rv_type="rectangle"
+        app:rv_zoom="true">
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorlima"
+            android:elevation="8dp"
+            android:gravity="center"
+            android:text="SAVE"
+            android:textAllCaps="true"
+            android:textColor="@android:color/white"
+            android:textSize="16sp" />
+    </com.andexert.library.RippleView>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:background="@color/colorlima"
+        android:elevation="8dp"
+        android:gravity="center"
+        android:visibility="invisible"
+        android:layout_below="@+id/ripple_edit_update"
+        android:text="SAVE"
+        android:textAllCaps="true"
+        android:textColor="@android:color/white"
+        android:textSize="16sp" />
+</RelativeLayout>

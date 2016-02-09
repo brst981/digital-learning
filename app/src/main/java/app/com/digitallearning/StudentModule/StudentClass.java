@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.graphics.PointF;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -212,10 +214,16 @@ public class StudentClass extends  Fragment {
                     Toast.makeText(mContext, "DoubleClick", Toast.LENGTH_SHORT).show();
                 }
             });
-            v.findViewById(R.id.delete).setOnClickListener(new View.OnClickListener() {
+            v.findViewById(R.id.editbutton).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Toast.makeText(mContext, "click delete", Toast.LENGTH_SHORT).show();
+
+                    FragmentManager fragmentManager = getFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    Info info = new Info();
+                    fragmentTransaction.replace(R.id.container, info).addToBackStack(null);
+                    fragmentTransaction.commit();
                 }
             });
             return v;

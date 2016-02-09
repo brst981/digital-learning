@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.daimajia.swipe.SwipeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:swipe="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/swipe"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white"
+    swipe:leftEdgeSwipeOffset="0dp"
+    swipe:rightEdgeSwipeOffset="0dp">
+
+    <LinearLayout
+        android:id="@+id/bottom_wrapper"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:background="#66ddff00"
+        android:tag="Bottom1">
+
+        <TextView
+            android:id="@+id/editbutton"
+            android:layout_width="65dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/red_selector"
+            android:clickable="true"
+            android:gravity="center"
+            android:text="Delete"
+            android:textColor="#fff" />
+
+        <TextView
+
+            android:id="@+id/delete"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:textColor="#fff"
+            android:background="@drawable/red_selector"
+            android:gravity="center"
+            android:text="Delete"
+           />
+
+        <TextView
+            android:id="@+id/archive"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:background="#C7C7CC"
+            android:visibility="gone"
+            android:clickable="true"
+            android:gravity="center"
+            android:text="Edit"
+            android:textColor="#fff"  />
+    </LinearLayout>
+
+
+    <RelativeLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/image_view"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:visibility="gone"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_launcher"/>
+        <TextView
+            android:layout_toRightOf="@+id/image_view"
+            android:layout_width="170dp"
+            android:id="@+id/text_view"
+            android:hint="sdhfygsjdgf"
+            android:textSize="14sp"
+            android:layout_margin="5dp"
+            android:textColor="@android:color/black"
+            android:gravity="center|left"
+            android:layout_marginTop="10dp"
+            android:layout_height="30dp" />
+        <TextView
+            android:layout_toRightOf="@+id/image_view"
+            android:layout_width="170dp"
+            android:id="@+id/text_view_"
+            android:text="location"
+            android:textSize="14sp"
+            android:layout_margin="5dp"
+            android:textColor="@color/color_light_grey"
+            android:gravity="center|left"
+            android:layout_below="@+id/text_view"
+            android:layout_height="30dp" />
+
+        <ImageView
+            android:id="@+id/img_class_type"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_arrow"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
+    </RelativeLayout>
+
+
+</com.daimajia.swipe.SwipeLayout>

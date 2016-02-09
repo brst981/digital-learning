@@ -39,12 +39,12 @@
             android:layout_height="50dp"
             android:background="@color/colorlima"
             android:elevation="8dp"
-            android:text="Create Lessons"
+            android:text="    Create lesson"
             android:textAllCaps="true"
+            android:gravity="left|center"
             android:drawableLeft="@drawable/ic_plus"
             android:drawablePadding="1dp"
-            android:paddingLeft="10dp"
-            android:gravity="center"
+            android:paddingLeft="80dp"
             android:textColor="@android:color/white"
             android:textSize="16sp" />
     </com.andexert.library.RippleView>

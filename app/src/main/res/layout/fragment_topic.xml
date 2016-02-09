@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
+    android:background="#fff"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <RelativeLayout
@@ -10,15 +11,10 @@
         android:layout_height="60dp"
         android:background="@color/colorlima">
 
-        <RelativeLayout
-
-            android:id="@+id/relback"
-            android:layout_width="90dp"
-            android:layout_height="70dp">
 
             <ImageButton
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_marginTop="15dp"
                 android:background="@android:color/transparent"
                 android:src="@drawable/ic_back"
@@ -31,13 +27,14 @@
                 android:text="Back"
                 android:textSize="20sp"
                 android:textColor="#fff"
+                android:visibility="gone"
                 android:layout_toRightOf="@+id/back"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
                 android:layout_alignParentLeft="@+id/back"
                 android:layout_alignParentStart="@+id/back"
                 android:layout_marginTop="15dp" />
-        </RelativeLayout>
+
         <TextView
             android:id="@+id/textView"
             android:layout_width="wrap_content"

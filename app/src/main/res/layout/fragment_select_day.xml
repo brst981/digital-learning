@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+   android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:padding="8dp"
+        android:text="Monday"
+        android:id="@+id/monday"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/description"
+        android:textSize="18sp"
+        android:layout_width="match_parent"
+        android:layout_height="40dp" />
+    <View
+        android:layout_below="@+id/monday"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+
+        android:background="#CACACA" />
+
+    <TextView
+        android:padding="8dp"
+        android:text="Tuesday"
+        android:id="@+id/tues"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/description"
+        android:textSize="18sp"
+        android:layout_width="match_parent"
+        android:layout_height="40dp" />
+    <View
+
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+
+        android:background="#CACACA" />
+    <TextView
+        android:padding="8dp"
+        android:text="Wednesday"
+        android:id="@+id/wed"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/description"
+        android:textSize="18sp"
+        android:layout_width="match_parent"
+        android:layout_height="40dp" />
+    <View
+
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+
+        android:background="#CACACA" />
+    <TextView
+        android:padding="8dp"
+        android:text="Thrusday"
+        android:id="@+id/thrus"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/description"
+        android:textSize="18sp"
+        android:layout_width="match_parent"
+        android:layout_height="40dp" />
+    <View
+
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+
+        android:background="#CACACA" />
+    <TextView
+        android:padding="8dp"
+        android:text="Friday"
+        android:id="@+id/fri"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/description"
+        android:textSize="18sp"
+        android:layout_width="match_parent"
+        android:layout_height="40dp" />
+    <View
+
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+
+        android:background="#CACACA" />
+    <TextView
+        android:padding="8dp"
+        android:text="Saturday"
+        android:id="@+id/sat"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/description"
+        android:textSize="18sp"
+        android:layout_width="match_parent"
+        android:layout_height="40dp" />
+    <View
+
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+
+        android:background="#CACACA" />
+    <TextView
+        android:padding="8dp"
+        android:text="Sunday"
+        android:id="@+id/sun"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/description"
+        android:textSize="18sp"
+        android:layout_width="match_parent"
+        android:layout_height="40dp" />
+    <View
+
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+
+        android:background="#CACACA" />
+    <TextView
+        android:padding="8dp"
+        android:text="Every Day"
+        android:id="@+id/eday"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/description"
+        android:textSize="18sp"
+        android:layout_width="match_parent"
+        android:layout_height="40dp" />
+    <View
+
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+
+        android:background="#CACACA" />
+    <TextView
+        android:padding="8dp"
+        android:text="Every Weekday"
+        android:id="@+id/ewday"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/description"
+        android:textSize="18sp"
+        android:layout_width="match_parent"
+        android:layout_height="40dp" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#CACACA" />
+
+</LinearLayout>

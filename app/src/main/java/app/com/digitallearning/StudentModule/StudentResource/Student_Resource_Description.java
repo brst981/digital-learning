@@ -31,7 +31,7 @@ public class Student_Resource_Description extends Fragment {
         headerTitle = (TextView) activity.findViewById(R.id.mytext);
 
         headerTitle.setText("Students");
-
+        initData();
         back=(ImageButton)rootview.findViewById(R.id.back);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -43,5 +43,7 @@ public class Student_Resource_Description extends Fragment {
         return rootview;
     }
 
+    private void initData() {
+        textHeader ="sdhfygsjdgf";}
 
 }

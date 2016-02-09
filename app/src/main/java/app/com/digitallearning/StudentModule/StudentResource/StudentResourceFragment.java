@@ -53,7 +53,7 @@ public class StudentResourceFragment extends  Fragment {
 
         headerTitle = (TextView) activity.findViewById(R.id.mytext);
 
-        headerTitle.setText("Choose Resource");
+        headerTitle.setText("Class Resources");
 
 
         initData();

@@ -9,12 +9,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.andexert.library.RippleView;
 
 import app.com.digitallearning.R;
-import app.com.digitallearning.TeacherModule.ClassFragment;
 
 /**
  * Created by ${PSR} on 1/28/16.
@@ -22,10 +22,12 @@ import app.com.digitallearning.TeacherModule.ClassFragment;
 public class ClassTypeFragment extends Fragment {
     View rootview;
     int a;
-    RelativeLayout relative_header,relback;
+    RelativeLayout relative_header;
     RippleView ripple_main,ripple_main1,ripple_main2,rippleSave;
     ImageButton imageButtonZoomIn, imageButtonZoomOut;
     CheckBox checkBox1,checkBox2,checkBox3;
+    ImageView back;
+   public static  String classtpye;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -41,14 +43,14 @@ public class ClassTypeFragment extends Fragment {
         checkBox3=(CheckBox)rootview.findViewById(R.id.checkbox3) ;
         ripple_main1=(RippleView)rootview.findViewById(R.id.ripple_main1);
         ripple_main2=(RippleView)rootview.findViewById(R.id.ripple_main2);
-        relback=(RelativeLayout)rootview.findViewById(R.id.relback);
+        back=(ImageView) rootview.findViewById(R.id.back);
         //  a = getArguments().getInt("ID");
 
         Log.e("ID",""+a);
         if(a==1){
             relative_header.setVisibility(View.GONE);
         }
-        relback.setOnClickListener(new View.OnClickListener() {
+        back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 getFragmentManager().popBackStackImmediate();
@@ -59,8 +61,10 @@ public class ClassTypeFragment extends Fragment {
             @Override
             public void onComplete(RippleView rippleView) {
 //                if(ClassFragment.classtpye.equals(""))
-                ClassFragment.classtpye="1";
-                Log.e("inClassType",""+ClassFragment.classtpye);
+                classtpye="1";
+                EditClassFragment.style="1";
+
+                Log.e("inClassType",""+classtpye);
                 checkBox1.setVisibility(View.VISIBLE);
                 checkBox2.setVisibility(View.GONE);
                 checkBox3.setVisibility(View.GONE);
@@ -78,7 +82,8 @@ public class ClassTypeFragment extends Fragment {
         ripple_main1.setOnRippleCompleteListener(new RippleView.OnRippleCompleteListener() {
             @Override
             public void onComplete(RippleView rippleView) {
-                ClassFragment.classtpye="2";
+                classtpye="2";
+                EditClassFragment.style="2";
                 checkBox2.setVisibility(View.VISIBLE);
                 checkBox1.setVisibility(View.GONE);
                 checkBox3.setVisibility(View.GONE);
@@ -97,7 +102,9 @@ public class ClassTypeFragment extends Fragment {
         ripple_main2.setOnRippleCompleteListener(new RippleView.OnRippleCompleteListener() {
             @Override
             public void onComplete(RippleView rippleView) {
-                ClassFragment.classtpye="3";
+                classtpye="3";
+                EditClassFragment.style="3";
+                Log.e("EditStyle",""+ EditClassFragment.style);
                 checkBox3.setVisibility(View.VISIBLE);
                 checkBox1.setVisibility(View.GONE);
                 checkBox2.setVisibility(View.GONE);
@@ -116,15 +123,17 @@ public class ClassTypeFragment extends Fragment {
         rippleSave.setOnRippleCompleteListener(new RippleView.OnRippleCompleteListener() {
             @Override
             public void onComplete(RippleView rippleView) {
-                getFragmentManager().popBackStackImmediate();
+               getFragmentManager().popBackStackImmediate();
 
-//                FragmentManager fragmentManager = getFragmentManager();
-//                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-//                EditClassFragment createClassFragment = new EditClassFragment();
-//
-//                fragmentTransaction.replace(R.id.container, createClassFragment).addToBackStack(null);
-//
-//                fragmentTransaction.commit();
+          /*      FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                EditClassFragment createClassFragment = new EditClassFragment();
+               *//* Bundle arg=new Bundle();
+                arg.putString("classtpye",classtpye);*//*
+                Log.e("classclasstpye",""+classtpye);
+                fragmentTransaction.replace(R.id.container, createClassFragment).addToBackStack(null);
+                //createClassFragment.setArguments(arg);
+                fragmentTransaction.commit();*/
             }
         });
         imageButtonZoomIn.setOnClickListener(new View.OnClickListener() {

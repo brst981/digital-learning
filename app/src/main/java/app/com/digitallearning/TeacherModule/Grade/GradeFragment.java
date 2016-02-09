@@ -1,34 +1,26 @@
 package app.com.digitallearning.TeacherModule.Grade;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
-import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.andexert.library.RippleView;
-import com.daimajia.swipe.SimpleSwipeListener;
-import com.daimajia.swipe.SwipeLayout;
-import com.daimajia.swipe.adapters.BaseSwipeAdapter;
-import com.daimajia.swipe.util.Attributes;
+
+import java.util.List;
 
 import app.com.digitallearning.R;
-import app.com.digitallearning.TeacherModule.NavigationActivity;
-import app.com.digitallearning.TeacherModule.Resource.AddResourceFragment;
 
 /**
  * Created by ${PSR} on 1/28/16.
@@ -36,11 +28,13 @@ import app.com.digitallearning.TeacherModule.Resource.AddResourceFragment;
 public class GradeFragment extends Fragment {
     View rootview;
     SwipeRefreshLayout swipeRefreshLayout;
-    RippleView rippleViewCreate;
     TextView headerTitle;
     String textHeader;
+    private RecyclerView mRecyclerView;
+    private RecyclerView.LayoutManager mLayoutManager;
+    private RecyclerView.Adapter mAdapter;
     private ListView mListView;
-    ListViewAdapter mAdapter;
+   // ListViewAdapter mAdapter;
 
     public static GradeFragment newInstance() {
         GradeFragment mFragment = new GradeFragment();
@@ -54,20 +48,20 @@ public class GradeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootview = inflater.inflate(R.layout.fragment_grade, container, false);
 
-        rippleViewCreate = (RippleView) rootview.findViewById(R.id.ripple_create_resource);
 
+        mRecyclerView = (RecyclerView) rootview.findViewById(R.id.myrecycler);
         AppCompatActivity activity = (AppCompatActivity) getActivity();
 
         activity.getSupportActionBar().setTitle("");
 
         headerTitle = (TextView) activity.findViewById(R.id.mytext);
 
-        headerTitle.setText("CLASS GRADE");
+        headerTitle.setText("Student");
 
         initData();
 
-        swipeRefreshLayout = (SwipeRefreshLayout)rootview.findViewById(R.id.swipeRefreshLayout);
-        swipeRefreshLayout.setColorSchemeColors(R.color.colorlima);
+       /* swipeRefreshLayout = (SwipeRefreshLayout)rootview.findViewById(R.id.swipeRefreshLayout);
+        swipeRefreshLayout.setColorSchemeColors(R.color.colorlima);*/
 
         /*mRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getActivity(), new RecyclerItemClickListener.OnItemClickListener() {
             @Override
@@ -79,14 +73,14 @@ public class GradeFragment extends Fragment {
             }
         }));*/
 
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        /*swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 // Refresh items
                 refreshItems();
             }
-        });
-        mListView = (ListView)rootview.findViewById(R.id.listview_archieved);
+        });*/
+       /* mListView = (ListView)rootview.findViewById(R.id.listview_archieved);
         mAdapter = new ListViewAdapter(getActivity());
         mListView.setAdapter(mAdapter);
         mAdapter.setMode(Attributes.Mode.Single);
@@ -94,56 +88,39 @@ public class GradeFragment extends Fragment {
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ((SwipeLayout)(mListView.getChildAt(position - mListView.getFirstVisiblePosition()))).open(true);
-            }
-        });
-        mListView.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                Log.e("ListView", "OnTouch");
-                return false;
-            }
-        });
-        mListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getActivity(), "OnItemLongClickListener", Toast.LENGTH_SHORT).show();
-                Toast.makeText(getActivity(),"clicked"+" "+position,Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(getActivity(), NavigationActivity.class);
-                startActivity(intent);
-                return true;
-            }
-        });
-        mListView.setOnScrollListener(new AbsListView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(AbsListView view, int scrollState) {
-                Log.e("ListView", "onScrollStateChanged");
-            }
-
-            @Override
-            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+              //  ((SwipeLayout)(mListView.getChildAt(position - mListView.getFirstVisiblePosition()))).open(true);
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                Grade_Lesson grade_lesson = new Grade_Lesson();
+                fragmentTransaction.replace(R.id.container, grade_lesson).addToBackStack(null);
+                fragmentTransaction.commit();
 
             }
         });
+*/
 
-        mListView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Log.e("ListView", "onItemSelected:" + position);
-            }
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                Log.e("ListView", "onNothingSelected:");
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+
             }
         });
+        mLayoutManager = new LinearLayoutManager(getActivity());
+        mRecyclerView.setLayoutManager(mLayoutManager);
+
+
+        mAdapter = new MyRecyclerViewAdapter();
+        mRecyclerView.setAdapter(mAdapter);
         return rootview;
     }
 
     private void initData() {
         textHeader ="sdhfygsjdgf";
 
-        rippleViewCreate.setOnRippleCompleteListener(new RippleView.OnRippleCompleteListener() {
+       /* rippleViewCreate.setOnRippleCompleteListener(new RippleView.OnRippleCompleteListener() {
             @Override
             public void onComplete(RippleView rippleView) {
                 FragmentManager fragmentManager = getFragmentManager();
@@ -152,11 +129,11 @@ public class GradeFragment extends Fragment {
                 fragmentTransaction.replace(R.id.container, classFragment).addToBackStack(null);
                 fragmentTransaction.commit();
             }
-        });
+        });*/
 
 
     }
-    private void refreshItems() {
+    /*private void refreshItems() {
         // Load items
         // ...
 
@@ -170,124 +147,6 @@ public class GradeFragment extends Fragment {
 
         // Stop refresh animation
         swipeRefreshLayout.setRefreshing(false);
-    }
-
-    class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAdapter.ViewHolder> {
-        // List<HomeModal> homeModals;
-        private Context mContext;
-        private LayoutInflater inflater;
-
-        @Override
-        public MyRecyclerViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.resource_item_list, parent, false);
-
-            ViewHolder viewHolder = new ViewHolder(view);
-            return viewHolder;
-
-        }
-
-        @Override
-        public void onBindViewHolder(MyRecyclerViewAdapter.ViewHolder holder, int position) {
-            // holder.imageView.setImageResource(arrayListImage.get(position));
-            holder.textView.setText(textHeader);
-        }
-
-        @Override
-        public int getItemCount() {
-            return 7;
-        }
-
-        public class ViewHolder extends RecyclerView.ViewHolder {
-            /* ImageView imageView;
-             TextView textView;
-             RippleView relativeLayout;
-             LinearLayout imageButtonAnswer;
-             FrameLayout frameLayout;*/
-            TextView textView;
-            RippleView relativeLayout;
-
-            public ViewHolder(View itemView) {
-                super(itemView);
-               /* relativeLayout = (RippleView) itemView.findViewById(R.id.relative_video_it);
-                imageView = (ImageView) itemView.findViewById(R.id.img_it_Video);
-                textView=(TextView)itemView.findViewById(R.id.txt_it_duration);
-                imageButtonAnswer=(LinearLayout)itemView.findViewById(R.id.img_answers);
-                textView.setText("22m");
-                frameLayout =(FrameLayout)itemView.findViewById(R.id.relative_play_img);
-                frameLayout.setOnClickListener(this);
-
-                imageButtonAnswer.setOnClickListener(this);*/
-
-                textView=(TextView)itemView.findViewById(R.id.text_view);
-
-
-               /* relativeLayout = (RippleView) itemView.findViewById(R.id.relative_resource);
-                relativeLayout.setOnRippleCompleteListener(new RippleView.OnRippleCompleteListener() {
-                    @Override
-                    public void onComplete(RippleView rippleView) {
-                        int position = getLayoutPosition(); // gets item position
-                        Toast.makeText(getActivity(), "clicked" + " " + position, Toast.LENGTH_SHORT).show();
-                        FragmentManager fragmentManager = getFragmentManager();
-                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                        ResourceDetailFragment resourceDetailFragment = new ResourceDetailFragment();
-                        *//*Bundle savedInstanceState = new Bundle();
-                        savedInstanceState.putString("HEADER_TEXT", textHeader);
-                        savedInstanceState.putInt("POSITION", position);*//*
-                        fragmentTransaction.replace(R.id.container, resourceDetailFragment).addToBackStack(null);
-                        *//*lessonDetailFragment.setArguments(savedInstanceState);*//*
-                        fragmentTransaction.commit();
-
-                    }
-                });*/
-            }
-
-            /*@Override
-            public void onClick(View v) {
-                int position = getLayoutPosition();
-                int id = v.getId();
-                switch (id){
-                    case R.id.relative_play_img:
-                        Intent i = new Intent(getActivity(),VideoViewActivity.class);
-                        i.putExtra("position",""+position);
-                        startActivity(i);
-                        break;
-                    case R.id.img_answers:
-                        // Toast.makeText(getActivity(),"Clicked"+" "+position,Toast.LENGTH_SHORT).show();
-                        if (hasCamera()) {
-                            timestamp = "ic_plus_";
-                            timestamp = new SimpleDateFormat("MM-dd-yyyy_HH-mm-ss")
-                                    .format(Calendar.getInstance().getTime());
-                            File filepath = Environment.getExternalStorageDirectory();
-                            File dir = new File(filepath.getAbsolutePath() + "/Demosvideo/");
-                            dir.mkdirs();
-
-                            Intent intent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
-                            File mediaFile = new File(Environment
-                                    .getExternalStorageDirectory().getAbsolutePath()
-                                    + "/Demosvideo/Video_" + timestamp + ".mp4");
-                            if (mediaFile != null) {
-                                Uri fileUri = Uri.fromFile(mediaFile);
-
-                                intent.putExtra("Camera.Camera_Facing_Front", ic_plus_);
-                                intent.putExtra("Camera.Camera_Facing_Back", 0);
-                                intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
-                                intent.putExtra(MediaStore.EXTRA_DURATION_LIMIT, 30);
-                                intent.putExtra(MediaStore.EXTRA_SIZE_LIMIT, 102400);
-                                intent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 0);
-                                startActivityForResult(intent, VIDEO_CAPTURE);
-                            }
-                        } else {
-                            Toast.makeText(getActivity(), "No Media player found ",
-                                    Toast.LENGTH_SHORT).show();
-                        }
-
-                        break;
-                }
-
-
-            }*/
-        }
     }
 
     class ListViewAdapter extends BaseSwipeAdapter {
@@ -306,7 +165,7 @@ public class GradeFragment extends Fragment {
 
         @Override
         public View generateView(int position, ViewGroup parent) {
-            View v = LayoutInflater.from(mContext).inflate(R.layout.resource_item_list, null);
+            View v = LayoutInflater.from(mContext).inflate(R.layout.grade_item_list, null);
             SwipeLayout swipeLayout = (SwipeLayout)v.findViewById(getSwipeLayoutResourceId(position));
             swipeLayout.addSwipeListener(new SimpleSwipeListener() {
                 @Override
@@ -317,13 +176,7 @@ public class GradeFragment extends Fragment {
             swipeLayout.setOnDoubleClickListener(new SwipeLayout.DoubleClickListener() {
                 @Override
                 public void onDoubleClick(SwipeLayout layout, boolean surface) {
-                    Toast.makeText(mContext, "DoubleClick", Toast.LENGTH_SHORT).show();
-                }
-            });
-            v.findViewById(R.id.delete).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Toast.makeText(mContext, "click delete", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(mContext, "DoubleClick", Toast.LENGTH_SHORT).show();
                 }
             });
             return v;
@@ -349,6 +202,122 @@ public class GradeFragment extends Fragment {
         public long getItemId(int position) {
             return position;
         }
+    }*/
+
+
+
+
+    class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAdapter.ViewHolder> {
+        // List<HomeModal> homeModals;
+        private Context mContext;
+        private LayoutInflater inflater;
+        List<String> myList;
+        List<String> myList1;
+        /*public MyRecyclerViewAdapter(List<String> myList,List<String> myList1) {
+            this.myList = myList;
+            this.myList1 = myList1;
+
+        }*/
+       /* ArrayList<String> arrayListName;
+        ArrayList<String> arrQusetion;
+        ArrayList<String> arrAnswer;*/
+        // ArrayList<String> videoName;
+      /* public MyRecyclerViewAdapter(ArrayList<String> myDataset) {
+           videoName = myDataset;
+           Log.e("videoNamemyDataset", "" + videoName);
+
+
+
+       }*/
+
+
+        @Override
+        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            View view = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.list_grade_lesson, parent, false);
+
+            ViewHolder viewHolder = new ViewHolder(view);
+            return viewHolder;
+        }
+        @Override
+        public void onBindViewHolder(ViewHolder holder, int position) {
+            //  position=0;
+            // int position1 = getLayoutPosition();
+
+            //   st=arrayListName.get(position);
+            Log.e("position1", "" + position);
+
+
+          /*  if(myList.get(0).contains("Art"))
+            {
+                Log.e("VisIT","");
+                holder.img_Art.setVisibility(View.VISIBLE);
+            }
+            else if(myList.get(1).contains("Music")){
+                Log.e("VisiT","");
+                holder.img_Art.setVisibility(View.GONE);
+            }*/
+
+
+        }
+
+        @Override
+        public int getItemCount() {
+            return 1;
+        }
+
+        public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+
+
+            RippleView a3ripple;
+
+
+
+            public ViewHolder(View itemView) {
+                super(itemView);
+                a3ripple = (RippleView) itemView.findViewById(R.id.a3ripple);
+                // a3ripple.setOnClickListener(this);
+
+                a3ripple.setOnRippleCompleteListener(new RippleView.OnRippleCompleteListener() {
+                    @Override
+                    public void onComplete(RippleView rippleView) {
+                        int position = getLayoutPosition(); // gets item position
+                      /*  FragmentManager fragmentManager=getFragmentManager();
+                        FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
+                        Grade_Details grade_details=new Grade_Details();
+                        fragmentTransaction.replace(R.id.container,grade_details).addToBackStack(null);
+                        fragmentTransaction.commit();*/
+                        FragmentManager fragmentManager=getFragmentManager();
+                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                        Grade_Lesson grade_lesson = new Grade_Lesson();
+                        fragmentTransaction.replace(R.id.container, grade_lesson).addToBackStack(null);
+                        fragmentTransaction.commit();
+
+                    }
+                });
+            }
+
+            /**
+             * Called when a view has been clicked.
+             *
+             * @param v The view that was clicked.
+             */
+            @Override
+            public void onClick(View v) {
+                int position = getLayoutPosition();
+                Log.e("positionGetLay", "" + position);
+                int id = v.getId();
+                switch (id) {
+                    case R.id.a3ripple:
+                        if (position == 0) {
+
+                            break;
+                        }
+
+                }
+            }
+        }
     }
 }
+
 

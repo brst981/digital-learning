@@ -42,10 +42,11 @@
         android:layout_height="wrap_content">
         <ImageView
             android:id="@+id/image_view"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="80dp"
+            android:layout_margin="10dp"
+            android:layout_height="80dp"
             android:background="@android:color/transparent"
-            android:src="@drawable/ic_launcher"/>
+            android:src="@drawable/defaultthumbnail"/>
         <TextView
             android:layout_toRightOf="@+id/image_view"
             android:layout_width="170dp"

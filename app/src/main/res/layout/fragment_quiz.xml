@@ -30,7 +30,6 @@
         android:id="@+id/ripple_create_resource"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
         android:layout_alignParentBottom="true"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
@@ -47,9 +46,12 @@
             android:layout_height="50dp"
             android:background="@color/colorlima"
             android:elevation="8dp"
-            android:text="ADD Quiz"
+            android:text="   Create A quiz"
             android:textAllCaps="true"
-            android:gravity="center"
+            android:gravity="left|center"
+            android:drawableLeft="@drawable/ic_plus"
+            android:drawablePadding="1dp"
+            android:paddingLeft="100dp"
             android:textColor="@android:color/white"
             android:textSize="16sp" />
     </com.andexert.library.RippleView>

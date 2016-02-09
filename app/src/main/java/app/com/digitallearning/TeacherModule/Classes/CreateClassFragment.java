@@ -1,6 +1,8 @@
 package app.com.digitallearning.TeacherModule.Classes;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.graphics.PointF;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -14,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -32,7 +35,6 @@ import app.com.digitallearning.WebServices.WSConnector;
  */
 public class CreateClassFragment extends Fragment {
     View rootview;
-    RelativeLayout relback;
     Button btnSave;
     RippleView ripple_main,ripple_main1,ripple_main2;
     String arrName,arrChildNAme,classtpye,topic,description,title,arrId,a,b;
@@ -41,7 +43,9 @@ public class CreateClassFragment extends Fragment {
     static String Sch_Mem_id,userMem_Sch_Id,class_id;
     ImageButton imageButtonZoomIn, imageButtonZoomOut;
     RelativeLayout rellogin;
-
+    ImageView back;
+    int id;
+    final static CharSequence[] classtype = {"Instructor","Blended","Self Paced"};
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootview = inflater.inflate(R.layout.fragment_create_class, container, false);
@@ -96,8 +100,8 @@ public class CreateClassFragment extends Fragment {
 
 
 
-        relback=(RelativeLayout) rootview.findViewById(R.id.relback);
-        relback.setOnClickListener(new View.OnClickListener() {
+       back=(ImageView) rootview.findViewById(R.id.back);
+        back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 getFragmentManager().popBackStackImmediate();
@@ -108,11 +112,35 @@ public class CreateClassFragment extends Fragment {
 
             @Override
             public void onComplete(RippleView rippleView) {
-                FragmentManager fragmentManager = getFragmentManager();
+               /* FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 ClassTypeFragment classTypeFragment = new ClassTypeFragment();
                 fragmentTransaction.replace(R.id.container, classTypeFragment).addToBackStack(null);
-                fragmentTransaction.commit();
+                fragmentTransaction.commit();*/
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setTitle("Make your selection");
+                builder.setItems(classtype, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int item) {
+                        // Do something with the selection
+                        //  mDoneButton.setText(items[item]);
+                        Log.e("items[item]",""+classtype[item]);
+                        if (classtype[item]=="Instructor"){
+                            EditClassFragment.style="1";
+                        }
+                       else if (classtype[item]=="Blended"){
+                            EditClassFragment.style="2";
+                        }
+                        else{
+                            EditClassFragment.style="3";
+                        }
+                    }
+                });
+                AlertDialog alert = builder.create();
+                alert.show();
+
+
+
             }
         });
 
@@ -125,6 +153,8 @@ public class CreateClassFragment extends Fragment {
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 TopicFragment topicFragment = new TopicFragment();
                 Bundle bundle=new Bundle();
+                id=1;
+                bundle.putInt("id",id);
                 bundle.putString("arrName",String.valueOf(arrName));
                 bundle.putString("arrId",(arrId));
                 bundle.putString("arrChildNAme",String.valueOf(arrChildNAme));

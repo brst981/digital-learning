@@ -9,15 +9,17 @@
         android:textSize="16sp"
         android:background="#D3D3D3"
         android:padding="10dp"
-        android:text="Please enter the class id and passcode that has been provided from your teacher"
+        android:text="Please enter the class id and passcode that has                been provided from your teacher"
         android:layout_width="match_parent"
-        android:layout_height="150sp" />
+        android:layout_height="100sp" />
     
     <EditText
-        android:layout_marginTop='10dp'
+
+        android:layout_marginTop='15dp'
         android:layout_width="match_parent"
         android:layout_height="40dp" />
     <EditText
+        android:hint="Passcode(Required)"
         android:layout_marginTop='10dp'
         android:layout_width="match_parent"
         android:layout_height="40dp" />

@@ -20,14 +20,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="270dp"
                 android:layout_margin="5dp">
-
+                <ImageView
+                    android:src="@drawable/defaultthumbnail"
+                    android:id="@+id/webview_lesson1"
+                    android:padding="10dp"
+                    android:layout_width="180dp"
+                    android:layout_height="180dp"
+                    android:layout_gravity="center_horizontal|top"></ImageView>
                 <WebView
+                    android:visibility="gone"
                     android:id="@+id/webview_lesson"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"></WebView>
             </FrameLayout>
 
             <View
+
                 android:id="@+id/view"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
@@ -35,10 +43,18 @@
                 android:layout_marginTop="5dp"
                 android:background="@color/color_light_grey" />
 
+            <CheckBox
+                android:id="@+id/check1"
+                android:layout_marginTop="15dp"
+                android:layout_below="@+id/view"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp" />
             <TextView
                 android:id="@+id/textView_lesson_title"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
+                android:text="A"
+                android:layout_toRightOf="@+id/check1"
                 android:layout_below="@+id/view"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
@@ -58,11 +74,18 @@
                 android:layout_below="@+id/textView_lesson_title"
                 android:layout_marginTop="5dp"
                 android:background="@color/color_light_grey" />
-
+            <CheckBox
+                android:id="@+id/check2"
+                android:layout_marginTop="5dp"
+                android:layout_below="@+id/check1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
             <TextView
                 android:id="@+id/textView_lesson_description"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
+                android:text="B"
+                android:layout_toRightOf="@+id/check2"
                 android:layout_below="@+id/view1"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
@@ -81,7 +104,12 @@
                 android:layout_below="@+id/textView_lesson_description"
 
                 android:background="@color/color_light_grey" />
-
+            <CheckBox
+                android:id="@+id/check3"
+                android:layout_marginTop="10dp"
+                android:layout_below="@+id/check2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
             <TextView
                 android:id="@+id/textView_lesson_description_"
                 android:layout_width="match_parent"
@@ -89,7 +117,8 @@
                 android:layout_below="@+id/view2"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
-
+                android:text="C"
+                android:layout_toRightOf="@id/check3"
                 android:ellipsize="end"
                 android:gravity="left|center"
                 android:maxLines="2"
@@ -104,15 +133,21 @@
                 android:layout_below="@+id/textView_lesson_description_"
 
                 android:background="@color/color_light_grey" />
-
+            <CheckBox
+                android:id="@+id/check4"
+                android:layout_marginTop="10dp"
+                android:layout_below="@+id/check3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
             <TextView
                 android:id="@+id/textView_lesson_description1"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
+                android:layout_toRightOf="@+id/check4"
                 android:layout_below="@+id/view3"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
-
+                android:text="D"
                 android:ellipsize="end"
                 android:gravity="left|center"
                 android:maxLines="2"
@@ -142,7 +177,6 @@
                 android:paddingLeft="5dp"
                 android:textColor="@android:color/black"
                 android:textSize="14sp" />
-
 
         </RelativeLayout>
     </ScrollView>

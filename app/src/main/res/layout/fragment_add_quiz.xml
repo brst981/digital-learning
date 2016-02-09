@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@android:color/white">
+    <!--<ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">-->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_height="wrap_content">
+
+
+            <EditText
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+
+                android:layout_marginTop="10dp"
+                android:background="@drawable/edittext_rectangle_selector"
+                android:hint="Title"
+                android:inputType="text"
+                android:paddingLeft="5dp"
+                android:textColor="@android:color/black"
+                android:textCursorDrawable="@null"
+                android:textSize="14sp" />
+            <com.andexert.library.RippleView
+
+                android:id="@+id/ripple_lesson"
+                android:layout_below="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:rv_color="#000"
+                app:rv_rippleDuration="100"
+                app:rv_type="rectangle"
+                app:rv_zoom="true">
+            <TextView
+                android:layout_marginTop="10dp"
+                android:text="Lesson Name"
+                android:gravity="left|center"
+                android:textColor="#000"
+                android:padding="4dp"
+                android:background="#F4F4F4"
+                android:textSize="18sp"
+                android:layout_below="@+id/edt_title_resource"
+                android:id="@+id/lesson"
+                android:layout_width="match_parent"
+                android:layout_height="40dp" />
+            </com.andexert.library.RippleView>
+
+            <com.andexert.library.RippleView
+
+                android:id="@+id/ripple_quizquestion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:rv_color="#000"
+                android:layout_marginTop="5dp"
+                android:layout_below="@+id/ripple_lesson"
+                app:rv_rippleDuration="100"
+                app:rv_type="rectangle"
+                app:rv_zoom="true">
+            <TextView
+                android:layout_marginTop="10dp"
+                android:text="Quiz Question"
+                android:gravity="left|center"
+                android:textColor="#000"
+                android:padding="4dp"
+                android:background="#F4F4F4"
+                android:textSize="18sp"
+
+                android:id="@+id/quizquestion"
+                android:layout_width="match_parent"
+                android:layout_height="40dp" />
+            </com.andexert.library.RippleView>
+
+            <com.andexert.library.RippleView
+
+                android:id="@+id/ripple_quizdec"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:rv_color="#000"
+                android:layout_marginTop="5dp"
+                android:layout_below="@+id/ripple_quizquestion"
+                app:rv_rippleDuration="100"
+                app:rv_type="rectangle"
+                app:rv_zoom="true">
+            <TextView
+                android:layout_marginTop="10dp"
+                android:text="Description"
+                android:gravity="left|center"
+                android:textColor="#000"
+                android:padding="4dp"
+                android:background="#F4F4F4"
+                android:textSize="18sp"
+                android:layout_below="@+id/ripple_quizquestion"
+                android:id="@+id/quizdec"
+                android:layout_width="match_parent"
+                android:layout_height="40dp" />
+
+            <EditText
+                android:id="@+id/edt_description_resource"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_below="@+id/quizdec"
+                android:gravity="top|left"
+                android:paddingTop="5dp"
+                android:visibility="gone"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/edittext_rectangle_selector"
+                android:hint="Description"
+                android:inputType="text"
+                android:paddingLeft="5dp"
+                android:scrollbars = "vertical"
+                android:textColor="@android:color/black"
+                android:textCursorDrawable="@null"
+                android:textSize="14sp" />
+
+            </com.andexert.library.RippleView>
+            <com.andexert.library.RippleView
+                android:id="@+id/ripple_save"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_alignParentBottom="true"
+                android:layout_margin="10dp"
+                app:rv_color="#000"
+                app:rv_rippleDuration="100"
+                app:rv_type="rectangle"
+                app:rv_zoom="true">
+
+
+            <Button
+                    android:id="@+id/button_save"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@color/colorlima"
+                    android:elevation="8dp"
+                    android:text="save"
+                    android:textAllCaps="true"
+                    android:gravity="center"
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp" />
+            </com.andexert.library.RippleView>
+
+
+
+
+        </RelativeLayout>
+   <!-- </ScrollView>-->
+
+</RelativeLayout>

@@ -1,12 +1,12 @@
 package app.com.digitallearning.TeacherModule.Classes;
 
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.PointF;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -44,34 +44,40 @@ public class TopicFragment extends Fragment {
     static String topic;
     RippleView ripple_topic_save;
     String first="Art";
-    RelativeLayout relback;
+    ImageView back;
     ImageButton imageButtonZoomIn, imageButtonZoomOut;
     RelativeLayout rellogin;
-
+    int id;
+    final CharSequence[] art = {"Theater","Art"};
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootview = inflater.inflate(R.layout.fragment_topic, container, false);
         mRecyclerView = (RecyclerView) rootview.findViewById(R.id.myrecycler);
-        relback=(RelativeLayout)rootview.findViewById(R.id.relative_header);
+        back=(ImageView) rootview.findViewById(R.id.back);
         imageButtonZoomIn = (ImageButton)rootview. findViewById(R.id.img_zoom_in);
         imageButtonZoomOut = (ImageButton) rootview.findViewById(R.id.img_zoom_out);
         rellogin=(RelativeLayout)rootview.findViewById(R.id.rellogin) ;
         ripple_topic_save=(RippleView)rootview.findViewById(R.id.ripple_topic_save);
-        arrName=getArguments().getString("arrName");
-        arrId=getArguments().getString("arrId");
-        arrChildNAme=getArguments().getString("arrChildNAme");
-        Log.e("arrName",""+arrName);
-        Log.e("ChildarrId",""+arrId);
-        a = arrName.replace("[", "");
-        Log.e("a",""+a);
-        b = a.replace("]", "");
-        Log.e("b",""+b);
+       // id=getArguments().getInt("id");
+       // if(id==1){
+            arrName=getArguments().getString("arrName");
+
+            arrId=getArguments().getString("arrId");
+            arrChildNAme=getArguments().getString("arrChildNAme");
+            Log.e("arrName",""+arrName);
+            Log.e("ChildarrId",""+arrId);
+            a = arrName.replace("[", "");
+            Log.e("a",""+a);
+            b = a.replace("]", "");
+            Log.e("b",""+b);
 
 
-        a1 = arrId.replace("[", "");
-        Log.e("a",""+a1);
-        b1 = a1.replace("]", "");
-        Log.e("b",""+b1);
+            a1 = arrId.replace("[", "");
+            Log.e("a",""+a1);
+            b1 = a1.replace("]", "");
+            Log.e("b",""+b1);
+
+
      //   img_Art=(ImageView)rootview.findViewById(R.id.img_Art);
 
 
@@ -80,7 +86,7 @@ public class TopicFragment extends Fragment {
         //categoryName=new ArrayList<>();
 
 
-        relback.setOnClickListener(new View.OnClickListener() {
+        back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 getFragmentManager().popBackStackImmediate();
@@ -241,9 +247,9 @@ public class TopicFragment extends Fragment {
                     public void onComplete(RippleView rippleView) {
                         int position = getLayoutPosition(); // gets item position
                         topic=myList1.get(position);
-
+                        EditClassFragment.topic1=myList.get(position);
                         Log.e("TopicmyList1",""+myList1);
-
+                        Log.e("EditClassFragmenttopic",""+EditClassFragment.topic1);
                         Log.e("SElected",""+topic);
                     }
                 });
@@ -263,14 +269,27 @@ public class TopicFragment extends Fragment {
                     case R.id.a3ripple:
                         if (position == 0) {
 
-                            FragmentManager fragmentManager=getFragmentManager();
+                            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                            builder.setTitle("Make your selection");
+                            builder.setItems(art, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int item) {
+                                    // Do something with the selection
+                                    //  mDoneButton.setText(items[item]);
+                                    Log.e("items[item]",""+art[item]);
+                                }
+                            });
+                            AlertDialog alert = builder.create();
+                            alert.show();
+                        }
+              //  });
+                            /*FragmentManager fragmentManager=getFragmentManager();
                             FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
                             ArtFragment artFragment=new ArtFragment();
                             Bundle args=new Bundle();
                             args.putString("arrChildNAme",arrChildNAme);
                             fragmentTransaction.replace(R.id.container,artFragment).addToBackStack(null);
                             artFragment.setArguments(args);
-                            fragmentTransaction.commit();
+                            fragmentTransaction.commit();*/
 
                             break;
                         }
@@ -278,7 +297,7 @@ public class TopicFragment extends Fragment {
                 }
             }
         }
-    }
+
 
     public void zoom(Float scaleX, Float scaleY, PointF pivot) {
         rellogin.setPivotX(pivot.x);

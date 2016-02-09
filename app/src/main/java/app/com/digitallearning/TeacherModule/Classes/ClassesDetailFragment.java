@@ -22,6 +22,8 @@ import com.github.clans.fab.FloatingActionMenu;
 
 import app.com.digitallearning.R;
 import app.com.digitallearning.TeacherModule.ClassFragment;
+import app.com.digitallearning.TeacherModule.Curriculum.CurriculumFragment;
+import app.com.digitallearning.TeacherModule.Schedule.ScheduleFragment;
 
 /**
  * Created by ${ShalviSharma} on 12/19/15.
@@ -32,7 +34,7 @@ public class ClassesDetailFragment extends Fragment{
     FloatingActionButton floatingActionButtonEdit,floatingActionButtonChange,floatingActionButtonDelete;
     TextView headerTitle;
     String title;
-    RippleView rippleViewTeacherCollab,rippleViewCurriculum,ripple_teacher_syllabus;
+    RippleView rippleViewTeacherCollab,rippleViewCurriculum,ripple_teacher_syllabus,ripple_teacher_schedule;
 
 
     public static ClassesDetailFragment newInstance() {
@@ -53,6 +55,17 @@ public class ClassesDetailFragment extends Fragment{
         rippleViewTeacherCollab = (RippleView)rootview.findViewById(R.id.ripple_teacher_collaboration) ;
         rippleViewCurriculum = (RippleView)rootview.findViewById(R.id. ripple_teacher_curriculum) ;
         ripple_teacher_syllabus=(RippleView) rootview.findViewById(R.id.ripple_teacher_syllabus);
+        ripple_teacher_schedule=(RippleView) rootview.findViewById(R.id.ripple_teacher_schedule);
+        ripple_teacher_schedule.setOnRippleCompleteListener(new RippleView.OnRippleCompleteListener() {
+            @Override
+            public void onComplete(RippleView rippleView) {
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                ScheduleFragment scheduleFragment = new ScheduleFragment();
+                fragmentTransaction.replace(R.id.container, scheduleFragment).addToBackStack(null);
+                fragmentTransaction.commit();
+            }
+        });
 
         title= ClassFragment.titleheader;
         Log.e("DetailClasstitle",""+title);
@@ -78,11 +91,13 @@ public class ClassesDetailFragment extends Fragment{
         floatingActionButtonEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentManager fragmentManager = getFragmentManager();
+                /*FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 EditClassFragment classFragment = new EditClassFragment();
                 fragmentTransaction.replace(R.id.container, classFragment).addToBackStack(null);
-                fragmentTransaction.commit();
+                fragmentTransaction.commit();*/
+               /* Intent intent=new Intent(getActivity(),EditClassFragment.class);
+                startActivity(intent);*/
             }
         });
 

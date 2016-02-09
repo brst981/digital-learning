@@ -11,4 +11,5 @@ public class AppConstant {
     public static final  String before_Class_Listing="http://digitallearningtree.com/digitalapi/before_class.php";
     public  static final String create_Class="http://digitallearningtree.com/digitalapi/create_class.php";
     public static  final String edit_Class="http://digitallearningtree.com/digitalapi/edit_class.php";
+    public static  final String update_Class="http://digitallearningtree.com/digitalapi/update_class.php";
 }

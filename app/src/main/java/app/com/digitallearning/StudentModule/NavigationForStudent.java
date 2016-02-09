@@ -45,19 +45,6 @@ public class NavigationForStudent extends AppCompatActivity implements Navigatio
         //headerTitle.setText("Car List");
         frame=(FrameLayout)findViewById(R.id.container);
         getSupportActionBar().setTitle("");
-        imageButtonZoomIn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                zoom(1.5f, 1.5f, new PointF(0, 0));
-            }
-        });
-
-        imageButtonZoomOut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                zoom(1f, 1f, new PointF(0, 0));
-            }
-        });
 
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         mNavigationDrawerFragment = (NavigationDrawerStudent) getFragmentManager().findFragmentById(R.id.fragment_drawer);
@@ -91,6 +78,7 @@ public class NavigationForStudent extends AppCompatActivity implements Navigatio
                     finish();
 //                   ClassFragment.relative_header.setVisibility(View.GONE);
                 }else {
+                    NavigationDrawerStudent.imageView.setVisibility(View.GONE);
                     mFragment = StudentLessonFragment.newInstance();
 
                 }
@@ -99,28 +87,28 @@ public class NavigationForStudent extends AppCompatActivity implements Navigatio
 
                 break;
             case 1:
-
+                NavigationDrawerStudent.imageView.setVisibility(View.VISIBLE);
                 mFragment = StudentLessonFragment.newInstance();
 
 
                 break;
 
             case 2:
-
+                NavigationDrawerStudent.imageView.setVisibility(View.GONE);
                 mFragment = StudentResourceFragment.newInstance();
 
 
                 break;
 
             case 3:
-
+                NavigationDrawerStudent.imageView.setVisibility(View.GONE);
                 mFragment = StudentQuizFragment.newInstance();
 
 
                 break;
 
             case 4:
-
+                NavigationDrawerStudent.imageView.setVisibility(View.GONE);
                 mFragment = StudentEnroll.newInstance();
 
 

@@ -1,7 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:background="@color/colorlima"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:padding="10dp"
+        android:visibility="gone"
+        android:id="@+id/imageView"
+        android:layout_margin="5dp"
+        android:src="@drawable/images"/>
+
     <TextView
         android:text="Menu"
         android:padding="10dp"
@@ -19,4 +31,6 @@
         android:fitsSystemWindows="true"
         android:layout_height="match_parent"
         android:background="@color/colorlima"/>
+
+
 </LinearLayout>

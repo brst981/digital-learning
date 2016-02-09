@@ -97,7 +97,28 @@
                     android:layout_height="match_parent"
                     android:background="@color/color_red"
                     android:elevation="8dp"
+                    android:id="@+id/deletebtn"
                     android:gravity="center"
+                    android:text="Delete"
+                    android:textAllCaps="true"
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp" />
+            </com.andexert.library.RippleView>
+            <com.andexert.library.RippleView
+                android:layout_below="@+id/ripple_delete"
+                android:layout_width="wrap_content"
+                android:layout_height="15dp"
+                app:rv_color="#000"
+                android:visibility="invisible"
+                app:rv_rippleDuration="100"
+                app:rv_type="rectangle"
+                app:rv_zoom="true">
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="@color/color_red"
+                    android:elevation="8dp"
+
                     android:text="Delete"
                     android:textAllCaps="true"
                     android:textColor="@android:color/white"

@@ -105,6 +105,36 @@ public class WSConnector {
 
     }
 
+    public static String update_class(String singleClassID, String userid,String schid) {
+
+        String url = AppConstant.update_Class;
+        List<NameValuePair> pairs = new ArrayList<NameValuePair>();
+        pairs.add(new BasicNameValuePair("classid", singleClassID));
+        Log.e("classId",""+singleClassID);
+        pairs.add(new BasicNameValuePair("createdby", userid));
+        Log.e("userid",""+userid);
+        pairs.add(new BasicNameValuePair("schoolid", schid));
+
+        pairs.add(new BasicNameValuePair("classname", schid));
+        pairs.add(new BasicNameValuePair("style", schid));
+        pairs.add(new BasicNameValuePair("topic", schid));
+        pairs.add(new BasicNameValuePair("desc", schid));
+        pairs.add(new BasicNameValuePair("show_links", schid));
+        pairs.add(new BasicNameValuePair("semester", schid));
+        pairs.add(new BasicNameValuePair("coursecode", schid));
+        pairs.add(new BasicNameValuePair("othertopicdata", schid));
+        pairs.add(new BasicNameValuePair("enable_calendar", schid));
+        pairs.add(new BasicNameValuePair("enable_students_tab", schid));
+        pairs.add(new BasicNameValuePair("enable_chat", schid));
+        pairs.add(new BasicNameValuePair("enable_grades ", schid));
+
+        String result = WSAdapter.postJSONObject(url, pairs);
+
+
+        return result;
+
+    }
+
 
 
 

@@ -3,33 +3,37 @@ package app.com.digitallearning.StudentModule.StudentQuiz;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.widget.AbsListView;
+import android.widget.AdapterView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.andexert.library.RippleView;
-
-import java.util.ArrayList;
+import com.daimajia.swipe.SimpleSwipeListener;
+import com.daimajia.swipe.SwipeLayout;
+import com.daimajia.swipe.adapters.BaseSwipeAdapter;
+import com.daimajia.swipe.util.Attributes;
 
 import app.com.digitallearning.R;
+import app.com.digitallearning.TeacherModule.Students.StudentFragment;
 
 /**
  * Created by ${PSR} on 1/29/16.
  */
-public class StudentQuizFragment extends Fragment {
+public class StudentQuizFragment  extends Fragment {
     View rootview;
     TextView headerTitle;
     String textHeader;
-    private RecyclerView mRecyclerView;
-    private RecyclerView.LayoutManager mLayoutManager;
-    private MyRecyclerViewAdapter mAdapter;
+    private ListView mListView;
+    ListViewAdapter mAdapter;
 
 
     public static StudentQuizFragment newInstance() {
@@ -43,7 +47,6 @@ public class StudentQuizFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootview = inflater.inflate(R.layout.student_quiz, container, false);
-        mRecyclerView = (RecyclerView) rootview.findViewById(R.id.myrecycler);
 
         AppCompatActivity activity = (AppCompatActivity) getActivity();
 
@@ -56,22 +59,81 @@ public class StudentQuizFragment extends Fragment {
 
         initData();
 
-        mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
+
+
+
+        mListView = (ListView)rootview.findViewById(R.id.listview_archieved);
+        mAdapter = new ListViewAdapter(getActivity());
+        mListView.setAdapter(mAdapter);
+        mAdapter.setMode(Attributes.Mode.Single);
+
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                ((SwipeLayout)(mListView.getChildAt(position - mListView.getFirstVisiblePosition()))).open(true);
+            }
+        });
+        mListView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                Log.e("ListView", "OnTouch");
+                return false;
+            }
+        });
+     /*   mListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(getActivity(), "OnItemLongClickListener", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(),"clicked"+" "+position,Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getActivity(), NavigationActivity.class);
+                startActivity(intent);
+                return true;
+            }
+        });*/
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+               /* Toast.makeText(getActivity(), "OnItemLongClickListener", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(),"clicked"+" "+position,Toast.LENGTH_SHORT).show();*/
+                FragmentManager fragmentManager = getFragmentManager();
+                Bundle bundle=new Bundle();
+                bundle.putInt("positioninLesson",position);
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                Student_Quiz_View student_item_lesson = new Student_Quiz_View();
+
+                fragmentTransaction.replace(R.id.container, student_item_lesson).addToBackStack(null);
+                student_item_lesson.setArguments(bundle);
+                fragmentTransaction.commit();
+            }
+        });
+        mListView.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+
+
+                Log.e("ListView", "onScrollStateChanged");
+            }
 
             @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
 
             }
         });
-        mLayoutManager = new LinearLayoutManager(getActivity());
-        mRecyclerView.setLayoutManager(mLayoutManager);
+
+        mListView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
 
-        mAdapter = new MyRecyclerViewAdapter();
-        mRecyclerView.setAdapter(mAdapter);
+                Log.e("ListView", "onItemSelected:" + position);
+            }
 
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                Log.e("ListView", "onNothingSelected:");
+            }
+        });
+        initData();
         return rootview;
     }
 
@@ -79,98 +141,74 @@ public class StudentQuizFragment extends Fragment {
         textHeader ="sdhfygsjdgf";
 
 
-
-
     }
 
-    class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAdapter.ViewHolder> {
-
+    class ListViewAdapter extends BaseSwipeAdapter {
         private Context mContext;
-        private LayoutInflater inflater;
-        ArrayList<String> arrSchoolList;
-        ArrayList<String> arrSchoolImg;
-        ArrayList<String> arrSchoolId;
 
-
-
-        public MyRecyclerViewAdapter() {
-
+        public ListViewAdapter(Context mContext) {
+            this.mContext = mContext;
         }
 
         @Override
-        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.quiz_list, parent, false);
+        public int getSwipeLayoutResourceId(int position) {
+            return R.id.swipe;
+        }
 
-            ViewHolder viewHolder = new ViewHolder(view);
-            return viewHolder;
+
+
+        @Override
+        public View generateView(int position, ViewGroup parent) {
+            View v = LayoutInflater.from(mContext).inflate(R.layout.quiz_list, null);
+            SwipeLayout swipeLayout = (SwipeLayout)v.findViewById(getSwipeLayoutResourceId(position));
+            swipeLayout.addSwipeListener(new SimpleSwipeListener() {
+                @Override
+                public void onOpen(SwipeLayout layout) {
+
+                }
+            });
+            swipeLayout.setOnDoubleClickListener(new SwipeLayout.DoubleClickListener() {
+                @Override
+                public void onDoubleClick(SwipeLayout layout, boolean surface) {
+                    Toast.makeText(mContext, "DoubleClick", Toast.LENGTH_SHORT).show();
+                }
+            });
+            v.findViewById(R.id.archive).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+
+
+                    FragmentManager fragmentManager = getFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    Result_Student_Quiz result_student_quiz = new Result_Student_Quiz();
+                    fragmentTransaction.replace(R.id.container, result_student_quiz).addToBackStack(null);
+                    fragmentTransaction.commit();
+
+                }
+            });
+            return v;
         }
 
         @Override
-        public void onBindViewHolder(ViewHolder holder, int position) {
-
-
-            // holder.a3cat.setText(arrCategory.get(position));
-
+        public void fillValues(int position, View convertView) {
+            // TextView t = (TextView)convertView.findViewById(R.id.position);
+            // t.setText((position + 1) + ".");
         }
 
         @Override
-        public int getItemCount() {
+        public int getCount() {
             return 5;
         }
 
-        public class ViewHolder extends RecyclerView.ViewHolder  implements View.OnClickListener{
+        @Override
+        public Object getItem(int position) {
+            return null;
+        }
 
-            RippleView ripple_res;
-            ImageView stresimg;
-            TextView stresttext;
-
-
-
-            public ViewHolder(View itemView) {
-                super(itemView);
-                ripple_res = (RippleView) itemView.findViewById(R.id.ripple_res);
-              //  ripple_res.setOnClickListener(this);
-                stresttext=(TextView) itemView.findViewById(R.id.stresttext);
-
-                /*relativeLayout.setOnRippleCompleteListener(new RippleView.OnRippleCompleteListener() {
-                    @Override
-                    public void onComplete(RippleView rippleView) {
-                        int position = getLayoutPosition(); // gets item position
-                        Intent i = new Intent(getActivity(), VideoViewActivity.class);
-                        i.putExtra("position", "" + position);
-                        startActivity(i);
-                    }
-                });*/
-            }
-
-            /**
-             * Called when a view has been clicked.
-             *
-             * @param v The view that was clicked.
-             */
-            @Override
-            public void onClick(View v) {
-                int position = getLayoutPosition();
-                Log.e("positionGetLay",""+position);
-                int id = v.getId();
-                switch (id){
-                    case R.id.ripple_res:
-                        if(position==0) {
-
-                           /* FragmentManager fragmentManager = getFragmentManager();
-                            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                            Student_Resource_Description student_resource_description = new Student_Resource_Description();
-                            fragmentTransaction.replace(android.R.id.content, student_resource_description).addToBackStack(null);
-                            fragmentTransaction.commit();*/
-                        }
-                        else{
-                            Toast.makeText(getActivity(),"Coming soon",Toast.LENGTH_SHORT).show();
-                        }
-                        break;
-                }
-
-            }
+        @Override
+        public long getItemId(int position) {
+            return position;
         }
     }
 }

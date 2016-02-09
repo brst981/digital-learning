@@ -1,7 +1,6 @@
 package app.com.digitallearning.TeacherModule.Resource;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -27,7 +26,6 @@ import com.daimajia.swipe.adapters.BaseSwipeAdapter;
 import com.daimajia.swipe.util.Attributes;
 
 import app.com.digitallearning.R;
-import app.com.digitallearning.TeacherModule.NavigationActivity;
 
 /**
  * Created by ${ShalviSharma} on 12/23/15.
@@ -61,7 +59,7 @@ public class ResourceFragment extends Fragment {
 
         headerTitle = (TextView) activity.findViewById(R.id.mytext);
 
-        headerTitle.setText("CLASS RESOURCES");
+        headerTitle.setText("Class Resource");
 
         initData();
 
@@ -93,7 +91,13 @@ public class ResourceFragment extends Fragment {
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ((SwipeLayout)(mListView.getChildAt(position - mListView.getFirstVisiblePosition()))).open(true);
+                //((SwipeLayout)(mListView.getChildAt(position - mListView.getFirstVisiblePosition()))).open(true);
+
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                Resource_View resource_view = new Resource_View();
+                fragmentTransaction.replace(R.id.container, resource_view).addToBackStack(null);
+                fragmentTransaction.commit();
             }
         });
         mListView.setOnTouchListener(new View.OnTouchListener() {
@@ -106,10 +110,10 @@ public class ResourceFragment extends Fragment {
         mListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getActivity(), "OnItemLongClickListener", Toast.LENGTH_SHORT).show();
+               /* Toast.makeText(getActivity(), "OnItemLongClickListener", Toast.LENGTH_SHORT).show();
                 Toast.makeText(getActivity(),"clicked"+" "+position,Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getActivity(), NavigationActivity.class);
-                startActivity(intent);
+                startActivity(intent);*/
                 return true;
             }
         });
@@ -323,6 +327,16 @@ public class ResourceFragment extends Fragment {
                 @Override
                 public void onClick(View view) {
                     Toast.makeText(mContext, "click delete", Toast.LENGTH_SHORT).show();
+                }
+            });
+            v.findViewById(R.id.archive).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    FragmentManager fragmentManager = getFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    Resource_Edit classFragment = new Resource_Edit();
+                    fragmentTransaction.replace(R.id.container, classFragment).addToBackStack(null);
+                    fragmentTransaction.commit();
                 }
             });
             return v;

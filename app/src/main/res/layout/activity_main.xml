@@ -52,6 +52,7 @@
     android:cursorVisible="false"
     android:drawableLeft="@drawable/se"
     android:layout_margin="3dp"
+    android:drawablePadding="3dp"
     android:background="@drawable/edittext_selector"
     android:layout_below="@+id/relative_header"
     android:layout_width="match_parent"

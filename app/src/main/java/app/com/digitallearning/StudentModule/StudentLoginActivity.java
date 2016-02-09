@@ -25,11 +25,18 @@ public class StudentLoginActivity extends FragmentActivity {
         Log.e("schoolID",""+schoolID);
         schoolName=getIntent().getStringExtra("SchoolName");
         Log.e("schoolName",""+schoolName);
+
+
         FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        StudentLoginFragment studentLoginFragment = new StudentLoginFragment();
+        fragmentTransaction.replace(R.id.container, studentLoginFragment);
+        fragmentTransaction.commit();
+
+        /*FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         StudentClass studentClass = new StudentClass();
         fragmentTransaction.replace(R.id.container, studentClass);
-
-        fragmentTransaction.commit();
+        fragmentTransaction.commit();*/
     }
 }

@@ -24,15 +24,32 @@ public class AddLessonFragment extends Fragment{
     View rootview;
     TextView headerTitle,txtDate;
     RippleView rippleViewPreview;
+    AppCompatActivity activity;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
         rootview = inflater.inflate(R.layout.fragment_add_lesson, container, false);
         rippleViewPreview=(RippleView)rootview.findViewById(R.id.ripple_preview_lesson) ;
         txtDate=(TextView)rootview.findViewById(R.id.txt_date_lesson) ;
 
-        AppCompatActivity activity = (AppCompatActivity) getActivity();
+         activity = (AppCompatActivity) getActivity();
 
         activity.getSupportActionBar().setTitle("");
+     //   activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//        mToolbar = (Toolbar)ro findViewById(R.id.toolbar_actionbar);
+//        setSupportActionBar(mToolbar);
+ /*       NavigationActivity.mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                Toast.makeText(getActivity(), "working", Toast.LENGTH_SHORT).show();
+                 getFragmentManager().popBackStackImmediate();
+
+                *//* FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                LessonFragment lessonFragment = new LessonFragment();
+                fragmentTransaction.replace(R.id.container, lessonFragment).addToBackStack(null);
+                fragmentTransaction.commit();*//*
+            }
+        });*/
      //   getActivity().getActionBar().setHomeButtonEnabled(false);
 
         headerTitle = (TextView) activity.findViewById(R.id.mytext);
@@ -53,6 +70,19 @@ public class AddLessonFragment extends Fragment{
                 fragmentTransaction.commit();
             }
         });
+
         return rootview;
     }
+
+    /*@Override
+    public void onPause() {
+        super.onPause();
+        activity.getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        activity.getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+    }*/
 }

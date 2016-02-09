@@ -1,10 +1,12 @@
 package app.com.digitallearning.StudentModule.StudentLesson;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -17,13 +19,13 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.andexert.library.RippleView;
 import com.daimajia.swipe.SimpleSwipeListener;
 import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.adapters.BaseSwipeAdapter;
 import com.daimajia.swipe.util.Attributes;
 
 import app.com.digitallearning.R;
+import app.com.digitallearning.StudentModule.NavigationDrawerStudent;
 
 /**
  * Created by ${PSR} on 1/28/16.
@@ -52,15 +54,31 @@ public class StudentLessonFragment  extends Fragment {
 
         AppCompatActivity activity = (AppCompatActivity) getActivity();
 
-        activity.getSupportActionBar().setTitle("");
+       activity.getSupportActionBar().setTitle("");
 
         headerTitle = (TextView) activity.findViewById(R.id.mytext);
 
         headerTitle.setText("Choose Lesson");
+
         mListView = (ListView)rootview.findViewById(R.id.listview_archieved);
         mAdapter = new ListViewAdapter(getActivity());
         mListView.setAdapter(mAdapter);
         mAdapter.setMode(Attributes.Mode.Single);
+
+        NavigationDrawerStudent.imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // mFragment = LessonProfile.newInstance();
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                Student_Lesson_Profile lesson = new Student_Lesson_Profile();
+                fragmentTransaction.replace(android.R.id.content, lesson).addToBackStack(null);
+
+                fragmentTransaction.commit();
+                // Toast.makeText(getActivity(),"Clmfkff",Toast.LENGTH_SHORT).show();
+
+            }
+        });
 
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -75,6 +93,25 @@ public class StudentLessonFragment  extends Fragment {
                 return false;
             }
         });
+
+        NavigationDrawerStudent.imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // mFragment = LessonProfile.newInstance();
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                Student_Lesson_Profile lesson = new Student_Lesson_Profile();
+                fragmentTransaction.replace(android.R.id.content, lesson).addToBackStack(null);
+
+                fragmentTransaction.commit();
+                // Toast.makeText(getActivity(),"Clmfkff",Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+
+
+
      /*   mListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
@@ -88,14 +125,24 @@ public class StudentLessonFragment  extends Fragment {
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getActivity(), "OnItemLongClickListener", Toast.LENGTH_SHORT).show();
-                Toast.makeText(getActivity(),"clicked"+" "+position,Toast.LENGTH_SHORT).show();
+               /* Toast.makeText(getActivity(), "OnItemLongClickListener", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(),"clicked"+" "+position,Toast.LENGTH_SHORT).show();*/
+                FragmentManager fragmentManager = getFragmentManager();
+                Bundle bundle=new Bundle();
+                bundle.putInt("positioninLesson",position);
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                Student_Item_Lesson student_item_lesson = new Student_Item_Lesson();
 
+                fragmentTransaction.replace(R.id.container, student_item_lesson).addToBackStack(null);
+                student_item_lesson.setArguments(bundle);
+                fragmentTransaction.commit();
             }
         });
         mListView.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(AbsListView view, int scrollState) {
+
+
                 Log.e("ListView", "onScrollStateChanged");
             }
 
@@ -108,6 +155,8 @@ public class StudentLessonFragment  extends Fragment {
         mListView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+
                 Log.e("ListView", "onItemSelected:" + position);
             }
 
@@ -124,130 +173,7 @@ public class StudentLessonFragment  extends Fragment {
         textHeader ="sdhfygsjdgf";
 
 
-
-
     }
-
-    class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAdapter.ViewHolder> {
-        // List<HomeModal> homeModals;
-        private Context mContext;
-        private LayoutInflater inflater;
-
-        @Override
-        public MyRecyclerViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.list_student_lesson, parent, false);
-
-            ViewHolder viewHolder = new ViewHolder(view);
-            return viewHolder;
-
-        }
-
-        @Override
-        public void onBindViewHolder(MyRecyclerViewAdapter.ViewHolder holder, int position) {
-            // holder.imageView.setImageResource(arrayListImage.get(position));
-            holder.textView.setText(textHeader);
-        }
-
-        @Override
-        public int getItemCount() {
-            return 7;
-        }
-
-        public class ViewHolder extends RecyclerView.ViewHolder {
-            /* ImageView imageView;
-             TextView textView;
-             RippleView relativeLayout;
-             LinearLayout imageButtonAnswer;
-             FrameLayout frameLayout;*/
-            TextView textView;
-            RippleView relativeLayout;
-
-            public ViewHolder(View itemView) {
-                super(itemView);
-               /* relativeLayout = (RippleView) itemView.findViewById(R.id.relative_video_it);
-                imageView = (ImageView) itemView.findViewById(R.id.img_it_Video);
-                textView=(TextView)itemView.findViewById(R.id.txt_it_duration);
-                imageButtonAnswer=(LinearLayout)itemView.findViewById(R.id.img_answers);
-                textView.setText("22m");
-                frameLayout =(FrameLayout)itemView.findViewById(R.id.relative_play_img);
-                frameLayout.setOnClickListener(this);
-
-                imageButtonAnswer.setOnClickListener(this);*/
-
-                textView=(TextView)itemView.findViewById(R.id.text_view);
-
-
-               /* relativeLayout = (RippleView) itemView.findViewById(R.id.relative_video_item);
-                relativeLayout.setOnRippleCompleteListener(new RippleView.OnRippleCompleteListener() {
-                    @Override
-                    public void onComplete(RippleView rippleView) {
-                        int position = getLayoutPosition(); // gets item position
-                        Toast.makeText(getActivity(), "clicked" + " " + position, Toast.LENGTH_SHORT).show();
-                        FragmentManager fragmentManager = getFragmentManager();
-                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                        LessonDetailFragment lessonDetailFragment = new LessonDetailFragment();
-                        Bundle savedInstanceState = new Bundle();
-                        savedInstanceState.putString("HEADER_TEXT", textHeader);
-                        savedInstanceState.putInt("POSITION", position);
-                        fragmentTransaction.replace(R.id.container, lessonDetailFragment).addToBackStack(null);
-                        lessonDetailFragment.setArguments(savedInstanceState);
-                        fragmentTransaction.commit();
-
-                    }
-                });*/
-            }
-
-            /*@Override
-            public void onClick(View v) {
-                int position = getLayoutPosition();
-                int id = v.getId();
-                switch (id){
-                    case R.id.relative_play_img:
-                        Intent i = new Intent(getActivity(),VideoViewActivity.class);
-                        i.putExtra("position",""+position);
-                        startActivity(i);
-                        break;
-                    case R.id.img_answers:
-                        // Toast.makeText(getActivity(),"Clicked"+" "+position,Toast.LENGTH_SHORT).show();
-                        if (hasCamera()) {
-                            timestamp = "ic_plus_";
-                            timestamp = new SimpleDateFormat("MM-dd-yyyy_HH-mm-ss")
-                                    .format(Calendar.getInstance().getTime());
-                            File filepath = Environment.getExternalStorageDirectory();
-                            File dir = new File(filepath.getAbsolutePath() + "/Demosvideo/");
-                            dir.mkdirs();
-
-                            Intent intent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
-                            File mediaFile = new File(Environment
-                                    .getExternalStorageDirectory().getAbsolutePath()
-                                    + "/Demosvideo/Video_" + timestamp + ".mp4");
-                            if (mediaFile != null) {
-                                Uri fileUri = Uri.fromFile(mediaFile);
-
-                                intent.putExtra("Camera.Camera_Facing_Front", ic_plus_);
-                                intent.putExtra("Camera.Camera_Facing_Back", 0);
-                                intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
-                                intent.putExtra(MediaStore.EXTRA_DURATION_LIMIT, 30);
-                                intent.putExtra(MediaStore.EXTRA_SIZE_LIMIT, 102400);
-                                intent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 0);
-                                startActivityForResult(intent, VIDEO_CAPTURE);
-                            }
-                        } else {
-                            Toast.makeText(getActivity(), "No Media player found ",
-                                    Toast.LENGTH_SHORT).show();
-                        }
-
-                        break;
-                }
-
-
-            }*/
-        }
-    }
-
-
-
 
     class ListViewAdapter extends BaseSwipeAdapter {
         private Context mContext;
@@ -279,10 +205,13 @@ public class StudentLessonFragment  extends Fragment {
                     Toast.makeText(mContext, "DoubleClick", Toast.LENGTH_SHORT).show();
                 }
             });
-            v.findViewById(R.id.delete).setOnClickListener(new View.OnClickListener() {
+            v.findViewById(R.id.archive).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Toast.makeText(mContext, "click delete", Toast.LENGTH_SHORT).show();
+                    final Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                    shareIntent.setType("text/plain");
+                    startActivity(Intent.createChooser(shareIntent, "Share image using"));
+                   // Toast.makeText(mContext, "click delete", Toast.LENGTH_SHORT).show();
                 }
             });
             return v;

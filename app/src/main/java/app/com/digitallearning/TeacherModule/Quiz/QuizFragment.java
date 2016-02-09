@@ -1,7 +1,6 @@
 package app.com.digitallearning.TeacherModule.Quiz;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -27,8 +26,6 @@ import com.daimajia.swipe.adapters.BaseSwipeAdapter;
 import com.daimajia.swipe.util.Attributes;
 
 import app.com.digitallearning.R;
-import app.com.digitallearning.TeacherModule.NavigationActivity;
-import app.com.digitallearning.TeacherModule.Resource.AddResourceFragment;
 
 /**
  * Created by ${PSR} on 1/28/16.
@@ -62,7 +59,7 @@ public class QuizFragment extends Fragment {
 
         headerTitle = (TextView) activity.findViewById(R.id.mytext);
 
-        headerTitle.setText("CLASS QUIZ");
+        headerTitle.setText("Class Quiz");
 
         initData();
 
@@ -94,7 +91,12 @@ public class QuizFragment extends Fragment {
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ((SwipeLayout)(mListView.getChildAt(position - mListView.getFirstVisiblePosition()))).open(true);
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                Quiz_View quiz_view = new Quiz_View();
+                fragmentTransaction.replace(R.id.container, quiz_view).addToBackStack(null);
+                fragmentTransaction.commit();
+               // ((SwipeLayout)(mListView.getChildAt(position - mListView.getFirstVisiblePosition()))).open(true);
             }
         });
         mListView.setOnTouchListener(new View.OnTouchListener() {
@@ -107,10 +109,12 @@ public class QuizFragment extends Fragment {
         mListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getActivity(), "OnItemLongClickListener", Toast.LENGTH_SHORT).show();
+
+
+               /* Toast.makeText(getActivity(), "OnItemLongClickListener", Toast.LENGTH_SHORT).show();
                 Toast.makeText(getActivity(),"clicked"+" "+position,Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getActivity(), NavigationActivity.class);
-                startActivity(intent);
+                startActivity(intent);*/
                 return true;
             }
         });
@@ -148,7 +152,7 @@ public class QuizFragment extends Fragment {
             public void onComplete(RippleView rippleView) {
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                AddResourceFragment classFragment = new AddResourceFragment();
+                AddQuiz classFragment = new AddQuiz();
                 fragmentTransaction.replace(R.id.container, classFragment).addToBackStack(null);
                 fragmentTransaction.commit();
             }
@@ -180,7 +184,7 @@ public class QuizFragment extends Fragment {
         @Override
         public MyRecyclerViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View view = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.resource_item_list, parent, false);
+                    .inflate(R.layout.quiz_item_list, parent, false);
 
             ViewHolder viewHolder = new ViewHolder(view);
             return viewHolder;
@@ -324,6 +328,16 @@ public class QuizFragment extends Fragment {
                 @Override
                 public void onClick(View view) {
                     Toast.makeText(mContext, "click delete", Toast.LENGTH_SHORT).show();
+                }
+            });
+            v.findViewById(R.id.archive).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    FragmentManager fragmentManager = getFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    Quiz_Edit classFragment = new Quiz_Edit();
+                    fragmentTransaction.replace(R.id.container, classFragment).addToBackStack(null);
+                    fragmentTransaction.commit();
                 }
             });
             return v;

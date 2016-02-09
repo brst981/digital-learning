@@ -38,17 +38,17 @@
         app:rv_zoom="true">
 
         <Button
-            android:id="@+id/button_add_student"
+            android:id="@+id/button_create"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="@color/colorlima"
             android:elevation="8dp"
-            android:text="ADD STUDENT(S)"
+            android:text="    Add student"
             android:textAllCaps="true"
+            android:gravity="left|center"
             android:drawableLeft="@drawable/ic_plus"
             android:drawablePadding="1dp"
-            android:paddingLeft="10dp"
-            android:gravity="center"
+            android:paddingLeft="80dp"
             android:textColor="@android:color/white"
             android:textSize="16sp" />
     </com.andexert.library.RippleView>

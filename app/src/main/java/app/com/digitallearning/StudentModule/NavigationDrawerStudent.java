@@ -15,6 +15,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +40,7 @@ public class NavigationDrawerStudent extends Fragment implements NavigationDrawe
     private boolean mUserLearnedDrawer;
     private boolean mFromSavedInstanceState;
     private int mCurrentSelectedPosition;
+    public static ImageView imageView;
 
 
 
@@ -51,7 +53,7 @@ public class NavigationDrawerStudent extends Fragment implements NavigationDrawe
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mDrawerList.setLayoutManager(layoutManager);
         mDrawerList.setHasFixedSize(true);
-
+        imageView=(ImageView)view.findViewById(R.id.imageView);
         final List<NavigationItem> navigationItems = getMenu();
         NavigationStudentAdapter adapter = new NavigationStudentAdapter(navigationItems);
         adapter.setNavigationDrawerCallbacks(this);
@@ -149,9 +151,9 @@ public class NavigationDrawerStudent extends Fragment implements NavigationDrawe
 
         items.add(new NavigationItem("Class", getResources().getDrawable(R.drawable.ic_class)));
         items.add(new NavigationItem("Lessons", getResources().getDrawable(R.drawable.ic_lesson)));
-        items.add(new NavigationItem("Resourses", getResources().getDrawable(R.drawable.ic_resource)));
+        items.add(new NavigationItem("Resources", getResources().getDrawable(R.drawable.ic_resource)));
         items.add(new NavigationItem(" Quiz", getResources().getDrawable(R.drawable.ic_quiz)));
-        items.add(new NavigationItem("Accept/Unroll", getResources().getDrawable(R.drawable.ic_grade)));
+        items.add(new NavigationItem("Accept/Enroll", getResources().getDrawable(R.drawable.ic_grade)));
         items.add(new NavigationItem(" Logout",getResources().getDrawable(R.drawable.ic_logout)));
 
         return items;

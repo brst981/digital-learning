@@ -26,6 +26,7 @@ import com.daimajia.swipe.adapters.BaseSwipeAdapter;
 import com.daimajia.swipe.util.Attributes;
 
 import app.com.digitallearning.R;
+import app.com.digitallearning.TeacherModule.NavigationDrawerFragment;
 
 /**
  * Created by ${ShalviSharma} on 12/23/15.
@@ -57,7 +58,10 @@ public class LessonFragment extends Fragment {
         AppCompatActivity activity = (AppCompatActivity) getActivity();
 
         activity.getSupportActionBar().setTitle("");
-        activity.getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(false);
+        activity.getSupportActionBar().setDisplayShowHomeEnabled(true);
+//        NavigationActivity.mToolbar.setNavigationIcon(R.drawable.drawericon);
+//        activity.getSupportActionBar().setDisplayShowHomeEnabled(true);
+
 
         headerTitle = (TextView) activity.findViewById(R.id.mytext);
 
@@ -67,10 +71,36 @@ public class LessonFragment extends Fragment {
         mListView.setAdapter(mAdapter);
         mAdapter.setMode(Attributes.Mode.Single);
 
+        NavigationDrawerFragment.imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // mFragment = LessonProfile.newInstance();
+               FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                LessonProfile lesson = new LessonProfile();
+                fragmentTransaction.replace(android.R.id.content, lesson).addToBackStack(null);
+
+                fragmentTransaction.commit();
+               // Toast.makeText(getActivity(),"Clmfkff",Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ((SwipeLayout)(mListView.getChildAt(position - mListView.getFirstVisiblePosition()))).open(true);
+                //((SwipeLayout)(mListView.getChildAt(position - mListView.getFirstVisiblePosition()))).open(true);
+
+                Log.e("positioninLesson",""+position);
+
+                FragmentManager fragmentManager = getFragmentManager();
+                Bundle bundle=new Bundle();
+                bundle.putInt("positioninLesson",position);
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                LessonDetailFragment lessonDetailFragment = new LessonDetailFragment();
+                fragmentTransaction.replace(R.id.container, lessonDetailFragment).addToBackStack(null);
+                lessonDetailFragment.setArguments(bundle);
+                fragmentTransaction.commit();
             }
         });
         mListView.setOnTouchListener(new View.OnTouchListener() {
@@ -83,8 +113,8 @@ public class LessonFragment extends Fragment {
         mListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getActivity(), "OnItemLongClickListener", Toast.LENGTH_SHORT).show();
-                Toast.makeText(getActivity(),"clicked"+" "+position,Toast.LENGTH_SHORT).show();
+               // Toast.makeText(getActivity(), "OnItemLongClickListener", Toast.LENGTH_SHORT).show();
+              //  Toast.makeText(getActivity(),"clicked"+" "+position,Toast.LENGTH_SHORT).show();
                 return true;
             }
         });
@@ -287,6 +317,17 @@ public class LessonFragment extends Fragment {
                 @Override
                 public void onClick(View view) {
                     Toast.makeText(mContext, "click delete", Toast.LENGTH_SHORT).show();
+                }
+            });
+
+            v.findViewById(R.id.archive).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    FragmentManager fragmentManager = getFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    Lesson_Edit classFragment = new Lesson_Edit();
+                    fragmentTransaction.replace(R.id.container, classFragment).addToBackStack(null);
+                    fragmentTransaction.commit();
                 }
             });
             return v;

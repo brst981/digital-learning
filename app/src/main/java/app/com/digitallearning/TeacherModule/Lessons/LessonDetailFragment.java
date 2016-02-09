@@ -24,8 +24,9 @@ public class LessonDetailFragment extends Fragment {
     ViewPager _mViewPager;
     CustomPagerAdapter mPagerAdapter;
     TextView headerTitle;
-    String txtHeader;
-    int positionValue;
+    String textHeader;
+    int positionValue,pos1;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootview = inflater.inflate(R.layout.fragment_lesson_detail, container, false);
@@ -36,22 +37,30 @@ public class LessonDetailFragment extends Fragment {
 
         if (getArguments() != null) {
             Bundle bundle = this.getArguments();
-            txtHeader = bundle.getString("HEADER_TEXT");
+            textHeader = bundle.getString("HEADER_TEXT");
             positionValue = bundle.getInt("POSITION");
         }
+        pos1=getArguments().getInt("positioninLesson");
+        Log.e("pos1",""+pos1);
 
-
-        Log.e("txtHeader",""+txtHeader);
+        Log.e("txtHeader",""+textHeader);
         Log.e("positionValue",""+positionValue);
         AppCompatActivity activity = (AppCompatActivity) getActivity();
 
         activity.getSupportActionBar().setTitle("");
-
+        initData();
         headerTitle = (TextView) activity.findViewById(R.id.mytext);
 
-        headerTitle.setText(txtHeader);
+        headerTitle.setText(textHeader);
 
         return rootview;
+    }
+    private void initData() {
+        textHeader ="sdhfygsjdgf";
+
+
+
+
     }
 
     class CustomPagerAdapter extends PagerAdapter {
@@ -97,8 +106,10 @@ public class LessonDetailFragment extends Fragment {
             if (position==0){
                 imageViewLeft.setVisibility(View.GONE);
             }
+            int pos=position+1;
 
-            textView.setText("Lesson"+" "+ positionValue++ +" "+"of"+" "+"5");
+
+            textView.setText("Lesson"+" "+ pos +" "+"of"+" "+"5");
 
 
             container.addView(itemView);

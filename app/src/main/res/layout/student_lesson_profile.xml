@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="#fff"
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:id="@+id/relative_header"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@color/colorlima">
+
+        <ImageButton
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="15dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_back"
+            android:scaleType="fitXY"
+            android:id="@+id/back"
+            android:padding="7dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="Profile"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/white"
+            android:id="@+id/textView" />
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_plus"
+            android:scaleType="fitXY"
+            android:id="@+id/img_zoom_in"
+            android:layout_marginRight="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_alignBottom="@+id/img_zoom_out"
+            android:layout_toLeftOf="@+id/img_zoom_out"
+            android:layout_toStartOf="@+id/img_zoom_out" />
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_minus"
+            android:layout_centerVertical="true"
+            android:scaleType="fitXY"
+            android:id="@+id/img_zoom_out"
+            android:layout_marginRight="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_alignParentRight="true" />
+
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/rel"
+        android:layout_below="@+id/relative_header"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ImageView
+            android:src="@drawable/images"
+            android:id="@+id/img"
+            android:layout_width="100dp"
+            android:layout_gravity="center"
+            android:layout_height="100dp"
+            android:layout_marginTop="15dp"
+            android:layout_centerHorizontal="true" />
+        <ScrollView
+            android:id="@+id/scroll"
+            android:layout_below="@+id/img"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_margin="6dp"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <TextView
+                    android:text="jaskaur@gmail.com"
+                    android:layout_marginTop="20dp"
+                    android:textSize="16sp"
+                    android:layout_margin="10dp"
+                    android:textColor="#000"
+
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp" />
+                <View
+
+
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="3dp"
+                    android:layout_height="1dp"
+
+                    android:background="#DAD9DD" />
+                <TextView
+                    android:hint="Phone Number"
+                    android:layout_marginTop="20dp"
+                    android:textSize="16sp"
+                    android:textColor="#000"
+                    android:padding="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp" />
+                <View
+
+
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="3dp"
+                    android:layout_height="1dp"
+
+                    android:background="#DAD9DD" />
+                <TextView
+                    android:text="stu"
+                    android:layout_marginTop="20dp"
+                    android:textSize="16sp"
+                    android:textColor="#000"
+                    android:padding="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp" />
+                <View
+
+
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="3dp"
+                    android:layout_height="1dp"
+
+                    android:background="#DAD9DD" />
+                <TextView
+                    android:text="tech1"
+                    android:layout_marginTop="20dp"
+                    android:textSize="16sp"
+                    android:textColor="#000"
+                    android:padding="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp" />
+                <View
+
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="3dp"
+                    android:layout_height="1dp"
+
+                    android:background="#DAD9DD" />
+                <TextView
+                    android:hint="Whatsapp"
+                    android:layout_marginTop="20dp"
+                    android:textSize="16sp"
+                    android:textColor="#000"
+                    android:padding="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp" />
+                <View
+
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="3dp"
+                    android:layout_height="1dp"
+
+                    android:background="#DAD9DD" />
+                <TextView
+                    android:hint="WeChat"
+                    android:layout_marginTop="20dp"
+                    android:textSize="16sp"
+                    android:textColor="#000"
+                    android:padding="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp" />
+                <View
+
+
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="3dp"
+                    android:layout_height="1dp"
+
+                    android:background="#DAD9DD" />
+                <TextView
+                    android:hint="No Description"
+                    android:layout_marginTop="20dp"
+                    android:textSize="16sp"
+                    android:textColor="#000"
+                    android:background="@drawable/edit_text_selector_round"
+                    android:padding="5dp"
+                    android:layout_margin="6dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp" />
+
+
+
+                <com.andexert.library.RippleView
+                    android:id="@+id/ripple_login"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/linear_checkbox"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="10dp"
+                    app:rv_color="#000"
+                    app:rv_rippleDuration="100"
+                    app:rv_type="rectangle"
+                    app:rv_zoom="true">
+
+                    <Button
+                        android:id="@+id/button_login"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:background="@color/colorlima"
+                        android:elevation="8dp"
+                        android:text="Update"
+                        android:textAllCaps="true"
+                        android:gravity="center"
+                        android:textColor="@android:color/white"
+                        android:textSize="16sp" />
+                </com.andexert.library.RippleView>
+                <Button
+
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:background="@color/colorlima"
+                    android:elevation="8dp"
+                    android:text="Update"
+                    android:visibility="invisible"
+                    android:textAllCaps="true"
+                    android:gravity="center"
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp" />
+            </LinearLayout>
+        </ScrollView>
+    </RelativeLayout>
+</LinearLayout>

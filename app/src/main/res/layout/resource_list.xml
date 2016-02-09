@@ -12,26 +12,26 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_margin="5dp"
+        android:layout_margin="1dp"
         card_view:cardCornerRadius="2dp"
-        card_view:contentPadding="5dp">
+        card_view:contentPadding="2dp">
 
         <com.andexert.library.RippleView
             android:id="@+id/ripple_res"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:rv_color="#000"
-            app:rv_rippleDuration="50"
+            app:rv_rippleDuration="2"
             app:rv_type="rectangle"
             app:rv_zoom="true">
 
             <ImageView
                 android:id="@+id/stresimg"
                 android:layout_width="80dp"
+                android:layout_margin="10dp"
                 android:layout_height="80dp"
                 android:background="@android:color/transparent"
-                android:scaleType="fitXY"
-                android:src="@drawable/ic_launcher" />
+                android:src="@drawable/defaultthumbnail"/>
 
             <TextView
                 android:id="@+id/stresttext"

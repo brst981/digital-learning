@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.RelativeLayout;
+import android.widget.ImageView;
 
 import app.com.digitallearning.R;
 
@@ -20,15 +20,15 @@ public class DescriptionFragment extends Fragment {
     Button done;
     EditText desc;
     static String description;
-    RelativeLayout relback;
+    ImageView back;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootview = inflater.inflate(R.layout.fragment_description, container, false);
         desc=(EditText)rootview.findViewById(R.id.desc);
         done=(Button)rootview.findViewById(R.id.done);
-        relback=(RelativeLayout)rootview.findViewById(R.id.relback);
-        relback.setOnClickListener(new View.OnClickListener() {
+        back=(ImageView) rootview.findViewById(R.id.back);
+        back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 getFragmentManager().popBackStackImmediate();
@@ -37,8 +37,9 @@ public class DescriptionFragment extends Fragment {
         done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                description=desc.getText().toString();
-                Log.e("descriptionFrag",""+description);
+              //  description=desc.getText().toString();
+                EditClassFragment.des=desc.getText().toString();
+                Log.e("descriptionFrag",""+EditClassFragment.des);
                 getFragmentManager().popBackStackImmediate();
             }
         });

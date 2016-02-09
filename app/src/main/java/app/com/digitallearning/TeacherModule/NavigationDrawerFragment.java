@@ -15,6 +15,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,13 +35,15 @@ public class NavigationDrawerFragment extends Fragment implements NavigationDraw
     private static final String PREFERENCES_FILE = "my_app_settings"; //TODO: change this to your file
     private NavigationDrawerCallbacks mCallbacks;
     private RecyclerView mDrawerList;
+
+    public static ImageView imageView;
     private View mFragmentContainerView;
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mActionBarDrawerToggle;
     private boolean mUserLearnedDrawer;
     private boolean mFromSavedInstanceState;
     private int mCurrentSelectedPosition;
-
+android.support.v4.app.Fragment mFragment;
 
 
 
@@ -48,6 +51,9 @@ public class NavigationDrawerFragment extends Fragment implements NavigationDraw
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_navigation_drawer, container, false);
         mDrawerList = (RecyclerView) view.findViewById(R.id.drawerList);
+        imageView=(ImageView)view.findViewById(R.id.imageView);
+
+
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mDrawerList.setLayoutManager(layoutManager);
@@ -148,13 +154,13 @@ public class NavigationDrawerFragment extends Fragment implements NavigationDraw
     public List<NavigationItem> getMenu() {
         List<NavigationItem> items = new ArrayList<NavigationItem>();
 
-        items.add(new NavigationItem("CLASS", getResources().getDrawable(R.drawable.ic_class)));
-        items.add(new NavigationItem("LESSONS", getResources().getDrawable(R.drawable.ic_lesson)));
-        items.add(new NavigationItem("RESOURCES", getResources().getDrawable(R.drawable.ic_resource)));
-        items.add(new NavigationItem(" QUIZ", getResources().getDrawable(R.drawable.ic_quiz)));
-        items.add(new NavigationItem("STUDENTS", getResources().getDrawable(R.drawable.ic_student)));
-        items.add(new NavigationItem("  GRADE", getResources().getDrawable(R.drawable.ic_grade)));
-        items.add(new NavigationItem(" LOGOUT",getResources().getDrawable(R.drawable.ic_logout)));
+        items.add(new NavigationItem("Class", getResources().getDrawable(R.drawable.ic_class)));
+        items.add(new NavigationItem("Lesson", getResources().getDrawable(R.drawable.ic_lesson)));
+        items.add(new NavigationItem("Resource", getResources().getDrawable(R.drawable.ic_resource)));
+        items.add(new NavigationItem(" Quiz", getResources().getDrawable(R.drawable.ic_quiz)));
+        items.add(new NavigationItem("Students", getResources().getDrawable(R.drawable.ic_student)));
+        items.add(new NavigationItem("  Grade", getResources().getDrawable(R.drawable.ic_grade)));
+        items.add(new NavigationItem(" Logout",getResources().getDrawable(R.drawable.ic_logout)));
 
         return items;
     }

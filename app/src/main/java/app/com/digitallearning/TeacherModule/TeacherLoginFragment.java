@@ -101,7 +101,7 @@ public class TeacherLoginFragment extends Fragment {
                 fragmentTransaction.replace(R.id.container, classFragment).addToBackStack(null);
                 fragmentTransaction.commit();*/
 
-                new Before_Class_Listing().execute();
+             new Before_Class_Listing().execute();
             }
         });
         imageButtonZoomIn.setOnClickListener(new View.OnClickListener() {
@@ -139,7 +139,7 @@ public class TeacherLoginFragment extends Fragment {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            dlg.setMessage("Loading.....");
+            dlg.setMessage("Authenticating User.....");
             dlg.setCancelable(false);
             dlg.show();
 
@@ -224,7 +224,7 @@ public class TeacherLoginFragment extends Fragment {
                     classid.add(cla_classid);
 
 
-
+                   // new Before_Class_Listing().execute();
                 }
 
             } catch (JSONException e) {
@@ -247,7 +247,7 @@ public class TeacherLoginFragment extends Fragment {
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
-                dlg.setMessage("Loading.....");
+                dlg.setMessage("Fetching Data.....");
                 dlg.setCancelable(false);
                 dlg.show();
 

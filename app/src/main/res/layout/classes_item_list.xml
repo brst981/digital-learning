@@ -22,7 +22,7 @@
             android:background="@color/colorAccent"
             android:clickable="true"
             android:gravity="center"
-            android:text="Edit"
+            android:text="Info"
             android:textColor="#fff" />
 
         <TextView

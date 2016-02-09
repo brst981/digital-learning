@@ -386,7 +386,7 @@
 
 
             <com.andexert.library.RippleView
-                android:id="@+id/ripple_GradeFrom"
+                android:id="@+id/ripple_GradeTo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/view"
@@ -411,7 +411,7 @@
                         android:layout_alignParentLeft="true"
                         android:gravity="left|center"
 
-                        android:text="Grade From"
+                        android:text="Grade To"
                         android:textColor="@android:color/black"
                         android:textSize="16sp" />
 

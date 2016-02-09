@@ -19,6 +19,7 @@ import app.com.digitallearning.R;
 import app.com.digitallearning.TeacherModule.Classes.ClassesDetailFragment;
 import app.com.digitallearning.TeacherModule.Grade.GradeFragment;
 import app.com.digitallearning.TeacherModule.Lessons.LessonFragment;
+import app.com.digitallearning.TeacherModule.Lessons.LessonProfile;
 import app.com.digitallearning.TeacherModule.Quiz.QuizFragment;
 import app.com.digitallearning.TeacherModule.Resource.ResourceFragment;
 import app.com.digitallearning.TeacherModule.Students.StudentFragment;
@@ -27,7 +28,7 @@ import app.com.digitallearning.TeacherModule.Students.StudentFragment;
  * Created by ${ShalviSharma} on 12/18/15.
  */
 public class NavigationActivity extends AppCompatActivity implements NavigationDrawerCallbacks {
-    private Toolbar mToolbar;
+    public static Toolbar mToolbar;
     private NavigationDrawerFragment mNavigationDrawerFragment;
     Fragment mFragment;
     boolean fromClass = false;
@@ -99,13 +100,20 @@ public class NavigationActivity extends AppCompatActivity implements NavigationD
 //                   ClassFragment.relative_header.setVisibility(View.GONE);
                 }else {
                     mFragment = ClassesDetailFragment.newInstance();
-
+                    NavigationDrawerFragment.imageView.setVisibility(View.GONE);
                 }
 
 
 
                 break;
             case 1:
+                NavigationDrawerFragment.imageView.setVisibility(View.VISIBLE);
+                NavigationDrawerFragment.imageView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mFragment = LessonProfile.newInstance();
+                    }
+                });
 
                 mFragment = LessonFragment.newInstance();
 
@@ -113,28 +121,28 @@ public class NavigationActivity extends AppCompatActivity implements NavigationD
                 break;
 
             case 2:
-
+                NavigationDrawerFragment.imageView.setVisibility(View.GONE);
                 mFragment = ResourceFragment.newInstance();
 
 
                 break;
 
             case 3:
-
+                NavigationDrawerFragment.imageView.setVisibility(View.GONE);
                 mFragment = QuizFragment.newInstance();
 
 
                 break;
 
             case 4:
-
+                NavigationDrawerFragment.imageView.setVisibility(View.GONE);
                 mFragment = StudentFragment.newInstance();
 
 
                 break;
 
             case 5:
-
+                NavigationDrawerFragment.imageView.setVisibility(View.GONE);
                 mFragment = GradeFragment.newInstance();
 
 
