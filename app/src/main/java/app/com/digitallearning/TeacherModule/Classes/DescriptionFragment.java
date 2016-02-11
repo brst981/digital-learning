@@ -19,7 +19,7 @@ public class DescriptionFragment extends Fragment {
     View rootview;
     Button done;
     EditText desc;
-    static String description;
+    public static String description;
     ImageView back;
 
     @Override
@@ -37,7 +37,8 @@ public class DescriptionFragment extends Fragment {
         done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-              //  description=desc.getText().toString();
+                description=desc.getText().toString();
+                Log.e("staticsdescription",""+description);
                 EditClassFragment.des=desc.getText().toString();
                 Log.e("descriptionFrag",""+EditClassFragment.des);
                 getFragmentManager().popBackStackImmediate();

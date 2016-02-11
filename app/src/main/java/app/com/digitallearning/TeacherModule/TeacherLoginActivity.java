@@ -8,6 +8,8 @@ import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 
 import app.com.digitallearning.R;
+import app.com.digitallearning.TeacherModule.Classes.DescriptionFragment;
+import app.com.digitallearning.TeacherModule.Classes.EditClassFragment;
 
 /**
  * Created by ${ShalviSharma} on 12/18/15.
@@ -40,4 +42,12 @@ public class TeacherLoginActivity extends FragmentActivity {
                 fragmentTransaction.commit();
 
         }
+
+        @Override
+        public void onBackPressed() {
+                super.onBackPressed();
+                EditClassFragment.style=" ";
+                EditClassFragment.topic1=" ";
+                DescriptionFragment.description=" ";
         }
+}

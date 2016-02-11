@@ -152,7 +152,7 @@
                 <TextView
                     android:id="@+id/text_class_type"
                     android:layout_width="170dp"
-                    android:layout_height="35dp"
+                    android:layout_height="30dp"
                     android:layout_alignParentLeft="true"
                     android:gravity="left|center"
                     android:paddingLeft="5dp"
@@ -163,7 +163,7 @@
                 <TextView
                     android:id="@+id/text_type_detail"
                     android:layout_width="150dp"
-                    android:layout_height="35dp"
+                    android:layout_height="30dp"
                     android:layout_marginRight="10dp"
                     android:layout_toLeftOf="@+id/img_back_class_type"
                     android:layout_toRightOf="@+id/text_class_type"
@@ -171,7 +171,6 @@
                     android:gravity="right|center"
                     android:paddingRight="5dp"
                     android:singleLine="true"
-                    android:text="Instructor"
                     android:textColor="@color/color_light_grey"
                     android:textSize="14sp" />
 
@@ -206,7 +205,7 @@
                 <TextView
                     android:id="@+id/text_topic"
                     android:layout_width="170dp"
-                    android:layout_height="35dp"
+                    android:layout_height="30dp"
                     android:layout_alignParentLeft="true"
                     android:gravity="left|center"
                     android:paddingLeft="5dp"
@@ -217,7 +216,7 @@
                 <TextView
                     android:id="@+id/text_topic_detail"
                     android:layout_width="150dp"
-                    android:layout_height="35dp"
+                    android:layout_height="30dp"
                     android:layout_marginRight="10dp"
                     android:layout_toLeftOf="@+id/img_back_topic"
                     android:layout_toRightOf="@+id/text_topic"
@@ -259,7 +258,7 @@
                 <TextView
                     android:id="@+id/text_features"
                     android:layout_width="170dp"
-                    android:layout_height="35dp"
+                    android:layout_height="30dp"
                     android:layout_alignParentLeft="true"
                     android:gravity="left|center"
                     android:paddingLeft="5dp"
@@ -270,7 +269,7 @@
                 <TextView
                     android:id="@+id/text_features_detail"
                     android:layout_width="150dp"
-                    android:layout_height="35dp"
+                    android:layout_height="30dp"
                     android:layout_marginRight="10dp"
                     android:layout_toLeftOf="@+id/img_back_features"
                     android:layout_toRightOf="@+id/text_features"
@@ -312,7 +311,7 @@
                 <TextView
                     android:id="@+id/text_description"
                     android:layout_width="170dp"
-                    android:layout_height="35dp"
+                    android:layout_height="30dp"
                     android:layout_alignParentLeft="true"
                     android:gravity="left|center"
                     android:paddingLeft="5dp"
@@ -323,7 +322,7 @@
                 <TextView
                     android:id="@+id/text_description_detail"
                     android:layout_width="150dp"
-                    android:layout_height="35dp"
+                    android:layout_height="30dp"
                     android:layout_marginRight="10dp"
                     android:layout_toLeftOf="@+id/img_back_description"
                     android:layout_toRightOf="@+id/text_description"

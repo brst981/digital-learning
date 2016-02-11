@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -96,8 +97,8 @@ public class ClassesDetailFragment extends Fragment{
                 EditClassFragment classFragment = new EditClassFragment();
                 fragmentTransaction.replace(R.id.container, classFragment).addToBackStack(null);
                 fragmentTransaction.commit();*/
-               /* Intent intent=new Intent(getActivity(),EditClassFragment.class);
-                startActivity(intent);*/
+                Intent intent=new Intent(getActivity(),EditClassFragment.class);
+                startActivity(intent);
             }
         });
 

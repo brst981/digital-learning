@@ -18,6 +18,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.andexert.library.RippleView;
@@ -27,7 +28,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import app.com.digitallearning.R;
-import app.com.digitallearning.TeacherModule.ClassFragment;
 import app.com.digitallearning.WebServices.WSConnector;
 
 /**
@@ -44,7 +44,9 @@ public class CreateClassFragment extends Fragment {
     ImageButton imageButtonZoomIn, imageButtonZoomOut;
     RelativeLayout rellogin;
     ImageView back;
-    int id;
+    TextView selectedclass,selectedtopic,selecteddes;
+    int id,idres;
+    static int slecectedclasstype;
     final static CharSequence[] classtype = {"Instructor","Blended","Self Paced"};
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -53,12 +55,38 @@ public class CreateClassFragment extends Fragment {
         btnSave=(Button)rootview.findViewById(R.id.btnSave);
         dlg=new ProgressDialog(getActivity());
         imageButtonZoomIn = (ImageButton)rootview. findViewById(R.id.img_zoom_in);
+        selectedclass=(TextView)rootview.findViewById(R.id.selectedclass);
+        selectedtopic=(TextView)rootview.findViewById(R.id.selectedtopic);
+        selecteddes=(TextView)rootview.findViewById(R.id.selecteddes);
+
         imageButtonZoomOut = (ImageButton) rootview.findViewById(R.id.img_zoom_out);
         rellogin=(RelativeLayout)rootview.findViewById(R.id.rellogin) ;
         ripple_main1=(RippleView) rootview.findViewById(R.id.ripple_main1);
         ripple_main2=(RippleView) rootview.findViewById(R.id.ripple_main2);
         edt_title=(EditText)rootview.findViewById(R.id.edt_title);
         arrName=getArguments().getString("arrName");
+        selecteddes.setText("");
+        selectedclass.setText("");
+
+        idres=getArguments().getInt("id");
+
+        /*if(idres==1){
+            Log.e("slecectedclasstypefirst",""+slecectedclasstype);
+
+            selecteddes.setText("");
+            selectedclass.setText("");
+              Log.e("idres",""+idres);
+        }*/
+
+
+       /*if (slecectedclasstype == 0) {
+            selectedclass.setText("Instructor");
+        } else if (slecectedclasstype == 1) {
+            selectedclass.setText("Blended");
+        }
+        else if (slecectedclasstype == 2) {
+            selectedclass.setText("Self Paced");
+        }*/
 
         Sch_Mem_id=getArguments().getString("Sch_Mem_id");
         Log.e("Sch_Mem_id",""+Sch_Mem_id);
@@ -81,10 +109,9 @@ public class CreateClassFragment extends Fragment {
 
         Log.e("myList",""+myList);
 
-
-        classtpye= ClassFragment.classtpye;
+        /*classtpye= ClassFragment.classtpye;
         Log.e("getValue",""+classtpye);
-
+*/
         topic=TopicFragment.topic;
         Log.e("getValuetopic",""+topic);
 
@@ -104,6 +131,9 @@ public class CreateClassFragment extends Fragment {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                EditClassFragment.style = " ";
+                EditClassFragment.topic1=" ";
+                DescriptionFragment.description=" ";
                 getFragmentManager().popBackStackImmediate();
             }
         });
@@ -124,15 +154,23 @@ public class CreateClassFragment extends Fragment {
                     public void onClick(DialogInterface dialog, int item) {
                         // Do something with the selection
                         //  mDoneButton.setText(items[item]);
-                        Log.e("items[item]",""+classtype[item]);
-                        if (classtype[item]=="Instructor"){
-                            EditClassFragment.style="1";
+                        slecectedclasstype = item;
+                        Log.e("slecectedclasstype", "" + slecectedclasstype);
+                        Log.e("items[item]", "" + classtype[item]);
+                        if (classtype[item] == "Instructor") {
+                            EditClassFragment.style = "1";
+                        } else if (classtype[item] == "Blended") {
+                            EditClassFragment.style = "2";
+                        } else {
+                            EditClassFragment.style = "3";
                         }
-                       else if (classtype[item]=="Blended"){
-                            EditClassFragment.style="2";
+                        if (EditClassFragment.style == "1") {
+                            selectedclass.setText("Instructor");
+                        } else if (EditClassFragment.style == "2") {
+                            selectedclass.setText("Blended");
                         }
-                        else{
-                            EditClassFragment.style="3";
+                        else if (EditClassFragment.style =="3") {
+                            selectedclass.setText("Self Paced");
                         }
                     }
                 });
@@ -140,15 +178,22 @@ public class CreateClassFragment extends Fragment {
                 alert.show();
 
 
-
             }
         });
-
+        if (EditClassFragment.style == "1") {
+            selectedclass.setText("Instructor");
+        } else if (EditClassFragment.style == "2") {
+            selectedclass.setText("Blended");
+        }
+        else if (EditClassFragment.style =="3") {
+            selectedclass.setText("Self Paced");
+        }
 
         ripple_main1.setOnRippleCompleteListener(new RippleView.OnRippleCompleteListener(){
 
             @Override
             public void onComplete(RippleView rippleView) {
+
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 TopicFragment topicFragment = new TopicFragment();
@@ -161,8 +206,12 @@ public class CreateClassFragment extends Fragment {
                 fragmentTransaction.replace(R.id.container, topicFragment).addToBackStack(null);
                 topicFragment.setArguments(bundle);
                 fragmentTransaction.commit();
-            }
-        });
+
+            }});
+        selectedtopic.setText(EditClassFragment.topic1);
+
+
+        Log.e("selectedtopic",""+selectedtopic);
         ripple_main2.setOnRippleCompleteListener(new RippleView.OnRippleCompleteListener(){
 
             @Override
@@ -174,11 +223,13 @@ public class CreateClassFragment extends Fragment {
                 fragmentTransaction.commit();
             }
         });
+        selecteddes.setText(DescriptionFragment.description);
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 title=edt_title.getText().toString();
-                new CreateClass().execute(Sch_Mem_id, userMem_Sch_Id, title, classtpye, topic, description);
+                new CreateClass().execute(Sch_Mem_id, userMem_Sch_Id, title, EditClassFragment.style, topic, description);
+
             }
         });
         imageButtonZoomIn.setOnClickListener(new View.OnClickListener() {
@@ -229,6 +280,9 @@ public class CreateClassFragment extends Fragment {
             if (result.contains("true")) {
 
                // updateCreateClass(result);
+                selecteddes.setText("");
+                Log.e("jhdj",""+"");
+                selectedclass.setText("");
                 Toast.makeText(getActivity(), "Class successfully created", Toast.LENGTH_SHORT).show();
                 getFragmentManager().popBackStackImmediate();
 
@@ -245,4 +299,18 @@ public class CreateClassFragment extends Fragment {
         rellogin.setScaleX(scaleX);
         rellogin.setScaleY(scaleY);
     }
+
+ /*   @Override
+    public void onStart() {
+        super.onStart();
+
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        selecteddes.setText("");
+        selectedclass.setText("");
+    }*/
+
+
 }

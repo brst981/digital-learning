@@ -55,16 +55,16 @@ public class ClassFragment extends Fragment {
     public static RelativeLayout relative_header;
     TextView headerTitle;
     List<String> myList,myList1,myList2,myListclassId;
-    String arrId,arrName,arrChildId,arrChildNAme,className,classStudent,classSub,a,a1,a2,b,b1,b2,a3,b3,classid,c,c1,c2;
+    String arrId,arrName,arrChildId,arrChildNAme,className,classStudent,classSub,a,a1,a2,b,b1,b2,a3,b3,classid,c,c1,c2,style,passcode,classType,topic,description,createdby,classname,desc;
     boolean defineClass = false;
-    public static String titleheader,Sch_Mem_id,Mem_Sch_Id,singleClassID;
-    public int pos;
+    public static String titleheader,Sch_Mem_id,Mem_Sch_Id;
+    public int pos,id;
     ImageButton imageButtonZoomIn, imageButtonZoomOut;
     RelativeLayout rellogin;
    public static String classtpye = "";
 
 
-    ArrayList<String> passcode,classType,topic,description,arrcreatedby,arrclassname;
+   // ArrayList<String> passcode,classType,topic,description,arrcreatedby,arrclassname;
     public static ClassFragment newInstance() {
         ClassFragment mFragment = new ClassFragment();
         /*Bundle mBundle = new Bundle();
@@ -122,12 +122,12 @@ public class ClassFragment extends Fragment {
         b3 = a3.replace("]", "");
         Log.e("b3",""+b3);
 
-        passcode=new ArrayList<>();
+        /*passcode=new ArrayList<>();
         arrcreatedby=new ArrayList<>();
         classType=new ArrayList<>();
         topic=new ArrayList<>();
         description =new ArrayList<>();
-        arrclassname =new ArrayList<>();
+        arrclassname =new ArrayList<>();*/
         myListclassId = new ArrayList<String>(Arrays.asList(b3.split(",")));
 
         Log.e("myListclassId",""+myListclassId);
@@ -228,6 +228,7 @@ public class ClassFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 pos=position;
                 titleheader=myList.get(pos);
+                EditClassFragment.singleClassID=myListclassId.get(position);
                 Intent intent = new Intent(getActivity(), NavigationActivity.class);
                 defineClass = true;
                 intent.putExtra("fromClass", defineClass);
@@ -265,11 +266,13 @@ public class ClassFragment extends Fragment {
         rippleViewCreate.setOnRippleCompleteListener(new RippleView.OnRippleCompleteListener() {
             @Override
             public void onComplete(RippleView rippleView) {
+                id=1;
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 CreateClassFragment createclassFragment = new CreateClassFragment();
 
                 Bundle bundle=new Bundle();
+                bundle.putInt("id",id);
                 bundle.putString("arrName",String.valueOf(arrName));
                 bundle.putString("arrId",arrId);
                 bundle.putString("arrChildNAme",String.valueOf(arrChildNAme));
@@ -367,10 +370,13 @@ public class ClassFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     pos=position;
-                    singleClassID=myListclassId.get(position);
+                    EditClassFragment.singleClassID=myListclassId.get(position);
 
 
-                    new Edit_Class().execute(singleClassID,Sch_Mem_id,Mem_Sch_Id);
+                    Intent intent=new Intent(getActivity(),EditClassFragment.class);
+                    startActivity(intent);
+
+                //    new Edit_Class().execute(singleClassID,Sch_Mem_id,Mem_Sch_Id);
 
                     /*FragmentManager fragmentManager = getFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -394,6 +400,7 @@ public class ClassFragment extends Fragment {
 
         @Override
         public int getCount() {
+            Log.e("sizeqw",""+myList.size());
             return myList.size();
         }
 
@@ -463,26 +470,26 @@ public class ClassFragment extends Fragment {
                 for (int i = 0; i <= arr.length(); i++) {
                     JSONObject obj = arr.getJSONObject(i);
 
-                    String clsid = obj.getString("clsid");
+                    passcode = obj.getString("clsid");
 
-                    String createdby = obj.getString("createdby");
+                     createdby = obj.getString("createdby");
 
                     String schoolid = obj.getString("schoolid");
                     Log.e("schoolid",""+schoolid);
 
                     String classid = obj.getString("classid");
 
-                    String classname = obj.getString("classname");
+                     classname = obj.getString("classname");
 
                     String classpassword = obj.getString("classpassword");
 
-                    String style = obj.getString("style");
+                     style = obj.getString("style");
 
                     String topic_id = obj.getString("topic_id");
 
-                    String topic_name = obj.getString("topic_name");
+                    topic = obj.getString("topic_name");
 
-                    String desc = obj.getString("desc");
+                     desc = obj.getString("desc");
 
                     String class_full_image = obj.getString("class_full_image");
 
@@ -501,24 +508,32 @@ public class ClassFragment extends Fragment {
                         String enable_grades = obj1.getString("enable_grades");
 
 
-                        passcode.add(clsid);
+                        /*passcode.add(clsid);
+                        Log.e("..passcode","" +passcode);
                         classType.add(style);
+                        Log.e("..classType","" +classType);
                         arrcreatedby.add(createdby);
+                        Log.e("..arrcreatedby","" +arrcreatedby);
                         topic.add(topic_name);
+                        Log.e("..topic","" +topic);
                         arrclassname.add(classname);
+                        Log.e("..passcode","" +passcode);
                         description.add(desc);
+                        Log.e("..description","" +description);*/
 
 
 
                         Intent intent=new Intent(getActivity(),EditClassFragment.class);
                         intent.putExtra("title",myList.get(pos));
                         intent.putExtra("myListclassId",myListclassId.get(pos));
-                        intent.putExtra("passcode",passcode.get(pos));
-                        intent.putExtra("classType",classType.get(pos));
-                        intent.putExtra("arrcreatedby",arrcreatedby.get(pos));
-                        intent.putExtra("arrclassname",arrclassname.get(pos));
-                        intent.putExtra("topic",topic.get(pos));
-                        intent.putExtra("description",description.get(pos));
+                        intent.putExtra("passcode",passcode);
+                        intent.putExtra("classType",classType);
+                        intent.putExtra("arrcreatedby",createdby);
+                        intent.putExtra("arrclassname",classname);
+                        intent.putExtra("topic",topic);
+                        intent.putExtra("style",style);
+
+                        intent.putExtra("description",desc);
                         intent.putExtra("arrName",String.valueOf(arrName));
                         intent.putExtra("arrId",arrId);
                         intent.putExtra("arrChildNAme",String.valueOf(arrChildNAme));
