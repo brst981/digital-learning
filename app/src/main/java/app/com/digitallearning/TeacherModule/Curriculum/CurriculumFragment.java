@@ -51,6 +51,7 @@ public class CurriculumFragment extends Fragment {
         ripple_teacher_syllabus=(RippleView)rootview.findViewById(R.id.ripple_teacher_syllabus);
 
 
+
         ripple_GradeTo.setOnRippleCompleteListener(new RippleView.OnRippleCompleteListener() {
             @Override
             public void onComplete(RippleView rippleView) {

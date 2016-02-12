@@ -85,6 +85,7 @@ public class ClassFragment extends Fragment {
         headerTitle = (TextView) activity.findViewById(R.id.mytext);
 
         headerTitle.setText("Choose Class");*/
+        new Before_Class_Listing().execute();
         rellogin=(RelativeLayout)rootview.findViewById(R.id.rellogin) ;
         relative_header=(RelativeLayout)rootview.findViewById(R.id.relative_header);
         rippleViewCreate=(RippleView)rootview.findViewById(R.id.ripple_create);
@@ -104,10 +105,11 @@ public class ClassFragment extends Fragment {
             }
         });
 
-        arrId=getArguments().getString("arrId");
-        arrName=getArguments().getString("arrName");
-        arrChildId=getArguments().getString("arrChildId");
-        arrChildNAme=getArguments().getString("arrChildNAme");
+        try {
+            arrId = getArguments().getString("arrId");
+            arrName = getArguments().getString("arrName");
+            arrChildId = getArguments().getString("arrChildId");
+            arrChildNAme = getArguments().getString("arrChildNAme");
 
         className=getArguments().getString("className");
         Log.e("className",""+className);
@@ -115,6 +117,8 @@ public class ClassFragment extends Fragment {
         Log.e("classStudent",""+classStudent);
         classSub=getArguments().getString("classSub");
         Log.e("classSub",""+classSub);
+        }
+        catch (Exception e){}
 
         classid=getArguments().getString("classid");
         a3 = classid.replace("[", "");
@@ -400,7 +404,7 @@ public class ClassFragment extends Fragment {
 
         @Override
         public int getCount() {
-            Log.e("sizeqw",""+myList.size());
+          //  Log.e("sizeqw",""+myList.size());
             return myList.size();
         }
 
@@ -596,6 +600,55 @@ public class ClassFragment extends Fragment {
             }
         }
     }
+
+
+
+
+
+    class Before_Class_Listing extends AsyncTask<String, Integer, String> {
+
+
+        @Override
+        protected String doInBackground(String... params) {
+
+            return WSConnector.Before_Class_Listing_DoIn();
+
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            dlg.setMessage("Fetching Data.....");
+            dlg.setCancelable(false);
+            dlg.show();
+
+
+        }
+
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+            dlg.dismiss();
+            Log.e("REsulTfsddgf", "" + result);
+            if (result.contains("true")) {
+
+
+
+
+            } else if (result.contains("false")) {
+                Toast.makeText(getActivity(), "Wrong User", Toast.LENGTH_SHORT).show();
+
+            }
+
+
+        }
+
+    }
+
+
+
+
     public void zoom(Float scaleX, Float scaleY, PointF pivot) {
         rellogin.setPivotX(pivot.x);
         rellogin.setPivotY(pivot.y);

@@ -7,7 +7,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.PointF;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -22,19 +21,13 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.andexert.library.RippleView;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import app.com.digitallearning.R;
-import app.com.digitallearning.WebServices.WSConnector;
 
 /**
  * Created by ${PSR} on 1/28/16.
@@ -54,9 +47,10 @@ public class TopicFragment extends Fragment {
     String first="Art";
     ImageView back;
     ProgressDialog dlg;
+    String newTitle,semester,coursecode;
     ImageButton imageButtonZoomIn, imageButtonZoomOut;
     RelativeLayout rellogin;
-    int id;
+    int id,fromEdit;
     int fromsave=1;
     ArrayList<String > arrId,arrName,arrChildId,arrChildNAme;
     final CharSequence[] art = {"Art","Theater","Visual Art"};
@@ -73,7 +67,13 @@ public class TopicFragment extends Fragment {
        // id=getArguments().getInt("id");
        // if(id==1){
 
-        new Before_Class_Listing().execute();
+        fromEdit=getArguments().getInt("fromEdit");
+        newTitle=getArguments().getString("newTitle");
+        semester=getArguments().getString("semester1");
+        Log.e("semestertopic",""+semester);
+        coursecode=getArguments().getString("coursecode1");
+        Log.e("coursecodetopic",""+coursecode);
+
             /*arrName=getArguments().getString("arrName");
 
             arrId=getArguments().getString("arrId");
@@ -125,10 +125,19 @@ public class TopicFragment extends Fragment {
         ripple_topic_save.setOnRippleCompleteListener(new RippleView.OnRippleCompleteListener() {
             @Override
             public void onComplete(RippleView rippleView) {
-                //getFragmentManager().popBackStackImmediate();
-                Intent save=new Intent(getActivity(),EditClassFragment.class);
-                save.putExtra("fromsave",fromsave);
-                startActivity(save);
+
+                if(fromEdit==12) {
+                    Intent save = new Intent(getActivity(), EditClassFragment.class);
+                    save.putExtra("fromsave", fromsave);
+                    save.putExtra("newTitle",newTitle);
+                    save.putExtra("semester",semester);
+                    save.putExtra("coursecode",coursecode);
+                    startActivity(save);
+                    getActivity().finish();
+                }
+                else{
+                    getFragmentManager().popBackStackImmediate();
+                }
             }
         });
 
@@ -284,9 +293,10 @@ public class TopicFragment extends Fragment {
                         int position = getLayoutPosition(); // gets item position
                        // img_Art.setVisibility(View.VISIBLE);
                         topic=arrId.get(position);
+                        EditClassFragment.sr_topic1=arrId.get(position);
                         EditClassFragment.topic1=arrName.get(position);
                         Log.e("TopicmyList1",""+arrId);
-                        Log.e("EditClassFragmenttopic",""+EditClassFragment.topic1);
+                        Log.e("EditClassFragmenttopic",""+EditClassFragment.sr_topic1);
                         Log.e("SElected",""+topic);
                         if (position == 0) {
 
@@ -372,7 +382,7 @@ public class TopicFragment extends Fragment {
 
 
 
-    class Before_Class_Listing extends AsyncTask<String, Integer, String> {
+    /*class Before_Class_Listing extends AsyncTask<String, Integer, String> {
 
 
         @Override
@@ -423,9 +433,9 @@ public class TopicFragment extends Fragment {
                     String name = obj.getString("name");
                      Log.e("name", "" + name);
                     arrId.add(id);
-                    //  Log.e("arrId",""+arrId);
+                     Log.e("arrId",""+arrId);
                 arrName.add(name);
-                    //  Log.e("arrName",""+arrName);
+                      Log.e("arrName",""+arrName);
                     Object ss = obj.get("child");
                     if (ss instanceof JSONArray) {
                         JSONArray arr1 = obj.getJSONArray("child");
@@ -442,9 +452,9 @@ public class TopicFragment extends Fragment {
                                  Log.e("name1", "" + name1);
 
                                arrChildId.add(id1);
-                                //  Log.e("arrChildId",""+arrChildId);
+                                  Log.e("arrChildId",""+arrChildId);
                                arrChildNAme.add(name1);
-                                //Log.e("arrChildNAme",""+arrChildNAme);
+                                Log.e("arrChildNAme",""+arrChildNAme);
                                 mAdapter = new MyRecyclerViewAdapter(arrId,arrName,arrChildId,arrChildNAme);
                                 mRecyclerView.setAdapter(mAdapter);
 
@@ -457,7 +467,7 @@ public class TopicFragment extends Fragment {
                 }
 
 
-               /* FragmentManager fragmentManager = getFragmentManager();
+               *//* FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 ClassFragment classFragment = new ClassFragment();
                 Bundle bundle = new Bundle();
@@ -479,7 +489,7 @@ public class TopicFragment extends Fragment {
 
                 fragmentTransaction.replace(R.id.container, classFragment).addToBackStack(null);
                 classFragment.setArguments(bundle);
-                fragmentTransaction.commit();*/
+                fragmentTransaction.commit();*//*
 
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -488,7 +498,7 @@ public class TopicFragment extends Fragment {
 
         }
 
-    }
+    }*/
 
 
 

@@ -47,6 +47,7 @@ public class CreateClassFragment extends Fragment {
     TextView selectedclass,selectedtopic,selecteddes;
     int id,idres;
     static int slecectedclasstype;
+    int fromcreate=10;
     final static CharSequence[] classtype = {"Instructor","Blended","Self Paced"};
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -219,7 +220,10 @@ public class CreateClassFragment extends Fragment {
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 DescriptionFragment descriptionFragment = new DescriptionFragment();
+                Bundle bundle=new Bundle();
+                bundle.putInt("fromcreate",fromcreate);
                 fragmentTransaction.replace(R.id.container, descriptionFragment).addToBackStack(null);
+                descriptionFragment.setArguments(bundle);
                 fragmentTransaction.commit();
             }
         });

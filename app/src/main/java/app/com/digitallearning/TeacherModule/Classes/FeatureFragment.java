@@ -2,14 +2,11 @@ package app.com.digitallearning.TeacherModule.Classes;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
-
-import com.andexert.library.RippleView;
 
 import app.com.digitallearning.R;
 
@@ -18,7 +15,6 @@ import app.com.digitallearning.R;
  */
 public class FeatureFragment extends Fragment {
     View rootview;
-    RippleView ripple_main,ripple_main1,ripple_main2,ripple_main3,ripple_buttonSave;
     CheckBox checkbox1,checkbox2,checkbox3,checkbox4;
     public static String featurevalue;
     int c1,c2,c3,c4;
@@ -28,12 +24,6 @@ public class FeatureFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootview = inflater.inflate(R.layout.feature_fragment, container, false);
-        ripple_main=(RippleView)rootview.findViewById(R.id.ripple_main);
-        ripple_main1=(RippleView)rootview.findViewById(R.id.ripple_main1);
-        ripple_main2=(RippleView)rootview.findViewById(R.id.ripple_main2);
-        ripple_main3=(RippleView)rootview.findViewById(R.id.ripple_main3);
-        ripple_buttonSave=(RippleView)rootview.findViewById(R.id.ripple_buttonSave);
-
         back=(ImageButton)rootview.findViewById(R.id.back);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,7 +37,7 @@ public class FeatureFragment extends Fragment {
         checkbox3=(CheckBox)rootview.findViewById(R.id.checkbox3) ;
         checkbox4=(CheckBox)rootview.findViewById(R.id.checkbox4) ;
 
-
+/*
         ripple_main.setOnRippleCompleteListener(new RippleView.OnRippleCompleteListener() {
             @Override
             public void onComplete(RippleView rippleView) {
@@ -122,12 +112,12 @@ public class FeatureFragment extends Fragment {
         ripple_buttonSave.setOnRippleCompleteListener(new RippleView.OnRippleCompleteListener() {
             @Override
             public void onComplete(RippleView rippleView) {
-             /*   featurevalue=cal+","+chat+","+grades+","+stu;
-                Log.e("FeatureValue",""+featurevalue);*/
+             *//*   featurevalue=cal+","+chat+","+grades+","+stu;
+                Log.e("FeatureValue",""+featurevalue);*//*
 
                 getFragmentManager().popBackStackImmediate();
             }
-        });
+        });*/
 
 
         return rootview;

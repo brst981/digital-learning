@@ -72,6 +72,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_gravity="center"
+
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="10dp"
@@ -89,6 +90,7 @@
                 android:layout_height="40dp"
                 android:layout_below="@+id/edt_title"
                 android:layout_gravity="center"
+                android:clickable="false"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="10dp"
@@ -268,7 +270,7 @@
 
                 <TextView
                     android:id="@+id/text_features_detail"
-                    android:layout_width="150dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="30dp"
                     android:layout_marginRight="10dp"
                     android:layout_toLeftOf="@+id/img_back_features"

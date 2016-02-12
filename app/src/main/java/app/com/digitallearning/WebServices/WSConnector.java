@@ -105,28 +105,40 @@ public class WSConnector {
 
     }
 
-    public static String update_class(String singleClassID, String userid,String schid) {
+    public static String update_class(String classidgetupdate, String created,String Mem_Sch_Id, String classname, String sr_classtppeval, String sr_topic,String  sr_description, String check,String semeserval, String coursecodeval,String  cal,String  stu,String chat, String grades) {
 
         String url = AppConstant.update_Class;
         List<NameValuePair> pairs = new ArrayList<NameValuePair>();
-        pairs.add(new BasicNameValuePair("classid", singleClassID));
-        Log.e("classId",""+singleClassID);
-        pairs.add(new BasicNameValuePair("createdby", userid));
-        Log.e("userid",""+userid);
-        pairs.add(new BasicNameValuePair("schoolid", schid));
-
-        pairs.add(new BasicNameValuePair("classname", schid));
-        pairs.add(new BasicNameValuePair("style", schid));
-        pairs.add(new BasicNameValuePair("topic", schid));
-        pairs.add(new BasicNameValuePair("desc", schid));
-        pairs.add(new BasicNameValuePair("show_links", schid));
-        pairs.add(new BasicNameValuePair("semester", schid));
-        pairs.add(new BasicNameValuePair("coursecode", schid));
-        pairs.add(new BasicNameValuePair("othertopicdata", schid));
-        pairs.add(new BasicNameValuePair("enable_calendar", schid));
-        pairs.add(new BasicNameValuePair("enable_students_tab", schid));
-        pairs.add(new BasicNameValuePair("enable_chat", schid));
-        pairs.add(new BasicNameValuePair("enable_grades ", schid));
+        pairs.add(new BasicNameValuePair("classid", classidgetupdate));
+        Log.e("classId",""+classidgetupdate);
+        pairs.add(new BasicNameValuePair("createdby", created));
+        Log.e("userid",""+created);
+        pairs.add(new BasicNameValuePair("schoolid", Mem_Sch_Id));
+        Log.e("Mem_Sch_Id",""+Mem_Sch_Id);
+        pairs.add(new BasicNameValuePair("classname", classname));
+        Log.e("classname",""+classname);
+        pairs.add(new BasicNameValuePair("style", sr_classtppeval));
+        Log.e("sr_classtppeval",""+sr_classtppeval);
+        pairs.add(new BasicNameValuePair("topic", sr_topic));
+        Log.e("sr_topic",""+sr_topic);
+        pairs.add(new BasicNameValuePair("desc", sr_description));
+        Log.e("sr_description",""+sr_description);
+        pairs.add(new BasicNameValuePair("show_links", check));
+        Log.e("check",""+check);
+        pairs.add(new BasicNameValuePair("semester", semeserval));
+        Log.e("semeserval",""+semeserval);
+        pairs.add(new BasicNameValuePair("coursecode", coursecodeval));
+        Log.e("coursecodeval",""+coursecodeval);
+        pairs.add(new BasicNameValuePair("othertopicdata", ""));
+        Log.e("othertopicdata",""+"");
+        pairs.add(new BasicNameValuePair("enable_calendar", cal));
+        Log.e("cal",""+cal);
+        pairs.add(new BasicNameValuePair("enable_students_tab", ""));
+        Log.e("enable_students_tab",""+"");
+        pairs.add(new BasicNameValuePair("enable_chat", ""));
+        Log.e("enable_chat",""+"");
+        pairs.add(new BasicNameValuePair("enable_grades ", ""));
+        Log.e("userid",""+created);
 
         String result = WSAdapter.postJSONObject(url, pairs);
 
@@ -135,6 +147,13 @@ public class WSConnector {
 
     }
 
+    public static String delete_class() {
+
+        String url = AppConstant.delete_class;
+        String result = WSAdapter.getJSONObject(url);
+        return result;
+
+    }
 
 
 
