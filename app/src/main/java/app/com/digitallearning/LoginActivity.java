@@ -55,6 +55,7 @@ public class LoginActivity extends Activity {
                 intent.putExtra("SchoolName",schoolName);
                 intent.putExtra("SchoolID",schoolID);
                 startActivity(intent);
+                finish();
 
             }
         });

@@ -3,9 +3,11 @@ package app.com.digitallearning.TeacherModule;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.PointF;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -34,7 +36,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import app.com.digitallearning.R;
@@ -58,10 +59,17 @@ public class ClassFragment extends Fragment {
     String arrId,arrName,arrChildId,arrChildNAme,className,classStudent,classSub,a,a1,a2,b,b1,b2,a3,b3,classid,c,c1,c2,style,passcode,classType,topic,description,createdby,classname,desc;
     boolean defineClass = false;
     public static String titleheader,Sch_Mem_id,Mem_Sch_Id;
-    public int pos,id;
+    public int pos,id,updateEdit;
     ImageButton imageButtonZoomIn, imageButtonZoomOut;
-    RelativeLayout rellogin;
-   public static String classtpye = "";
+    RelativeLayout rellogin,relframe;
+    public static String classtpye = "";
+    SharedPreferences preferences;
+    SharedPreferences.Editor editor;
+    RelativeLayout newrelative;
+
+    ArrayList<String> newusreId, newschoolId,newclassName,newclassid,newclassSub,newclassStudent;
+    String name,password,schoolID;
+
 
 
    // ArrayList<String> passcode,classType,topic,description,arrcreatedby,arrclassname;
@@ -76,8 +84,40 @@ public class ClassFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootview = inflater.inflate(R.layout.fragment_class, container, false);
         dlg=new ProgressDialog(getActivity());
+
         imageButtonZoomIn = (ImageButton)rootview. findViewById(R.id.img_zoom_in);
         imageButtonZoomOut = (ImageButton) rootview.findViewById(R.id.img_zoom_out);
+        newrelative=(RelativeLayout)rootview.findViewById(R.id.newrelative);
+       /* try {
+            updateEdit = getArguments().getInt("updateEdit");
+            Log.e("updateEdit", "" + updateEdit);
+            if (updateEdit == 20) {
+                rootview = inflater.inflate(R.layout.fragment_class, container, false);
+            }
+        }
+        catch (Exception e){}*/
+
+        newclassName=new ArrayList<>();
+        newclassid=new ArrayList<>();
+        newclassSub=new ArrayList<>();
+        newclassStudent=new ArrayList<>();
+        preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        name = preferences.getString("name","");
+        Log.e("namenxj",""+name);
+
+        password=preferences.getString("password","");
+        Log.e("password",""+password);
+        schoolID=preferences.getString("schoolID","");
+        Log.e("schoolID",""+schoolID);
+        Sch_Mem_id=preferences.getString("Sch_Mem_id","");
+        Mem_Sch_Id=preferences.getString("Mem_Sch_Id","");
+        Log.e("classSchidgetArguments",""+Sch_Mem_id);
+        Log.e("classmemidgetArguments",""+Mem_Sch_Id);
+
+       // name=getArguments().getString("name");
+
+
+        new TeacherLogIn().execute(name, password, schoolID);
        /* AppCompatActivity activity = (AppCompatActivity) getActivity();
 
         activity.getSupportActionBar().setTitle("");
@@ -85,7 +125,7 @@ public class ClassFragment extends Fragment {
         headerTitle = (TextView) activity.findViewById(R.id.mytext);
 
         headerTitle.setText("Choose Class");*/
-        new Before_Class_Listing().execute();
+
         rellogin=(RelativeLayout)rootview.findViewById(R.id.rellogin) ;
         relative_header=(RelativeLayout)rootview.findViewById(R.id.relative_header);
         rippleViewCreate=(RippleView)rootview.findViewById(R.id.ripple_create);
@@ -105,26 +145,11 @@ public class ClassFragment extends Fragment {
             }
         });
 
-        try {
-            arrId = getArguments().getString("arrId");
+
+         /*   arrId = getArguments().getString("arrId");
             arrName = getArguments().getString("arrName");
             arrChildId = getArguments().getString("arrChildId");
-            arrChildNAme = getArguments().getString("arrChildNAme");
-
-        className=getArguments().getString("className");
-        Log.e("className",""+className);
-        classStudent=getArguments().getString("classStudent");
-        Log.e("classStudent",""+classStudent);
-        classSub=getArguments().getString("classSub");
-        Log.e("classSub",""+classSub);
-        }
-        catch (Exception e){}
-
-        classid=getArguments().getString("classid");
-        a3 = classid.replace("[", "");
-        Log.e("a3",""+a3);
-        b3 = a3.replace("]", "");
-        Log.e("b3",""+b3);
+            arrChildNAme = getArguments().getString("arrChildNAme");*/
 
         /*passcode=new ArrayList<>();
         arrcreatedby=new ArrayList<>();
@@ -132,6 +157,20 @@ public class ClassFragment extends Fragment {
         topic=new ArrayList<>();
         description =new ArrayList<>();
         arrclassname =new ArrayList<>();*/
+
+
+        /*className=getArguments().getString("className");
+        Log.e("className",""+className);
+        classStudent=getArguments().getString("classStudent");
+        Log.e("classStudent",""+classStudent);
+        classSub=getArguments().getString("classSub");
+        Log.e("classSub",""+classSub);
+        classid=getArguments().getString("classid");
+        a3 = classid.replace("[", "");
+        Log.e("a3",""+a3);
+        b3 = a3.replace("]", "");
+        Log.e("b3",""+b3);
+
         myListclassId = new ArrayList<String>(Arrays.asList(b3.split(",")));
 
         Log.e("myListclassId",""+myListclassId);
@@ -162,11 +201,8 @@ public class ClassFragment extends Fragment {
         Log.e("myList1",""+myList1);
 
          myList2 = new ArrayList<String>(Arrays.asList(b2.split(",")));
-        Log.e("myList2",""+myList2);
+        Log.e("myList2",""+myList2);*/
 
-
-        Sch_Mem_id=getArguments().getString("userId");
-        Mem_Sch_Id=getArguments().getString("schoolId");
 
 
         //  relative_header.setVisibility(View.VISIBLE);
@@ -180,7 +216,7 @@ public class ClassFragment extends Fragment {
 
             }
         }));*/
-        titleheader=myList.get(pos);
+//       titleheader=newclassName.get(pos);
         Log.e("ISDefined",""+titleheader);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -191,8 +227,6 @@ public class ClassFragment extends Fragment {
         });
         mListView = (ListView)rootview.findViewById(R.id.listview_archieved);
         mAdapter = new ListViewAdapter(getActivity());
-        mListView.setAdapter(mAdapter);
-        mAdapter.setMode(Attributes.Mode.Single);
 
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -231,8 +265,13 @@ public class ClassFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 pos=position;
-                titleheader=myList.get(pos);
-                EditClassFragment.singleClassID=myListclassId.get(position);
+                titleheader=newclassName.get(pos);
+                EditClassFragment.singleClassID=newclassid.get(position);
+                preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+                editor = preferences.edit();
+                editor.putString("cla_classid", newclassid.get(position));
+                editor.commit();
+
                 Intent intent = new Intent(getActivity(), NavigationActivity.class);
                 defineClass = true;
                 intent.putExtra("fromClass", defineClass);
@@ -283,7 +322,7 @@ public class ClassFragment extends Fragment {
                 bundle.putString("Sch_Mem_id",Sch_Mem_id);
                 bundle.putString("Mem_Sch_Id",Mem_Sch_Id);
                 bundle.putString("classid",classid);
-                fragmentTransaction.replace(R.id.container, createclassFragment).addToBackStack(null);
+                fragmentTransaction.add(android.R.id.content, createclassFragment).addToBackStack(null);
                 createclassFragment.setArguments(bundle);
                 fragmentTransaction.commit();
             }
@@ -364,20 +403,26 @@ public class ClassFragment extends Fragment {
             // TextView t = (TextView)convertView.findViewById(R.id.position);
             // t.setText((position + 1) + ".");
            TextView text_class_name=(TextView)convertView.findViewById(R.id.text_class_name);
-            text_class_name.setText(myList.get(position));
+            text_class_name.setText(newclassName.get(position));
             TextView   text_subject_name=(TextView)convertView.findViewById(R.id.text_subject_name);
-            text_subject_name.setText(myList2.get(position));
+            text_subject_name.setText(newclassSub.get(position));
             TextView text_studen_name=(TextView)convertView.findViewById(R.id.text_studen_name);
-            text_studen_name.setText(myList1.get(position));
+            text_studen_name.setText(newclassStudent.get(position));
             TextView editbutton=(TextView)convertView.findViewById(R.id.editbutton);
             editbutton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     pos=position;
-                    EditClassFragment.singleClassID=myListclassId.get(position);
+                    Log.e("classSchid",""+Sch_Mem_id);
+                    Log.e("classmemid",""+Mem_Sch_Id);
+                    EditClassFragment.singleClassID=newclassid.get(position);
 
 
                     Intent intent=new Intent(getActivity(),EditClassFragment.class);
+                    intent.putExtra("Sch_Mem_id",Sch_Mem_id);
+                    intent.putExtra("Mem_Sch_Id",Mem_Sch_Id);
+                    Log.e("classSchidrr",""+Sch_Mem_id);
+                    Log.e("classmemidrr",""+Mem_Sch_Id);
                     startActivity(intent);
 
                 //    new Edit_Class().execute(singleClassID,Sch_Mem_id,Mem_Sch_Id);
@@ -405,7 +450,7 @@ public class ClassFragment extends Fragment {
         @Override
         public int getCount() {
           //  Log.e("sizeqw",""+myList.size());
-            return myList.size();
+            return newclassName.size();
         }
 
         @Override
@@ -420,22 +465,20 @@ public class ClassFragment extends Fragment {
 
 
     }
-
-
-    class Edit_Class extends AsyncTask<String, Integer, String> {
+    class TeacherLogIn extends AsyncTask<String, Integer, String> {
 
 
         @Override
         protected String doInBackground(String... params) {
 
-            return WSConnector.edit_Class(params[0], params[1], params[2]);
+            return WSConnector.login(params[0], params[1], params[2]);
 
         }
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            dlg.setMessage("Loading.....");
+            dlg.setMessage("Authenticating User.....");
             dlg.setCancelable(false);
             dlg.show();
 
@@ -447,20 +490,21 @@ public class ClassFragment extends Fragment {
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
             dlg.dismiss();
-        //    Log.e("REsulT", "" + result);
-            if (result.contains("true")) {
+            Log.e("REsulTinClassfragment", "" + result);
+           if (result.contains("true")) {
 
                 updateTeacherLogIn(result);
 
 
             } else if (result.contains("false")) {
-                Toast.makeText(getActivity(), "Wrong User", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Wrong Userkuiiuh", Toast.LENGTH_SHORT).show();
 
-            }
+           }
         }
-//{"success":true,"data":[{"clsid":"183599","createdby":"2155","schoolid":"487","classid":"1800","classname":"1",
-// "classpassword":"","style":"2","topic_id":"12","topic_name":"Training ","desc":"Test","class_full_image":"",
-// "class_thumb_image":"","Cls_Features":{"enable_calendar":"","enable_students_tab":"","enable_chat":"","enable_grades":""}}]},
+//{"success":true,"user_type":"Teacher","Sch_Mem_id":"2155","Mem_Sch_Id":"487","Mem_Type":"1, 4","Mem_Name":"Ashish",
+// "Mem_Emailid":"brstdev@gmail.com","class_data":[{"class_id":"183599","cls_createdby":"2155","cls_name":"1",
+// "Cls_desc":"Test","subject":"Training ","cla_classid":"1800","students":"0","cls_image":"","orderid":"649",
+// "new_orderid":"125"},
 
         private void updateTeacherLogIn(String success) {
 
@@ -469,185 +513,66 @@ public class ClassFragment extends Fragment {
                 JSONObject jsonObject = new JSONObject(success);
                 Log.e("jsonObject", "" + jsonObject);
 
-                JSONArray arr = jsonObject.getJSONArray("data");
+                Sch_Mem_id = jsonObject.getString("Sch_Mem_id");
+                Log.e("Sch_Mem_id", " " + Sch_Mem_id);
+
+                Mem_Sch_Id = jsonObject.getString("Mem_Sch_Id");
+                Log.e("Mem_Sch_Id", " " + Mem_Sch_Id);
+
+                String Mem_Name = jsonObject.getString("Mem_Name");
+                Log.e("Mem_Name", " " + Mem_Name);
+
+                String Mem_Emailid = jsonObject.getString("Mem_Emailid");
+                Log.e("Mem_Emailid", " " + Mem_Emailid);
+
+
+                JSONArray arr = jsonObject.getJSONArray("class_data");
                 Log.e("arr", " " + arr);
-                for (int i = 0; i <= arr.length(); i++) {
+                for (int i = 0; i < arr.length(); i++) {
                     JSONObject obj = arr.getJSONObject(i);
+                    Log.e("obj", "" + obj);
+                    String class_id = obj.getString("class_id");
+                    Log.e("class_id", "" + class_id);
+                    String cls_createdby = obj.getString("cls_createdby");
+                    Log.e("cls_createdby", "" + cls_createdby);
+                    String cls_name = obj.getString("cls_name");
+                    Log.e("cls_name", "" + cls_name);
+                    String Cls_desc = obj.getString("Cls_desc");
+                    Log.e("Cls_desc", "" + Cls_desc);
+                    String subject = obj.getString("subject");
+                    Log.e("subject", "" + subject);
+                    String cla_classid = obj.getString("cla_classid");
+                    Log.e("cla_classid", "" + cla_classid);
+                    String students = obj.getString("students");
+                    Log.e("students", "" + students);
+                    String cls_image = obj.getString("cls_image");
+                    Log.e("cls_image", "" + cls_image);
+                    String orderid = obj.getString("orderid");
+                    Log.e("orderid", "" + orderid);
 
-                    passcode = obj.getString("clsid");
-
-                     createdby = obj.getString("createdby");
-
-                    String schoolid = obj.getString("schoolid");
-                    Log.e("schoolid",""+schoolid);
-
-                    String classid = obj.getString("classid");
-
-                     classname = obj.getString("classname");
-
-                    String classpassword = obj.getString("classpassword");
-
-                     style = obj.getString("style");
-
-                    String topic_id = obj.getString("topic_id");
-
-                    topic = obj.getString("topic_name");
-
-                     desc = obj.getString("desc");
-
-                    String class_full_image = obj.getString("class_full_image");
-
-                    String class_thumb_image = obj.getString("class_thumb_image");
+                    String new_orderid = obj.getString("new_orderid");
+                    Log.e("new_orderid", "" + new_orderid);
 
 
-
-                    JSONObject obj1=obj.getJSONObject("Cls_Features"); {
-
-                        String enable_calendar = obj1.getString("enable_calendar");
-
-                        String enable_students_tab = obj1.getString("enable_students_tab");
-
-                        String enable_chat = obj1.getString("enable_chat");
-
-                        String enable_grades = obj1.getString("enable_grades");
-
-
-                        /*passcode.add(clsid);
-                        Log.e("..passcode","" +passcode);
-                        classType.add(style);
-                        Log.e("..classType","" +classType);
-                        arrcreatedby.add(createdby);
-                        Log.e("..arrcreatedby","" +arrcreatedby);
-                        topic.add(topic_name);
-                        Log.e("..topic","" +topic);
-                        arrclassname.add(classname);
-                        Log.e("..passcode","" +passcode);
-                        description.add(desc);
-                        Log.e("..description","" +description);*/
-
-
-
-                        Intent intent=new Intent(getActivity(),EditClassFragment.class);
-                        intent.putExtra("title",myList.get(pos));
-                        intent.putExtra("myListclassId",myListclassId.get(pos));
-                        intent.putExtra("passcode",passcode);
-                        intent.putExtra("classType",classType);
-                        intent.putExtra("arrcreatedby",createdby);
-                        intent.putExtra("arrclassname",classname);
-                        intent.putExtra("topic",topic);
-                        intent.putExtra("style",style);
-
-                        intent.putExtra("description",desc);
-                        intent.putExtra("arrName",String.valueOf(arrName));
-                        intent.putExtra("arrId",arrId);
-                        intent.putExtra("arrChildNAme",String.valueOf(arrChildNAme));
-                        intent.putExtra("Sch_Mem_id",Sch_Mem_id);
-                        intent.putExtra("Mem_Sch_Id",Mem_Sch_Id);
-                        intent.putExtra("classid",classid);
-
-                        startActivity(intent);
-
-
-
-                        /*FragmentManager fragmentManager = getFragmentManager();
-                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                        EditClassFragment classFragment = new EditClassFragment();
-                        Bundle arg=new Bundle();
-                        arg.putString("title",myList.get(pos));
-                        Log.e("titleSend",""+myList.get(pos));
-
-                        arg.putString("myListclassId",myListclassId.get(pos));
-                        Log.e("titleSend",""+myList.get(pos));
-
-                        arg.putString("passcode",passcode.get(pos));
-                        Log.e("passcode",""+passcode.get(pos));
-
-                        arg.putString("classType",classType.get(pos));
-                        Log.e("classType",""+classType.get(pos));
-
-                        arg.putString("arrcreatedby",arrcreatedby.get(pos));
-                        Log.e("arrcreatedby",""+arrcreatedby.get(pos));
-
-                        arg.putString("arrclassname",arrclassname.get(pos));
-                        Log.e("arrclassname",""+arrclassname.get(pos));
-
-
-                        arg.putString("topic",topic.get(pos));
-                        Log.e("topic",""+topic.get(pos));
-
-                        arg.putString("description",description.get(pos));
-                        Log.e("description",""+description.get(pos));
-
-                        arg.putString("arrName",String.valueOf(arrName));
-                        arg.putString("arrId",arrId);
-                        arg.putString("arrChildNAme",String.valueOf(arrChildNAme));
-                        arg.putString("Sch_Mem_id",Sch_Mem_id);
-                        arg.putString("Mem_Sch_Id",Mem_Sch_Id);
-                        arg.putString("classid",classid);
-
-                        fragmentTransaction.replace(R.id.container, classFragment).addToBackStack(null);
-                        classFragment.setArguments(arg);
-                        fragmentTransaction.commit();
-                        titleheader=myList.get(pos);
-                        Log.e("StaticTitle",""+titleheader);*/
-                    }
+                    newclassName.add(cls_name);
+                    Log.e("listCname",""+className);
+                    newclassStudent.add(students);
+                    Log.e("listCstu",""+classStudent);
+                    newclassSub.add(subject);
+                    Log.e("listCsub",""+classSub);
+                    newclassid.add(cla_classid);
+                    Log.e("ghbdjclassid",""+classid);
 
 
                 }
-
+                mListView.setAdapter(mAdapter);
+                mAdapter.setMode(Attributes.Mode.Single);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
         }
-    }
-
-
-
-
-
-    class Before_Class_Listing extends AsyncTask<String, Integer, String> {
-
-
-        @Override
-        protected String doInBackground(String... params) {
-
-            return WSConnector.Before_Class_Listing_DoIn();
-
-        }
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            dlg.setMessage("Fetching Data.....");
-            dlg.setCancelable(false);
-            dlg.show();
-
-
-        }
-
-
-        @Override
-        protected void onPostExecute(String result) {
-            super.onPostExecute(result);
-            dlg.dismiss();
-            Log.e("REsulTfsddgf", "" + result);
-            if (result.contains("true")) {
-
-
-
-
-            } else if (result.contains("false")) {
-                Toast.makeText(getActivity(), "Wrong User", Toast.LENGTH_SHORT).show();
-
-            }
-
-
-        }
 
     }
-
-
-
 
     public void zoom(Float scaleX, Float scaleY, PointF pivot) {
         rellogin.setPivotX(pivot.x);

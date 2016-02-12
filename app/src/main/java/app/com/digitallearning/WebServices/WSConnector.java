@@ -147,10 +147,20 @@ public class WSConnector {
 
     }
 
-    public static String delete_class() {
+    public static String Delete_class(String cla_classid ,String Sch_Mem_id ,String Mem_Sch_Id , String password) {
 
         String url = AppConstant.delete_class;
-        String result = WSAdapter.getJSONObject(url);
+        List<NameValuePair> pairs = new ArrayList<NameValuePair>();
+        pairs.add(new BasicNameValuePair("cid", cla_classid));
+        Log.e("cla_classid",""+cla_classid);
+        pairs.add(new BasicNameValuePair("userid", Sch_Mem_id));
+        Log.e("Sch_Mem_id",""+Sch_Mem_id);
+        pairs.add(new BasicNameValuePair("schid", Mem_Sch_Id));
+        Log.e("Mem_Sch_Id",""+Mem_Sch_Id);
+        pairs.add(new BasicNameValuePair("password ", password));
+        Log.e("password",""+password);
+
+        String result = WSAdapter.postJSONObject(url, pairs);
         return result;
 
     }

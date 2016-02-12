@@ -333,6 +333,8 @@ public class MainActivity extends Activity {
                         Toast.makeText(MainActivity.this, "clicked" + " " + position, Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(MainActivity.this, LoginActivity.class);
                         intent.putExtra("SchoolName",arrSchoolList.get(position));
+                        intent.putExtra("SchoolName",arrSchoolList.get(position));
+                        intent.putExtra("SchoolName",arrSchoolList.get(position));
                         Log.e("Sname",""+arrSchoolList.get(position));
                         intent.putExtra("SchoolID",arrSchoolId.get(position));
                         Log.e("SID",""+arrSchoolId.get(position));
@@ -467,14 +469,14 @@ public class MainActivity extends Activity {
                     h1.put("sch_name",sch_name);
                     arrayList.add(h1);
                 //    Log.e("h1",""+h1);
-                //    Log.e("arrayList",""+arrayList);
+                 //   Log.e("arrayList",""+arrayList);
                     arrSchoolList.add(sch_name);
                     if(arrSchoolImg!=null){
                         arrSchoolImg.add(sch_photo_thumb);
                     }
 
                     arrSchoolId.add(sch_id);
-                //   Log.e("imageList", "" + arrSchoolImg);
+                 //  Log.e("imageList", "" + arrSchoolImg);
                     mAdapter = new MyRecyclerViewAdapter(arrSchoolList,arrSchoolImg,arrSchoolId);
                     mRecyclerView.setAdapter(mAdapter);
 

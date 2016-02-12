@@ -59,6 +59,9 @@ public class EditClassFragment extends FragmentActivity {
     public static String style, classType1, topic1, topic, description, des,singleClassID,sr_topic1;
     int c1,c2,c3,c4;
     int fromEdit=12;
+    int updateEdit=20;
+
+
 
     static  String newTitle,newTitle1,semester1,semester2,coursecode1,coursecode2;
     String sr_title, sr_passcode,sr_classtppe,sr_classtppeval,sr_topic,sr_feature,sr_description,classidgetupdate;
@@ -66,6 +69,7 @@ public class EditClassFragment extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_edit_class);
+
         dlg=new ProgressDialog(EditClassFragment.this);
         fromsave=getIntent().getIntExtra("fromsave",0);
         newTitle1=getIntent().getStringExtra("newTitle");
@@ -73,7 +77,7 @@ public class EditClassFragment extends FragmentActivity {
         Log.e("semester2",""+semester2);
         coursecode2=getIntent().getStringExtra("coursecode");
         Log.e("coursecode2",""+coursecode2);
-        new Before_Class_Listing().execute();
+      //  new Before_Class_Listing().execute();
         fromdes=getIntent().getIntExtra("fromdes",0);
        /* preferences = PreferenceManager.getDefaultSharedPreferences(EditClassFragment.this);
         SharedPreferences.Editor editor = preferences.edit();
@@ -82,6 +86,10 @@ public class EditClassFragment extends FragmentActivity {
         Log.e("fromsave",""+fromsave);
         Log.e("fromdes",""+fromdes);
         Log.e("check0",""+check);
+
+        Log.e("check0singleClassID",""+singleClassID);
+        Log.e("ClassFragment.",""+ClassFragment.Sch_Mem_id);
+        Log.e("ClassFragment.Mem_Sch",""+check);
         new Edit_Class().execute(singleClassID,ClassFragment.Sch_Mem_id,ClassFragment.Mem_Sch_Id);
         Log.e("ClassFragment.sing",""+singleClassID);
         Log.e("ClassFragment.S",""+ClassFragment.Sch_Mem_id);
@@ -948,22 +956,10 @@ public class EditClassFragment extends FragmentActivity {
                 FragmentManager fragmentManager = getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 ClassFragment classFragment = new ClassFragment();
-
-                fragmentTransaction.replace(android.R.id.content, classFragment).addToBackStack(null);
-
+                fragmentTransaction.add(android.R.id.content, classFragment).addToBackStack(null);
                 fragmentTransaction.commit();
 
 
-                //    Log.e("REsulT", "" + result);
-               /* if (result.contains("true")) {
-
-                    //updateTeacherLogIn(result);
-
-
-                } else if (result.contains("false")) {
-                    Toast.makeText(getApplicationContext(), "Wrong User", Toast.LENGTH_SHORT).show();
-
-                }*/
             }
 
 
@@ -1013,13 +1009,7 @@ public class EditClassFragment extends FragmentActivity {
 
 
             }
-        }
-
-
-
-
-
-        }
+        }       }
 
 
 

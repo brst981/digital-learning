@@ -2,9 +2,11 @@ package app.com.digitallearning.TeacherModule;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.PointF;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -39,11 +41,14 @@ public class TeacherLoginFragment extends Fragment {
     TextView text_school_name;
     ProgressDialog dlg;
     EditText edt_username, edt_pwd;
-    String name, password, schoolID, schoolName,Sch_Mem_id,Mem_Sch_Id;
+    String name, password, schoolID, schoolName,Sch_Mem_id,Mem_Sch_Id,cla_classid;
     ArrayList<String> usreId, schoolId,className,classid,classSub,classStudent;
     ArrayList<String> arrId, arrName, arrChildId, arrChildNAme;
     RelativeLayout teacherlogin;
     ImageButton imageButtonZoomIn, imageButtonZoomOut,back;
+    SharedPreferences preferences;
+    SharedPreferences.Editor editor;
+    private static final int CONTENT_VIEW_ID = 0x7f0c006c;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -91,6 +96,12 @@ public class TeacherLoginFragment extends Fragment {
                 Log.e("name", "" + name);
                 password = edt_pwd.getText().toString();
                 Log.e("password", "" + password);
+                preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putString("name", name);
+                editor.putString("password", password);
+                editor.putString("schoolID", schoolID);
+                editor.commit();
 
 
                 new TeacherLogIn().execute(name, password, schoolID);
@@ -101,7 +112,7 @@ public class TeacherLoginFragment extends Fragment {
                 fragmentTransaction.replace(R.id.container, classFragment).addToBackStack(null);
                 fragmentTransaction.commit();*/
 
-             new Before_Class_Listing().execute();
+            // new Before_Class_Listing().execute();
             }
         });
         imageButtonZoomIn.setOnClickListener(new View.OnClickListener() {
@@ -185,11 +196,16 @@ public class TeacherLoginFragment extends Fragment {
 
                 String Mem_Emailid = jsonObject.getString("Mem_Emailid");
                 Log.e("Mem_Emailid", " " + Mem_Emailid);
+                preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+                editor = preferences.edit();
+                editor.putString("Sch_Mem_id", Sch_Mem_id);
+                editor.putString("Mem_Sch_Id", Mem_Sch_Id);
+                editor.commit();
 
 
                 JSONArray arr = jsonObject.getJSONArray("class_data");
                 Log.e("arr", " " + arr);
-                for (int i = 0; i <= arr.length(); i++) {
+                for (int i = 0; i < arr.length(); i++) {
                     JSONObject obj = arr.getJSONObject(i);
                     Log.e("obj", "" + obj);
                     String class_id = obj.getString("class_id");
@@ -202,7 +218,7 @@ public class TeacherLoginFragment extends Fragment {
                     Log.e("Cls_desc", "" + Cls_desc);
                     String subject = obj.getString("subject");
                     Log.e("subject", "" + subject);
-                    String cla_classid = obj.getString("cla_classid");
+                    cla_classid = obj.getString("cla_classid");
                     Log.e("cla_classid", "" + cla_classid);
                     String students = obj.getString("students");
                     Log.e("students", "" + students);
@@ -222,10 +238,40 @@ public class TeacherLoginFragment extends Fragment {
                     classSub.add(subject);
                     Log.e("listCsub",""+classSub);
                     classid.add(cla_classid);
+                    Log.e("ghbdjclassid",""+classid);
 
 
-                   // new Before_Class_Listing().execute();
                 }
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                ClassFragment classFragment = new ClassFragment();
+           //     Bundle bundle = new Bundle();
+                    /*bundle.putString("arrId", String.valueOf(arrId));
+                    bundle.putString("userId",Sch_Mem_id);
+                    bundle.putString("schoolId",Mem_Sch_Id);
+                    bundle.putString("arrName", String.valueOf(arrName));
+                    bundle.putString("arrChildId", String.valueOf(arrChildId));
+                    bundle.putString("arrChildNAme", String.valueOf(arrChildNAme));*/
+
+                    /*bundle.putString("userId",Sch_Mem_id);
+                    bundle.putString("schoolId",Mem_Sch_Id);
+                    bundle.putString("className", String.valueOf(className));
+                    bundle.putString("classStudent", String.valueOf(classStudent));
+                    bundle.putString("classSub", String.valueOf(classSub));
+                    bundle.putString("classid", String.valueOf(classid));
+
+
+                    Log.e("userIdSch_Mem_id", "" + Sch_Mem_id);
+                    Log.e("userIdMem_Sch_Id", "" + Mem_Sch_Id);*/
+             //   bundle.putString("name",name);
+             //   bundle.putString("password",password);
+             //   Log.e("passwordinteacher",""+password);
+             //   bundle.putString("schoolID",schoolID);
+             //   bundle.putString("userId",Sch_Mem_id);
+            //    bundle.putString("schoolId",Mem_Sch_Id);
+                fragmentTransaction.replace(R.id.container, classFragment).addToBackStack(null);
+             //   classFragment.setArguments(bundle);
+                fragmentTransaction.commit();
 
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -234,7 +280,7 @@ public class TeacherLoginFragment extends Fragment {
 
     }
 
-        class Before_Class_Listing extends AsyncTask<String, Integer, String> {
+       /* class Before_Class_Listing extends AsyncTask<String, Integer, String> {
 
 
             @Override
@@ -345,5 +391,5 @@ public class TeacherLoginFragment extends Fragment {
 
             }
 
-        }
+        }*/
 }

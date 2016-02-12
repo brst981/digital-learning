@@ -23,10 +23,6 @@ import android.widget.Toast;
 
 import com.andexert.library.RippleView;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import app.com.digitallearning.R;
 import app.com.digitallearning.WebServices.WSConnector;
 
@@ -101,14 +97,20 @@ public class CreateClassFragment extends Fragment {
         class_id=getArguments().getString("classid");
         Log.e("class_id",""+class_id);
 
-        a = class_id.replace("[", "");
+
+
+
+       /* a = class_id.replace("[", "");
         Log.e("a",""+a);
         b = a.replace("]", "");
         Log.e("b",""+b);
 
         List<String> myList = new ArrayList<String>(Arrays.asList(b.split(",")));
 
-        Log.e("myList",""+myList);
+        Log.e("myList",""+myList);*/
+
+
+
 
         /*classtpye= ClassFragment.classtpye;
         Log.e("getValue",""+classtpye);
@@ -204,7 +206,7 @@ public class CreateClassFragment extends Fragment {
                 bundle.putString("arrName",String.valueOf(arrName));
                 bundle.putString("arrId",(arrId));
                 bundle.putString("arrChildNAme",String.valueOf(arrChildNAme));
-                fragmentTransaction.replace(R.id.container, topicFragment).addToBackStack(null);
+                fragmentTransaction.add(android.R.id.content, topicFragment).addToBackStack(null);
                 topicFragment.setArguments(bundle);
                 fragmentTransaction.commit();
 

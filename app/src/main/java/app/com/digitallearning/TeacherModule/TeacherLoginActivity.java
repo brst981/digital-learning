@@ -17,6 +17,7 @@ import app.com.digitallearning.TeacherModule.Classes.EditClassFragment;
 public class TeacherLoginActivity extends FragmentActivity {
         String schoolID,schoolName;
         ProgressDialog dlg;
+        int upated;
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
@@ -49,5 +50,7 @@ public class TeacherLoginActivity extends FragmentActivity {
                 EditClassFragment.style=" ";
                 EditClassFragment.topic1=" ";
                 DescriptionFragment.description=" ";
+              //  getFragmentManager().popBackStackImmediate();
+            //  finish();
         }
 }

@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.PointF;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -21,13 +22,19 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.andexert.library.RippleView;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import app.com.digitallearning.R;
+import app.com.digitallearning.WebServices.WSConnector;
 
 /**
  * Created by ${PSR} on 1/28/16.
@@ -60,6 +67,7 @@ public class TopicFragment extends Fragment {
         mRecyclerView = (RecyclerView) rootview.findViewById(R.id.myrecycler);
         back=(ImageView) rootview.findViewById(R.id.back);
         dlg = new ProgressDialog(getActivity());
+        new Before_Class_Listing().execute();
         imageButtonZoomIn = (ImageButton)rootview. findViewById(R.id.img_zoom_in);
         imageButtonZoomOut = (ImageButton) rootview.findViewById(R.id.img_zoom_out);
         rellogin=(RelativeLayout)rootview.findViewById(R.id.rellogin) ;
@@ -236,7 +244,8 @@ public class TopicFragment extends Fragment {
             // int position1 = getLayoutPosition();
 
             //   st=arrayListName.get(position);
-            Log.e("position1", "" + position);
+            Log.e("arrName", "" + arrName);
+            Log.e("arrName.get(position)", "" + arrName.get(position));
 
             holder.a3cat.setText(arrName.get(position));
 
@@ -321,68 +330,13 @@ public class TopicFragment extends Fragment {
                 });
             }
 
-
-
-
-
-
-
-
-
-
-            /**
-             * Called when a view has been clicked.
-             *
-             * @param v The view that was clicked.
-             */
-      /*      @Override
-            public void onClick(View v) {
-                int position = getLayoutPosition();
-                Log.e("positionGetLay", "" + position);
-                int id = v.getId();
-                switch (id) {
-                    case R.id.a3ripple:
-                        if (position == 0) {
-
-                            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                            builder.setTitle("Make your selection");
-                            builder.setItems(art, new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int item) {
-                                    // Do something with the selection
-                                    //  mDoneButton.setText(items[item]);
-                                    Log.e("items[item]",""+art[item]);
-                                }
-                            });
-                            AlertDialog alert = builder.create();
-                            alert.show();
-                        }
-              //  });
-                            *//*FragmentManager fragmentManager=getFragmentManager();
-                            FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
-                            ArtFragment artFragment=new ArtFragment();
-                            Bundle args=new Bundle();
-                            args.putString("arrChildNAme",arrChildNAme);
-                            fragmentTransaction.replace(R.id.container,artFragment).addToBackStack(null);
-                            artFragment.setArguments(args);
-                            fragmentTransaction.commit();*//*
-
-                            break;
-                        }
-
-                }*/
             }
         }
 
 
 
 
-
-
-
-
-
-
-    /*class Before_Class_Listing extends AsyncTask<String, Integer, String> {
+    class Before_Class_Listing extends AsyncTask<String, Integer, String> {
 
 
         @Override
@@ -427,21 +381,19 @@ public class TopicFragment extends Fragment {
                 Log.e("Data", "" + arr);
                 for (int i = 0; i < arr.length(); i++) {
                     JSONObject obj = arr.getJSONObject(i);
-                      Log.e("obj",""+obj);
+                     Log.e("obj",""+obj);
                     String id = obj.getString("id");
                       Log.e("id", "" + id);
                     String name = obj.getString("name");
                      Log.e("name", "" + name);
                     arrId.add(id);
-                     Log.e("arrId",""+arrId);
-                arrName.add(name);
-                      Log.e("arrName",""+arrName);
+                      Log.e("arrId",""+arrId);
+                    arrName.add(name);
+                     Log.e("arrName",""+arrName);
                     Object ss = obj.get("child");
                     if (ss instanceof JSONArray) {
                         JSONArray arr1 = obj.getJSONArray("child");
-
-                        //img_Art.setVisibility(View.VISIBLE);
-                        //  Log.e("arr1",""+arr1);
+                          Log.e("arr1",""+arr1);
                         if (arr1.length() != 0) {
                             for (int j = 0; j < arr1.length(); j++) {
                                 JSONObject obj1 = arr1.getJSONObject(j);
@@ -449,25 +401,24 @@ public class TopicFragment extends Fragment {
                                 String id1 = obj1.getString("id");
                                   Log.e("id1", "" + id1);
                                 String name1 = obj1.getString("name");
-                                 Log.e("name1", "" + name1);
+                                  Log.e("name1", "" + name1);
 
-                               arrChildId.add(id1);
-                                  Log.e("arrChildId",""+arrChildId);
-                               arrChildNAme.add(name1);
+                                arrChildId.add(id1);
+                                 Log.e("arrChildId",""+arrChildId);
+                                arrChildNAme.add(name1);
                                 Log.e("arrChildNAme",""+arrChildNAme);
-                                mAdapter = new MyRecyclerViewAdapter(arrId,arrName,arrChildId,arrChildNAme);
-                                mRecyclerView.setAdapter(mAdapter);
-
                             }
                         }
                     } else {
                         String child = obj.getString("child");
-                        // Log.e("Json String",""+child);
+                         Log.e("Json String",""+child);
                     }
                 }
+                mAdapter = new MyRecyclerViewAdapter(arrId,arrName,arrChildId,arrChildNAme);
+                mRecyclerView.setAdapter(mAdapter);
 
 
-               *//* FragmentManager fragmentManager = getFragmentManager();
+                /*FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 ClassFragment classFragment = new ClassFragment();
                 Bundle bundle = new Bundle();
@@ -489,7 +440,7 @@ public class TopicFragment extends Fragment {
 
                 fragmentTransaction.replace(R.id.container, classFragment).addToBackStack(null);
                 classFragment.setArguments(bundle);
-                fragmentTransaction.commit();*//*
+                fragmentTransaction.commit();*/
 
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -498,13 +449,7 @@ public class TopicFragment extends Fragment {
 
         }
 
-    }*/
-
-
-
-
-
-
+    }
 
 
 
