@@ -23,6 +23,7 @@ public class DescriptionFragment extends Fragment {
     public static String description;
     ImageView back;
     int fromdes=1;
+    String descriptiononedit;
     int fromcreate;
 
     @Override
@@ -34,10 +35,13 @@ public class DescriptionFragment extends Fragment {
         catch (Exception e){
 
         }
+        descriptiononedit=getArguments().getString("text_description_detail");
 
-
+        Log.e("descriptiononedit",""+descriptiononedit);
         Log.e("fromcreate",""+fromcreate);
         desc=(EditText)rootview.findViewById(R.id.desc);
+        desc.setText(descriptiononedit);
+
         done=(Button)rootview.findViewById(R.id.done);
         back=(ImageView) rootview.findViewById(R.id.back);
         back.setOnClickListener(new View.OnClickListener() {
@@ -49,24 +53,23 @@ public class DescriptionFragment extends Fragment {
         done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                ;
-
                 if(fromcreate==10){
                     description=desc.getText().toString();
                     Log.e("staticsdescription",""+description);
                     EditClassFragment.des=desc.getText().toString();
                     Log.e("descriptionFrag",""+EditClassFragment.des);
-                    getFragmentManager().popBackStackImmediate();
-                }
+                    getFragmentManager().popBackStackImmediate();}
                 else{
+                    EditClassFragment.des=desc.getText().toString();
+                    Log.e("EditClassFragment.des",""+EditClassFragment.des);
                     Intent save=new Intent(getActivity(),EditClassFragment.class);
                     save.putExtra("fromdes",fromdes);
+                    //save.putExtra("descriptiononedit",descriptiononedit);
                     Log.e("fromdes",""+fromdes);
                     startActivity(save);
                     getActivity().finish();
                 }
-               //
+
             }
         });
 

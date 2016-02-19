@@ -49,7 +49,7 @@ public class TopicFragment extends Fragment {
     private RecyclerView mRecyclerView;
     private RecyclerView.LayoutManager mLayoutManager;
     private RecyclerView.Adapter mAdapter;
-    static String topic;
+    public static String topic;
     RippleView ripple_topic_save;
     String first="Art";
     ImageView back;
@@ -302,6 +302,10 @@ public class TopicFragment extends Fragment {
                         int position = getLayoutPosition(); // gets item position
                        // img_Art.setVisibility(View.VISIBLE);
                         topic=arrId.get(position);
+                        EditClassFragment.newtopicsel=arrName.get(position);
+
+                        Log.e("newtopicsel",""+EditClassFragment.newtopicsel);
+                    //    CreateClassFragment.selectedtopic.setText(EditClassFragment.newtopicsel);
                         EditClassFragment.sr_topic1=arrId.get(position);
                         EditClassFragment.topic1=arrName.get(position);
                         Log.e("TopicmyList1",""+arrId);
@@ -327,6 +331,7 @@ public class TopicFragment extends Fragment {
                           //  img_Art.setVisibility(View.VISIBLE);
                         }
                     }
+
                 });
             }
 
@@ -446,28 +451,7 @@ public class TopicFragment extends Fragment {
                 e.printStackTrace();
                 Log.e("New exception", "" + e);
             }
-
-        }
-
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        }}
 
 
     public void zoom(Float scaleX, Float scaleY, PointF pivot) {

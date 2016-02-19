@@ -152,12 +152,12 @@ public class WSConnector {
         String url = AppConstant.delete_class;
         List<NameValuePair> pairs = new ArrayList<NameValuePair>();
         pairs.add(new BasicNameValuePair("cid", cla_classid));
-        Log.e("cla_classid",""+cla_classid);
+        Log.e("cid",""+cla_classid);
         pairs.add(new BasicNameValuePair("userid", Sch_Mem_id));
-        Log.e("Sch_Mem_id",""+Sch_Mem_id);
+        Log.e("userid",""+Sch_Mem_id);
         pairs.add(new BasicNameValuePair("schid", Mem_Sch_Id));
-        Log.e("Mem_Sch_Id",""+Mem_Sch_Id);
-        pairs.add(new BasicNameValuePair("password ", password));
+        Log.e("schid",""+Mem_Sch_Id);
+        pairs.add(new BasicNameValuePair("password", password));
         Log.e("password",""+password);
 
         String result = WSAdapter.postJSONObject(url, pairs);
@@ -165,28 +165,28 @@ public class WSConnector {
 
     }
 
+    public static String Schedule_listing(String userid,String clsid) {
 
-
-	/*
-
-	Forgot pwd API
-
-	*/
-
-
-   /* public static String forgotpwd(String email) {
-
-        String url = AppConstant.MOTO + AppConstant.FORGOTPASSWORD;
+        String url = AppConstant.schedule_listing;
         List<NameValuePair> pairs = new ArrayList<NameValuePair>();
-        pairs.add(new BasicNameValuePair("userEmail", email));
-
-
+        pairs.add(new BasicNameValuePair("userid", userid));
+        pairs.add(new BasicNameValuePair("clsid", clsid));
+        Log.e("userid",""+userid);
         String result = WSAdapter.postJSONObject(url, pairs);
-
-
         return result;
 
     }
-    */
 
+    public static String Before_Edit_Schedule(String userid,String clsid,String timeId) {
+
+        String url = AppConstant.before_Edit_Schedule;
+        List<NameValuePair> pairs = new ArrayList<NameValuePair>();
+        pairs.add(new BasicNameValuePair("userid", userid));
+        pairs.add(new BasicNameValuePair("cid", clsid));
+        pairs.add(new BasicNameValuePair("timeid", timeId));
+        Log.e("userid",""+userid);
+        String result = WSAdapter.postJSONObject(url, pairs);
+        return result;
+
+    }
 }

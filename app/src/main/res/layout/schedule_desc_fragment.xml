@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <EditText
@@ -9,5 +11,28 @@
         android:padding="5dp"
         android:layout_width="match_parent"
         android:layout_height="50dp" />
+    <com.andexert.library.RippleView
+        android:id="@+id/ripple_edit_save"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_below="@+id/des"
+        android:layout_margin="40dp"
+        app:rv_color="#000"
+        android:gravity="bottom"
+        app:rv_rippleDuration="100"
+        app:rv_type="rectangle"
+        app:rv_zoom="true">
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorlima"
+            android:elevation="8dp"
+            android:gravity="center"
+            android:text="Save"
+            android:textAllCaps="true"
+            android:textColor="@android:color/white"
+            android:textSize="16sp" />
+    </com.andexert.library.RippleView>
 
 </LinearLayout>

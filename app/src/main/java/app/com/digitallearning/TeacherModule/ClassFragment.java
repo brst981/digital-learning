@@ -264,6 +264,7 @@ public class ClassFragment extends Fragment {
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //Toast.makeText(getActivity(),"not wrong coding",Toast.LENGTH_SHORT).show();
                 pos=position;
                 titleheader=newclassName.get(pos);
                 EditClassFragment.singleClassID=newclassid.get(position);
@@ -276,6 +277,7 @@ public class ClassFragment extends Fragment {
                 defineClass = true;
                 intent.putExtra("fromClass", defineClass);
                 startActivity(intent);
+                getActivity().finish();
 
             }
         });
@@ -322,7 +324,7 @@ public class ClassFragment extends Fragment {
                 bundle.putString("Sch_Mem_id",Sch_Mem_id);
                 bundle.putString("Mem_Sch_Id",Mem_Sch_Id);
                 bundle.putString("classid",classid);
-                fragmentTransaction.add(android.R.id.content, createclassFragment).addToBackStack(null);
+                fragmentTransaction.replace(R.id.container, createclassFragment).addToBackStack(null);
                 createclassFragment.setArguments(bundle);
                 fragmentTransaction.commit();
             }
@@ -424,8 +426,8 @@ public class ClassFragment extends Fragment {
                     Log.e("classSchidrr",""+Sch_Mem_id);
                     Log.e("classmemidrr",""+Mem_Sch_Id);
                     startActivity(intent);
-
-                //    new Edit_Class().execute(singleClassID,Sch_Mem_id,Mem_Sch_Id);
+                    getActivity().finish();
+                                    //    new Edit_Class().execute(singleClassID,Sch_Mem_id,Mem_Sch_Id);
 
                     /*FragmentManager fragmentManager = getFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();

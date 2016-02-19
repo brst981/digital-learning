@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.PointF;
 import android.os.AsyncTask;
@@ -30,6 +31,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import app.com.digitallearning.R;
+import app.com.digitallearning.TeacherModule.ClassActivity;
 import app.com.digitallearning.TeacherModule.ClassFragment;
 import app.com.digitallearning.WebServices.WSConnector;
 
@@ -41,7 +43,7 @@ public class EditClassFragment extends FragmentActivity {
     TextView headerTitle, text_type_detail, text_topic_detail, text_description_detail, text_features_detail;
     String title, classtype, classId, userid, schid, passcode, createdby, arrclassname, arrName, arrId, arrChildNAme, classid, newTopic, cal, chat, grades, stu, semeserval, coursecodeval;
     EditText edt_title, edt_passcode, semester, coursecode;
-    String passcodes,classname,created,styles,topics,desc,feature,newfeature;
+    String passcodes,classname,created,styles,topics,desc;
     RelativeLayout relative_class_type, relative_topic, relative_description, relative_features,relative;
     RippleView ripple_edit_update;
     ProgressDialog dlg;
@@ -50,20 +52,20 @@ public class EditClassFragment extends FragmentActivity {
     String check="0";
     ImageButton imageButtonZoomIn, imageButtonZoomOut;
     private Toolbar mToolbar;
-    public static String top;
+    public static String top,newtopicsel;
     final CharSequence[] features = {"Calender", "Chat", "Grades", "Student Tab"};
     final static CharSequence[] classtype1 = {"Instructor", "Blended", "Self Paced"};
-    int fromsave,fromdes;
+    int fromsave;
+    int fromdes=0;
     SharedPreferences preferences;
     // Fragment mFragment;
     public static String style, classType1, topic1, topic, description, des,singleClassID,sr_topic1;
     int c1,c2,c3,c4;
     int fromEdit=12;
     int updateEdit=20;
-
-
-
-    static  String newTitle,newTitle1,semester1,semester2,coursecode1,coursecode2;
+    String cal1,chat1,enable1,tab1;
+    public static String textcal,textchat,textenable,texttab,feature,newfeature=null;
+    static  String newTitle,newTitle1,semester1,semester2,coursecode1,coursecode2,total,newtotal,ondialog;
     String sr_title, sr_passcode,sr_classtppe,sr_classtppeval,sr_topic,sr_feature,sr_description,classidgetupdate;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,10 +81,7 @@ public class EditClassFragment extends FragmentActivity {
         Log.e("coursecode2",""+coursecode2);
       //  new Before_Class_Listing().execute();
         fromdes=getIntent().getIntExtra("fromdes",0);
-       /* preferences = PreferenceManager.getDefaultSharedPreferences(EditClassFragment.this);
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.putInt("fromdes", fromdes);
-        editor.commit();*/
+
         Log.e("fromsave",""+fromsave);
         Log.e("fromdes",""+fromdes);
         Log.e("check0",""+check);
@@ -150,125 +149,6 @@ public class EditClassFragment extends FragmentActivity {
             }
         });
 
-        /*AppCompatActivity activity = (AppCompatActivity) getActivity();
-
-        activity.getSupportActionBar().setTitle("");
-
-       headerTitle = (TextView) activity.findViewById(R.id.mytext);
-
-        headerTitle.setText("Edit Class");*/
-
-          /* title = getIntent().getStringExtra("title");
-                dscrptn=getIntent().getStringExtra("description");
-        Log.e("dscrptn Edit", "" + dscrptn);
-        text_description_detail.setText(dscrptn);
-            Log.e("titleOn Edit", "" + title);
-            arrName = getIntent().getStringExtra("arrName");
-            arrId = getIntent().getStringExtra("arrId");
-            arrChildNAme = getIntent().getStringExtra("arrChildNAme");
-            classid = getIntent().getStringExtra("classid");
-
-
-            passcode = getIntent().getStringExtra("passcode");
-            Log.e("passcodeOn Edit", "" + passcode);
-
-            createdby = getIntent().getStringExtra("arrcreatedby");
-            Log.e("createdby", "" + createdby);
-            arrclassname = getIntent().getStringExtra("arrcreatedby");
-            Log.e("arrclassname", "" + arrclassname);
-
-        classtype=getIntent().getStringExtra("style");
-        Log.e("classtypestyle",""+classtype);
-        classId = getIntent().getStringExtra("myListclassId");
-        Log.e("classIdInEdit", "" + classId);*/
-
-
-
-
-
-
-
-
-
-
-
-
-        /*if(classtype=="1"){
-            text_type_detail.setText("Instructor");
-        }
-        if(classtype=="2"){
-            text_type_detail.setText("Blended");
-        }
-        else{
-            text_type_detail.setText("Self Paced");
-
-        }*/
-
-
-
-
-
-      /*  edt_passcode.setText(passcode);
-        if(topic1==null){
-            topic=getArguments().getString("topic");
-            Log.e("topiceOn Edit",""+topic);
-            text_topic_detail.setText(topic);
-        }
-        else{
-            text_topic_detail.setText(topic1);
-        }
-
-        if (style==null) {
-            Log.e("Visit","dd");
-            Log.e("style",""+style);
-            classType1=getArguments().getString("classType");
-
-            if(classType1.equalsIgnoreCase("1")){
-                text_type_detail.setText("Instructor");
-            }
-
-            else  if(classType1.equalsIgnoreCase("2")){
-                text_type_detail.setText("Blended");
-            }
-            else  if(classType1.equalsIgnoreCase("3")){
-                text_type_detail.setText("Self-Paced");
-            }
-        }
-     else{
-            //text_type_detail.setText(style);
-
-            if(style.equalsIgnoreCase("1")){
-                text_type_detail.setText("Instructor");
-            }
-
-            else  if(style.equalsIgnoreCase("2")){
-                text_type_detail.setText("Blended");
-            }
-            else  if(style.equalsIgnoreCase("3")){
-                text_type_detail.setText("Self-Paced");
-            }
-        }
-       // ClassFragment.classtpye =  classType;
-    //    Log.e("ClassFragment.classtpye",""+ClassFragment.classtpye);
-        Log.e("classTypeOn Edit",""+classType1);
-    //    Log.e("reclasstype",""+reclasstype);
-
-//        ClassTypeFragment.classtpye = reclasstype;
-//        Log.e("EditClassclasstpye",""+reclasstype);
-
-
-        if(des==null){
-            description=getArguments().getString("description");
-            Log.e("descriptionOn Edit",""+description);
-            text_description_detail.setText(description);
-        }
-        else{
-            text_description_detail.setText(des);
-        }
-
-
-*/
-
 
             edt_title.setText(title);
             userid = ClassFragment.Sch_Mem_id;
@@ -284,37 +164,22 @@ public class EditClassFragment extends FragmentActivity {
                 @Override
                 public void onClick(View v) {
 
-                    feature=" ";
-                    newfeature=" ";
-                    cal=" ";
-                    chat=" ";
-                    grades=" ";
-                    stu=" ";
+                    feature="";
+                    newfeature="";
+                    textcal=" ";
+                    textchat=" ";
+                    textenable=" ";
+                    texttab=" ";
+
                     text_features_detail.setText("");
                     Log.e("featureempty",""+feature);
                     Log.e("newfeatureempty",""+newfeature);
                     Log.e("emptycal",""+cal);
                     Log.e("emptychat",""+chat);
-                   /* AlertDialog.Builder builder = new AlertDialog.Builder(EditClassFragment.this);
-                    builder.setTitle("Make your selection");
-                    builder.setItems(features, new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int item) {
-                            // Do something with the selection
-                            //  mDoneButton.setText(items[item]);
-                            Log.e("items[features]", "" + features[item]);
-                           *//* cal=FeatureFragment.cal;
-                            chat=FeatureFragment.chat;
-                            grades=FeatureFragment.grades;
-                            stu=FeatureFragment.stu;*//*
-                            String feature=cal+" "+chat+" "+grades+" "+stu;
-                            String newfeature= feature.replace("null","");
-                            text_features_detail.setText(newfeature);  }
-                    });
-                    AlertDialog alert = builder.create();
-                    alert.show();*/
 
                     final Dialog dialog = new Dialog(EditClassFragment.this);
-                    //tell the Dialog to use the dialog.xml as it's layout description
+                    feature="";
+                    newfeature="";
                     dialog.setContentView(R.layout.feature_fragment);
                     dialog.setCancelable(false);
                     dialog.setTitle("Make your selection");
@@ -341,6 +206,7 @@ public class EditClassFragment extends FragmentActivity {
                             c1=1;
                             if (checkbox1.isChecked()) {
                                 cal="true";
+                                textcal="Calender";
                                 Log.e("cal",""+cal);
                             }
                             else if (!checkbox1.isChecked()) {
@@ -358,6 +224,7 @@ public class EditClassFragment extends FragmentActivity {
 
                             if (checkbox2.isChecked()) {
                                 chat="true";
+                                textchat="Chat";
                                 Log.e("chat",""+chat);
                             }
                             else if (!checkbox2 .isChecked()) {
@@ -374,6 +241,7 @@ public class EditClassFragment extends FragmentActivity {
                             c3=1;
                             if (checkbox3.isChecked()) {
                                 grades="true";
+                                textenable="Grades";
                                 Log.e("grades",""+grades);
                             }
                             else if (!checkbox3 .isChecked()) {
@@ -390,6 +258,7 @@ public class EditClassFragment extends FragmentActivity {
 
                             if (checkbox4.isChecked()) {
                                 stu="true";
+                                texttab="Student Tab";
                                 Log.e("stu",""+stu);
                             }
                             else if (!checkbox4 .isChecked()) {
@@ -406,12 +275,23 @@ public class EditClassFragment extends FragmentActivity {
                         @Override
                         public void onClick(View v) {
 
-
-                             feature=cal+" "+chat+" "+grades+" "+stu;
+                            feature="";
+                            newfeature="";
+                            Log.e("newfeaturenull",""+newfeature);
+                             feature=textcal+" "+textchat+" "+textenable+" "+texttab;
                              newfeature= feature.replace("null","");
                             Log.e("newfeature",""+newfeature);
-                            text_features_detail.setText(newfeature);
+
+
+                                text_features_detail.setText(newfeature);
+                            ondialog=newfeature;
+                            Log.e("ondialog",""+ondialog);
+
                             dialog.dismiss();
+                            feature="";
+                            newfeature="";
+                            Log.e("newfeatureagain",""+newfeature);
+
                         }
                     });
 
@@ -420,11 +300,6 @@ public class EditClassFragment extends FragmentActivity {
 
             });
 
-                /*FragmentManager fragmentManager = getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                FeatureFragment featureFragment = new FeatureFragment();
-                fragmentTransaction.replace(android.R.id.content, featureFragment).addToBackStack(null);
-                fragmentTransaction.commit();*/
 
 
             relative_description = (RelativeLayout) findViewById(R.id.relative_description);
@@ -434,7 +309,10 @@ public class EditClassFragment extends FragmentActivity {
                     FragmentManager fragmentManager = getSupportFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                     DescriptionFragment descriptionFragment = new DescriptionFragment();
+                    Bundle bundle=new Bundle();
+                    bundle.putString("text_description_detail",text_description_detail.getText().toString());
                     fragmentTransaction.replace(android.R.id.content, descriptionFragment).addToBackStack(null);
+                    descriptionFragment.setArguments(bundle);
                     fragmentTransaction.commit();
                 }
             });
@@ -473,15 +351,7 @@ public class EditClassFragment extends FragmentActivity {
                 }
             });
 
-            /*    int a=1;
-                FragmentManager fragmentManager = getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                ClassTypeFragment classTypeFragment = new ClassTypeFragment();
-             // *//**//*  Bundle args = new Bundle();
-               // args.putInt("ID",a);*//**//*
-                fragmentTransaction.replace(android.R.id.content, classTypeFragment).addToBackStack(null);
-               // classTypeFragment.setArguments(args);
-                fragmentTransaction.commit();*/
+
             relative_topic.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -512,55 +382,6 @@ public class EditClassFragment extends FragmentActivity {
                     fragmentTransaction.commit();
                 }
             });
-
-
-
-
-       /* classtype=ClassFragment.classtpye;
-        Log.e("classtypeInEDITCLAss",""+classtype);
-
-
-       if (ClassFragment.classtpye.equalsIgnoreCase("1")){
-
-            text_type_detail.setText("Instructor");
-        }
-        else  if(ClassFragment.classtpye.equalsIgnoreCase("2")){
-            text_type_detail.setText("Blended");
-        }
-        else  if(ClassFragment.classtpye.equalsIgnoreCase("3")){
-            text_type_detail.setText("Self-Paced");
-        }
-        cal=FeatureFragment.cal;
-        chat=FeatureFragment.chat;
-        grades=FeatureFragment.grades;
-        stu=FeatureFragment.stu;
-
-        String feature=cal+" "+chat+" "+grades+" "+stu;
-        String newfeature= feature.replace("null","");
-        text_features_detail.setText(newfeature);
-
-
-
-
-
-
-        switch_upload.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-               Log.e("switch",""+isChecked);
-                if(isChecked){
-                     check="1";
-                    Log.e("check",""+check);
-                }
-                else{
-                     check="0";
-                    Log.e("check1",""+check);
-                }
-
-            }
-        });*/
-
-
-
 
         ripple_edit_update.setOnRippleCompleteListener(new RippleView.OnRippleCompleteListener() {
             @Override
@@ -703,78 +524,49 @@ public class EditClassFragment extends FragmentActivity {
                         String enable_grades = obj1.optString("enable_grades");
                         Log.e("enable_grades",""+enable_grades);
 
-                        /*if(enable_calendar==null){
-                          //  enable_students_tab="false";
+                        if(enable_calendar.equalsIgnoreCase("true")){
+                            cal1="Calender";
+                            Log.e("visit","visit"+"");
+                            Log.e("cal1",""+cal1);
                         }
-
-                        else if(enable_students_tab==null){
-                            enable_students_tab="false";
-                        }
-                        else if(enable_chat==null){
-                            enable_chat="false";
-                        }
-
-                        else if(enable_grades==null){
-                            enable_grades="false";
+                        else if(enable_chat.equalsIgnoreCase("true")){
+                             chat1="Chat";
 
                         }
-*/
+                        else if(enable_grades.equalsIgnoreCase("true")){
 
+                             enable1="Grades";
+                        }
 
-                       /* passcode.add(clsid);
-                        Log.e("..passcode","" +passcode);
-                        classType.add(style);
-                        Log.e("..classType","" +classType);
-                        arrcreatedby.add(createdby);
-                        Log.e("..arrcreatedby","" +arrcreatedby);
-                        topic.add(topic_name);
-                        Log.e("..topic","" +topic);
-                        arrclassname.add(classname);
-                        Log.e("..passcode","" +passcode);
-                        description.add(desc);
-                        Log.e("..description","" +description);*/
+                        else if(enable_students_tab.equalsIgnoreCase("true")){
+                             tab1="Student Tab";
+                        }
+                        total=cal1+" "+chat1+" "+enable1+" "+tab1;
+                        Log.e("total",""+total);
 
+                        if(ondialog==null){
+                            newtotal= total.replace("null","");
+                            text_features_detail.setText(newtotal);
+                            Log.e("nnewtotaltotal",""+newtotal);
 
-
-                        /*Intent intent=new Intent(getActivity(),EditClassFragment.class);
-                        intent.putExtra("title",myList.get(pos));
-                        intent.putExtra("myListclassId",myListclassId.get(pos));
-                        intent.putExtra("passcode",passcode);
-                        intent.putExtra("classType",classType);
-                        intent.putExtra("arrcreatedby",createdby);
-                        intent.putExtra("arrclassname",classname);
-                        intent.putExtra("topic",topic);
-                        intent.putExtra("style",style);
-
-                        intent.putExtra("description",desc);
-                        intent.putExtra("arrName",String.valueOf(arrName));
-                        intent.putExtra("arrId",arrId);
-                        intent.putExtra("arrChildNAme",String.valueOf(arrChildNAme));
-                        intent.putExtra("Sch_Mem_id",Sch_Mem_id);
-                        intent.putExtra("Mem_Sch_Id",Mem_Sch_Id);
-                        intent.putExtra("classid",classid);
-                        startActivity(intent);*/
-
-
+                        }
+                        else if(ondialog!=null){
+                            Log.e("visit","visit");
+                            Log.e("mondialog",""+ondialog);
+                            text_features_detail.setText(ondialog);
+                            Log.e("moveondialog",""+ondialog);
+                        }
                     }
 
-
                 }
 
-            /*    if(sr_title!=null) {
-                    Log.e("sr_titlenotnull",""+sr_title);
-                    edt_title.setText(sr_title);
-
-                }
-                else{
-                    Log.e("classnameprint",""+classname);
-                    Log.e("sr_titlenull",""+sr_title);*/
                 newTitle=edt_title.getText().toString();
                 Log.e("newTitleafter",""+newTitle1);
-                if(newTitle1==null){
+                if(newTitle1!=null){
 
                    // Log.e("newTitle",""+newTitle);
-                    edt_title.setText(classname);
+                    edt_title.setText(newTitle1);
+
 
                 }
                     //edt_title.setText(classname);
@@ -782,8 +574,8 @@ public class EditClassFragment extends FragmentActivity {
                 else{
                    // Log.e("newTitle",""+newTitle);
                    // Log.e("classname",""+classname);
+                    edt_title.setText(classname);
 
-                    edt_title.setText(newTitle1);
                 }
 
                 //edt_title.setText(classname);
@@ -831,18 +623,6 @@ public class EditClassFragment extends FragmentActivity {
                 }
                 //  text_type_detail.setText(styles);
                 Log.e("styles",""+styles);
-                        /*if(fromsave==1){
-                            Log.e("fromsave",""+fromsave);
-                            text_topic_detail.setText(topic1);
-                            Log.e("topic1",""+topic1);
-
-                        }
-                        else{
-                            text_topic_detail.setText(topics);
-                            Log.e("topics",""+topics);
-                        }
-                        Log.e("topics",""+topics);*/
-
 
                 if(fromsave==1){
                     Log.e("fromsave",""+fromsave);
@@ -850,7 +630,7 @@ public class EditClassFragment extends FragmentActivity {
                     Log.e("topic1",""+topic1);
 
                 }
-                else if (fromsave!=1 &topic1==null){
+                else if (fromsave!=1 &topic1==""){
                     text_topic_detail.setText(topics);
                     Log.e("topics",""+topics);
 
@@ -865,20 +645,6 @@ public class EditClassFragment extends FragmentActivity {
                     Log.e("topic1notnull",""+topic1);
                     text_topic_detail.setText(topic1);
                 }
-
-
-
-
-
-
-
-
-
-
-                // text_description_detail.setText(desc);
-
-
-
                 if(fromdes==1){
                     Log.e("fromdesisRes",""+fromdes);
                     //   Log.e("fromsave",""+fromsave);
@@ -902,14 +668,6 @@ public class EditClassFragment extends FragmentActivity {
                     Log.e("desnotnull",""+des);
                     text_description_detail.setText(des);
                 }
-
-
-
-
-
-
-
-
 
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -953,12 +711,9 @@ public class EditClassFragment extends FragmentActivity {
                 super.onPostExecute(result);
                 dlg.dismiss();
 
-                FragmentManager fragmentManager = getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                ClassFragment classFragment = new ClassFragment();
-                fragmentTransaction.add(android.R.id.content, classFragment).addToBackStack(null);
-                fragmentTransaction.commit();
-
+                Intent intenttoClass=new Intent(EditClassFragment.this , ClassActivity.class);
+                startActivity(intenttoClass);
+                finish();
 
             }
 
@@ -971,69 +726,16 @@ public class EditClassFragment extends FragmentActivity {
         relative.setScaleY(scaleY);
     }
 
-
-
-
-    class Before_Class_Listing extends AsyncTask<String, Integer, String> {
-
-
-        @Override
-        protected String doInBackground(String... params) {
-
-            return WSConnector.Before_Class_Listing_DoIn();
-
-        }
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            dlg.setMessage("Fetching Data.....");
-            dlg.setCancelable(false);
-            dlg.show();
-
-
-        }
-
-
-        @Override
-        protected void onPostExecute(String result) {
-            super.onPostExecute(result);
-            dlg.dismiss();
-            Log.e("REsulT", "" + result);
-            if (result.contains("true")) {
-
-
-
-
-            } else if (result.contains("false")) {
-
-
-            }
-        }       }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         @Override
     public void onStart() {
         super.onStart();
 
-        //fromdes=getIntent().getIntExtra("fromdes",0);
 
-        /*preferences=PreferenceManager.getDefaultSharedPreferences(EditClassFragment.this);
-        fromdes=preferences.getInt("fromdes",0);
-        Log.e("fromdes", "" + fromdes);*/
+            text_features_detail.setText(newfeature);
+            Log.e("movenewfeature",""+newfeature);
+
+
+
         text_topic_detail.setText(topic1);
         Log.e("topic111",""+topic1);
 
@@ -1045,35 +747,16 @@ public class EditClassFragment extends FragmentActivity {
         semester.setText(semester2);
         coursecode.setText(coursecode2);
 
-       /* if(newTitle!=null){
-
-            Log.e("newTitle",""+newTitle);
-            edt_title.setText(newTitle);
-        }
-        //edt_title.setText(classname);
-
-        else{
-            Log.e("newTitle",""+newTitle);
-            Log.e("classname",""+classname);
-
-            edt_title.setText(classname);
-        }*/
-        /*Log.e("inside Start",""+ClassFragment.classtpye);
-        if (ClassFragment.classtpye.equalsIgnoreCase("1")){
-
-            text_type_detail.setText("Instructor");
-        }
-        else  if(ClassFragment.classtpye.equalsIgnoreCase("2")){
-            text_type_detail.setText("Blended");
-        }
-        else  if(ClassFragment.classtpye.equalsIgnoreCase("3")){
-            text_type_detail.setText("Self-Paced");
-        }*/
     }
 
     @Override
     protected void onPause() {
         super.onPause();
+
+        text_features_detail.setText(newfeature);
+        Log.e("movenewfeature",""+newfeature);
+
+
         text_topic_detail.setText(topic1);
         Log.e("sr_title11111",""+sr_title);
         Log.e("classname11111",""+classname);
@@ -1081,35 +764,10 @@ public class EditClassFragment extends FragmentActivity {
         if(fromdes==1) {
         text_description_detail.setText(des);
         Log.e("des11111",""+des);
-
-           /* if(newTitle!=null){
-
-                Log.e("newTitle",""+newTitle);
-                edt_title.setText(newTitle);
-            }
-            //edt_title.setText(classname);
-
-            else{
-                Log.e("newTitle",""+newTitle);
-                Log.e("classname",""+classname);
-
-                edt_title.setText(classname);
-            }*/
-
     }}
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-       // Intent gotoclass=new Intent(EditClassFragment.this,Cla)
-
-
-        /*FragmentManager fragmentManager=getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
-        ClassFragment artFragment=new ClassFragment();
-
-        fragmentTransaction.replace(android.R.id.content,artFragment).addToBackStack(null);
-
-        fragmentTransaction.commit();*/
     }
 }

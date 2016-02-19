@@ -40,9 +40,10 @@ public class CreateClassFragment extends Fragment {
     ImageButton imageButtonZoomIn, imageButtonZoomOut;
     RelativeLayout rellogin;
     ImageView back;
-    TextView selectedclass,selectedtopic,selecteddes;
+    TextView selectedclass,selecteddes;
     int id,idres;
     static int slecectedclasstype;
+    public static TextView selectedtopic;
     int fromcreate=10;
     final static CharSequence[] classtype = {"Instructor","Blended","Self Paced"};
     @Override
@@ -115,11 +116,11 @@ public class CreateClassFragment extends Fragment {
         /*classtpye= ClassFragment.classtpye;
         Log.e("getValue",""+classtpye);
 */
-        topic=TopicFragment.topic;
+        topic= TopicFragment.topic;
         Log.e("getValuetopic",""+topic);
 
 
-        description=DescriptionFragment.description;
+        description= DescriptionFragment.description;
         Log.e("descriptionInClass",""+description);
 
 
@@ -206,7 +207,7 @@ public class CreateClassFragment extends Fragment {
                 bundle.putString("arrName",String.valueOf(arrName));
                 bundle.putString("arrId",(arrId));
                 bundle.putString("arrChildNAme",String.valueOf(arrChildNAme));
-                fragmentTransaction.add(android.R.id.content, topicFragment).addToBackStack(null);
+                fragmentTransaction.replace(R.id.container, topicFragment).addToBackStack(null);
                 topicFragment.setArguments(bundle);
                 fragmentTransaction.commit();
 

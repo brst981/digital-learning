@@ -90,7 +90,6 @@
         android:layout_height="50dp"
         android:layout_alignParentBottom="true"
         android:layout_marginLeft="20dp"
-        android:layout_below="@+id/myrecycler"
         android:layout_marginRight="20dp"
         app:rv_color="#000"
         android:gravity="bottom"
