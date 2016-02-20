@@ -17,4 +17,9 @@ public class AppConstant {
     public static  final String schedule_listing="http://digitallearningtree.com/digitalapi/before_edit_time.php";
     public static final String add_Schedule="http://digitallearningtree.com/digitalapi/cls_time.php";
     public static final String before_Edit_Schedule="http://digitallearningtree.com/digitalapi/before_edit_time.php";
+    public static final String update_Schedule="http://digitallearningtree.com/digitalapi/cls_time.php";
+    public static final String delete_Schedule="http://digitallearningtree.com/digitalapi/cls_time.php";
+    public static final String add_Syllabus="http://digitallearningtree.com/digitalapi/cls_syllabus.php";
+    public static final String get_Syllabus="http://digitallearningtree.com/digitalapi/cls_syllabus.php";
+
 }

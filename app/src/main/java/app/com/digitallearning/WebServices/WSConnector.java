@@ -189,4 +189,112 @@ public class WSConnector {
         return result;
 
     }
+
+    public static String update_Schedule(String cid ,String userid ,String day ,String str_hour ,String str_min ,String end_hour ,String en_min ,String timeid ,String location ,String desc) {
+
+        String url = AppConstant.update_Schedule;
+        List<NameValuePair> pairs = new ArrayList<NameValuePair>();
+        pairs.add(new BasicNameValuePair("cid", cid));
+        Log.e("cid",""+cid);
+        pairs.add(new BasicNameValuePair("userid", userid));
+        Log.e("userid",""+userid);
+        pairs.add(new BasicNameValuePair("day", day));
+        Log.e("day",""+day);
+        pairs.add(new BasicNameValuePair("str_hour", str_hour));
+        Log.e("str_hour",""+str_hour);
+        pairs.add(new BasicNameValuePair("str_min", str_min));
+        Log.e("str_min",""+str_min);
+        pairs.add(new BasicNameValuePair("end_hour", end_hour));
+        Log.e("end_hour",""+end_hour);
+        pairs.add(new BasicNameValuePair("en_min", en_min));
+        Log.e("en_min",""+en_min);
+        pairs.add(new BasicNameValuePair("timeid", timeid));
+        Log.e("timeid",""+timeid);
+        pairs.add(new BasicNameValuePair("location", location));
+        Log.e("location",""+location);
+        pairs.add(new BasicNameValuePair("desc", desc));
+        Log.e("desc",""+desc);
+
+        String result = WSAdapter.postJSONObject(url, pairs);
+        return result;
+
+    }
+
+    public static String add_Schedule(String cid ,String userid ,String day ,String str_hour ,String str_min ,String end_hour ,String en_min,String location ,String desc) {
+
+        String url = AppConstant.add_Schedule;
+        List<NameValuePair> pairs = new ArrayList<NameValuePair>();
+        pairs.add(new BasicNameValuePair("cid", cid));
+        Log.e("cid",""+cid);
+        pairs.add(new BasicNameValuePair("userid", userid));
+        Log.e("userid",""+userid);
+        pairs.add(new BasicNameValuePair("day", day));
+        Log.e("day",""+day);
+        pairs.add(new BasicNameValuePair("str_hour", str_hour));
+        Log.e("str_hour",""+str_hour);
+        pairs.add(new BasicNameValuePair("str_min", str_min));
+        Log.e("str_min",""+str_min);
+        pairs.add(new BasicNameValuePair("end_hour", end_hour));
+        Log.e("end_hour",""+end_hour);
+        pairs.add(new BasicNameValuePair("en_min", en_min));
+        Log.e("en_min",""+en_min);
+        pairs.add(new BasicNameValuePair("location", location));
+        Log.e("location",""+location);
+        pairs.add(new BasicNameValuePair("desc", desc));
+        Log.e("desc",""+desc);
+
+        String result = WSAdapter.postJSONObject(url, pairs);
+        return result;
+
+    }
+
+    public static String delete_Schedule(String del_id) {
+
+        String url = AppConstant.delete_Schedule;
+        List<NameValuePair> pairs = new ArrayList<NameValuePair>();
+        pairs.add(new BasicNameValuePair("del_id", del_id));
+        Log.e("del_id",""+del_id);
+
+        String result = WSAdapter.postJSONObject(url, pairs);
+
+
+        return result;
+
+    }
+
+    public static String Add_syllabus(String  cid,String userid,String title,String desc) {
+
+        String url = AppConstant.add_Syllabus;
+        List<NameValuePair> pairs = new ArrayList<NameValuePair>();
+        pairs.add(new BasicNameValuePair("cid", cid));
+        Log.e("cid",""+cid);
+        pairs.add(new BasicNameValuePair("userid", userid));
+        Log.e("userid",""+userid);
+        pairs.add(new BasicNameValuePair("title", title));
+        Log.e("title",""+title);
+        pairs.add(new BasicNameValuePair("desc", desc));
+        Log.e("desc",""+desc);
+
+        String result = WSAdapter.postJSONObject(url, pairs);
+
+
+        return result;
+
+    }
+
+    public static String Get_syllabus(String  cid,String userid) {
+
+        String url = AppConstant.get_Syllabus;
+        List<NameValuePair> pairs = new ArrayList<NameValuePair>();
+        pairs.add(new BasicNameValuePair("clsid", cid));
+        Log.e("cid",""+cid);
+        pairs.add(new BasicNameValuePair("userid", userid));
+        Log.e("userid",""+userid);
+
+        String result = WSAdapter.postJSONObject(url, pairs);
+
+
+        return result;
+
+    }
 }

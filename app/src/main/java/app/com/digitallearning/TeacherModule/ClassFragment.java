@@ -60,6 +60,7 @@ public class ClassFragment extends Fragment {
     boolean defineClass = false;
     public static String titleheader,Sch_Mem_id,Mem_Sch_Id;
     public int pos,id,updateEdit;
+    int id1=16;
     ImageButton imageButtonZoomIn, imageButtonZoomOut;
     RelativeLayout rellogin,relframe;
     public static String classtpye = "";
@@ -318,6 +319,7 @@ public class ClassFragment extends Fragment {
 
                 Bundle bundle=new Bundle();
                 bundle.putInt("id",id);
+                bundle.putInt("id1",id1);
                 bundle.putString("arrName",String.valueOf(arrName));
                 bundle.putString("arrId",arrId);
                 bundle.putString("arrChildNAme",String.valueOf(arrChildNAme));
@@ -480,7 +482,7 @@ public class ClassFragment extends Fragment {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            dlg.setMessage("Authenticating User.....");
+            dlg.setMessage("Loading....");
             dlg.setCancelable(false);
             dlg.show();
 

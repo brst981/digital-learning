@@ -16,7 +16,7 @@
         android:tag="Bottom1">
 
         <TextView
-            android:id="@+id/editbutton"
+            android:id="@+id/delete"
             android:layout_width="65dp"
             android:layout_height="match_parent"
             android:background="@drawable/red_selector"
@@ -27,7 +27,7 @@
 
         <TextView
 
-            android:id="@+id/delete"
+            android:id="@+id/delete1"
             android:visibility="gone"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
@@ -54,6 +54,8 @@
 
     <RelativeLayout
 
+        android:layout_margin="5dp"
+        android:padding="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <ImageView
@@ -73,7 +75,7 @@
             android:textColor="@android:color/black"
             android:gravity="center|left"
             android:layout_marginTop="10dp"
-            android:layout_height="30dp" />
+            android:layout_height="20dp" />
         <TextView
             android:layout_toRightOf="@+id/image_view"
             android:layout_width="170dp"
@@ -84,7 +86,7 @@
             android:textColor="@color/color_light_grey"
             android:gravity="center|left"
             android:layout_below="@+id/day"
-            android:layout_height="30dp" />
+            android:layout_height="20dp" />
 
         <ImageView
             android:id="@+id/img_class_type"

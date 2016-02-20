@@ -41,7 +41,7 @@ public class CreateClassFragment extends Fragment {
     RelativeLayout rellogin;
     ImageView back;
     TextView selectedclass,selecteddes;
-    int id,idres;
+    int id,idres,id1;
     static int slecectedclasstype;
     public static TextView selectedtopic;
     int fromcreate=10;
@@ -67,6 +67,12 @@ public class CreateClassFragment extends Fragment {
         selectedclass.setText("");
 
         idres=getArguments().getInt("id");
+        //
+        // id1=getArguments().getInt("id1");
+        /*if(id1==16){
+            TopicFragment.topic=" ";
+            DescriptionFragment.description=" ";
+        }*/
 
         /*if(idres==1){
             Log.e("slecectedclasstypefirst",""+slecectedclasstype);
@@ -286,10 +292,23 @@ public class CreateClassFragment extends Fragment {
             Log.e("MainResult",""+result);
             if (result.contains("true")) {
 
-               // updateCreateClass(result);
-                selecteddes.setText("");
-                Log.e("jhdj",""+"");
-                selectedclass.setText("");
+               //updateCreateClass(result);
+
+              //  Log.e("jhdj",""+"");
+              // selectedclass.setText("");
+                topic=" ";
+                Log.e("topiconPost",""+topic);
+                description=" ";
+                Log.e("description",""+description);
+                EditClassFragment.style=" ";
+                TopicFragment.topic=" ";
+                DescriptionFragment.description=" ";
+                selecteddes.setText(description);
+                selectedtopic.setText(topic);
+                Log.e("EditClassFragment.style",""+EditClassFragment.style);
+                Log.e("descriptionsd",""+description);
+                Log.e("topicasd",""+topic);
+
                 Toast.makeText(getActivity(), "Class successfully created", Toast.LENGTH_SHORT).show();
                 getFragmentManager().popBackStackImmediate();
 

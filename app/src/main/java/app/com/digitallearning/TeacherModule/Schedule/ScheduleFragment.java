@@ -1,7 +1,9 @@
 package app.com.digitallearning.TeacherModule.Schedule;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -11,6 +13,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -52,7 +55,6 @@ public class ScheduleFragment extends Fragment {
     LinearLayout bottom_wrapper;
     SharedPreferences preferences;
     int pos;
-    int displayId=100;
     ArrayList<String> arrTimeId,arrdescription,arrEn_min,arrStr_min,arrEn_Hour,arrStr_Hour,arrDay,arrLocation;
 
     @Override
@@ -97,13 +99,12 @@ public class ScheduleFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                AddSchedule addSchedule = new AddSchedule();
+                ViewSchedule viewSchedule = new ViewSchedule();
                 Bundle arg=new Bundle();
                 arg.putString("timeID",arrTimeId.get(position));
-                arg.putInt("displayId",displayId);
                 Log.e("arrTimeId.get(pos)",""+arrTimeId.get(position));
-                fragmentTransaction.replace(R.id.container, addSchedule).addToBackStack(null);
-                addSchedule.setArguments(arg);
+                fragmentTransaction.replace(R.id.container, viewSchedule).addToBackStack(null);
+                viewSchedule.setArguments(arg);
                 fragmentTransaction.commit();
                 //((SwipeLayout)(mListView.getChildAt(position - mListView.getFirstVisiblePosition()))).open(true);
 
@@ -161,15 +162,15 @@ public class ScheduleFragment extends Fragment {
         rippleViewCreate.setOnRippleCompleteListener(new RippleView.OnRippleCompleteListener() {
             @Override
             public void onComplete(RippleView rippleView) {
-               /* FragmentManager fragmentManager = getFragmentManager();
+                FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 AddSchedule addSchedule = new AddSchedule();
-                Bundle arg=new Bundle();
-                arg.putString("timeID",arrTimeId.get(pos));
-                Log.e("arrTimeId.get(pos)",""+arrTimeId.get(pos));
+               /* Bundle arg=new Bundle();
+                arg.putString("timeID",arrTimeId.get(pos));*/
+              //  Log.e("arrTimeId.get(pos)",""+arrTimeId.get(pos));
                 fragmentTransaction.replace(R.id.container, addSchedule).addToBackStack(null);
-                addSchedule.setArguments(arg);
-                fragmentTransaction.commit();*/
+               // addSchedule.setArguments(arg);
+                fragmentTransaction.commit();
             }
         });
 
@@ -227,12 +228,41 @@ public class ScheduleFragment extends Fragment {
         }
 
         @Override
-        public void fillValues(int position, View convertView) {
+        public void fillValues(final int position, View convertView) {
+            TextView delete=(TextView)convertView.findViewById(R.id.delete);
+            delete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Log.e("arrTimeId.get(position)",""+arrTimeId.get(position));
+                    new Delete_schedule().execute(arrTimeId.get(position));
+                }
+            });
             TextView day=(TextView)convertView.findViewById(R.id.day);
-            day.setText(arrDay.get(position));
+          //  day.setText(arrDay.get(position));
+            if(arrDay.get(position).contains("1")){
+                day.setText("Monday");
+            }
+            else if(arrDay.get(position).contains("2")){
+                day.setText("Tuesday");
+            }
+            else if(arrDay.get(position).contains("3")){
+                day.setText("Wednesday");
+            }
+            else if(arrDay.get(position).contains("4")){
+                day.setText("Thrusday");
+            }
+            else if(arrDay.get(position).contains("5")){
+                day.setText("Friday");
+            }
+            else if(arrDay.get(position).contains("6")){
+                day.setText("Saturday");
+            }
+            else {
+                day.setText("Sunday");
+            }
 
             TextView location=(TextView)convertView.findViewById(R.id.location);
-            day.setText(arrLocation.get(position));
+            location.setText(arrLocation.get(position));
             // TextView t = (TextView)convertView.findViewById(R.id.position);
             // t.setText((position + 1) + ".");
         }
@@ -289,7 +319,7 @@ public class ScheduleFragment extends Fragment {
 
 
             } else if (result.contains("false")) {
-                Toast.makeText(getActivity(), "Wrong User", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "No data", Toast.LENGTH_SHORT).show();
 
             }
         }
@@ -358,5 +388,67 @@ public class ScheduleFragment extends Fragment {
         }
 
     }
+    class Delete_schedule extends AsyncTask<String, Integer, String> {
 
+
+        @Override
+        protected String doInBackground(String... params) {
+
+            return WSConnector.delete_Schedule(params[0]);
+
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            dlg.setMessage("Loading....");
+            dlg.setCancelable(false);
+            dlg.show();
+
+
+        }
+
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+            dlg.dismiss();
+            Log.e("REsulTinSchedule", "" + result);
+            if (result.contains("true")) {
+              //  ((BaseSwipeAdapter) mListView.getAdapter()).notifyDataSetChanged();
+            //    mAdapter.notifyDataSetChanged();
+
+              //  Toast.makeText(getActivity(), "Schedule deleted", Toast.LENGTH_SHORT).show();
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+                alertDialog.setMessage("Schedule successfully deleted").setCancelable(false)
+                        .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                // TODO Auto-generated method stub
+                                dialog.dismiss();
+
+
+                            }
+                        });
+
+                AlertDialog dialog = alertDialog.create();
+                dialog.show();
+                TextView messageText = (TextView) dialog
+                        .findViewById(android.R.id.message);
+                messageText.setGravity(Gravity.CENTER);
+
+
+            } else if (result.contains("false")) {
+                Toast.makeText(getActivity(), "Wrong User", Toast.LENGTH_SHORT).show();
+
+            }
+        }
+
+
+
+
+
+
+    }
 }
