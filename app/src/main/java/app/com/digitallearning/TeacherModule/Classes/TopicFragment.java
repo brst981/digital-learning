@@ -56,9 +56,10 @@ public class TopicFragment extends Fragment {
     ProgressDialog dlg;
     String newTitle,semester,coursecode;
     ImageButton imageButtonZoomIn, imageButtonZoomOut;
-    RelativeLayout rellogin;
+    RelativeLayout rellogin,relative_header;
     int id,fromEdit;
     int fromsave=1;
+    int id1;
     ArrayList<String > arrId,arrName,arrChildId,arrChildNAme;
     final CharSequence[] art = {"Art","Theater","Visual Art"};
     @Override
@@ -68,6 +69,7 @@ public class TopicFragment extends Fragment {
         back=(ImageView) rootview.findViewById(R.id.back);
         dlg = new ProgressDialog(getActivity());
         new Before_Class_Listing().execute();
+        relative_header=(RelativeLayout)rootview.findViewById(R.id.relative_header);
         imageButtonZoomIn = (ImageButton)rootview. findViewById(R.id.img_zoom_in);
         imageButtonZoomOut = (ImageButton) rootview.findViewById(R.id.img_zoom_out);
         rellogin=(RelativeLayout)rootview.findViewById(R.id.rellogin) ;
@@ -75,13 +77,19 @@ public class TopicFragment extends Fragment {
        // id=getArguments().getInt("id");
        // if(id==1){
 
-        fromEdit=getArguments().getInt("fromEdit");
-        newTitle=getArguments().getString("newTitle");
-        semester=getArguments().getString("semester1");
-        Log.e("semestertopic",""+semester);
-        coursecode=getArguments().getString("coursecode1");
-        Log.e("coursecodetopic",""+coursecode);
-
+        try {
+            id1=getArguments().getInt("id");
+            if(id1==1){
+                relative_header.setVisibility(View.GONE);
+            }
+            fromEdit = getArguments().getInt("fromEdit");
+            newTitle = getArguments().getString("newTitle");
+            semester = getArguments().getString("semester1");
+            Log.e("semestertopic", "" + semester);
+            coursecode = getArguments().getString("coursecode1");
+            Log.e("coursecodetopic", "" + coursecode);
+        }
+        catch (Exception e){}
             /*arrName=getArguments().getString("arrName");
 
             arrId=getArguments().getString("arrId");

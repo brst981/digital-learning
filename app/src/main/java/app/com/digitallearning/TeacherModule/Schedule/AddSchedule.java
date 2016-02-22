@@ -279,6 +279,12 @@ catch (Exception e){}
             if (result.contains("true")) {
 
                // updateTeacherLogIn(result);
+
+                selecteday=" ";
+                scheduledescription=" ";
+                srendtime=" ";
+                srtime=" ";
+                srlocation=" ";
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 ScheduleFragment scheduleFragment = new ScheduleFragment();

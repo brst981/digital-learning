@@ -39,7 +39,7 @@ public class TeacherCollabrationFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 /*((SwipeLayout)(mListView.getChildAt(position - mListView.getFirstVisiblePosition()))).open(true);*/
                 Toast.makeText(getActivity(), ""+position, Toast.LENGTH_SHORT).show();
-               /* FragmentManager fragmentManager = getFragmentManager();
+/* FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 CurriculumFragment classFragment = new CurriculumFragment();
                 fragmentTransaction.replace(R.id.container, classFragment).addToBackStack(null);

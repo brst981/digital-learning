@@ -14,11 +14,13 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.andexert.library.RippleView;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -32,19 +34,22 @@ import app.com.digitallearning.WebServices.WSConnector;
  */
 public class SyllabusFragment extends Fragment{
     View rootview;
-    RippleView ripple_edit_save;
+    RippleView ripple_edit_save,ripple_edit_delete;
     SharedPreferences preferences;
-    String Sch_Mem_id,cla_classid;
+    String Sch_Mem_id,cla_classid,sy_id,textupdate,textsave,srtitle,srdescription;
     EditText sylbsTitle,des;
     String title,description;
     ProgressDialog dlg;
+    Button savebutton;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootview = inflater.inflate(R.layout.fragment_syllabus, container, false);
         preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         des=(EditText)rootview.findViewById(R.id.des);
+        savebutton=(Button)rootview.findViewById(R.id.savebutton);
         sylbsTitle=(EditText)rootview.findViewById(R.id.sylbsTitle);
+        ripple_edit_delete=(RippleView)rootview.findViewById(R.id.ripple_edit_delete);
         dlg=new ProgressDialog(getActivity());
         Sch_Mem_id=preferences.getString("Sch_Mem_id","");
         Log.e("Sch_Mem_id",""+Sch_Mem_id);
@@ -60,8 +65,28 @@ public class SyllabusFragment extends Fragment{
                 //getFragmentManager().popBackStackImmediate();
                 title=sylbsTitle.getText().toString();
                 description=des.getText().toString();
+                textsave=savebutton.getText().toString();
+                if(textsave.contains("Save")){
+                    ripple_edit_save.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            if(title.isEmpty()){
+                                LogMessage.showDialog(getActivity(), null,
+                                        "Please enter title", "OK");
+                            }
+                          else if(description.isEmpty()){
+                                LogMessage.showDialog(getActivity(), null,
+                                        "Please enter description", "OK");
+                            }
+                            else{
+                            new Add_syllabus().execute(cla_classid , Sch_Mem_id , title , description );
+                        }}
+                    });
 
-                new Add_syllabus().execute(cla_classid , Sch_Mem_id , title , description );
+                }
+
+
+
             }
         });
 
@@ -94,7 +119,7 @@ public class SyllabusFragment extends Fragment{
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
             dlg.dismiss();
-            Log.e("DeleteAPI", "" + result);
+            Log.e("Add_syllabusAPI", "" + result);
 
             if (result.contains("true")) {
 
@@ -102,7 +127,7 @@ public class SyllabusFragment extends Fragment{
                         "Class successfully deleted", "OK");*/
 
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
-                alertDialog.setMessage("Class successfully deleted").setCancelable(false)
+                alertDialog.setMessage("Syllabus inserted").setCancelable(false)
                         .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
 
                             @Override
@@ -188,7 +213,7 @@ public class SyllabusFragment extends Fragment{
             Log.e("Get_syllabusAPI", "" + result);
 
             if (result.contains("false")) {
-
+//{"success":false,"data":null}
              /*   LogMessage.showDialog(getActivity(), null,
                         "Class successfully deleted", "OK");*/
 
@@ -200,9 +225,9 @@ public class SyllabusFragment extends Fragment{
                             public void onClick(DialogInterface dialog, int which) {
                                 // TODO Auto-generated method stub
                                 dialog.dismiss();
-                                Intent deletetoclass=new Intent(getActivity(),ClassActivity.class);
+                               /* Intent deletetoclass=new Intent(getActivity(),ClassActivity.class);
                                 startActivity(deletetoclass);
-                                getActivity().finish();
+                                getActivity().finish();*/
 
                             }
                         });
@@ -219,6 +244,29 @@ public class SyllabusFragment extends Fragment{
 
             } else if (result.contains("true")) {
                 updateTeacherLogIn(result);
+
+                ripple_edit_delete.setVisibility(View.VISIBLE);
+                ripple_edit_delete.setOnRippleCompleteListener(new RippleView.OnRippleCompleteListener() {
+                    @Override
+                    public void onComplete(RippleView rippleView) {
+                        new Delete_syllabus().execute(sy_id);
+                    }
+                });
+                savebutton.setText("Update");
+                textupdate=savebutton.getText().toString();
+                Log.e("textupdate",""+textupdate);
+                if(textupdate.contains("Update")){
+                    ripple_edit_save.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            srtitle=sylbsTitle.getText().toString();
+                            srdescription=des.getText().toString();
+                            new Update_syllabus().execute(cla_classid,Sch_Mem_id,srtitle,srdescription,sy_id);
+                        }
+                    });
+
+                }
+
             /*    JSONObject obj=new JSONObject();
                 String data=obj.getString("data");
                 Log.e("data",""data);*/
@@ -232,14 +280,105 @@ public class SyllabusFragment extends Fragment{
             try {
 
                 JSONObject jsonObject = new JSONObject(success);
-                String data=jsonObject.getString("data");
-                Log.e("data",""+data);
-                LogMessage.showDialog(getActivity(), null,
-                        "" +data, "OK");
-            } catch (JSONException e) {
+
+//[{"sy_id":"196","syllabus":"cbshjd","title":"new"}]
+                //  LogMessage.showDialog(getActivity(), null, "" +data, "OK");
+                JSONArray arr = jsonObject.getJSONArray("data");
+                Log.e("arr", " " + arr);
+                for (int i = 0; i < arr.length(); i++) {
+                    JSONObject obj = arr.getJSONObject(i);
+
+                     sy_id = obj.getString("sy_id");
+                    Log.e("sy_id", "" + sy_id);
+                    String syllabus = obj.getString("syllabus");
+                    Log.e("syllabus", "" + syllabus);
+                    String title = obj.getString("title");
+                    Log.e("title", "" + title);
+                    sylbsTitle.setText(title);
+                    des.setText(syllabus);
+                }
+
+            }catch (JSONException e) {
                 e.printStackTrace();
             }
         }
     }
 
+    class Update_syllabus extends AsyncTask<String, Integer, String> {
+
+
+        @Override
+        protected String doInBackground(String... params) {
+
+            return WSConnector.Update_Syllabus(params[0],params[1],params[2],params[3],params[4]);
+
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            dlg.setMessage("Loading.....");
+            dlg.setCancelable(false);
+            dlg.show();
+
+
+        }
+
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+            dlg.dismiss();
+            Log.e("Update_syllabusAPI", "" + result);
+
+            if (result.contains("true")) {
+                LogMessage.showDialog(getActivity(), null,
+                        "Syllabus updated", "OK");
+
+
+            } else if (result.contains("false")) {
+
+
+            }
+        }
+        }
+        class Delete_syllabus extends AsyncTask<String, Integer, String> {
+
+
+        @Override
+        protected String doInBackground(String... params) {
+
+            return WSConnector.Delete_syllabus(params[0]);
+
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            dlg.setMessage("Loading.....");
+            dlg.setCancelable(false);
+            dlg.show();
+
+
+        }
+
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+            dlg.dismiss();
+            Log.e("DeletesyllabusAPI", "" + result);
+
+            if (result.contains("true")) {
+                sylbsTitle.setText(" ");
+                des.setText(" ");
+
+
+            } else if (result.contains("false")) {
+
+
+            }
+        }
+
+    }
 }

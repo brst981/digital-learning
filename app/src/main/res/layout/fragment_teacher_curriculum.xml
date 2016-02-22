@@ -8,9 +8,10 @@
     <ScrollView
         android:id="@+id/scroll"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <RelativeLayout
+            android:id="@+id/main"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -22,7 +23,7 @@
                 android:layout_below="@+id/img_class_picture">
 
 
-                <TextView
+                <EditText
                     android:id="@+id/text_title_curriculum"
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
@@ -108,6 +109,7 @@
                     android:textSize="16sp" />
 
                 <TextView
+                    android:id="@+id/topic"
                     android:layout_width="150dp"
                     android:layout_height="35dp"
                     android:layout_marginRight="10dp"
@@ -165,6 +167,7 @@
                         android:textColor="@android:color/black"
                         android:textSize="16sp" />
                     <TextView
+                        android:id="@+id/txtcountry"
                         android:layout_width="150dp"
                         android:layout_height="35dp"
                         android:layout_marginRight="10dp"
@@ -290,6 +293,7 @@
                         android:textSize="16sp" />
 
                     <TextView
+                        android:id="@+id/txtlibrary"
                         android:layout_width="150dp"
                         android:layout_height="35dp"
                         android:layout_marginRight="10dp"
@@ -352,6 +356,7 @@
                         android:textSize="16sp" />
 
                     <TextView
+                        android:id="@+id/gradefrom"
                         android:layout_width="150dp"
                         android:layout_height="35dp"
                         android:layout_marginRight="10dp"
@@ -416,6 +421,7 @@
                         android:textSize="16sp" />
 
                     <TextView
+                        android:id="@+id/gradeto"
                         android:layout_width="150dp"
                         android:layout_height="35dp"
                         android:layout_marginRight="10dp"
@@ -440,58 +446,30 @@
                 </RelativeLayout>
             </com.andexert.library.RippleView>
 
-            <View
-                android:id="@+id/view_GradeFrom"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_below="@+id/ripple_teacher_syllabus"
-                android:background="@color/color_darker_grey" />
 
 
-            <TextView
-                android:id="@+id/text_des"
-                android:layout_width="match_parent"
-                android:layout_height="35dp"
-                android:visibility="gone"
-                android:layout_below="@+id/view"
-                android:gravity="left|center"
-                android:padding="5dp"
-                android:text="Description:"
-                android:textColor="@android:color/black"
-                android:textSize="16sp" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/text_des"
-                android:padding="5dp"
-                android:text="Dummy"
-                android:visibility="gone"
-                android:textColor="@android:color/black"
-                android:textSize="14sp" />
 
 
-        </RelativeLayout>
 
-    </ScrollView>
+
     <View
 
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_below="@+id/scroll"
+        android:id="@+id/views"
+        android:layout_below="@+id/ripple_GradeTo"
         android:background="@color/color_darker_grey" />
 
 
     <com.andexert.library.RippleView
         android:id="@+id/ripple_create"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-
-        android:layout_alignParentBottom="true"
+        android:layout_height="40dp"
+        android:layout_below="@+id/views"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginBottom="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         app:rv_color="#000"
         app:rv_rippleDuration="50"
         app:rv_type="rectangle"
@@ -500,7 +478,7 @@
         <Button
             android:id="@+id/button_create"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="match_parent"
             android:background="@color/colorlima"
             android:elevation="8dp"
             android:text="Save"
@@ -511,5 +489,36 @@
             android:textColor="@android:color/white"
             android:textSize="16sp" />
     </com.andexert.library.RippleView>
+    <com.andexert.library.RippleView
+        android:id="@+id/ripple_edit_delete"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:visibility="gone"
+        android:layout_below="@+id/ripple_create"
+        android:layout_margin="10dp"
+        app:rv_color="#000"
+        android:gravity="bottom"
+        app:rv_rippleDuration="100"
+        app:rv_type="rectangle"
+        app:rv_zoom="true">
 
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/red"
+            android:elevation="8dp"
+            android:gravity="center"
+            android:text="Delete"
+            android:textAllCaps="true"
+            android:textColor="@android:color/white"
+            android:textSize="16sp" />
+    </com.andexert.library.RippleView>
+            <TextView
+                android:visibility="invisible"
+                android:layout_below="@+id/ripple_edit_delete"
+                android:layout_width="match_parent"
+                android:layout_height="10dp" />
+        </RelativeLayout>
+
+    </ScrollView>
 </RelativeLayout>

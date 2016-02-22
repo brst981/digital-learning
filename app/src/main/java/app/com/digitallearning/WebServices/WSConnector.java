@@ -297,4 +297,97 @@ public class WSConnector {
         return result;
 
     }
+    public static String Update_Syllabus(String cla_classid,String Sch_Mem_id,String srtitle,String srdescription,String  sy_id) {
+
+        String url = AppConstant.update_Syllabus;
+        List<NameValuePair> pairs = new ArrayList<NameValuePair>();
+        pairs.add(new BasicNameValuePair("cid", cla_classid));
+        pairs.add(new BasicNameValuePair("userid", Sch_Mem_id));
+        pairs.add(new BasicNameValuePair("title", srtitle));
+        pairs.add(new BasicNameValuePair("desc", srdescription));
+        pairs.add(new BasicNameValuePair("sy_id", sy_id));
+        Log.e("sy_id",""+sy_id);
+
+
+        String result = WSAdapter.postJSONObject(url, pairs);
+
+
+        return result;
+
+    }
+    public static String Delete_syllabus(String sy_id) {
+
+        String url = AppConstant.delete_Syllabus;
+        List<NameValuePair> pairs = new ArrayList<NameValuePair>();
+        pairs.add(new BasicNameValuePair("sydid", sy_id));
+
+
+
+        String result = WSAdapter.postJSONObject(url, pairs);
+
+
+        return result;
+
+    }
+
+    public static String Get_curriculum(String  cid,String userid) {
+
+        String url = AppConstant.get_Curriculum;
+        List<NameValuePair> pairs = new ArrayList<NameValuePair>();
+        pairs.add(new BasicNameValuePair("classid", cid));
+        Log.e("cid",""+cid);
+        pairs.add(new BasicNameValuePair("userid", userid));
+        Log.e("userid",""+userid);
+
+        String result = WSAdapter.postJSONObject(url, pairs);
+
+
+        return result;
+
+    }
+
+
+    /*public static String Class_image(String  classid,String userid,String cls_image) {
+
+        String url = AppConstant.class_image;
+        List<NameValuePair> pairs = new ArrayList<NameValuePair>();
+        pairs.add(new BasicNameValuePair("classid", classid));
+        pairs.add(new BasicNameValuePair("userid", userid));
+        pairs.add(new BasicNameValuePair("cls_image", cls_image));
+
+        String result = WSAdapter.postJSONObject(url, pairs);
+
+
+        return result;
+
+    }*/
+
+
+    public static String Delete_Curriculum(String del_currid,String userid) {
+
+        String url = AppConstant.delete_Curriculum;
+        List<NameValuePair> pairs = new ArrayList<NameValuePair>();
+        pairs.add(new BasicNameValuePair("del_currid", del_currid));
+        pairs.add(new BasicNameValuePair("userid", userid));
+
+
+        String result = WSAdapter.postJSONObject(url, pairs);
+
+
+        return result;
+
+    }
+
+
+
+    public static String Country_list() {
+
+        String url = AppConstant.country_list;
+
+        String result = WSAdapter.getJSONObject(url);
+
+
+        return result;
+
+    }
 }

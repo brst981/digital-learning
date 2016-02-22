@@ -66,6 +66,10 @@ public class CreateClassFragment extends Fragment {
         selecteddes.setText("");
         selectedclass.setText("");
 
+        String abc=selecteddes.getText().toString();
+        Log.e("abcswxwca",""+abc);
+        Log.e("abc",""+ topic);
+
         idres=getArguments().getInt("id");
         //
         // id1=getArguments().getInt("id1");
@@ -303,6 +307,7 @@ public class CreateClassFragment extends Fragment {
                 EditClassFragment.style=" ";
                 TopicFragment.topic=" ";
                 DescriptionFragment.description=" ";
+                EditClassFragment.topic1=" ";
                 selecteddes.setText(description);
                 selectedtopic.setText(topic);
                 Log.e("EditClassFragment.style",""+EditClassFragment.style);
