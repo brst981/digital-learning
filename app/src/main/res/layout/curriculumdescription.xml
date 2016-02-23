@@ -1,13 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <EditText
         android:hint="abc"
+        android:id="@+id/description"
         android:textSize="18sp"
         android:padding="5dp"
         android:layout_width="match_parent"
         android:layout_height="50dp" />
+
+    <com.andexert.library.RippleView
+        android:id="@+id/ripplesave"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_below="@+id/views"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="40dp"
+        app:rv_color="#000"
+        app:rv_rippleDuration="50"
+        app:rv_type="rectangle"
+        app:rv_zoom="true">
+
+        <Button
+            android:id="@+id/button_create"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorlima"
+            android:elevation="8dp"
+            android:text="Save"
+            android:textAllCaps="true"
+            android:drawablePadding="1dp"
+            android:paddingLeft="10dp"
+            android:gravity="center"
+            android:textColor="@android:color/white"
+            android:textSize="16sp" />
+    </com.andexert.library.RippleView>
 
 </LinearLayout>

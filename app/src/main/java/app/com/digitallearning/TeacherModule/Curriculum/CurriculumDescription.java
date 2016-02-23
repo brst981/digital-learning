@@ -5,6 +5,9 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+
+import com.andexert.library.RippleView;
 
 import app.com.digitallearning.R;
 
@@ -13,11 +16,22 @@ import app.com.digitallearning.R;
  */
 public class CurriculumDescription extends Fragment {
     View rootview;
+    RippleView ripplesave;
+    EditText description;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootview = inflater.inflate(R.layout.curriculumdescription, container, false);
         registerResources(rootview);
+        description=(EditText)rootview.findViewById(R.id.description);
+        ripplesave=(RippleView)rootview.findViewById(R.id.ripplesave);
+        ripplesave.setOnRippleCompleteListener(new RippleView.OnRippleCompleteListener() {
+            @Override
+            public void onComplete(RippleView rippleView) {
+                CurriculumFragment.curriculumdes=description.getText().toString();
+                getFragmentManager().popBackStackImmediate();
+            }
+        });
 
 
 

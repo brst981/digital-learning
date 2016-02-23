@@ -34,6 +34,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import app.com.digitallearning.R;
+import app.com.digitallearning.TeacherModule.Curriculum.CurriculumFragment;
 import app.com.digitallearning.WebServices.WSConnector;
 
 /**
@@ -74,11 +75,16 @@ public class TopicFragment extends Fragment {
         imageButtonZoomOut = (ImageButton) rootview.findViewById(R.id.img_zoom_out);
         rellogin=(RelativeLayout)rootview.findViewById(R.id.rellogin) ;
         ripple_topic_save=(RippleView)rootview.findViewById(R.id.ripple_topic_save);
-       // id=getArguments().getInt("id");
+
+        try {
+            id=getArguments().getInt("id1");
+            Log.e("idreceived",""+id);}
+        catch (Exception e){}
        // if(id==1){
 
         try {
             id1=getArguments().getInt("id");
+            Log.e("id1",""+id1);
             if(id1==1){
                 relative_header.setVisibility(View.GONE);
             }
@@ -309,15 +315,27 @@ public class TopicFragment extends Fragment {
                     public void onComplete(RippleView rippleView) {
                         int position = getLayoutPosition(); // gets item position
                        // img_Art.setVisibility(View.VISIBLE);
-                        topic=arrId.get(position);
-                        EditClassFragment.newtopicsel=arrName.get(position);
 
+                        if(id==6){
+                            Log.e("idtxtnull",""+id);
+                            topic=arrId.get(position);
+                        EditClassFragment.newtopicsel=arrName.get(position);
+                            EditClassFragment.sr_topic1=arrId.get(position);
+                            Log.e("EditClassFragmenttopic",""+EditClassFragment.sr_topic1);
                         Log.e("newtopicsel",""+EditClassFragment.newtopicsel);
+                            EditClassFragment.topic1=arrName.get(position);
+                            Log.e("TopicmyList1",""+arrId);
+                        }
                     //    CreateClassFragment.selectedtopic.setText(EditClassFragment.newtopicsel);
-                        EditClassFragment.sr_topic1=arrId.get(position);
-                        EditClassFragment.topic1=arrName.get(position);
-                        Log.e("TopicmyList1",""+arrId);
-                        Log.e("EditClassFragmenttopic",""+EditClassFragment.sr_topic1);
+
+
+                        if(id==2){
+                            Log.e("idcurr",""+id);
+                            CurriculumFragment.curriculumtopic=arrName.get(position);
+                            Log.e("Curriculum.curriculumto",""+CurriculumFragment.curriculumtopic);
+                            CurriculumFragment.curriculumtopicid=arrId.get(position);
+                        }
+
                         Log.e("SElected",""+topic);
                         if (position == 0) {
 

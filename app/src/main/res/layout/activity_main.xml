@@ -49,7 +49,6 @@
 <EditText
     android:id="@+id/search"
     android:padding="5dp"
-    android:cursorVisible="false"
     android:drawableLeft="@drawable/se"
     android:layout_margin="3dp"
     android:drawablePadding="3dp"
@@ -57,6 +56,8 @@
     android:layout_below="@+id/relative_header"
     android:layout_width="match_parent"
     android:layout_height="40dp"
+    android:cursorVisible="true"
+    android:textCursorDrawable="@null"
     android:hint="Search"/>
 
     <android.support.v7.widget.RecyclerView

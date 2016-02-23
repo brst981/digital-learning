@@ -212,8 +212,8 @@ public class CreateClassFragment extends Fragment {
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 TopicFragment topicFragment = new TopicFragment();
                 Bundle bundle=new Bundle();
-                id=1;
-                bundle.putInt("id",id);
+                id=6;
+                bundle.putInt("id1",id);
                 bundle.putString("arrName",String.valueOf(arrName));
                 bundle.putString("arrId",(arrId));
                 bundle.putString("arrChildNAme",String.valueOf(arrChildNAme));

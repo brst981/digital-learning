@@ -57,6 +57,7 @@ public class EditClassFragment extends FragmentActivity {
     final static CharSequence[] classtype1 = {"Instructor", "Blended", "Self Paced"};
     int fromsave;
     int fromdes=0;
+    int id;
     SharedPreferences preferences;
     // Fragment mFragment;
     public static String style, classType1, topic1, topic, description, des,singleClassID,sr_topic1;
@@ -369,6 +370,8 @@ public class EditClassFragment extends FragmentActivity {
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                     TopicFragment topicFragment = new TopicFragment();
                     Bundle arg = new Bundle();
+                    id=6;
+                    arg.putInt("id1",id);
                     arg.putInt("fromEdit",fromEdit);
                     arg.putString("arrName", String.valueOf(arrName));
                     arg.putString("arrId", arrId);

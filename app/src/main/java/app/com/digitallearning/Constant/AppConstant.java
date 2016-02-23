@@ -25,7 +25,9 @@ public class AppConstant {
     public static final String delete_Syllabus="http://digitallearningtree.com/digitalapi/cls_syllabus.php";
     public static final String class_image="http://digitallearningtree.com/digitalapi/class_image.php";
     public static final String get_Curriculum="http://digitallearningtree.com/digitalapi/curriculum_add.php";
+    public static final String edit_Curriculum="http://dev.hartis.org/index.php/mobile/newroutes/new_data?user_id=2";
     public static final String delete_Curriculum= "http://digitallearningtree.com/digitalapi/curriculum_add.php";
     public static final String add_Curriculum="http://digitallearningtree.com/digitalapi/curriculum_add.php";
+    public static final String getclass_image="http://digitallearningtree.com/digitalapi/class_image.php";
 
 }

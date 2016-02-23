@@ -377,7 +377,7 @@ public class WSConnector {
         return result;
 
     }
-
+//cid , userid , title , topic , desc , library , lo_age , hi_age , organization , country , state.
 
 
     public static String Country_list() {
@@ -385,6 +385,73 @@ public class WSConnector {
         String url = AppConstant.country_list;
 
         String result = WSAdapter.getJSONObject(url);
+
+
+        return result;
+
+    }
+
+
+
+    public static String Add_curriculum(String cid ,String userid ,String title ,String topic ,String desc ,String library ,String lo_age ,String hi_age ,String organization ,String country ,String state) {
+
+        String url = AppConstant.add_Curriculum;
+        List<NameValuePair> pairs = new ArrayList<NameValuePair>();
+        pairs.add(new BasicNameValuePair("cid", cid));
+        pairs.add(new BasicNameValuePair("userid", userid));
+        pairs.add(new BasicNameValuePair("title", title));
+        pairs.add(new BasicNameValuePair("topic", topic));
+        pairs.add(new BasicNameValuePair("desc", desc));
+        pairs.add(new BasicNameValuePair("library", library));
+        pairs.add(new BasicNameValuePair("lo_age", lo_age));
+        pairs.add(new BasicNameValuePair("hi_age", hi_age));
+        pairs.add(new BasicNameValuePair("organization", organization));
+        pairs.add(new BasicNameValuePair("country", country));
+        pairs.add(new BasicNameValuePair("state", state));
+
+
+        String result = WSAdapter.postJSONObject(url, pairs);
+
+
+        return result;
+
+    }
+    public static String Update_curriculum(String cid ,String userid ,String title ,String topic ,String desc ,String library ,String lo_age ,String hi_age ,String organization ,String country ,String state,String curr_edit_id) {
+
+        String url = AppConstant.edit_Curriculum;
+        List<NameValuePair> pairs = new ArrayList<NameValuePair>();
+        pairs.add(new BasicNameValuePair("cid", cid));
+        pairs.add(new BasicNameValuePair("userid", userid));
+        pairs.add(new BasicNameValuePair("title", title));
+        pairs.add(new BasicNameValuePair("topic", topic));
+        pairs.add(new BasicNameValuePair("desc", desc));
+        pairs.add(new BasicNameValuePair("library", library));
+        pairs.add(new BasicNameValuePair("lo_age", lo_age));
+        pairs.add(new BasicNameValuePair("hi_age", hi_age));
+        pairs.add(new BasicNameValuePair("organization", organization));
+        pairs.add(new BasicNameValuePair("country", country));
+        pairs.add(new BasicNameValuePair("state", state));
+        pairs.add(new BasicNameValuePair("curr_edit_id", curr_edit_id));
+
+
+        String result = WSAdapter.postJSONObject(url, pairs);
+
+
+        return result;
+
+    }
+
+
+
+    public static String Get_image(String classid) {
+
+        String url = AppConstant.getclass_image;
+        List<NameValuePair> pairs = new ArrayList<NameValuePair>();
+        pairs.add(new BasicNameValuePair("classid", classid));
+
+
+
+        String result = WSAdapter.postJSONObject(url, pairs);
 
 
         return result;

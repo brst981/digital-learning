@@ -80,14 +80,14 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/myrecycler"
             android:layout_width="match_parent"
-            android:layout_height="440dp"
+            android:layout_height="match_parent"
             android:clipToPadding="false"
             android:scrollbars="vertical" />
 
     <com.andexert.library.RippleView
         android:id="@+id/ripple_topic_save"
         android:layout_width="wrap_content"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"

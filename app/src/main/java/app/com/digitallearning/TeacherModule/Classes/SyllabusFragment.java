@@ -332,8 +332,28 @@ public class SyllabusFragment extends Fragment{
             Log.e("Update_syllabusAPI", "" + result);
 
             if (result.contains("true")) {
-                LogMessage.showDialog(getActivity(), null,
-                        "Syllabus updated", "OK");
+                /*LogMessage.showDialog(getActivity(), null,
+                        "Syllabus updated", "OK");*/
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+                alertDialog.setMessage("Syllabus updated").setCancelable(false)
+                        .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                // TODO Auto-generated method stub
+                                dialog.dismiss();
+                                Intent deletetoclass=new Intent(getActivity(),ClassActivity.class);
+                                startActivity(deletetoclass);
+                                getActivity().finish();
+
+                            }
+                        });
+
+                AlertDialog dialog = alertDialog.create();
+                dialog.show();
+                TextView messageText = (TextView) dialog
+                        .findViewById(android.R.id.message);
+                messageText.setGravity(Gravity.CENTER);
 
 
             } else if (result.contains("false")) {
@@ -375,10 +395,6 @@ public class SyllabusFragment extends Fragment{
 
 
             } else if (result.contains("false")) {
+            }}}
 
-
-            }
-        }
-
-    }
 }

@@ -20,14 +20,14 @@
                 android:id="@+id/relative_pass"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/img_class_picture">
+           >
 
 
                 <EditText
                     android:id="@+id/text_title_curriculum"
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
-
+                    android:background="@drawable/edittext_rectangle_selector"
                     android:gravity="left|center"
                     android:paddingBottom="5dp"
                     android:paddingLeft="5dp"
@@ -41,6 +41,7 @@
                     android:id="@+id/view_sep_text1"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
+                    android:visibility="gone"
                     android:layout_below="@+id/text_title_curriculum"
                     android:background="@color/color_darker_grey" />
 
@@ -495,7 +496,10 @@
         android:layout_height="40dp"
         android:visibility="gone"
         android:layout_below="@+id/ripple_create"
-        android:layout_margin="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="2dp"
         app:rv_color="#000"
         android:gravity="bottom"
         app:rv_rippleDuration="100"
@@ -507,6 +511,7 @@
             android:layout_height="match_parent"
             android:background="@color/red"
             android:elevation="8dp"
+
             android:gravity="center"
             android:text="Delete"
             android:textAllCaps="true"

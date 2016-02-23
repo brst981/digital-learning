@@ -35,6 +35,7 @@ public class NavigationActivity extends AppCompatActivity implements NavigationD
     public static boolean isFromDrawer = false;
     ImageButton imageButtonZoomIn, imageButtonZoomOut;
     FrameLayout frame;
+    boolean classID=false;
     @Override
     protected void onCreate( Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -98,10 +99,14 @@ public class NavigationActivity extends AppCompatActivity implements NavigationD
 
                     finish();
 //                   ClassFragment.relative_header.setVisibility(View.GONE);
+                }
+                else if(classID=false){
+                    mFragment = ClassFragment.newInstance();
                 }else {
                     mFragment = ClassesDetailFragment.newInstance();
                     NavigationDrawerFragment.imageView.setVisibility(View.GONE);
                 }
+
 
 
 
