@@ -36,7 +36,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import app.com.digitallearning.R;
 import app.com.digitallearning.TeacherModule.Classes.CreateClassFragment;
@@ -55,7 +54,7 @@ public class ClassFragment extends Fragment {
     ListViewAdapter mAdapter;
     public static RelativeLayout relative_header;
     TextView headerTitle;
-    List<String> myList,myList1,myList2,myListclassId;
+
     String arrId,arrName,arrChildId,arrChildNAme,className,classStudent,classSub,a,a1,a2,b,b1,b2,a3,b3,classid,c,c1,c2,style,passcode,classType,topic,description,createdby,classname,desc;
     boolean defineClass = false;
     public static String titleheader,Sch_Mem_id,Mem_Sch_Id;
@@ -68,7 +67,7 @@ public class ClassFragment extends Fragment {
     SharedPreferences.Editor editor;
     RelativeLayout newrelative;
 
-    ArrayList<String> newusreId, newschoolId,newclassName,newclassid,newclassSub,newclassStudent;
+    ArrayList<String> newusreId, newschoolId,newclassName,newclassid,newclassSub,newclassStudent,newclassdescription;
     String name,password,schoolID;
 
 
@@ -99,6 +98,7 @@ public class ClassFragment extends Fragment {
         catch (Exception e){}*/
 
         newclassName=new ArrayList<>();
+        newclassdescription=new ArrayList<>();
         newclassid=new ArrayList<>();
         newclassSub=new ArrayList<>();
         newclassStudent=new ArrayList<>();

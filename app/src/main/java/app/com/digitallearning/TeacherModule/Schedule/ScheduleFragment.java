@@ -257,10 +257,15 @@ public class ScheduleFragment extends Fragment {
             else if(arrDay.get(position).contains("6")){
                 day.setText("Saturday");
             }
-            else {
-                day.setText("Sunday");
+            else if(arrDay.contains("Sunday")){
+                day.setText("Friday");
             }
-
+            else if(arrDay.contains("Every Day")){
+                day.setText("Friday");
+            }
+            else if(arrDay.contains("Every Weekday")){
+                day.setText("Friday");
+            }
             TextView location=(TextView)convertView.findViewById(R.id.location);
             location.setText(arrLocation.get(position));
             // TextView t = (TextView)convertView.findViewById(R.id.position);

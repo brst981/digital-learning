@@ -421,17 +421,29 @@ public class WSConnector {
         String url = AppConstant.edit_Curriculum;
         List<NameValuePair> pairs = new ArrayList<NameValuePair>();
         pairs.add(new BasicNameValuePair("cid", cid));
+        Log.e("cid",""+cid);
         pairs.add(new BasicNameValuePair("userid", userid));
+        Log.e("userid",""+userid);
         pairs.add(new BasicNameValuePair("title", title));
+        Log.e("title",""+title);
         pairs.add(new BasicNameValuePair("topic", topic));
+        Log.e("topic",""+topic);
         pairs.add(new BasicNameValuePair("desc", desc));
+        Log.e("desc",""+desc);
         pairs.add(new BasicNameValuePair("library", library));
+        Log.e("library",""+library);
         pairs.add(new BasicNameValuePair("lo_age", lo_age));
+        Log.e("lo_age",""+lo_age);
         pairs.add(new BasicNameValuePair("hi_age", hi_age));
+        Log.e("hi_age",""+hi_age);
         pairs.add(new BasicNameValuePair("organization", organization));
+        Log.e("organization",""+organization);
         pairs.add(new BasicNameValuePair("country", country));
+        Log.e("country",""+country);
         pairs.add(new BasicNameValuePair("state", state));
+        Log.e("state",""+state);
         pairs.add(new BasicNameValuePair("curr_edit_id", curr_edit_id));
+        Log.e("curr_edit_id",""+curr_edit_id);
 
 
         String result = WSAdapter.postJSONObject(url, pairs);

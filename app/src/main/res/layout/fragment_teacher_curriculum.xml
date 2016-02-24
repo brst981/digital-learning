@@ -120,7 +120,6 @@
                     android:gravity="right|center"
                     android:paddingRight="5dp"
                     android:singleLine="true"
-                    android:text="Math"
                     android:textColor="@color/color_light_grey"
                     android:textSize="14sp" />
 
@@ -178,7 +177,6 @@
                         android:gravity="right|center"
                         android:paddingRight="5dp"
                         android:singleLine="true"
-                        android:text="United States of America"
                         android:textColor="@color/color_light_grey"
                         android:textSize="14sp" />
 
@@ -240,7 +238,6 @@
                         android:gravity="right|center"
                         android:paddingRight="5dp"
                         android:singleLine="true"
-                        android:text="Hello teacher"
                         android:textColor="@color/color_light_grey"
                         android:textSize="14sp" />
 
@@ -304,7 +301,6 @@
                         android:gravity="right|center"
                         android:paddingRight="5dp"
                         android:singleLine="true"
-                        android:text="Saturday"
                         android:textColor="@color/color_light_grey"
                         android:textSize="14sp" />
 
@@ -367,7 +363,6 @@
                         android:gravity="right|center"
                         android:paddingRight="5dp"
                         android:singleLine="true"
-                        android:text="Hello"
                         android:textColor="@color/color_light_grey"
                         android:textSize="14sp" />
 
@@ -432,7 +427,6 @@
                         android:gravity="right|center"
                         android:paddingRight="5dp"
                         android:singleLine="true"
-                        android:text="Hello"
                         android:textColor="@color/color_light_grey"
                         android:textSize="14sp" />
 

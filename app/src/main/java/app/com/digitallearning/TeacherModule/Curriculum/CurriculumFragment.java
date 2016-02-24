@@ -45,18 +45,25 @@ public class CurriculumFragment extends Fragment {
     TextView headerTitle;
     String title,value;
     SharedPreferences preferences;
-    String Sch_Mem_id,cla_classid,textupdate,textsave;
+    String Sch_Mem_id,cla_classid,textupdate,textsave,stindividualId,strcountry,nwstring;
     ProgressDialog dlg;
+    String ab,ba;
     CharSequence[] mStringArray,a,b,c;
     ArrayList<String> countryList,countrydatalist;
     RelativeLayout relative_topic,relative_teacher_country;;
     Button button_create;
     int id=2;
     int id1=1;
+    int n,p;
+    String x,y,z;
     int curiid;
     String[] strArr;
-    String countryid,curid;
+    String countryid,curid,topic_id;
     int item1;
+    int individualId;
+    JSONArray arr;
+    String st,strstring;
+    int i1;
     public static String curriculumtopic,curriculumtopicid,curriculuncountry,curriculumdes,curriculumlib,curriculumgradefrom,curriculumgradeto;
     EditText text_title_curriculum,edt_state_curriculum,edt_organization_curriculum;
     TextView topic,txtcountry,text_input_Description,txtlibrary,gradefrom,gradeto;
@@ -97,6 +104,7 @@ public class CurriculumFragment extends Fragment {
 
         cla_classid=preferences.getString("cla_classid","");
         Log.e("cla_classid",""+cla_classid);
+
         if(curiid==10) {
             new Get_carriculum().execute(cla_classid, Sch_Mem_id);
         }
@@ -109,7 +117,7 @@ public class CurriculumFragment extends Fragment {
         ripple_teacher_Description=(RippleView)rootview.findViewById(R.id.ripple_teacher_Description);
         ripple_GradeTo=(RippleView)rootview.findViewById(R.id.ripple_GradeTo);
         ripple_teacher_syllabus=(RippleView)rootview.findViewById(R.id.ripple_teacher_syllabus);
-
+       // new Country_list().execute();
 
 // title , topic , desc , library ,String lo_age ,String hi_age ,String organization ,String country ,String state
 
@@ -146,7 +154,9 @@ public class CurriculumFragment extends Fragment {
                         //  mDoneButton.setText(items[item]);
                         Log.e("items[item]",""+items2[item]);
                         curriculumgradeto=items2[item];
-                        gradeto.setText(items2[item]);
+                        gradeto.setText(curriculumgradeto);
+
+
                     }
                 });
                 AlertDialog alert = builder.create();
@@ -220,7 +230,7 @@ public class CurriculumFragment extends Fragment {
             }
         });
 
-       new Country_list().execute();
+
 
 
         ripple_teacher_country.setOnRippleCompleteListener(new RippleView.OnRippleCompleteListener() {
@@ -310,11 +320,42 @@ public class CurriculumFragment extends Fragment {
             try {
 
                 JSONObject jsonObject = new JSONObject(success);
-                JSONArray arr = jsonObject.getJSONArray("data");
+                 arr = jsonObject.getJSONArray("data");
 
                  strArr = new String[arr.length()];
-                for (int i = 0; i < arr.length(); i++) {
-                    strArr[i] = arr.getString(i);}
+                for (i1 = 0; i1 < arr.length(); i1++) {
+                    strArr[i1] = arr.getString(i1);
+                    Log.e("wwstrArr[i1]",""+strArr[i1]);
+
+
+                   /* st= (String) arr.get(i1);
+                    Log.e("st",""+st);
+*/
+                    Log.e("arr.get(i1);",""+arr.get(i1));
+
+                     individualId=i1+1;
+                    stindividualId= String.valueOf(individualId);
+                    Log.e("individualId",""+individualId);
+                    Log.e("stindividualId",""+stindividualId);
+
+                    Log.e("receivedstrcountry",""+strcountry);
+                    Log.e("fourth",""+arr.get(Integer.parseInt(strcountry)));
+                    x= String.valueOf(arr.get(Integer.parseInt(strcountry)));
+                    Log.e("nvjh",""+x);
+                    if(curriculumtopic!=null){
+
+                        txtcountry.setText(curriculuncountry);
+
+                    }
+                    if(curriculumdes!=null){
+                        txtcountry.setText(curriculuncountry);
+                    }
+                    else{
+
+                    txtcountry.setText(x);}
+                }
+
+
 
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -370,11 +411,26 @@ public class CurriculumFragment extends Fragment {
                     text_input_Description.setText(curriculumdes);
                     txtcountry.setText(curriculuncountry);
                     txtlibrary.setText(curriculumlib);
+                    gradeto.setText(curriculumgradeto);
+                    gradefrom.setText(curriculumgradefrom);
 
 
 
 
                 }
+                if(curriculumdes!=null){
+                    Log.e("curriculumdesnotnull", "" + curriculumdes);
+                    topic.setText(curriculumtopic);
+                    text_input_Description.setText(curriculumdes);
+                    txtcountry.setText(curriculuncountry);
+                    txtlibrary.setText(curriculumlib);
+                    gradeto.setText(curriculumgradeto);
+                    gradefrom.setText(curriculumgradefrom);
+
+
+
+                }
+
 
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
                 alertDialog.setMessage("No data").setCancelable(false)
@@ -392,25 +448,36 @@ public class CurriculumFragment extends Fragment {
                         });
 
                 AlertDialog dialog = alertDialog.create();
-                dialog.show();
-                TextView messageText = (TextView) dialog
-                        .findViewById(android.R.id.message);
-                messageText.setGravity(Gravity.CENTER);
 
 
 
+                 if(curriculumdes==null&curriculumtopic==null){
+                    Log.e("curriculumdescnull", "" + curriculumdes);
+                    dialog.show();
+                    TextView messageText = (TextView) dialog
+                            .findViewById(android.R.id.message);
+                    messageText.setGravity(Gravity.CENTER);
 
+                }
+
+                else{
+                    dialog.dismiss();
+                }
 
             } else if (result.contains("true")) {
                 updateTeacherLogIn(result);
 
 
                 button_create.setText("Update");
+                textupdate=button_create.getText().toString();
+                Log.e("serviccurriculumtopicid",""+curriculumtopicid);
+
 
                 ripple_create.setOnRippleCompleteListener(new RippleView.OnRippleCompleteListener() {
                     @Override
                     public void onComplete(RippleView rippleView) {
-
+                        Log.e("textupdateget",""+textupdate);
+                        Log.e("countryid",""+countryid);
                         textsave=button_create.getText().toString();
                         addsrtitle=text_title_curriculum.getText().toString();
                         addsrstate=edt_state_curriculum.getText().toString();
@@ -421,12 +488,20 @@ public class CurriculumFragment extends Fragment {
                         addsrlibrary=txtlibrary.getText().toString();
                         addsrgradefrom=gradefrom.getText().toString();
                         addsrgradeto=gradeto.getText().toString();
+
+                        if(curriculumtopicid==null)
+                        {
+                            curriculumtopicid=topic_id;
+                        }
+                        else if(addsrdescription==null){
+                            addsrdescription=curriculumdes;
+                        }
+
                         new Update_curriculum().execute(cla_classid,Sch_Mem_id,addsrtitle,curriculumtopicid,addsrdescription,addsrlibrary,addsrgradefrom,addsrgradeto,addsrorganization,countryid,addsrstate,curid);
 
                     }
                 });
-               textupdate=button_create.getText().toString();
-                Log.e("textupdateget",""+textupdate);
+
                 ripple_edit_delete.setVisibility(View.VISIBLE);
                 ripple_edit_delete.setOnRippleCompleteListener(new RippleView.OnRippleCompleteListener() {
                     @Override
@@ -483,17 +558,31 @@ public class CurriculumFragment extends Fragment {
                     Log.e("topic_name", "" + topic_name);
                     String lo_age = obj.getString("lo_age");
                     Log.e("lo_age", "" + lo_age);
-                    String topic_id = obj.getString("topic_id");
+                     topic_id = obj.getString("topic_id");
                     Log.e("topic_id", "" + topic_id);
                     String curid = obj.getString("curid");
                     Log.e("curid", "" + curid);
-                    String country = obj.getString("country");
-                    Log.e("country", "" + country);
+                    strcountry = obj.getString("country");
+                    Log.e("strcountry", "" + strcountry);
                     String cur_class_id = obj.getString("cur_class_id");
                     Log.e("cur_class_id", "" + cur_class_id);
+                    if(curriculumtopic!=null){
+                        Log.e("ctnotnull", "" + curriculumtopic);
+                        topic.setText(curriculumtopic);
+                    }
+                    else{
+                        topic.setText(topic_name);
+                    }
+                    if(curriculumdes!=null){
+                        Log.e("cdnotnull", "" + curriculumdes);
 
+                        text_input_Description.setText(curriculumdes);
+                    }
+                    else{
+                        text_input_Description.setText(desc);
+                    }
                     text_title_curriculum.setText(title);
-                    text_input_Description.setText(desc);
+
                     gradefrom.setText(hi_age);
                     edt_organization_curriculum.setText(organisation);
                     edt_state_curriculum.setText(state);
@@ -507,13 +596,17 @@ public class CurriculumFragment extends Fragment {
                     else{
                         txtlibrary.setText("Cummunity");
                     }
-                    topic.setText(topic_name);
+
                     gradeto.setText(lo_age);
 
-                    /*country=countryid;
-                    Log.e("countryidset",""+countryid);*/
-                    txtcountry.setText(country);
+
+                    Log.e("ssindividualId",""+individualId);
+
+
+                 //   txtcountry.setText((Integer) arr.get(i1));
+//                    Log.e("(Integer) arr.get(i1)",""+(Integer) arr.get(i1));
                 }
+                new Country_list().execute();
 
             }catch (JSONException e) {
                 e.printStackTrace();

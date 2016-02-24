@@ -334,6 +334,7 @@ public class TopicFragment extends Fragment {
                             CurriculumFragment.curriculumtopic=arrName.get(position);
                             Log.e("Curriculum.curriculumto",""+CurriculumFragment.curriculumtopic);
                             CurriculumFragment.curriculumtopicid=arrId.get(position);
+                            Log.e("Curriculum.tid",""+CurriculumFragment.curriculumtopicid);
                         }
 
                         Log.e("SElected",""+topic);

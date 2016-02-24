@@ -222,7 +222,7 @@
                     <TextView
                         android:layout_width="150dp"
                         android:layout_height="35dp"
-                        android:visibility="gone"
+                        android:id="@+id/curriculum"
                         android:layout_marginRight="10dp"
                         android:layout_toLeftOf="@+id/img_back"
                         android:layout_toRightOf="@+id/text_curric"
@@ -286,6 +286,7 @@
                         android:textSize="16sp" />
 
                     <TextView
+                        android:id="@+id/scheduleday"
                         android:layout_width="150dp"
                         android:layout_height="35dp"
                         android:layout_marginRight="10dp"
@@ -295,7 +296,6 @@
                         android:gravity="right|center"
                         android:paddingRight="5dp"
                         android:singleLine="true"
-                        android:visibility="gone"
                         android:text="Saturday"
                         android:textColor="@color/color_light_grey"
                         android:textSize="14sp" />
@@ -359,7 +359,7 @@
                         android:layout_toStartOf="@+id/img_back_syllabus"
                         android:gravity="right|center"
                         android:paddingRight="5dp"
-                        android:visibility="gone"
+                      android:id="@+id/syllabus"
                         android:singleLine="true"
                         android:text="Hello"
                         android:textColor="@color/color_light_grey"
@@ -422,6 +422,7 @@
         android:id="@+id/menu_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:visibility="gone"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_marginBottom="10dp"

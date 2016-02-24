@@ -97,6 +97,7 @@ public class TeacherLoginFragment extends Fragment {
                 preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
                 SharedPreferences.Editor editor = preferences.edit();
                 editor.putString("name", name);
+                editor.putString("schoolName", schoolName);
                 editor.putString("password", password);
                 editor.putString("schoolID", schoolID);
                 editor.commit();
