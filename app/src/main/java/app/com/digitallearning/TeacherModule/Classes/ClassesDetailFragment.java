@@ -22,16 +22,13 @@ import android.view.animation.OvershootInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.andexert.library.RippleView;
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
 import com.squareup.picasso.Picasso;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import app.com.digitallearning.R;
 import app.com.digitallearning.TeacherModule.ClassFragment;
 import app.com.digitallearning.TeacherModule.Curriculum.CurriculumFragment;
@@ -45,13 +42,13 @@ public class ClassesDetailFragment extends Fragment{
     View rootview;
     FloatingActionMenu menu_main;
     FloatingActionButton floatingActionButtonEdit,floatingActionButtonChange,floatingActionButtonDelete;
-    TextView headerTitle,text_passcode_detail,curriculum,scheduleday,syllabus;
+    TextView headerTitle,text_passcode_detail,curriculum,scheduleday,syllabus,text_school_name,text_topic_name;
     String title,arrDay,titlesyllabus,titlecurriculum;
     int curiid=10;
     ImageView  img_edit_picture;
     ProgressDialog dlg;
     SharedPreferences preferences;
-    String cla_classid,schoolName,Sch_Mem_id;
+    String cla_classid,schoolName,Sch_Mem_id,class_image;
     boolean classID=false;
     RippleView rippleViewTeacherCollab,rippleViewCurriculum,ripple_teacher_syllabus,ripple_teacher_schedule;
 
@@ -68,6 +65,10 @@ public class ClassesDetailFragment extends Fragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
         rootview = inflater.inflate(R.layout.fragment_class_details, container, false);
         menu_main = (FloatingActionMenu)rootview.findViewById(R.id.menu_main);
+        text_school_name=(TextView)rootview.findViewById(R.id.text_school_name);
+        text_topic_name=(TextView)rootview.findViewById(R.id.text_topic_name);
+        Log.e("ClassDetail.newtopicsel",""+EditClassFragment.newtopicsel);
+        text_topic_name.setText(EditClassFragment.newtopicsel);
         dlg=new ProgressDialog(getActivity());
         preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         cla_classid=preferences.getString("cla_classid","");
@@ -75,6 +76,7 @@ public class ClassesDetailFragment extends Fragment{
         Log.e("cla_classid",""+cla_classid);
         Sch_Mem_id=preferences.getString("Sch_Mem_id","");
         Log.e("Sch_Mem_id",""+Sch_Mem_id);
+        text_school_name.setText(schoolName);
         new Get_Class_image().execute(cla_classid);
 
 
@@ -114,7 +116,7 @@ public class ClassesDetailFragment extends Fragment{
 
         activity.getSupportActionBar().setTitle("");
         headerTitle = (TextView) activity.findViewById(R.id.mytext);
-
+        headerTitle.setText("Class Detail");
 
 
         createCustomAnimation();
@@ -149,7 +151,11 @@ public class ClassesDetailFragment extends Fragment{
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 ChangePictureFragment classFragment = new ChangePictureFragment();
+                Bundle bundle=new Bundle();
+                bundle.putString("class_image",class_image);
+                Log.e("sendclass_image",""+class_image);
                 fragmentTransaction.replace(R.id.container, classFragment).addToBackStack(null);
+                classFragment.setArguments(bundle);
                 fragmentTransaction.commit();
             }
         });
@@ -289,15 +295,25 @@ public class ClassesDetailFragment extends Fragment{
                     JSONObject obj = arr.getJSONObject(i);
                     Log.e("obj", "" + obj);
 
-                    String class_image = obj.getString("class_image");
+                     class_image = obj.getString("class_image");
                     Log.e("class_image", "" + class_image);
-
-                    if(img_edit_picture!=null){
-                        Log.e("img_edit_picture",""+img_edit_picture);
-                    Picasso.with(getActivity()).load(class_image).into(img_edit_picture);}
-                    else{
-                        img_edit_picture.setImageResource(R.drawable.img_loading);
+                    Log.e("Checkimg_edit_picture", "" + img_edit_picture);
+                    if (img_edit_picture == null) {
+                        Log.e("ifnullimg_edit_picture", "" + img_edit_picture);
+                        img_edit_picture.setImageResource(R.drawable.no_image_icon);
                     }
+                    try {
+                        if (img_edit_picture != null) {
+                            Log.e("img_edit_picture", "" + img_edit_picture);
+                            Picasso.with(getActivity()).load(class_image).into(img_edit_picture);
+                        } /*else {
+                            img_edit_picture.setImageResource(R.drawable.img_loading);
+                        }*/
+                    }
+                    catch (Exception e){}
+
+
+
                 }
 
 

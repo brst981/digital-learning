@@ -2,6 +2,7 @@ package app.com.digitallearning.TeacherModule.Classes;
 
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -16,7 +17,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -35,6 +38,7 @@ import java.util.List;
 
 import app.com.digitallearning.R;
 import app.com.digitallearning.TeacherModule.Curriculum.CurriculumFragment;
+import app.com.digitallearning.Utill.LogMessage;
 import app.com.digitallearning.WebServices.WSConnector;
 
 /**
@@ -43,49 +47,52 @@ import app.com.digitallearning.WebServices.WSConnector;
 public class TopicFragment extends Fragment {
     View rootview;
     ImageView img_Art;
-   // String arrName,a,b,arrId,a1,b1;
+    // String arrName,a,b,arrId,a1,b1;
     ListView list;
-   // ArrayList<String> categoryName;
+    // ArrayList<String> categoryName;
     LayoutInflater inflater;
     private RecyclerView mRecyclerView;
     private RecyclerView.LayoutManager mLayoutManager;
     private RecyclerView.Adapter mAdapter;
     public static String topic;
     RippleView ripple_topic_save;
-    String first="Art";
+    String first = "Art";
     ImageView back;
     ProgressDialog dlg;
-    String newTitle,semester,coursecode;
+    String newTitle, semester, coursecode, itemart, strpos;
     ImageButton imageButtonZoomIn, imageButtonZoomOut;
-    RelativeLayout rellogin,relative_header;
-    int id,fromEdit;
-    int fromsave=1;
+    RelativeLayout rellogin, relative_header;
+    int id, fromEdit;
+    int fromsave = 1;
+    String othrdes;
     int id1;
-    ArrayList<String > arrId,arrName,arrChildId,arrChildNAme;
-    final CharSequence[] art = {"Art","Theater","Visual Art"};
+    ArrayList<String> arrId, arrName, arrChildId, arrChildNAme;
+    final CharSequence[] art = {"Art", "Theater", "Visual Art"};
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootview = inflater.inflate(R.layout.fragment_topic, container, false);
         mRecyclerView = (RecyclerView) rootview.findViewById(R.id.myrecycler);
-        back=(ImageView) rootview.findViewById(R.id.back);
+        back = (ImageView) rootview.findViewById(R.id.back);
         dlg = new ProgressDialog(getActivity());
         new Before_Class_Listing().execute();
-        relative_header=(RelativeLayout)rootview.findViewById(R.id.relative_header);
-        imageButtonZoomIn = (ImageButton)rootview. findViewById(R.id.img_zoom_in);
+        relative_header = (RelativeLayout) rootview.findViewById(R.id.relative_header);
+        imageButtonZoomIn = (ImageButton) rootview.findViewById(R.id.img_zoom_in);
         imageButtonZoomOut = (ImageButton) rootview.findViewById(R.id.img_zoom_out);
-        rellogin=(RelativeLayout)rootview.findViewById(R.id.rellogin) ;
-        ripple_topic_save=(RippleView)rootview.findViewById(R.id.ripple_topic_save);
+        rellogin = (RelativeLayout) rootview.findViewById(R.id.rellogin);
+        ripple_topic_save = (RippleView) rootview.findViewById(R.id.ripple_topic_save);
 
         try {
-            id=getArguments().getInt("id1");
-            Log.e("idreceived",""+id);}
-        catch (Exception e){}
-       // if(id==1){
+            id = getArguments().getInt("id1");
+            Log.e("idreceived", "" + id);
+        } catch (Exception e) {
+        }
+        // if(id==1){
 
         try {
-            id1=getArguments().getInt("id");
-            Log.e("id1",""+id1);
-            if(id1==1){
+            id1 = getArguments().getInt("id");
+            Log.e("id1", "" + id1);
+            if (id1 == 1) {
                 relative_header.setVisibility(View.GONE);
             }
             fromEdit = getArguments().getInt("fromEdit");
@@ -94,48 +101,14 @@ public class TopicFragment extends Fragment {
             Log.e("semestertopic", "" + semester);
             coursecode = getArguments().getString("coursecode1");
             Log.e("coursecodetopic", "" + coursecode);
+        } catch (Exception e) {
         }
-        catch (Exception e){}
-            /*arrName=getArguments().getString("arrName");
-
-            arrId=getArguments().getString("arrId");
-            arrChildNAme=getArguments().getString("arrChildNAme");
-            Log.e("arrName",""+arrName);
-            Log.e("ChildarrId",""+arrId);
-            a = arrName.replace("[", "");
-            Log.e("a",""+a);
-            b = a.replace("]", "");
-            Log.e("b",""+b);
 
 
-            a1 = arrId.replace("[", "");
-            Log.e("a",""+a1);
-            b1 = a1.replace("]", "");
-            Log.e("b",""+b1);
-
-            List<String> myList = new ArrayList<String>(Arrays.asList(b.split(",")));
-
-        Log.e("myList",""+myList);
-
-        List<String> myList1 = new ArrayList<String>(Arrays.asList(b1.split(",")));
-
-        Log.e("myList1",""+myList1);
-
-            */
-
-
-     //   img_Art=(ImageView)rootview.findViewById(R.id.img_Art);
-
-
-
-
-        //categoryName=new ArrayList<>();
-
-
-        arrId=new ArrayList<>();
-        arrName=new ArrayList<>();
-        arrChildId=new ArrayList<>();
-        arrChildNAme=new ArrayList<>();
+        arrId = new ArrayList<>();
+        arrName = new ArrayList<>();
+        arrChildId = new ArrayList<>();
+        arrChildNAme = new ArrayList<>();
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -148,34 +121,21 @@ public class TopicFragment extends Fragment {
             @Override
             public void onComplete(RippleView rippleView) {
 
-                if(fromEdit==12) {
+                if (fromEdit == 12) {
                     Intent save = new Intent(getActivity(), EditClassFragment.class);
                     save.putExtra("fromsave", fromsave);
-                    save.putExtra("newTitle",newTitle);
-                    save.putExtra("semester",semester);
-                    save.putExtra("coursecode",coursecode);
+                    save.putExtra("newTitle", newTitle);
+                    save.putExtra("semester", semester);
+                    save.putExtra("coursecode", coursecode);
                     startActivity(save);
                     getActivity().finish();
-                }
-                else{
+                } else {
                     getFragmentManager().popBackStackImmediate();
                 }
             }
+
         });
 
-
-
-        /*img_Art.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentManager fragmentManager=getFragmentManager();
-                FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
-                ArtFragment artFragment=new ArtFragment();
-                fragmentTransaction.replace(R.id.container,artFragment).addToBackStack(null);
-                fragmentTransaction.commit();
-
-            }
-        });*/
 
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -188,7 +148,6 @@ public class TopicFragment extends Fragment {
         });
         mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
-
 
 
         imageButtonZoomIn.setOnClickListener(new View.OnClickListener() {
@@ -219,8 +178,7 @@ public class TopicFragment extends Fragment {
         List<String> arrChildNAme;
 
 
-
-        public MyRecyclerViewAdapter(List<String> arrId,List<String> arrName,List<String> arrChildId,List<String> arrChildNAme) {//List<String> myList,List<String> myList1,
+        public MyRecyclerViewAdapter(List<String> arrId, List<String> arrName, List<String> arrChildId, List<String> arrChildNAme) {//List<String> myList,List<String> myList1,
             this.myList = myList;
             this.myList1 = myList1;
 
@@ -230,63 +188,49 @@ public class TopicFragment extends Fragment {
             this.arrChildNAme = arrChildNAme;
 
         }
-       /* ArrayList<String> arrayListName;
-        ArrayList<String> arrQusetion;
-        ArrayList<String> arrAnswer;*/
-        // ArrayList<String> videoName;
-      /* public MyRecyclerViewAdapter(ArrayList<String> myDataset) {
-           videoName = myDataset;
-           Log.e("videoNamemyDataset", "" + videoName);
-
-
-
-       }*/
 
 
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.list_topic, parent, false);
+            ViewHolder viewHolder;
+            //
+                View view = LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.list_topic, parent, false);
 
-            ViewHolder viewHolder = new ViewHolder(view);
+                viewHolder = new ViewHolder(view);
+               // parent.setTag(viewHolder);
+//            }else{
+//                viewHolder = (ViewHolder) parent.getTag();
+//            }
             return viewHolder;
         }
 
         @Override
         public void onBindViewHolder(ViewHolder holder, int position) {
-            //  position=0;
-            // int position1 = getLayoutPosition();
 
-            //   st=arrayListName.get(position);
             Log.e("arrName", "" + arrName);
             Log.e("arrName.get(position)", "" + arrName.get(position));
 
             holder.a3cat.setText(arrName.get(position));
-
-         String art=   holder.a3cat.getText().toString();
-            Log.e("StingArt",""+art);
-
-            if(art.contains("Art")){
-                Log.e("VisitArt",""+"");
-            //    holder.img_Art.setVisibility(View.VISIBLE);
-            }
-            /*if(holder.a3cat.getText()=="Art") {
+            if (arrName.get(position).matches("Art")) {
                 holder.img_Art.setVisibility(View.VISIBLE);
-            }
-            else {
-                holder.checkBox.setVisibility(View.VISIBLE);
-            }*/
-          /*  if(myList.get(0).contains("Art"))
-            {
-                Log.e("VisIT","");
+                holder.artitem.setVisibility(View.VISIBLE);
+                holder.checkBox.setVisibility(View.GONE);
+            } else if (arrName.get(position).matches("Other")) {
                 holder.img_Art.setVisibility(View.VISIBLE);
-            }
-            else if(myList.get(1).contains("Music")){
-                Log.e("VisiT","");
+                holder.checkBox.setVisibility(View.GONE);
+                holder.artitem.setVisibility(View.VISIBLE);
+            } else {
                 holder.img_Art.setVisibility(View.GONE);
-            }*/
+            }
 
+            String art = holder.a3cat.getText().toString();
+            Log.e("StingArt", "" + art);
 
+            if (art.contains("Art")) {
+                Log.e("VisitArt", "" + "");
+
+            }
         }
 
         @Override
@@ -294,78 +238,138 @@ public class TopicFragment extends Fragment {
             return arrId.size();
         }
 
-        public class ViewHolder extends RecyclerView.ViewHolder  {
+        public class ViewHolder extends RecyclerView.ViewHolder {
 
             TextView a3cat;
             RippleView a3ripple;
-            public  ImageView img_Art;
+            public ImageView img_Art;
             CheckBox checkBox;
+            TextView artitem;
+            Integer selected_position = -1;
 
 
             public ViewHolder(View itemView) {
                 super(itemView);
                 a3ripple = (RippleView) itemView.findViewById(R.id.a3ripple);
-              //  a3ripple.setOnClickListener(this);
+                //  a3ripple.setOnClickListener(this);
                 a3cat = (TextView) itemView.findViewById(R.id.a3cat);
-                checkBox=(CheckBox)itemView.findViewById(R.id.checkbox);
-                img_Art=(ImageView)itemView.findViewById(R.id.img_Art);
-
+                checkBox = (CheckBox) itemView.findViewById(R.id.checkbox);
+                img_Art = (ImageView) itemView.findViewById(R.id.img_Art);
+                artitem = (TextView) itemView.findViewById(R.id.artitem);
+                //artitem.setText(itemart);
+                artitem.setText(" ");
                 a3ripple.setOnRippleCompleteListener(new RippleView.OnRippleCompleteListener() {
                     @Override
                     public void onComplete(RippleView rippleView) {
-                        int position = getLayoutPosition(); // gets item position
-                       // img_Art.setVisibility(View.VISIBLE);
+                        final int position = getLayoutPosition(); // gets item position
+                        // img_Art.setVisibility(View.VISIBLE);
+                        if (arrName.get(position).matches("Art")) {
+                            if (position == 0) {
 
-                        if(id==6){
-                            Log.e("idtxtnull",""+id);
-                            topic=arrId.get(position);
-                        EditClassFragment.newtopicsel=arrName.get(position);
-                            EditClassFragment.sr_topic1=arrId.get(position);
-                            Log.e("EditClassFragmenttopic",""+EditClassFragment.sr_topic1);
-                        Log.e("newtopicsel",""+EditClassFragment.newtopicsel);
-                            EditClassFragment.topic1=arrName.get(position);
-                            Log.e("TopicmyList1",""+arrId);
-                        }
-                    //    CreateClassFragment.selectedtopic.setText(EditClassFragment.newtopicsel);
-
-
-                        if(id==2){
-                            Log.e("idcurr",""+id);
-                            CurriculumFragment.curriculumtopic=arrName.get(position);
-                            Log.e("Curriculum.curriculumto",""+CurriculumFragment.curriculumtopic);
-                            CurriculumFragment.curriculumtopicid=arrId.get(position);
-                            Log.e("Curriculum.tid",""+CurriculumFragment.curriculumtopicid);
-                        }
-
-                        Log.e("SElected",""+topic);
-                        if (position == 0) {
-
-                            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                            builder.setTitle("Make your selection");
-                            builder.setItems(art, new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int item) {
-                                    // Do something with the selection
-                                    //  mDoneButton.setText(items[item]);
-                                    Log.e("items[item]",""+art[item]);
+                                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                                builder.setTitle("Make your selection");
+                                builder.setItems(art, new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int item) {
+                                        // Do something with the selection
+                                        //  mDoneButton.setText(items[item]);
+                                        Log.e("items[item]", "" + art[item]);
+                                        itemart = String.valueOf(art[item]);
+                                        Log.e("itemart", "" + itemart);
+                                        artitem.setText(itemart);
+                                    }
+                                });
+                                AlertDialog alert = builder.create();
+                                alert.show();
+                                EditClassFragment.topic1 = arrName.get(position);
+                                if (othrdes != null) {
+                                    othrdes = null;
+                                    artitem.setText(" ");
                                 }
-                            });
-                            AlertDialog alert = builder.create();
-                            alert.show();
-                            EditClassFragment.topic1=arrName.get(position);
+                            }
+
+                            checkBox.setVisibility(View.GONE);
+                        } else if (arrName.get(position).matches("Other")) {
+                            if (position == 2) {
+                                final Dialog dialog = new Dialog(getActivity());
+
+                                //tell the Dialog to use the dialog.xml as it's layout description
+                                dialog.setContentView(R.layout.popup);
+                                dialog.setCancelable(false);
+                                dialog.setTitle("Other");
+
+                                final EditText txt = (EditText) dialog.findViewById(R.id.othername);
+                                Button buttonOk = (Button) dialog.findViewById(R.id.btnok);
+
+
+                                buttonOk.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        othrdes = txt.getText().toString();
+                                        Log.e("othrdes", "" + othrdes);
+                                        artitem.setText(othrdes);
+                                        if (artitem != null) {
+                                            Log.e("artitemnotnull", "" + artitem);
+                                        }
+
+                                        if (othrdes.equalsIgnoreCase("")) {
+
+                                            LogMessage.showDialog(getActivity(), null,
+                                                    "Please Enter Title", "OK");
+
+
+                                        } else {
+                                            dialog.dismiss();
+                                        }
+
+                                    }
+
+
+                                });
+                                dialog.show();
+
+                            }
+
+                            //  artitem.setText(othrdes);
+                            checkBox.setVisibility(View.GONE);
+
+                        } else {
+                            checkBox.setVisibility(View.VISIBLE);
+                        }
+                        checkBox.setChecked(true);
+                        Log.e("position", "" + position);
+
+
+                        if (id == 6) {
+                            Log.e("idtxtnull", "" + id);
+                            topic = arrId.get(position);
+                            EditClassFragment.newtopicsel = arrName.get(position);
+                            EditClassFragment.sr_topic1 = arrId.get(position);
+                            Log.e("EditClassFragmenttopic", "" + EditClassFragment.sr_topic1);
+                            Log.e("newtopicsel", "" + EditClassFragment.newtopicsel);
+                            EditClassFragment.topic1 = arrName.get(position);
+                            Log.e("TopicmyList1", "" + arrId);
+                        }
+                        //    CreateClassFragment.selectedtopic.setText(EditClassFragment.newtopicsel);
+
+
+                        if (id == 2) {
+                            Log.e("idcurr", "" + id);
+                            CurriculumFragment.curriculumtopic = arrName.get(position);
+                            Log.e("Curriculum.curriculumto", "" + CurriculumFragment.curriculumtopic);
+                            CurriculumFragment.curriculumtopicid = arrId.get(position);
+                            Log.e("Curriculum.tid", "" + CurriculumFragment.curriculumtopicid);
                         }
 
-                        else if (position==2){
-                          //  img_Art.setVisibility(View.VISIBLE);
-                        }
+                        Log.e("SElected", "" + topic);
+
                     }
 
                 });
-            }
 
             }
+
         }
-
-
+    }
 
 
     class Before_Class_Listing extends AsyncTask<String, Integer, String> {
@@ -413,40 +417,40 @@ public class TopicFragment extends Fragment {
                 Log.e("Data", "" + arr);
                 for (int i = 0; i < arr.length(); i++) {
                     JSONObject obj = arr.getJSONObject(i);
-                     Log.e("obj",""+obj);
+                    Log.e("obj", "" + obj);
                     String id = obj.getString("id");
-                      Log.e("id", "" + id);
+                    Log.e("id", "" + id);
                     String name = obj.getString("name");
-                     Log.e("name", "" + name);
+                    Log.e("name", "" + name);
                     arrId.add(id);
-                      Log.e("arrId",""+arrId);
+                    Log.e("arrId", "" + arrId);
                     arrName.add(name);
-                     Log.e("arrName",""+arrName);
+                    Log.e("arrName", "" + arrName);
                     Object ss = obj.get("child");
                     if (ss instanceof JSONArray) {
                         JSONArray arr1 = obj.getJSONArray("child");
-                          Log.e("arr1",""+arr1);
+                        Log.e("arr1", "" + arr1);
                         if (arr1.length() != 0) {
                             for (int j = 0; j < arr1.length(); j++) {
                                 JSONObject obj1 = arr1.getJSONObject(j);
-                                  Log.e("obj1", "" + obj1);
+                                Log.e("obj1", "" + obj1);
                                 String id1 = obj1.getString("id");
-                                  Log.e("id1", "" + id1);
+                                Log.e("id1", "" + id1);
                                 String name1 = obj1.getString("name");
-                                  Log.e("name1", "" + name1);
+                                Log.e("name1", "" + name1);
 
                                 arrChildId.add(id1);
-                                 Log.e("arrChildId",""+arrChildId);
+                                Log.e("arrChildId", "" + arrChildId);
                                 arrChildNAme.add(name1);
-                                Log.e("arrChildNAme",""+arrChildNAme);
+                                Log.e("arrChildNAme", "" + arrChildNAme);
                             }
                         }
                     } else {
                         String child = obj.getString("child");
-                         Log.e("Json String",""+child);
+                        Log.e("Json String", "" + child);
                     }
                 }
-                mAdapter = new MyRecyclerViewAdapter(arrId,arrName,arrChildId,arrChildNAme);
+                mAdapter = new MyRecyclerViewAdapter(arrId, arrName, arrChildId, arrChildNAme);
                 mRecyclerView.setAdapter(mAdapter);
 
 
@@ -478,7 +482,8 @@ public class TopicFragment extends Fragment {
                 e.printStackTrace();
                 Log.e("New exception", "" + e);
             }
-        }}
+        }
+    }
 
 
     public void zoom(Float scaleX, Float scaleY, PointF pivot) {
@@ -487,4 +492,4 @@ public class TopicFragment extends Fragment {
         rellogin.setScaleX(scaleX);
         rellogin.setScaleY(scaleY);
     }
-    }
+}

@@ -18,12 +18,15 @@ public class CurriculumDescription extends Fragment {
     View rootview;
     RippleView ripplesave;
     EditText description;
+    String textDescription;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootview = inflater.inflate(R.layout.curriculumdescription, container, false);
         registerResources(rootview);
         description=(EditText)rootview.findViewById(R.id.description);
+        textDescription=getArguments().getString("textDescription");
+        description.setText(textDescription);
         ripplesave=(RippleView)rootview.findViewById(R.id.ripplesave);
         ripplesave.setOnRippleCompleteListener(new RippleView.OnRippleCompleteListener() {
             @Override

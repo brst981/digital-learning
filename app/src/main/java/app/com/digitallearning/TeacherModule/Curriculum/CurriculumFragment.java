@@ -33,6 +33,7 @@ import java.util.ArrayList;
 
 import app.com.digitallearning.R;
 import app.com.digitallearning.TeacherModule.ClassActivity;
+import app.com.digitallearning.TeacherModule.ClassFragment;
 import app.com.digitallearning.TeacherModule.Classes.TopicFragment;
 import app.com.digitallearning.Utill.LogMessage;
 import app.com.digitallearning.WebServices.WSConnector;
@@ -264,7 +265,10 @@ public class CurriculumFragment extends Fragment {
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 CurriculumDescription curriculumDescription = new CurriculumDescription();
+                Bundle bundle=new Bundle();
+                bundle.putString("textDescription",text_input_Description.getText().toString());
                 fragmentTransaction.replace(R.id.container, curriculumDescription).addToBackStack(null);
+                curriculumDescription.setArguments(bundle);
                 fragmentTransaction.commit();
             }
         });
@@ -778,7 +782,30 @@ public class CurriculumFragment extends Fragment {
             Log.e("Update_curriculumAPI", "" + result);
 
             if (result.contains("true")) {
+                updateTeacherLogIn(result);
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+                alertDialog.setMessage("Schedule successfully deleted").setCancelable(false)
+                        .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
 
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                // TODO Auto-generated method stub
+                                FragmentManager fragmentManager = getFragmentManager();
+                                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                                ClassFragment classFragment = new ClassFragment();
+                                fragmentTransaction.replace(R.id.container, classFragment).addToBackStack(null);
+                                fragmentTransaction.commit();
+
+
+
+                            }
+                        });
+
+                AlertDialog dialog = alertDialog.create();
+                dialog.show();
+                TextView messageText = (TextView) dialog
+                        .findViewById(android.R.id.message);
+                messageText.setGravity(Gravity.CENTER);
              /*   LogMessage.showDialog(getActivity(), null,
                         "Class successfully deleted", "OK");*/
 

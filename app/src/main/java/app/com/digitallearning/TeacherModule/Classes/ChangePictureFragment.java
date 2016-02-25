@@ -71,6 +71,8 @@ public class ChangePictureFragment extends Fragment {
     Bitmap bitmap = null;
     ArrayList<String> arrimage;
     Uri myUri;
+    Boolean b;
+    String asd,class_image;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootview = inflater.inflate(R.layout.fragment_change_pic, container, false);
@@ -82,10 +84,23 @@ public class ChangePictureFragment extends Fragment {
         Log.e("Sch_Mem_id",""+Sch_Mem_id);
         cla_classid=preferences.getString("cla_classid","");
         Log.e("cla_classid",""+cla_classid);
+
+
+      //  img_edit_picture.setImageResource(R.drawable.no_image_icon);
+
         arrimage=new ArrayList<>();
-        new Get_Class_image().execute(cla_classid);
+        //new Get_Class_image().execute(cla_classid);
         img_edit_icon = (ImageView) rootview.findViewById(R.id.img_edit_icon);
         img_edit_picture = (ImageView) rootview.findViewById(R.id.img_edit_picture);
+
+        try {
+            class_image=getArguments().getString("class_image");
+            Log.e("receivedclass_image",""+class_image);
+            Picasso.with(getActivity()).load(class_image).into(img_edit_picture);
+        }
+        catch (Exception e){}
+
+
         ripple_change_save=(RippleView)rootview.findViewById(R.id.ripple_change_save);
         ripple_change_save.setOnRippleCompleteListener(new RippleView.OnRippleCompleteListener() {
             @Override
@@ -226,6 +241,10 @@ public class ChangePictureFragment extends Fragment {
 
             img_edit_picture.setImageBitmap(bitmap);
             Log.e("bitmapcamera",""+bitmap);
+            if(bitmap==null) {
+                Log.e("vbfh","vdvdhn");
+                Picasso.with(getActivity()).load(class_image).into(img_edit_picture);
+            }
 
         }
     }
@@ -455,16 +474,32 @@ public class ChangePictureFragment extends Fragment {
                 JSONArray arr = jsonObject.getJSONArray("data");
                 Log.e("arr", " " + arr);
                 for (int i = 0; i < arr.length(); i++) {
+                    Log.e("i",""+i);
                     JSONObject obj = arr.getJSONObject(i);
                     Log.e("obj", "" + obj);
-
+                    asd= String.valueOf(obj.isNull("class_image"));
+                    Log.e("asd",""+obj.isNull("class_image"));
+                     b = Boolean.valueOf(asd);
+                    Log.e("b",""+b);
+                    if (b==false){
+                      // asd= String.valueOf((arrimage.contains("[]")));
+                        Log.e("asd",""+obj.isNull("class_image"));
+                        img_edit_picture.setImageResource(R.drawable.no_image_icon);
+                    }
+                    else{
                     String class_image = obj.getString("class_image");
                     Log.e("class_image", "" + class_image);
 
+                        if(class_image!=null){
                      myUri = Uri.parse(class_image);
                     arrimage.add(class_image);
+                    Log.e("arrimage",""+arrimage);
+                    Log.e("myUri",""+myUri);
+                            b=true;
+                            Log.e("btrue",""+b);
 
-                    Picasso.with(getActivity()).load(class_image).into(img_edit_picture);
+
+                    Picasso.with(getActivity()).load(class_image).into(img_edit_picture);}}
 
                 }
 
