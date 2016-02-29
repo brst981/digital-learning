@@ -1,5 +1,6 @@
 package app.com.digitallearning.TeacherModule;
 
+import android.content.Intent;
 import android.graphics.PointF;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -7,6 +8,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
@@ -17,6 +19,7 @@ import android.widget.Toast;
 import app.com.digitallearning.NavigationDrawerCallbacks;
 import app.com.digitallearning.R;
 import app.com.digitallearning.TeacherModule.Classes.ClassesDetailFragment;
+import app.com.digitallearning.TeacherModule.Curriculum.CurriculumFragment;
 import app.com.digitallearning.TeacherModule.Grade.GradeFragment;
 import app.com.digitallearning.TeacherModule.Lessons.LessonFragment;
 import app.com.digitallearning.TeacherModule.Lessons.LessonProfile;
@@ -98,6 +101,8 @@ public class NavigationActivity extends AppCompatActivity implements NavigationD
 //                mFragment = ClassesDetailFragment.newInstance();
 
                     finish();
+                    Intent toclass=new Intent(NavigationActivity.this,ClassActivity.class);
+                    startActivity(toclass);
 //                   ClassFragment.relative_header.setVisibility(View.GONE);
                 }
                 else if(classID=false){
@@ -246,13 +251,17 @@ public class NavigationActivity extends AppCompatActivity implements NavigationD
 
     @Override
     public void onBackPressed() {
+
+
         if (mNavigationDrawerFragment.isDrawerOpen()){
             mNavigationDrawerFragment.closeDrawer();
         }
 
-        else{
-            super.onBackPressed();}
+        else {
 
+            super.onBackPressed();
+
+        }
 
     }
 

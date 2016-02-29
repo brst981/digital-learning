@@ -4,14 +4,15 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.PointF;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -20,8 +21,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,6 +41,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import app.com.digitallearning.R;
+import app.com.digitallearning.TeacherModule.Classes.ClassesDetailFragment;
 import app.com.digitallearning.TeacherModule.Lessons.Lesson_Edit;
 import app.com.digitallearning.WebServices.WSConnector;
 
@@ -48,66 +52,75 @@ public class ScheduleFragment extends Fragment {
     View rootview;
     RippleView rippleViewCreate;
     TextView headerTitle;
-    String textHeader,cla_classid,userid;
+    String textHeader, cla_classid, userid;
     ProgressDialog dlg;
     private ListView mListView;
     ListViewAdapter mAdapter;
     LinearLayout bottom_wrapper;
     SharedPreferences preferences;
     int pos;
-    ArrayList<String> arrTimeId,arrdescription,arrEn_min,arrStr_min,arrEn_Hour,arrStr_Hour,arrDay,arrLocation;
+    int shouldempty = 2;
+    RelativeLayout teacherlogin;
+    ImageButton imageButtonZoomIn, imageButtonZoomOut, back;
+    ArrayList<String> arrTimeId, arrdescription, arrEn_min, arrStr_min, arrEn_Hour, arrStr_Hour, arrDay, arrLocation;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootview = inflater.inflate(R.layout.frag_schedule, container, false);
-        arrTimeId=new ArrayList<>();
-        arrdescription=new ArrayList<>();
-        arrEn_min=new ArrayList<>();
-        arrStr_min=new ArrayList<>();
-        arrEn_Hour=new ArrayList<>();
-        arrStr_Hour=new ArrayList<>();
-        arrDay=new ArrayList<>();
-        arrLocation=new ArrayList<>();
+        arrTimeId = new ArrayList<>();
+        arrdescription = new ArrayList<>();
+        arrEn_min = new ArrayList<>();
+        arrStr_min = new ArrayList<>();
+        arrEn_Hour = new ArrayList<>();
+        arrStr_Hour = new ArrayList<>();
+        arrDay = new ArrayList<>();
+        arrLocation = new ArrayList<>();
 
 
-        dlg=new ProgressDialog(getActivity());
+        dlg = new ProgressDialog(getActivity());
         preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        teacherlogin = (RelativeLayout) rootview.findViewById(R.id.teacherlogin);
+        imageButtonZoomIn = (ImageButton) rootview.findViewById(R.id.img_zoom_in);
+        imageButtonZoomOut = (ImageButton) rootview.findViewById(R.id.img_zoom_out);
+        back = (ImageButton) rootview.findViewById(R.id.back);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                ClassesDetailFragment classesDetailFragment = new ClassesDetailFragment();
+                fragmentTransaction.replace(R.id.container, classesDetailFragment).addToBackStack(null);
+                fragmentTransaction.commit();
+            }
+        });
+        userid = preferences.getString("Sch_Mem_id", "");
+        Log.e("userid", "" + userid);
 
-        userid=preferences.getString("Sch_Mem_id","");
-        Log.e("userid",""+userid);
-
-        cla_classid=preferences.getString("cla_classid","");
-        Log.e("cla_classid",""+cla_classid);
-        new Schedule_listing().execute(userid,cla_classid);
+        cla_classid = preferences.getString("cla_classid", "");
+        Log.e("cla_classid", "" + cla_classid);
+        new Schedule_listing().execute(userid, cla_classid);
         rippleViewCreate = (RippleView) rootview.findViewById(R.id.ripple_create_lesson);
 
-        AppCompatActivity activity = (AppCompatActivity) getActivity();
+        /*AppCompatActivity activity = (AppCompatActivity) getActivity();
 
         activity.getSupportActionBar().setTitle("");
         activity.getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(false);
 
         headerTitle = (TextView) activity.findViewById(R.id.mytext);
 
-        headerTitle.setText("Schedule");
-        mListView = (ListView)rootview.findViewById(R.id.listview_archieved);
+        headerTitle.setText("Schedule");*/
+        mListView = (ListView) rootview.findViewById(R.id.listview_archieved);
         mAdapter = new ListViewAdapter(getActivity());
         mListView.setAdapter(mAdapter);
+        mAdapter.notifyDataSetChanged();
         mAdapter.setMode(Attributes.Mode.Single);
 
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                FragmentManager fragmentManager = getFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                ViewSchedule viewSchedule = new ViewSchedule();
-                Bundle arg=new Bundle();
-                arg.putString("timeID",arrTimeId.get(position));
-                Log.e("arrTimeId.get(pos)",""+arrTimeId.get(position));
-                fragmentTransaction.replace(R.id.container, viewSchedule).addToBackStack(null);
-                viewSchedule.setArguments(arg);
-                fragmentTransaction.commit();
-                //((SwipeLayout)(mListView.getChildAt(position - mListView.getFirstVisiblePosition()))).open(true);
-
+                Intent inte = new Intent(getActivity(), ViewSchedule.class);
+                inte.putExtra("timeID", arrTimeId.get(pos));
+                startActivity(inte);
 
             }
         });
@@ -144,7 +157,7 @@ public class ScheduleFragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-               // Log.e("ListView", "onItemSelected:" + position);
+                // Log.e("ListView", "onItemSelected:" + position);
             }
 
             @Override
@@ -153,24 +166,41 @@ public class ScheduleFragment extends Fragment {
             }
         });
         initData();
+        imageButtonZoomIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                zoom(1.5f, 1.5f, new PointF(0, 0));
+            }
+        });
+
+        imageButtonZoomOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                zoom(1f, 1f, new PointF(0, 0));
+            }
+        });
         return rootview;
     }
 
     private void initData() {
-        textHeader ="sdhfygsjdgf";
+        textHeader = "sdhfygsjdgf";
 
         rippleViewCreate.setOnRippleCompleteListener(new RippleView.OnRippleCompleteListener() {
             @Override
             public void onComplete(RippleView rippleView) {
-                FragmentManager fragmentManager = getFragmentManager();
+              /*  FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 AddSchedule addSchedule = new AddSchedule();
-               /* Bundle arg=new Bundle();
-                arg.putString("timeID",arrTimeId.get(pos));*/
+               *//* Bundle arg=new Bundle();
+                arg.putString("timeID",arrTimeId.get(pos));*//*
               //  Log.e("arrTimeId.get(pos)",""+arrTimeId.get(pos));
                 fragmentTransaction.replace(R.id.container, addSchedule).addToBackStack(null);
                // addSchedule.setArguments(arg);
-                fragmentTransaction.commit();
+                fragmentTransaction.commit();*/
+                Intent inty = new Intent(getActivity(), AddSchedule.class);
+                inty.putExtra("shouldempty", shouldempty);
+                startActivity(inty);
+                getActivity().finish();
             }
         });
 
@@ -190,15 +220,14 @@ public class ScheduleFragment extends Fragment {
         }
 
 
-
         @Override
         public View generateView(int position, ViewGroup parent) {
             View v = LayoutInflater.from(mContext).inflate(R.layout.list_schedule, null);
-            SwipeLayout swipeLayout = (SwipeLayout)v.findViewById(getSwipeLayoutResourceId(position));
+            SwipeLayout swipeLayout = (SwipeLayout) v.findViewById(getSwipeLayoutResourceId(position));
             swipeLayout.addSwipeListener(new SimpleSwipeListener() {
                 @Override
                 public void onOpen(SwipeLayout layout) {
-
+                    Toast.makeText(mContext, "Swipe Open", Toast.LENGTH_SHORT).show();
                 }
             });
             swipeLayout.setOnDoubleClickListener(new SwipeLayout.DoubleClickListener() {
@@ -229,44 +258,36 @@ public class ScheduleFragment extends Fragment {
 
         @Override
         public void fillValues(final int position, View convertView) {
-            TextView delete=(TextView)convertView.findViewById(R.id.delete);
+            TextView delete = (TextView) convertView.findViewById(R.id.delete);
             delete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Log.e("arrTimeId.get(position)",""+arrTimeId.get(position));
-                    new Delete_schedule().execute(arrTimeId.get(position));
+                    Log.e("arrTimeId.get(position)", "" + arrTimeId.get(position));
+                    new Delete_schedule(position).execute(arrTimeId.get(position));
                 }
             });
-            TextView day=(TextView)convertView.findViewById(R.id.day);
-          //  day.setText(arrDay.get(position));
-            if(arrDay.get(position).contains("1")){
+            TextView day = (TextView) convertView.findViewById(R.id.day);
+            //  day.setText(arrDay.get(position));
+            if (arrDay.get(position).contains("1")) {
                 day.setText("Monday");
-            }
-            else if(arrDay.get(position).contains("2")){
+            } else if (arrDay.get(position).contains("2")) {
                 day.setText("Tuesday");
-            }
-            else if(arrDay.get(position).contains("3")){
+            } else if (arrDay.get(position).contains("3")) {
                 day.setText("Wednesday");
-            }
-            else if(arrDay.get(position).contains("4")){
+            } else if (arrDay.get(position).contains("4")) {
                 day.setText("Thrusday");
-            }
-            else if(arrDay.get(position).contains("5")){
+            } else if (arrDay.get(position).contains("5")) {
                 day.setText("Friday");
-            }
-            else if(arrDay.get(position).contains("6")){
+            } else if (arrDay.get(position).contains("6")) {
                 day.setText("Saturday");
+            } else if (arrDay.contains("7")) {
+                day.setText("Sunday");
+            } else if (arrDay.contains("8")) {
+                day.setText("Every Day");
+            } else if (arrDay.contains("9")) {
+                day.setText("Every Weekday");
             }
-            else if(arrDay.contains("Sunday")){
-                day.setText("Friday");
-            }
-            else if(arrDay.contains("Every Day")){
-                day.setText("Friday");
-            }
-            else if(arrDay.contains("Every Weekday")){
-                day.setText("Friday");
-            }
-            TextView location=(TextView)convertView.findViewById(R.id.location);
+            TextView location = (TextView) convertView.findViewById(R.id.location);
             location.setText(arrLocation.get(position));
             // TextView t = (TextView)convertView.findViewById(R.id.position);
             // t.setText((position + 1) + ".");
@@ -289,16 +310,13 @@ public class ScheduleFragment extends Fragment {
     }
 
 
-
-
-
     class Schedule_listing extends AsyncTask<String, Integer, String> {
 
 
         @Override
         protected String doInBackground(String... params) {
 
-            return WSConnector.Schedule_listing(params[0],params[1]);
+            return WSConnector.Schedule_listing(params[0], params[1]);
 
         }
 
@@ -374,6 +392,7 @@ public class ScheduleFragment extends Fragment {
                     String cls_id = obj.getString("cls_id");
                     Log.e("cls_id", "" + cls_id);
 
+
                     arrTimeId.add(timeid);
                     arrdescription.add(Description);
                     arrEn_min.add(En_Min);
@@ -393,8 +412,14 @@ public class ScheduleFragment extends Fragment {
         }
 
     }
-    class Delete_schedule extends AsyncTask<String, Integer, String> {
 
+    class Delete_schedule extends AsyncTask<String, Integer, String> {
+        private int pos;
+
+        public Delete_schedule(int pos) {
+            this.pos = pos;
+
+        }
 
         @Override
         protected String doInBackground(String... params) {
@@ -420,10 +445,11 @@ public class ScheduleFragment extends Fragment {
             dlg.dismiss();
             Log.e("REsulTinSchedule", "" + result);
             if (result.contains("true")) {
-              //  ((BaseSwipeAdapter) mListView.getAdapter()).notifyDataSetChanged();
-            //    mAdapter.notifyDataSetChanged();
+                //  ((BaseSwipeAdapter) mListView.getAdapter()).notifyDataSetChanged();
+                //    mAdapter.notifyDataSetChanged();
 
-              //  Toast.makeText(getActivity(), "Schedule deleted", Toast.LENGTH_SHORT).show();
+                //  Toast.makeText(getActivity(), "Schedule deleted", Toast.LENGTH_SHORT).show();
+
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
                 alertDialog.setMessage("Schedule successfully deleted").setCancelable(false)
                         .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
@@ -431,9 +457,16 @@ public class ScheduleFragment extends Fragment {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 // TODO Auto-generated method stub
-                                dialog.dismiss();
+
+                                Log.e("sizeafterdelete", "" + arrDay.size());
 
 
+                                // mListView.setAdapter(mAdapter);
+                                Log.e("posdelete", "" + arrDay.get(pos));
+                                arrDay.remove(pos);
+                                mAdapter.notifyDataSetChanged();
+                                Log.e("sizeafterdelete", "" + arrDay.size());
+                                Log.e("sizeafterdelete", "" + arrDay.size());
                             }
                         });
 
@@ -450,10 +483,12 @@ public class ScheduleFragment extends Fragment {
             }
         }
 
+    }
 
-
-
-
-
+    public void zoom(Float scaleX, Float scaleY, PointF pivot) {
+        teacherlogin.setPivotX(pivot.x);
+        teacherlogin.setPivotY(pivot.y);
+        teacherlogin.setScaleX(scaleX);
+        teacherlogin.setScaleY(scaleY);
     }
 }

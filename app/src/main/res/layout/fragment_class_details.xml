@@ -228,14 +228,14 @@
                         android:gravity="right|center"
                         android:paddingRight="5dp"
                         android:singleLine="true"
-                        android:text="101 teacher"
                         android:textColor="@color/color_light_grey"
                         android:textSize="14sp" />
 
                     <ImageView
                         android:id="@+id/img_back"
                         android:layout_width="30dp"
-                        android:padding="1sp"
+                        android:padding="2sp"
+                        android:layout_marginTop="4dp"
                         android:layout_height="30dp"
                         android:layout_alignParentRight="true"
                         android:background="@android:color/transparent"
@@ -295,7 +295,6 @@
                         android:gravity="right|center"
                         android:paddingRight="5dp"
                         android:singleLine="true"
-                        android:text="Saturday"
                         android:textColor="@color/color_light_grey"
                         android:textSize="14sp" />
 
@@ -304,6 +303,7 @@
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:padding="1sp"
+                        android:layout_marginTop="2dp"
                         android:layout_alignParentRight="true"
                         android:background="@android:color/transparent"
 
@@ -361,7 +361,6 @@
                         android:paddingRight="5dp"
                       android:id="@+id/syllabus"
                         android:singleLine="true"
-                        android:text="Hello"
                         android:textColor="@color/color_light_grey"
                         android:textSize="14sp" />
 
@@ -369,6 +368,7 @@
                         android:id="@+id/img_back_syllabus"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
+                        android:layout_marginTop="2dp"
                         android:layout_alignParentRight="true"
                         android:background="@android:color/transparent"
                         android:padding="1sp"
@@ -420,7 +420,7 @@
 
     <com.github.clans.fab.FloatingActionMenu
         android:id="@+id/menu_main"
-        android:visibility="gone"
+
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentBottom="true"

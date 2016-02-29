@@ -1,3 +1,4 @@
+/*
 package app.com.digitallearning.Constant;
 
 import java.util.Calendar;
@@ -113,11 +114,13 @@ public class MainActivity extends Activity {
 		public void onDateSet(DatePicker view, int year, int month, int day) {
 			// Do something with the date chosen by the user
 
-			/*
+			*/
+/*
 			 * MOnth returned from datepicker is always one less than actual
 			 * value for example: December will be 11, January will be 0 and so
 			 * on.
-			 */
+			 *//*
+
 
 			month = month + 1;
 
@@ -127,3 +130,4 @@ public class MainActivity extends Activity {
 	}
 
 }
+*/

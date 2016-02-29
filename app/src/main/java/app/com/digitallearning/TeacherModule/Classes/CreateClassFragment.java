@@ -42,7 +42,7 @@ public class CreateClassFragment extends Fragment {
     ImageView back;
     TextView selectedclass,selecteddes;
     int id,idres,id1;
-    static int slecectedclasstype;
+    public static int slecectedclasstype;
     public static TextView selectedtopic;
     int fromcreate=10;
     final static CharSequence[] classtype = {"Instructor","Blended","Self Paced"};

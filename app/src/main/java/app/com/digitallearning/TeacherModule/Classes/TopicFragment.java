@@ -1,7 +1,6 @@
 package app.com.digitallearning.TeacherModule.Classes;
 
 
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -11,6 +10,7 @@ import android.graphics.PointF;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -194,11 +194,12 @@ public class TopicFragment extends Fragment {
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             ViewHolder viewHolder;
             //
-                View view = LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.list_topic, parent, false);
+            View view = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.list_topic, parent, false);
 
-                viewHolder = new ViewHolder(view);
-               // parent.setTag(viewHolder);
+            viewHolder = new ViewHolder(view);
+
+            // parent.setTag(viewHolder);
 //            }else{
 //                viewHolder = (ViewHolder) parent.getTag();
 //            }
@@ -211,7 +212,10 @@ public class TopicFragment extends Fragment {
             Log.e("arrName", "" + arrName);
             Log.e("arrName.get(position)", "" + arrName.get(position));
 
+            Log.e("Allpos", "" + position);
+
             holder.a3cat.setText(arrName.get(position));
+            holder.pos = position;
             if (arrName.get(position).matches("Art")) {
                 holder.img_Art.setVisibility(View.VISIBLE);
                 holder.artitem.setVisibility(View.VISIBLE);
@@ -245,6 +249,7 @@ public class TopicFragment extends Fragment {
             public ImageView img_Art;
             CheckBox checkBox;
             TextView artitem;
+            int pos;
             Integer selected_position = -1;
 
 
@@ -258,14 +263,141 @@ public class TopicFragment extends Fragment {
                 artitem = (TextView) itemView.findViewById(R.id.artitem);
                 //artitem.setText(itemart);
                 artitem.setText(" ");
+                //int position = getLayoutPosition();
+                a3ripple.setTag(pos);
+
+               /* a3ripple.setOnClickListener(new View.OnClickListener() {
+                    *//**
+                     * Called when a view has been clicked.
+                     *
+                     * @param v The view that was clicked.
+                     *//*
+                    @Override
+                    public void onClick(View v) {
+
+
+                        {
+
+                            int position = (int) v.getTag();
+                            pos=position;
+                            // gets item position
+                            // img_Art.setVisibility(View.VISIBLE);
+                            if (arrName.get(position).matches("Art")) {
+                                if (pos == 0) {
+                                    Log.e("Position0", "" + position);
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                                    builder.setTitle("Make your selection");
+                                    builder.setItems(art, new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int item) {
+                                            // Do something with the selection
+                                            //  mDoneButton.setText(items[item]);
+                                            Log.e("items[item]", "" + art[item]);
+                                            itemart = String.valueOf(art[item]);
+                                            Log.e("itemart", "" + itemart);
+                                            artitem.setText(itemart);
+                                        }
+                                    });
+                                    AlertDialog alert = builder.create();
+                                    alert.show();
+                                    EditClassFragment.topic1 = arrName.get(position);
+                                    if (othrdes != null) {
+                                        othrdes = null;
+                                        artitem.setText(" ");
+                                    }
+                                }
+
+                                checkBox.setVisibility(View.GONE);
+                            } else if (arrName.get(position).matches("Other")) {
+                                if (pos == 2) {
+                                    Log.e("Position2", "" + position);
+                                    final Dialog dialog = new Dialog(getActivity());
+
+                                    //tell the Dialog to use the dialog.xml as it's layout description
+                                    dialog.setContentView(R.layout.popup);
+                                    dialog.setCancelable(false);
+                                    dialog.setTitle("Other");
+
+                                    final EditText txt = (EditText) dialog.findViewById(R.id.othername);
+                                    Button buttonOk = (Button) dialog.findViewById(R.id.btnok);
+
+
+                                    buttonOk.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            othrdes = txt.getText().toString();
+                                            Log.e("othrdes", "" + othrdes);
+                                            artitem.setText(othrdes);
+                                            if (artitem != null) {
+                                                Log.e("artitemnotnull", "" + artitem);
+                                            }
+
+                                            if (othrdes.equalsIgnoreCase("")) {
+
+                                                LogMessage.showDialog(getActivity(), null,
+                                                        "Please Enter Title", "OK");
+
+
+                                            } else {
+                                                dialog.dismiss();
+                                            }
+
+                                        }
+
+
+                                    });
+                                    dialog.show();
+
+                                }
+
+                                //  artitem.setText(othrdes);
+                                checkBox.setVisibility(View.GONE);
+
+                            } else {
+                                checkBox.setVisibility(View.VISIBLE);
+                            }
+                            checkBox.setChecked(true);
+                            Log.e("position", "" + position);
+
+
+                            if (id == 6) {
+                                Log.e("idtxtnull", "" + id);
+                                topic = arrId.get(position);
+                                EditClassFragment.newtopicsel = arrName.get(position);
+                                EditClassFragment.sr_topic1 = arrId.get(position);
+                                Log.e("EditClassFragmenttopic", "" + EditClassFragment.sr_topic1);
+                                Log.e("newtopicsel", "" + EditClassFragment.newtopicsel);
+                                EditClassFragment.topic1 = arrName.get(position);
+                                Log.e("TopicmyList1", "" + arrId);
+                            }
+                            //    CreateClassFragment.selectedtopic.setText(EditClassFragment.newtopicsel);
+
+
+                            if (id == 2) {
+                                Log.e("idcurr", "" + id);
+                                CurriculumFragment.curriculumtopic = arrName.get(position);
+                                Log.e("Curriculum.curriculumto", "" + CurriculumFragment.curriculumtopic);
+                                CurriculumFragment.curriculumtopicid = arrId.get(position);
+                                Log.e("Curriculum.tid", "" + CurriculumFragment.curriculumtopicid);
+                            }
+
+                            Log.e("SElected", "" + topic);
+
+                        }
+
+                    }
+                });*/
+
+
                 a3ripple.setOnRippleCompleteListener(new RippleView.OnRippleCompleteListener() {
                     @Override
                     public void onComplete(RippleView rippleView) {
-                        final int position = getLayoutPosition(); // gets item position
+
+                        int position = (int) rippleView.getTag();
+                        // gets item position
                         // img_Art.setVisibility(View.VISIBLE);
                         if (arrName.get(position).matches("Art")) {
                             if (position == 0) {
-
+                                Log.e("Position0", "" + position);
                                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                                 builder.setTitle("Make your selection");
                                 builder.setItems(art, new DialogInterface.OnClickListener() {
@@ -290,6 +422,7 @@ public class TopicFragment extends Fragment {
                             checkBox.setVisibility(View.GONE);
                         } else if (arrName.get(position).matches("Other")) {
                             if (position == 2) {
+                                Log.e("Position2", "" + position);
                                 final Dialog dialog = new Dialog(getActivity());
 
                                 //tell the Dialog to use the dialog.xml as it's layout description

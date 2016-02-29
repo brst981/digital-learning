@@ -1,14 +1,17 @@
-package app.com.digitallearning.TeacherModule.Classes;
+package app.com.digitallearning.TeacherModule.Syllabus;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.PointF;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -16,6 +19,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.andexert.library.RippleView;
@@ -26,6 +31,7 @@ import org.json.JSONObject;
 
 import app.com.digitallearning.R;
 import app.com.digitallearning.TeacherModule.ClassActivity;
+import app.com.digitallearning.TeacherModule.Classes.ClassesDetailFragment;
 import app.com.digitallearning.Utill.LogMessage;
 import app.com.digitallearning.WebServices.WSConnector;
 
@@ -41,10 +47,25 @@ public class SyllabusFragment extends Fragment{
     String title,description;
     ProgressDialog dlg;
     Button savebutton;
+    RelativeLayout teacherlogin;
+    ImageButton imageButtonZoomIn, imageButtonZoomOut,back;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootview = inflater.inflate(R.layout.fragment_syllabus, container, false);
+        imageButtonZoomIn = (ImageButton)rootview. findViewById(R.id.img_zoom_in);
+        imageButtonZoomOut = (ImageButton)rootview. findViewById(R.id.img_zoom_out);
+        back=(ImageButton)rootview.findViewById(R.id.back);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                ClassesDetailFragment classesDetailFragment = new ClassesDetailFragment();
+                fragmentTransaction.replace(R.id.container, classesDetailFragment).addToBackStack(null);
+                fragmentTransaction.commit();
+            }
+        });
         preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         des=(EditText)rootview.findViewById(R.id.des);
         savebutton=(Button)rootview.findViewById(R.id.savebutton);
@@ -91,7 +112,19 @@ public class SyllabusFragment extends Fragment{
         });
 
 
+        imageButtonZoomIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                zoom(1.5f, 1.5f, new PointF(0, 0));
+            }
+        });
 
+        imageButtonZoomOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                zoom(1f, 1f, new PointF(0, 0));
+            }
+        });
         return rootview;
     }
     class Add_syllabus extends AsyncTask<String, Integer, String> {
@@ -397,4 +430,11 @@ public class SyllabusFragment extends Fragment{
             } else if (result.contains("false")) {
             }}}
 
+
+    public void zoom(Float scaleX, Float scaleY, PointF pivot) {
+        teacherlogin.setPivotX(pivot.x);
+        teacherlogin.setPivotY(pivot.y);
+        teacherlogin.setScaleX(scaleX);
+        teacherlogin.setScaleY(scaleY);
+    }
 }

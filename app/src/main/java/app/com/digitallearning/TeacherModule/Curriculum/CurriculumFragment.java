@@ -5,13 +5,13 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.PointF;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -19,6 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,7 +34,7 @@ import java.util.ArrayList;
 
 import app.com.digitallearning.R;
 import app.com.digitallearning.TeacherModule.ClassActivity;
-import app.com.digitallearning.TeacherModule.ClassFragment;
+import app.com.digitallearning.TeacherModule.Classes.ClassesDetailFragment;
 import app.com.digitallearning.TeacherModule.Classes.TopicFragment;
 import app.com.digitallearning.Utill.LogMessage;
 import app.com.digitallearning.WebServices.WSConnector;
@@ -65,6 +66,9 @@ public class CurriculumFragment extends Fragment {
     JSONArray arr;
     String st,strstring;
     int i1;
+    int idi;
+    RelativeLayout teacherlogin;
+    ImageButton imageButtonZoomIn, imageButtonZoomOut,back;
     public static String curriculumtopic,curriculumtopicid,curriculuncountry,curriculumdes,curriculumlib,curriculumgradefrom,curriculumgradeto;
     EditText text_title_curriculum,edt_state_curriculum,edt_organization_curriculum;
     TextView topic,txtcountry,text_input_Description,txtlibrary,gradefrom,gradeto;
@@ -93,9 +97,23 @@ public class CurriculumFragment extends Fragment {
         gradefrom=(TextView)rootview.findViewById(R.id.gradefrom);
         gradeto=(TextView)rootview.findViewById(R.id.gradeto);
         curiid=getArguments().getInt("curiid");
-        AppCompatActivity activity = (AppCompatActivity) getActivity();
+        Log.e("curiid",""+curiid);
+        imageButtonZoomIn = (ImageButton)rootview. findViewById(R.id.img_zoom_in);
+        imageButtonZoomOut = (ImageButton)rootview. findViewById(R.id.img_zoom_out);
+        back=(ImageButton)rootview.findViewById(R.id.back);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                ClassesDetailFragment classesDetailFragment = new ClassesDetailFragment();
+                fragmentTransaction.replace(R.id.container, classesDetailFragment).addToBackStack(null);
+                fragmentTransaction.commit();
+            }
+        });
+        /*AppCompatActivity activity = (AppCompatActivity) getActivity();
 
-        activity.getSupportActionBar().setTitle("");
+        activity.getSupportActionBar().setTitle("");*/
         dlg=new ProgressDialog(getActivity());
         preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         countryList=new ArrayList<>();
@@ -107,9 +125,14 @@ public class CurriculumFragment extends Fragment {
         Log.e("cla_classid",""+cla_classid);
 
         if(curiid==10) {
+
+         //  curriculumtopic=" ";
+            /*curriculumdes="";*/
             new Get_carriculum().execute(cla_classid, Sch_Mem_id);
+            new Country_list().execute();
         }
-        headerTitle = (TextView) activity.findViewById(R.id.mytext);
+
+     //   headerTitle = (TextView) activity.findViewById(R.id.mytext);
         relative_topic=(RelativeLayout)rootview.findViewById(R.id.relative_topic);
         ripple_teacher_country=(RippleView)rootview.findViewById(R.id.ripple_teacher_country);
         ripple_edit_delete=(RippleView)rootview.findViewById(R.id.ripple_edit_delete);
@@ -126,15 +149,35 @@ public class CurriculumFragment extends Fragment {
             @Override
             public void onComplete(RippleView rippleView) {
                 textsave=button_create.getText().toString();
+                Log.e("textsave",""+textsave);
+
                 addsrtitle=text_title_curriculum.getText().toString();
+                Log.e("textsave",""+textsave);
+
                 addsrstate=edt_state_curriculum.getText().toString();
+                Log.e("addsrtitle",""+addsrtitle);
+
                 addsrorganization=edt_organization_curriculum.getText().toString();
+                Log.e("addsrorganization",""+addsrorganization);
+
                 addsrtopic=topic.getText().toString();
+                Log.e("addsrtopic",""+addsrtopic);
+
                 addsrcountry=txtcountry.getText().toString();
+                Log.e("addsrcountry",""+addsrcountry);
+
                 addsrdescription=text_input_Description.getText().toString();
+                Log.e("addsrdescription",""+addsrdescription);
+
                 addsrlibrary=txtlibrary.getText().toString();
+                Log.e("addsrlibrary",""+addsrlibrary);
+
                 addsrgradefrom=gradefrom.getText().toString();
+                Log.e("addsrgradefrom",""+addsrgradefrom);
+
                 addsrgradeto=gradeto.getText().toString();
+                Log.e("addsrgradeto",""+addsrgradeto);
+
                 if(textsave.contains("Save")) {
 
                     new Add_curriculum().execute(cla_classid,Sch_Mem_id,addsrtitle,curriculumtopicid,addsrdescription,addsrlibrary,addsrgradefrom,addsrgradeto,addsrorganization,countryid,addsrstate);
@@ -272,15 +315,29 @@ public class CurriculumFragment extends Fragment {
                 fragmentTransaction.commit();
             }
         });
-        initData();
+//        initData();
 
+
+        imageButtonZoomIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                zoom(1.5f, 1.5f, new PointF(0, 0));
+            }
+        });
+
+        imageButtonZoomOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                zoom(1f, 1f, new PointF(0, 0));
+            }
+        });
         return rootview;
     }
 
-    private void initData() {
+   /* private void initData() {
 
         headerTitle.setText("Curriculum");
-    }
+    }*/
 
 
 
@@ -329,36 +386,37 @@ public class CurriculumFragment extends Fragment {
                  strArr = new String[arr.length()];
                 for (i1 = 0; i1 < arr.length(); i1++) {
                     strArr[i1] = arr.getString(i1);
-                    Log.e("wwstrArr[i1]",""+strArr[i1]);
+                    Log.e("wwstrArr[i1]", "" + strArr[i1]);
 
 
                    /* st= (String) arr.get(i1);
                     Log.e("st",""+st);
 */
-                    Log.e("arr.get(i1);",""+arr.get(i1));
+                    Log.e("arr.get(i1);", "" + arr.get(i1));
 
-                     individualId=i1+1;
-                    stindividualId= String.valueOf(individualId);
-                    Log.e("individualId",""+individualId);
-                    Log.e("stindividualId",""+stindividualId);
+                    individualId = i1 + 1;
+                    stindividualId = String.valueOf(individualId);
+                    Log.e("individualId", "" + individualId);
+                    Log.e("stindividualId", "" + stindividualId);
+                    if (idi == 10) {
+                    Log.e("receivedstrcountry", "" + strcountry);
+                    Log.e("fourth", "" + arr.get(Integer.parseInt(strcountry)));
+                    x = String.valueOf(arr.get(Integer.parseInt(strcountry)));
+                    Log.e("nvjh", "" + x);
 
-                    Log.e("receivedstrcountry",""+strcountry);
-                    Log.e("fourth",""+arr.get(Integer.parseInt(strcountry)));
-                    x= String.valueOf(arr.get(Integer.parseInt(strcountry)));
-                    Log.e("nvjh",""+x);
-                    if(curriculumtopic!=null){
+                        if (curriculumtopic != null) {
 
-                        txtcountry.setText(curriculuncountry);
+                            txtcountry.setText(curriculuncountry);
 
+                        }
+                        if (curriculumdes != null) {
+                            txtcountry.setText(curriculuncountry);
+                        } else {
+
+                            txtcountry.setText(x);
+                        }
                     }
-                    if(curriculumdes!=null){
-                        txtcountry.setText(curriculuncountry);
-                    }
-                    else{
-
-                    txtcountry.setText(x);}
                 }
-
 
 
             } catch (JSONException e) {
@@ -406,6 +464,8 @@ public class CurriculumFragment extends Fragment {
             Log.e("Get_syllabusAPI", "" + result);
 
             if (result.contains("false")) {
+
+
 //{"success":false,"data":null}
              /*   LogMessage.showDialog(getActivity(), null,
                         "Class successfully deleted", "OK");*/
@@ -469,6 +529,7 @@ public class CurriculumFragment extends Fragment {
                 }
 
             } else if (result.contains("true")) {
+                idi=10;
                 updateTeacherLogIn(result);
 
 
@@ -483,20 +544,43 @@ public class CurriculumFragment extends Fragment {
                         Log.e("textupdateget",""+textupdate);
                         Log.e("countryid",""+countryid);
                         textsave=button_create.getText().toString();
+                        Log.e("textsave",""+textsave);
+
                         addsrtitle=text_title_curriculum.getText().toString();
+                        Log.e("textsave",""+textsave);
+
                         addsrstate=edt_state_curriculum.getText().toString();
+                        Log.e("addsrtitle",""+addsrtitle);
+
                         addsrorganization=edt_organization_curriculum.getText().toString();
+                        Log.e("addsrorganization",""+addsrorganization);
+
                         addsrtopic=topic.getText().toString();
+                        Log.e("addsrtopic",""+addsrtopic);
+
                         addsrcountry=txtcountry.getText().toString();
+                        Log.e("addsrcountry",""+addsrcountry);
+
                         addsrdescription=text_input_Description.getText().toString();
+                        Log.e("addsrdescription",""+addsrdescription);
+
                         addsrlibrary=txtlibrary.getText().toString();
+                        Log.e("addsrlibrary",""+addsrlibrary);
+
                         addsrgradefrom=gradefrom.getText().toString();
+                        Log.e("addsrgradefrom",""+addsrgradefrom);
+
                         addsrgradeto=gradeto.getText().toString();
+                        Log.e("addsrgradeto",""+addsrgradeto);
 
                         if(curriculumtopicid==null)
                         {
                             curriculumtopicid=topic_id;
                         }
+                        else if(countryid==null){
+                            countryid=strcountry;
+                        }
+
                         else if(addsrdescription==null){
                             addsrdescription=curriculumdes;
                         }
@@ -610,7 +694,7 @@ public class CurriculumFragment extends Fragment {
                  //   txtcountry.setText((Integer) arr.get(i1));
 //                    Log.e("(Integer) arr.get(i1)",""+(Integer) arr.get(i1));
                 }
-                new Country_list().execute();
+
 
             }catch (JSONException e) {
                 e.printStackTrace();
@@ -655,6 +739,33 @@ public class CurriculumFragment extends Fragment {
                 txtlibrary.setText(" ");
                 topic.setText(" ");
                 txtcountry.setText(" ");
+
+
+
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+                alertDialog.setMessage("Curriculum deleted").setCancelable(false)
+                        .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                // TODO Auto-generated method stub
+                                dialog.dismiss();
+                                Intent deletetoclass=new Intent(getActivity(),ClassActivity.class);
+                                startActivity(deletetoclass);
+                                getActivity().finish();
+
+                            }
+                        });
+
+                AlertDialog dialog = alertDialog.create();
+                dialog.show();
+                TextView messageText = (TextView) dialog
+                        .findViewById(android.R.id.message);
+                messageText.setGravity(Gravity.CENTER);
+
+
+
+
 //curriculumtopic,curriculumtopicid,curriculuncountry,curriculumdes,curriculumlib,curriculumgradefrom,curriculumgradeto
             } else if (result.contains("false")) {
 
@@ -700,7 +811,7 @@ public class CurriculumFragment extends Fragment {
                         "Class successfully deleted", "OK");*/
 
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
-                alertDialog.setMessage("Syllabus inserted").setCancelable(false)
+                alertDialog.setMessage("Curriculum added").setCancelable(false)
                         .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
 
                             @Override
@@ -784,17 +895,15 @@ public class CurriculumFragment extends Fragment {
             if (result.contains("true")) {
                 updateTeacherLogIn(result);
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
-                alertDialog.setMessage("Schedule successfully deleted").setCancelable(false)
+                alertDialog.setMessage("Curriculum successfully upated").setCancelable(false)
                         .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
 
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 // TODO Auto-generated method stub
-                                FragmentManager fragmentManager = getFragmentManager();
-                                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                                ClassFragment classFragment = new ClassFragment();
-                                fragmentTransaction.replace(R.id.container, classFragment).addToBackStack(null);
-                                fragmentTransaction.commit();
+                                Intent deletetoclass=new Intent(getActivity(),ClassActivity.class);
+                                startActivity(deletetoclass);
+                                getActivity().finish();
 
 
 
@@ -860,14 +969,12 @@ public class CurriculumFragment extends Fragment {
     }
 
 
-
-
-
-
-
-
-
-
+    public void zoom(Float scaleX, Float scaleY, PointF pivot) {
+        teacherlogin.setPivotX(pivot.x);
+        teacherlogin.setPivotY(pivot.y);
+        teacherlogin.setScaleX(scaleX);
+        teacherlogin.setScaleY(scaleY);
+    }
 
 }
 

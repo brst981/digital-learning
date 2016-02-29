@@ -87,13 +87,13 @@
                 android:textCursorDrawable="@null"
                 android:textSize="14sp" />
 
-            <EditText
+            <TextView
                 android:id="@+id/edt_passcode"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_below="@+id/edt_title"
-                android:layout_gravity="center"
-                android:clickable="false"
+                android:gravity="center|left"
+                android:editable="false"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="10dp"

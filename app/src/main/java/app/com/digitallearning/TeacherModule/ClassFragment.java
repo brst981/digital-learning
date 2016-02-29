@@ -417,6 +417,7 @@ public class ClassFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     pos=position;
+                    int fromclassfag=11;
                     Log.e("classSchid",""+Sch_Mem_id);
                     Log.e("classmemid",""+Mem_Sch_Id);
                     EditClassFragment.singleClassID=newclassid.get(position);
@@ -425,6 +426,7 @@ public class ClassFragment extends Fragment {
                     Intent intent=new Intent(getActivity(),EditClassFragment.class);
                     intent.putExtra("Sch_Mem_id",Sch_Mem_id);
                     intent.putExtra("Mem_Sch_Id",Mem_Sch_Id);
+                    intent.putExtra("fromclassfag",fromclassfag);
                     Log.e("classSchidrr",""+Sch_Mem_id);
                     Log.e("classmemidrr",""+Mem_Sch_Id);
                     startActivity(intent);

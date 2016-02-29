@@ -62,6 +62,30 @@
             android:name=".TeacherModule.ClassActivity"
             android:screenOrientation="portrait"
             />
+        <activity
+            android:name=".TeacherModule.Schedule.AddSchedule"
+            android:screenOrientation="portrait"
+            />
+        <activity
+            android:name=".TeacherModule.Schedule.ViewSchedule"
+            android:screenOrientation="portrait"
+            />
+        <activity
+            android:name=".TeacherModule.Schedule.ScheduleDescriptionFragment"
+            android:screenOrientation="portrait"
+            />
+        <activity
+            android:name=".TeacherModule.Schedule.ScheduleActivity"
+            android:screenOrientation="portrait"
+            />
+        <activity
+            android:name=".TeacherModule.Curriculum.CurriculumActivity"
+            android:screenOrientation="portrait"
+            />
+        <activity
+            android:name=".TeacherModule.Syllabus.SyllabusActivity"
+            android:screenOrientation="portrait"
+            />
     </application>
 
 </manifest>

@@ -40,14 +40,15 @@ import app.com.digitallearning.WebServices.WSConnector;
  */
 public class EditClassFragment extends FragmentActivity {
 
-    TextView headerTitle, text_type_detail, text_topic_detail, text_description_detail, text_features_detail;
+    TextView headerTitle, text_type_detail, text_topic_detail, text_description_detail, text_features_detail,edt_passcode;
     String title, classtype, classId, userid, schid, passcode, createdby, arrclassname, arrName, arrId, arrChildNAme, classid, newTopic, cal, chat, grades, stu, semeserval, coursecodeval;
-    EditText edt_title, edt_passcode, semester, coursecode;
+    EditText edt_title,  semester, coursecode;
     String passcodes,classname,created,styles,topics,desc;
     RelativeLayout relative_class_type, relative_topic, relative_description, relative_features,relative;
     RippleView ripple_edit_update;
     ProgressDialog dlg;
     Switch switch_upload;
+
     ImageButton back;
     String check="0";
     ImageButton imageButtonZoomIn, imageButtonZoomOut;
@@ -64,7 +65,7 @@ public class EditClassFragment extends FragmentActivity {
     int c1,c2,c3,c4;
     int fromEdit=12;
     int updateEdit=20;
-    String cal1,chat1,enable1,tab1;
+    String cal1,chat1,enable1,tab1,topic_id;
     public static String textcal,textchat,textenable,texttab,feature,newfeature=null;
     static  String newTitle,newTitle1,semester1,semester2,coursecode1,coursecode2,total,newtotal,ondialog;
     String sr_title, sr_passcode,sr_classtppe,sr_classtppeval,sr_topic,sr_feature,sr_description,classidgetupdate;
@@ -132,7 +133,7 @@ public class EditClassFragment extends FragmentActivity {
         coursecode1=coursecode.getText().toString();
 
 
-        edt_passcode = (EditText) findViewById(R.id.edt_passcode);
+        edt_passcode = (TextView) findViewById(R.id.edt_passcode);
         switch_upload = (Switch) findViewById(R.id.switch_upload);
 
         switch_upload.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -409,6 +410,7 @@ public class EditClassFragment extends FragmentActivity {
                 sr_description=text_description_detail.getText().toString();
 
 
+                Log.e("sr_topic1",""+sr_topic1);
                 Log.e("classidgetupdate",""+classidgetupdate);
                 Log.e("srcreated",""+created);
                 Log.e("srClassFragment",""+ClassFragment.Mem_Sch_Id);
@@ -423,6 +425,9 @@ public class EditClassFragment extends FragmentActivity {
                 Log.e("srstu",""+stu);
                 Log.e("srchat",""+chat);
                 Log.e("srgrades",""+grades);
+                if(sr_topic1==null){
+                    sr_topic1=topic_id;
+                }
 
                new Update_Class().execute(classidgetupdate,created,ClassFragment.Mem_Sch_Id,sr_title,sr_classtppeval,sr_topic1,sr_description,check,semeserval,coursecodeval,cal,stu,chat,grades);
 
@@ -500,7 +505,7 @@ public class EditClassFragment extends FragmentActivity {
 
                      styles = obj.getString("style");
 
-                    String topic_id = obj.getString("topic_id");
+                     topic_id = obj.getString("topic_id");
 
                     topics = obj.getString("topic_name");
 
@@ -532,19 +537,36 @@ public class EditClassFragment extends FragmentActivity {
                             Log.e("visit","visit"+"");
                             Log.e("cal1",""+cal1);
                         }
-                        else if(enable_chat.equalsIgnoreCase("true")){
-                             chat1="Chat";
-
+                        else{
+                            cal1=" ";
                         }
-                        else if(enable_grades.equalsIgnoreCase("true")){
+                         if(enable_chat.equalsIgnoreCase("true")){
+                             chat1="Chat";
+                            Log.e("visit","visit"+"");
+                            Log.e("chat1",""+chat1);
+                        }
+                         else{
+                             chat1=" ";
+                         }
+                         if(enable_grades.equalsIgnoreCase("true")){
 
                              enable1="Grades";
+                            Log.e("visit","visit"+"");
+                            Log.e("enable1",""+enable1);
                         }
 
-                        else if(enable_students_tab.equalsIgnoreCase("true")){
+                         else{
+                             enable1=" ";
+                         }
+                         if(enable_students_tab.equalsIgnoreCase("true")){
                              tab1="Student Tab";
+                            Log.e("visit","visit"+"");
+                            Log.e("tab1",""+tab1);
                         }
-                        total=cal1+" "+chat1+" "+enable1+" "+tab1;
+                         else{
+                             tab1=" ";
+                         }
+                        /*total=cal1+" "+chat1+" "+enable1+" "+tab1;
                         Log.e("total",""+total);
 
                         if(ondialog==null){
@@ -558,7 +580,8 @@ public class EditClassFragment extends FragmentActivity {
                             Log.e("mondialog",""+ondialog);
                             text_features_detail.setText(ondialog);
                             Log.e("moveondialog",""+ondialog);
-                        }
+                        }*/
+                        text_features_detail.setText(cal1+" "+chat1+" "+enable1+" "+tab1);
                     }
 
                 }

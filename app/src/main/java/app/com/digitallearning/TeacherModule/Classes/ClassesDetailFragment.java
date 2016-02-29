@@ -22,17 +22,21 @@ import android.view.animation.OvershootInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.andexert.library.RippleView;
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
 import com.squareup.picasso.Picasso;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import app.com.digitallearning.R;
 import app.com.digitallearning.TeacherModule.ClassFragment;
-import app.com.digitallearning.TeacherModule.Curriculum.CurriculumFragment;
-import app.com.digitallearning.TeacherModule.Schedule.ScheduleFragment;
+import app.com.digitallearning.TeacherModule.Curriculum.CurriculumActivity;
+import app.com.digitallearning.TeacherModule.Schedule.ScheduleActivity;
+import app.com.digitallearning.TeacherModule.Syllabus.SyllabusActivity;
 import app.com.digitallearning.WebServices.WSConnector;
 
 /**
@@ -64,53 +68,59 @@ public class ClassesDetailFragment extends Fragment{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
         rootview = inflater.inflate(R.layout.fragment_class_details, container, false);
-        menu_main = (FloatingActionMenu)rootview.findViewById(R.id.menu_main);
-        text_school_name=(TextView)rootview.findViewById(R.id.text_school_name);
-        text_topic_name=(TextView)rootview.findViewById(R.id.text_topic_name);
-        Log.e("ClassDetail.newtopicsel",""+EditClassFragment.newtopicsel);
+        menu_main = (FloatingActionMenu) rootview.findViewById(R.id.menu_main);
+        text_school_name = (TextView) rootview.findViewById(R.id.text_school_name);
+        text_topic_name = (TextView) rootview.findViewById(R.id.text_topic_name);
+        Log.e("ClassDetail.newtopicsel", "" + EditClassFragment.newtopicsel);
         text_topic_name.setText(EditClassFragment.newtopicsel);
-        dlg=new ProgressDialog(getActivity());
+        dlg = new ProgressDialog(getActivity());
         preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        cla_classid=preferences.getString("cla_classid","");
-        schoolName=preferences.getString("schoolName","");
-        Log.e("cla_classid",""+cla_classid);
-        Sch_Mem_id=preferences.getString("Sch_Mem_id","");
-        Log.e("Sch_Mem_id",""+Sch_Mem_id);
+        cla_classid = preferences.getString("cla_classid", "");
+        schoolName = preferences.getString("schoolName", "");
+        Log.e("cla_classid", "" + cla_classid);
+        Sch_Mem_id = preferences.getString("Sch_Mem_id", "");
+        Log.e("Sch_Mem_id", "" + Sch_Mem_id);
         text_school_name.setText(schoolName);
-        new Get_Class_image().execute(cla_classid);
-
-
+        try {
+            new Get_Class_image().execute(cla_classid);
+        }
+        catch (Exception e){}
 
         new Get_carriculum().execute(cla_classid, Sch_Mem_id);
-        new Schedule_listing().execute(Sch_Mem_id,cla_classid);
-        new Get_syllabus().execute(cla_classid , Sch_Mem_id );
+        new Schedule_listing().execute(Sch_Mem_id, cla_classid);
+        new Get_syllabus().execute(cla_classid, Sch_Mem_id);
 
-        text_passcode_detail=(TextView)rootview.findViewById(R.id.text_passcode_detail);
+        text_passcode_detail = (TextView) rootview.findViewById(R.id.text_passcode_detail);
         text_passcode_detail.setText(cla_classid);
-        scheduleday=(TextView)rootview.findViewById(R.id.scheduleday);
-        syllabus=(TextView)rootview.findViewById(R.id.syllabus) ;
-        curriculum=(TextView)rootview.findViewById(R.id.curriculum);
+        scheduleday = (TextView) rootview.findViewById(R.id.scheduleday);
+        syllabus = (TextView) rootview.findViewById(R.id.syllabus);
+        curriculum = (TextView) rootview.findViewById(R.id.curriculum);
         img_edit_picture = (ImageView) rootview.findViewById(R.id.img_edit_picture);
-        floatingActionButtonEdit=(FloatingActionButton)rootview.findViewById(R.id.menu_item_edit);
-        floatingActionButtonChange=(FloatingActionButton)rootview.findViewById(R.id.menu_item_change_pic);
-        floatingActionButtonDelete=(FloatingActionButton)rootview.findViewById(R.id.menu_item_delete);
-        rippleViewTeacherCollab = (RippleView)rootview.findViewById(R.id.ripple_teacher_collaboration) ;
-        rippleViewCurriculum = (RippleView)rootview.findViewById(R.id. ripple_teacher_curriculum) ;
-        ripple_teacher_syllabus=(RippleView) rootview.findViewById(R.id.ripple_teacher_syllabus);
-        ripple_teacher_schedule=(RippleView) rootview.findViewById(R.id.ripple_teacher_schedule);
+        floatingActionButtonEdit = (FloatingActionButton) rootview.findViewById(R.id.menu_item_edit);
+        floatingActionButtonChange = (FloatingActionButton) rootview.findViewById(R.id.menu_item_change_pic);
+        floatingActionButtonDelete = (FloatingActionButton) rootview.findViewById(R.id.menu_item_delete);
+        rippleViewTeacherCollab = (RippleView) rootview.findViewById(R.id.ripple_teacher_collaboration);
+        rippleViewCurriculum = (RippleView) rootview.findViewById(R.id.ripple_teacher_curriculum);
+        ripple_teacher_syllabus = (RippleView) rootview.findViewById(R.id.ripple_teacher_syllabus);
+        ripple_teacher_schedule = (RippleView) rootview.findViewById(R.id.ripple_teacher_schedule);
         ripple_teacher_schedule.setOnRippleCompleteListener(new RippleView.OnRippleCompleteListener() {
             @Override
             public void onComplete(RippleView rippleView) {
-                FragmentManager fragmentManager = getFragmentManager();
+               /* FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 ScheduleFragment scheduleFragment = new ScheduleFragment();
                 fragmentTransaction.replace(R.id.container, scheduleFragment).addToBackStack(null);
-                fragmentTransaction.commit();
+                fragmentTransaction.commit();*/
+                Intent gotoschedule = new Intent(getActivity(), ScheduleActivity.class);
+                startActivity(gotoschedule);
+
+
             }
         });
 
-        title= ClassFragment.titleheader;
-        Log.e("DetailClasstitle",""+title);
+        title = ClassFragment.titleheader;
+        Log.e("DetailClasstitle", "" + title);
+
 
         AppCompatActivity activity = (AppCompatActivity) getActivity();
 
@@ -122,9 +132,9 @@ public class ClassesDetailFragment extends Fragment{
         createCustomAnimation();
         initData();
 
+
         return rootview;
     }
-
     private void initData() {
 
         headerTitle.setText(title);
@@ -187,30 +197,39 @@ public class ClassesDetailFragment extends Fragment{
         rippleViewCurriculum.setOnRippleCompleteListener(new RippleView.OnRippleCompleteListener() {
             @Override
             public void onComplete(RippleView rippleView) {
-                FragmentManager fragmentManager = getFragmentManager();
+               /* FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 CurriculumFragment curriculumFragment = new CurriculumFragment();
                 Bundle bundle=new Bundle();
                 bundle.putInt("curiid",curiid);
                 fragmentTransaction.replace(R.id.container, curriculumFragment).addToBackStack(null);
                 curriculumFragment.setArguments(bundle);
-                fragmentTransaction.commit();
+                fragmentTransaction.commit();*/
+                Intent gotocurri = new Intent(getActivity(), CurriculumActivity.class);
+                gotocurri.putExtra("curiid",curiid);
+                startActivity(gotocurri);
             }
         });
         ripple_teacher_syllabus.setOnRippleCompleteListener(new RippleView.OnRippleCompleteListener() {
             @Override
             public void onComplete(RippleView rippleView) {
-                FragmentManager fragmentManager=getFragmentManager();
+               /* FragmentManager fragmentManager=getFragmentManager();
                 FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
                 SyllabusFragment syllabusFragment=new SyllabusFragment();
                 fragmentTransaction.replace(R.id.container, syllabusFragment).addToBackStack(null);
-                fragmentTransaction.commit();
+                fragmentTransaction.commit();*/
+                Intent gotocurri = new Intent(getActivity(), SyllabusActivity.class);
+                startActivity(gotocurri);
 
             }
         });
     }
 
     private void createCustomAnimation() {
+
+
+
+
         AnimatorSet set = new AnimatorSet();
 
         ObjectAnimator scaleOutX = ObjectAnimator.ofFloat(menu_main.getMenuIconView(), "scaleX", 1.0f, 0.2f);
