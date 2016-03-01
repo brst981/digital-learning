@@ -84,35 +84,41 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/myrecycler"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:clipToPadding="false"
             android:scrollbars="vertical" />
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <com.andexert.library.RippleView
-        android:id="@+id/ripple_topic_save"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        app:rv_color="#000"
-        android:gravity="bottom"
-        app:rv_rippleDuration="50"
-        app:rv_type="rectangle"
-        app:rv_zoom="true">
+        <com.andexert.library.RippleView
+            android:id="@+id/ripple_topic_save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
 
-        <Button
-            android:id="@+id/button_create"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="@color/colorlima"
-            android:elevation="8dp"
-            android:text="SAVe"
-            android:textAllCaps="true"
-            android:gravity="center"
-            android:textColor="@android:color/white"
-            android:textSize="16sp" />
-    </com.andexert.library.RippleView>
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            app:rv_color="#000"
+            app:rv_rippleDuration="50"
+            app:rv_type="rectangle"
+            app:rv_zoom="true">
+
+            <Button
+                android:id="@+id/button_create"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@color/colorlima"
+                android:elevation="8dp"
+                android:text=" Save"
+                android:textAllCaps="true"
+                android:gravity="center"
+                android:textColor="@android:color/white"
+                android:textSize="16sp" />
+        </com.andexert.library.RippleView>
+    </RelativeLayout>
     </RelativeLayout>
 </RelativeLayout>
 </RelativeLayout>

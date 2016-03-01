@@ -211,6 +211,7 @@ public class EditClassFragment extends FragmentActivity {
                                 textcal="Calender";
                                 Log.e("cal",""+cal);
                             }
+
                             else if (!checkbox1.isChecked()) {
                                 cal="\" \" ";
 
@@ -387,6 +388,21 @@ public class EditClassFragment extends FragmentActivity {
                 }
             });
 
+        Log.e("bsr_topic1",""+sr_topic1);
+        Log.e("bclassidgetupdate",""+classidgetupdate);
+        Log.e("bsrcreated",""+created);
+        Log.e("bsrClassFragment",""+ClassFragment.Mem_Sch_Id);
+        Log.e("bsrclassname",""+classname);
+        Log.e("bsrsr_classtppeval",""+sr_classtppeval);
+        Log.e("bsrtopic",""+topic);
+        Log.e("bsrsr_description",""+sr_description);
+        Log.e("srcheck",""+check);
+        Log.e("srcoursecodeval",""+coursecodeval);
+        Log.e("srsemeserval",""+semeserval);
+        Log.e("srcal",""+cal);
+        Log.e("srstu",""+stu);
+        Log.e("srchat",""+chat);
+        Log.e("srgrades",""+grades);
         ripple_edit_update.setOnRippleCompleteListener(new RippleView.OnRippleCompleteListener() {
             @Override
             public void onComplete(RippleView rippleView) {
@@ -473,9 +489,7 @@ public class EditClassFragment extends FragmentActivity {
 
             }
         }
-//{"success":true,"data":[{"clsid":"183599","createdby":"2155","schoolid":"487","classid":"1800","classname":"1",
-// "classpassword":"","style":"2","topic_id":"12","topic_name":"Training ","desc":"Test","class_full_image":"",
-// "class_thumb_image":"","Cls_Features":{"enable_calendar":"","enable_students_tab":"","enable_chat":"","enable_grades":""}}]},
+
 
         private void updateTeacherLogIn(String success) {
 
@@ -508,7 +522,7 @@ public class EditClassFragment extends FragmentActivity {
                      topic_id = obj.getString("topic_id");
 
                     topics = obj.getString("topic_name");
-
+                    Log.e("topics",""+topics);
                      desc = obj.getString("desc");
                     Log.e("desc",""+desc);
 
@@ -566,21 +580,7 @@ public class EditClassFragment extends FragmentActivity {
                          else{
                              tab1=" ";
                          }
-                        /*total=cal1+" "+chat1+" "+enable1+" "+tab1;
-                        Log.e("total",""+total);
 
-                        if(ondialog==null){
-                            newtotal= total.replace("null","");
-                            text_features_detail.setText(newtotal);
-                            Log.e("nnewtotaltotal",""+newtotal);
-
-                        }
-                        else if(ondialog!=null){
-                            Log.e("visit","visit");
-                            Log.e("mondialog",""+ondialog);
-                            text_features_detail.setText(ondialog);
-                            Log.e("moveondialog",""+ondialog);
-                        }*/
                         text_features_detail.setText(cal1+" "+chat1+" "+enable1+" "+tab1);
                     }
 
@@ -658,7 +658,7 @@ public class EditClassFragment extends FragmentActivity {
                 }
                 else if (fromsave!=1 &topic1==""){
                     text_topic_detail.setText(topics);
-                    Log.e("topics",""+topics);
+                    Log.e("topicss",""+topics);
 
 
                 }
@@ -667,9 +667,14 @@ public class EditClassFragment extends FragmentActivity {
                     Log.e("topic1",""+topic1);
                     text_topic_detail.setText(topics);
                 }
+                else if(topic1==""){
+                    Log.e("topic1..",""+topic1);
+                    Log.e("topics",""+topics);
+                    text_topic_detail.setText(topics);
+                }
                 else{
                     Log.e("topic1notnull",""+topic1);
-                    text_topic_detail.setText(topic1);
+                    text_topic_detail.setText(topics);
                 }
                 if(fromdes==1){
                     Log.e("fromdesisRes",""+fromdes);
@@ -735,7 +740,14 @@ public class EditClassFragment extends FragmentActivity {
             @Override
             protected void onPostExecute(String result) {
                 super.onPostExecute(result);
+                Log.e("REsulTofEditClass", "" + result);
                 dlg.dismiss();
+
+                EditClassFragment.style=" ";
+                Log.e("EditClassFragment.style",""+EditClassFragment.style);
+                TopicFragment.topic=" ";
+                DescriptionFragment.description=" ";
+                EditClassFragment.topic1=" ";
 
                 Intent intenttoClass=new Intent(EditClassFragment.this , ClassActivity.class);
                 startActivity(intenttoClass);
@@ -795,5 +807,10 @@ public class EditClassFragment extends FragmentActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+        EditClassFragment.style=" ";
+        Log.e("EditClassFragment.style",""+EditClassFragment.style);
+        TopicFragment.topic=" ";
+        DescriptionFragment.description=" ";
+        EditClassFragment.topic1=" ";
     }
 }

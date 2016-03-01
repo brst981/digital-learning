@@ -45,6 +45,8 @@ public class ClassActivity extends FragmentActivity {
         TopicFragment.topic=" ";
         DescriptionFragment.description=" ";
         EditClassFragment.topic1=" ";
+     //   TopicFragment.artthe=" ";
+      //  TopicFragment.itemart=" ";
 
 
     }

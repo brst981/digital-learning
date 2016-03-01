@@ -133,11 +133,11 @@ public class WSConnector {
         Log.e("othertopicdata",""+"");
         pairs.add(new BasicNameValuePair("enable_calendar", cal));
         Log.e("cal",""+cal);
-        pairs.add(new BasicNameValuePair("enable_students_tab", ""));
+        pairs.add(new BasicNameValuePair("enable_students_tab",stu ));
         Log.e("enable_students_tab",""+"");
-        pairs.add(new BasicNameValuePair("enable_chat", ""));
+        pairs.add(new BasicNameValuePair("enable_chat", chat));
         Log.e("enable_chat",""+"");
-        pairs.add(new BasicNameValuePair("enable_grades ", ""));
+        pairs.add(new BasicNameValuePair("enable_grades", grades));
         Log.e("userid",""+created);
 
         String result = WSAdapter.postJSONObject(url, pairs);

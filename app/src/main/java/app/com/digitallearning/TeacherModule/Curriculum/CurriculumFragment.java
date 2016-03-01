@@ -57,7 +57,7 @@ public class CurriculumFragment extends Fragment {
     int id=2;
     int id1=1;
     int n,p;
-    String x,y,z;
+    String x,y,z,libID;
     int curiid;
     String[] strArr;
     String countryid,curid,topic_id;
@@ -171,6 +171,15 @@ public class CurriculumFragment extends Fragment {
 
                 addsrlibrary=txtlibrary.getText().toString();
                 Log.e("addsrlibrary",""+addsrlibrary);
+                if(addsrlibrary.contains("Personal")){
+                    libID="1";
+                }
+                else if(addsrlibrary.contains("School")){
+                    libID="2";
+                }
+                else{
+                    libID="3";
+                }
 
                 addsrgradefrom=gradefrom.getText().toString();
                 Log.e("addsrgradefrom",""+addsrgradefrom);
@@ -180,7 +189,7 @@ public class CurriculumFragment extends Fragment {
 
                 if(textsave.contains("Save")) {
 
-                    new Add_curriculum().execute(cla_classid,Sch_Mem_id,addsrtitle,curriculumtopicid,addsrdescription,addsrlibrary,addsrgradefrom,addsrgradeto,addsrorganization,countryid,addsrstate);
+                    new Add_curriculum().execute(cla_classid,Sch_Mem_id,addsrtitle,curriculumtopicid,addsrdescription,libID,addsrgradefrom,addsrgradeto,addsrorganization,countryid,addsrstate);
 
                 }
 
@@ -247,13 +256,7 @@ public class CurriculumFragment extends Fragment {
                 alert.show();
             }
         });
-               /* FragmentManager fragmentManager = getFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                LibraryFragment libraryFragment = new LibraryFragment();
-                fragmentTransaction.replace(R.id.container, libraryFragment).addToBackStack(null);
-                fragmentTransaction.commit();
-            }
-        });*/
+
 
         ripple_teacher_syllabus.setOnRippleCompleteListener(new RippleView.OnRippleCompleteListener() {
             @Override
@@ -472,11 +475,11 @@ public class CurriculumFragment extends Fragment {
                 if(curriculumtopic!=null){
                     Log.e("curriculumtopicnotnull", "" + curriculumtopic);
                     topic.setText(curriculumtopic);
-                    text_input_Description.setText(curriculumdes);
+                    /*text_input_Description.setText(curriculumdes);
                     txtcountry.setText(curriculuncountry);
                     txtlibrary.setText(curriculumlib);
                     gradeto.setText(curriculumgradeto);
-                    gradefrom.setText(curriculumgradefrom);
+                    gradefrom.setText(curriculumgradefrom);*/
 
 
 
@@ -484,13 +487,13 @@ public class CurriculumFragment extends Fragment {
                 }
                 if(curriculumdes!=null){
                     Log.e("curriculumdesnotnull", "" + curriculumdes);
-                    topic.setText(curriculumtopic);
+
                     text_input_Description.setText(curriculumdes);
-                    txtcountry.setText(curriculuncountry);
+                   /* txtcountry.setText(curriculuncountry);
                     txtlibrary.setText(curriculumlib);
                     gradeto.setText(curriculumgradeto);
                     gradefrom.setText(curriculumgradefrom);
-
+                    topic.setText(curriculumtopic);*/
 
 
                 }
@@ -671,7 +674,8 @@ public class CurriculumFragment extends Fragment {
                     }
                     text_title_curriculum.setText(title);
 
-                    gradefrom.setText(hi_age);
+                    gradefrom.setText(lo_age);
+                    gradeto.setText(hi_age);
                     edt_organization_curriculum.setText(organisation);
                     edt_state_curriculum.setText(state);
                     if(library.contains("1")){
@@ -685,7 +689,7 @@ public class CurriculumFragment extends Fragment {
                         txtlibrary.setText("Cummunity");
                     }
 
-                    gradeto.setText(lo_age);
+
 
 
                     Log.e("ssindividualId",""+individualId);

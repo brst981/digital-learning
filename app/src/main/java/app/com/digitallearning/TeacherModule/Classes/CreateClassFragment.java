@@ -222,7 +222,7 @@ public class CreateClassFragment extends Fragment {
                 fragmentTransaction.commit();
 
             }});
-        selectedtopic.setText(EditClassFragment.topic1);
+
 
 
         Log.e("selectedtopic",""+selectedtopic);
@@ -266,7 +266,11 @@ public class CreateClassFragment extends Fragment {
     }
 
 
-
+    @Override
+    public void onStart() {
+        super.onStart();
+        selectedtopic.setText(EditClassFragment.topic1);
+    }
 
     class CreateClass extends AsyncTask<String, Integer, String> {
 
@@ -308,6 +312,8 @@ public class CreateClassFragment extends Fragment {
                 TopicFragment.topic=" ";
                 DescriptionFragment.description=" ";
                 EditClassFragment.topic1=" ";
+              //  TopicFragment.artthe=" ";
+              //   TopicFragment.itemart=" ";
                 selecteddes.setText(description);
                 selectedtopic.setText(topic);
                 Log.e("EditClassFragment.style",""+EditClassFragment.style);
