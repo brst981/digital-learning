@@ -57,7 +57,7 @@ public class ClassFragment extends Fragment {
 
     String arrId,arrName,arrChildId,arrChildNAme,className,classStudent,classSub,a,a1,a2,b,b1,b2,a3,b3,classid,c,c1,c2,style,passcode,classType,topic,description,createdby,classname,desc;
     boolean defineClass = false;
-    public static String titleheader,Sch_Mem_id,Mem_Sch_Id;
+    public static String titleheader,Sch_Mem_id,Mem_Sch_Id,testing,subject;
     public int pos,id,updateEdit;
     int id1=16;
     ImageButton imageButtonZoomIn, imageButtonZoomOut;
@@ -67,7 +67,8 @@ public class ClassFragment extends Fragment {
     SharedPreferences.Editor editor;
     RelativeLayout newrelative;
 
-    ArrayList<String> newusreId, newschoolId,newclassName,newclassid,newclassSub,newclassStudent,newclassdescription;
+    public  String Cls_desc;
+    ArrayList<String> newusreId, newschoolId,newclassName,newclassid,newclassSub,newclassStudent,newclassdescription,newsubject;
     String name,password,schoolID;
 
 
@@ -102,6 +103,7 @@ public class ClassFragment extends Fragment {
         newclassid=new ArrayList<>();
         newclassSub=new ArrayList<>();
         newclassStudent=new ArrayList<>();
+        newsubject=new ArrayList<>();
         preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         name = preferences.getString("name","");
         Log.e("namenxj",""+name);
@@ -268,6 +270,13 @@ public class ClassFragment extends Fragment {
                 //Toast.makeText(getActivity(),"not wrong coding",Toast.LENGTH_SHORT).show();
                 pos=position;
                 titleheader=newclassName.get(pos);
+                Log.e("titleheader",""+titleheader);
+                testing=newclassdescription.get(pos);
+                subject=newsubject.get(pos);
+
+
+
+
                 EditClassFragment.singleClassID=newclassid.get(position);
                 preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
                 editor = preferences.edit();
@@ -543,7 +552,7 @@ public class ClassFragment extends Fragment {
                     Log.e("cls_createdby", "" + cls_createdby);
                     String cls_name = obj.getString("cls_name");
                     Log.e("cls_name", "" + cls_name);
-                    String Cls_desc = obj.getString("Cls_desc");
+                     Cls_desc = obj.getString("Cls_desc");
                     Log.e("Cls_desc", "" + Cls_desc);
                     String subject = obj.getString("subject");
                     Log.e("subject", "" + subject);
@@ -568,6 +577,8 @@ public class ClassFragment extends Fragment {
                     Log.e("listCsub",""+classSub);
                     newclassid.add(cla_classid);
                     Log.e("ghbdjclassid",""+classid);
+                    newclassdescription.add(Cls_desc);
+                    newsubject.add(subject);
 
 
                 }

@@ -33,7 +33,7 @@ public class CreateClassFragment extends Fragment {
     View rootview;
     Button btnSave;
     RippleView ripple_main,ripple_main1,ripple_main2;
-    String arrName,arrChildNAme,classtpye,topic,description,title,arrId,a,b;
+    String arrName,arrChildNAme,classtpye,topic,description,title,arrId,a,b,what,get;
     ProgressDialog dlg;
     EditText edt_title;
     static String Sch_Mem_id,userMem_Sch_Id,class_id;
@@ -130,6 +130,45 @@ public class CreateClassFragment extends Fragment {
         Log.e("getValuetopic",""+topic);
 
 
+        /*try{
+            if(topic.equalsIgnoreCase("9")){
+                Log.e("visithere","visithere");
+                Log.e("OtherStrincreate",""+TopicFragment.otherstring);
+
+                 what=selectedtopic.getText().toString();
+                Log.e("what",""+what);
+
+            }
+            selectedtopic.setText(TopicFragment.otherstring);
+        }catch (Exception e){}*/
+
+
+        try{
+        if(topic.equalsIgnoreCase("Art")){
+            topic="1";
+        }
+
+        if(topic.equalsIgnoreCase("Theater")){
+            topic="3";
+        }
+        if(topic.equalsIgnoreCase("Visual Art")){
+            topic="5";
+        }}
+        catch (Exception e){}
+
+       /* if (topic == "1") {
+
+            selectedtopic.setText("Art");
+        }
+        else if(topic == "3"){
+            selectedtopic.setText("Theater");
+        }
+
+        else if(topic == "5")
+        {
+            selectedtopic.setText("Visual Art");
+        }*/
+
         description= DescriptionFragment.description;
         Log.e("descriptionInClass",""+description);
 
@@ -208,6 +247,11 @@ public class CreateClassFragment extends Fragment {
             @Override
             public void onComplete(RippleView rippleView) {
 
+                if(selectedtopic.getText().toString()!=null){
+
+                    get=selectedtopic.getText().toString();
+                    Log.e("get",""+get);
+                }
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 TopicFragment topicFragment = new TopicFragment();
@@ -216,6 +260,10 @@ public class CreateClassFragment extends Fragment {
                 bundle.putInt("id1",id);
                 bundle.putString("arrName",String.valueOf(arrName));
                 bundle.putString("arrId",(arrId));
+                try {
+                    bundle.putString("get",(get));
+                }
+                catch (Exception e){}
                 bundle.putString("arrChildNAme",String.valueOf(arrChildNAme));
                 fragmentTransaction.replace(R.id.container, topicFragment).addToBackStack(null);
                 topicFragment.setArguments(bundle);
@@ -245,6 +293,12 @@ public class CreateClassFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 title=edt_title.getText().toString();
+
+                Log.e("srEditClass.style",""+EditClassFragment.style);
+                Log.e("srtopic",""+topic);
+                Log.e("srdescription",""+description);
+
+
                 new CreateClass().execute(Sch_Mem_id, userMem_Sch_Id, title, EditClassFragment.style, topic, description);
 
             }
@@ -269,6 +323,11 @@ public class CreateClassFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+
+        try{
+        if(topic.equalsIgnoreCase("9")){
+            selectedtopic.setText(TopicFragment.otherstring);
+        }} catch (Exception e){}
         selectedtopic.setText(EditClassFragment.topic1);
     }
 
@@ -316,6 +375,10 @@ public class CreateClassFragment extends Fragment {
               //   TopicFragment.itemart=" ";
                 selecteddes.setText(description);
                 selectedtopic.setText(topic);
+                try{
+                    if(topic.equalsIgnoreCase("9")){
+                        selectedtopic.setText(TopicFragment.otherstring);
+                    }} catch (Exception e){}
                 Log.e("EditClassFragment.style",""+EditClassFragment.style);
                 Log.e("descriptionsd",""+description);
                 Log.e("topicasd",""+topic);

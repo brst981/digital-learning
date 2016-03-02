@@ -1,5 +1,5 @@
 package app.com.digitallearning.TeacherModule.Classes;
-
+//Cls_desc
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
@@ -46,7 +46,7 @@ public class ClassesDetailFragment extends Fragment{
     View rootview;
     FloatingActionMenu menu_main;
     FloatingActionButton floatingActionButtonEdit,floatingActionButtonChange,floatingActionButtonDelete;
-    TextView headerTitle,text_passcode_detail,curriculum,scheduleday,syllabus,text_school_name,text_topic_name;
+    TextView headerTitle,text_passcode_detail,curriculum,scheduleday,syllabus,text_school_name,text_topic_name,text_des;
     String title,arrDay,titlesyllabus,titlecurriculum;
     int curiid=10;
     ImageView  img_edit_picture;
@@ -71,8 +71,9 @@ public class ClassesDetailFragment extends Fragment{
         menu_main = (FloatingActionMenu) rootview.findViewById(R.id.menu_main);
         text_school_name = (TextView) rootview.findViewById(R.id.text_school_name);
         text_topic_name = (TextView) rootview.findViewById(R.id.text_topic_name);
+        text_des=(TextView) rootview.findViewById(R.id.text_des);
         Log.e("ClassDetail.newtopicsel", "" + EditClassFragment.newtopicsel);
-        text_topic_name.setText(EditClassFragment.newtopicsel);
+
         dlg = new ProgressDialog(getActivity());
         preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         cla_classid = preferences.getString("cla_classid", "");
@@ -121,7 +122,9 @@ public class ClassesDetailFragment extends Fragment{
         title = ClassFragment.titleheader;
         Log.e("DetailClasstitle", "" + title);
 
+        text_des.setText(ClassFragment.testing);
 
+        text_topic_name.setText(ClassFragment.subject);
         AppCompatActivity activity = (AppCompatActivity) getActivity();
 
         activity.getSupportActionBar().setTitle("");
