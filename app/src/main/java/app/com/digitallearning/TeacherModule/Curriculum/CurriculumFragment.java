@@ -47,7 +47,7 @@ public class CurriculumFragment extends Fragment {
     TextView headerTitle;
     String title,value;
     SharedPreferences preferences;
-    String Sch_Mem_id,cla_classid,textupdate,textsave,stindividualId,strcountry,nwstring;
+    String Sch_Mem_id,cla_classid,textupdate,textsave,stindividualId,nwstring;
     ProgressDialog dlg;
     String ab,ba;
     CharSequence[] mStringArray,a,b,c;
@@ -57,7 +57,7 @@ public class CurriculumFragment extends Fragment {
     int id=2;
     int id1=1;
     int n,p;
-    String x,y,z,libID;
+    String x,y,z,libID,location;
     int curiid;
     String[] strArr;
     String countryid,curid,topic_id;
@@ -67,6 +67,7 @@ public class CurriculumFragment extends Fragment {
     String st,strstring;
     int i1;
     int idi;
+    int strcountry;
     RelativeLayout teacherlogin;
     ImageButton imageButtonZoomIn, imageButtonZoomOut,back;
     public static String curriculumtopic,curriculumtopicid,curriculuncountry,curriculumdes,curriculumlib,curriculumgradefrom,curriculumgradeto;
@@ -125,6 +126,7 @@ public class CurriculumFragment extends Fragment {
         Log.e("cla_classid",""+cla_classid);
 
         if(curiid==10) {
+            Log.e("qwcuriid",""+curiid);
 
          //  curriculumtopic=" ";
             /*curriculumdes="";*/
@@ -187,6 +189,7 @@ public class CurriculumFragment extends Fragment {
                 addsrgradeto=gradeto.getText().toString();
                 Log.e("addsrgradeto",""+addsrgradeto);
 
+                Log.e("srcountryid",""+countryid);
                 if(textsave.contains("Save")) {
 
                     new Add_curriculum().execute(cla_classid,Sch_Mem_id,addsrtitle,curriculumtopicid,addsrdescription,libID,addsrgradefrom,addsrgradeto,addsrorganization,countryid,addsrstate);
@@ -279,7 +282,7 @@ public class CurriculumFragment extends Fragment {
 
 
 
-
+Log.e("herec","bjh");
         ripple_teacher_country.setOnRippleCompleteListener(new RippleView.OnRippleCompleteListener() {
             @Override
             public void onComplete(RippleView rippleView) {
@@ -387,29 +390,47 @@ public class CurriculumFragment extends Fragment {
                  arr = jsonObject.getJSONArray("data");
 
                  strArr = new String[arr.length()];
-                for (i1 = 0; i1 < arr.length(); i1++) {
+                Log.e("herecrash","hwdgb");
+                for (i1 = 1; i1 < arr.length(); i1++) {
+                    Log.e("herecrash1","hwdgb");
                     strArr[i1] = arr.getString(i1);
-                    Log.e("wwstrArr[i1]", "" + strArr[i1]);
+                    Log.e("herecrash2","hwdgb");
+               //     Log.e("wwstrArr[i1]", "" + strArr[i1]);
 
 
                    /* st= (String) arr.get(i1);
                     Log.e("st",""+st);
 */
-                    Log.e("arr.get(i1);", "" + arr.get(i1));
-
+               //     Log.e("arr.get(i1);", "" + arr.get(i1));
+               //     Log.e("arr0);", "" + arr.get(0));
+               //     Log.e("arr1);", "" + arr.get(1));
                     individualId = i1 + 1;
                     stindividualId = String.valueOf(individualId);
-                    Log.e("individualId", "" + individualId);
-                    Log.e("stindividualId", "" + stindividualId);
+               //     Log.e("individualId", "" + individualId);
+                //    Log.e("stindividualId", "" + stindividualId);
                     if (idi == 10) {
-                    Log.e("receivedstrcountry", "" + strcountry);
-                    Log.e("fourth", "" + arr.get(Integer.parseInt(strcountry)));
-                    x = String.valueOf(arr.get(Integer.parseInt(strcountry)));
-                    Log.e("nvjh", "" + x);
+                        z= String.valueOf(strcountry-1);
+               //     Log.e("receivedstrcountry", "" + z);
+                  //      Log.e("receivedstrcountry1", "" + arr.get(strcountry));
+                     //  Log.e("fullARR",""+arr);
+
+
+                     ///   Log.e("Location",""+arr.get(strcountry));
+                  //  Log.e("fourth", "" + arr.get(Integer.parseInt(z)));
+                       // Log.e("Location1",""+arr.get(Integer.parseInt(strcountry+1)));
+
+                        x=x+1;
+                   //     Log.e("SimX", "" + x);
+                    x = String.valueOf(arr.get(Integer.parseInt(z)));
+
+                   // Log.e("nvjh", "" + x);
+
+
+                        //location=arr.getString(x);
 
                         if (curriculumtopic != null) {
 
-                            txtcountry.setText(curriculuncountry);
+                          txtcountry.setText(curriculuncountry);
 
                         }
                         if (curriculumdes != null) {
@@ -581,7 +602,7 @@ public class CurriculumFragment extends Fragment {
                             curriculumtopicid=topic_id;
                         }
                         else if(countryid==null){
-                            countryid=strcountry;
+                            countryid= String.valueOf(strcountry);
                         }
 
                         else if(addsrdescription==null){
@@ -653,7 +674,7 @@ public class CurriculumFragment extends Fragment {
                     Log.e("topic_id", "" + topic_id);
                     String curid = obj.getString("curid");
                     Log.e("curid", "" + curid);
-                    strcountry = obj.getString("country");
+                    strcountry = Integer.parseInt(obj.getString("country"));
                     Log.e("strcountry", "" + strcountry);
                     String cur_class_id = obj.getString("cur_class_id");
                     Log.e("cur_class_id", "" + cur_class_id);

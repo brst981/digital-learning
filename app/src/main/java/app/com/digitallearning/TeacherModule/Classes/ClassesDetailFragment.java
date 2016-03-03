@@ -125,6 +125,7 @@ public class ClassesDetailFragment extends Fragment{
         text_des.setText(ClassFragment.testing);
 
         text_topic_name.setText(ClassFragment.subject);
+
         AppCompatActivity activity = (AppCompatActivity) getActivity();
 
         activity.getSupportActionBar().setTitle("");

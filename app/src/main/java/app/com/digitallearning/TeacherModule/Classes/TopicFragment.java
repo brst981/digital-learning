@@ -18,7 +18,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -44,13 +43,15 @@ import app.com.digitallearning.WebServices.WSConnector;
  * Created by ${PSR} on 1/28/16.
  */
 public class TopicFragment extends Fragment {
+    static int lastSavePos = -1;
+
     View rootview;
     private RecyclerView mRecyclerView;
     private RecyclerView.LayoutManager mLayoutManager;
     private RecyclerView.Adapter mAdapter;
     public static String topic;
     RippleView ripple_topic_save;
-    private String Other="";
+    private String Other = "";
     ImageView back;
     ProgressDialog dlg;
     String newTitle, semester, coursecode;
@@ -58,13 +59,15 @@ public class TopicFragment extends Fragment {
     RelativeLayout rellogin, relative_header;
     int id, fromEdit;
     int fromsave = 1;
-    String othrdes;
+    String othrdes, a, b;
     int id1;
-    String get;
-    public  static String itemart,artthe,again,nwstring,otherstring,otherstringid;
+    String get, loc;
+    public static String itemart, artthe, again, nwstring, otherstring, otherstringid;
     ArrayList<String> arrId, arrName, arrChildId, arrChildNAme;
     final CharSequence[] art = {"Art", "Theater", "Visual Art"};
-    int selectedItem ;
+    int selectedItem;
+    boolean checkboxselected;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootview = inflater.inflate(R.layout.fragment_topic, container, false);
@@ -88,12 +91,10 @@ public class TopicFragment extends Fragment {
 
             get = getArguments().getString("get");
             Log.e("gettop", "" + get);
-            Log.e("arrName",""+arrName);
-            Log.e("CONTAIN",""+arrName.contains("get"));
+            Log.e("arrName", "" + arrName);
+            Log.e("CONTAIN", "" + arrName.contains("get"));
         } catch (Exception e) {
         }
-
-
 
 
         try {
@@ -116,7 +117,6 @@ public class TopicFragment extends Fragment {
         arrName = new ArrayList<>();
         arrChildId = new ArrayList<>();
         arrChildNAme = new ArrayList<>();
-
 
 
         back.setOnClickListener(new View.OnClickListener() {
@@ -183,6 +183,7 @@ public class TopicFragment extends Fragment {
         List<String> arrName;
         List<String> arrChildId;
         List<String> arrChildNAme;
+        boolean[] checkBoxState;
 
 
         public MyRecyclerViewAdapter(List<String> arrId, List<String> arrName, List<String> arrChildId, List<String> arrChildNAme) {//List<String> myList,List<String> myList1,
@@ -191,6 +192,9 @@ public class TopicFragment extends Fragment {
             this.arrName = arrName;
             this.arrChildId = arrChildId;
             this.arrChildNAme = arrChildNAme;
+            checkBoxState = new boolean[arrName.size()];
+            Log.e("arrId", " " + arrId.size());
+            Log.e("arrName", " " + arrName.size());
 
         }
 
@@ -211,34 +215,45 @@ public class TopicFragment extends Fragment {
         @Override
         public void onBindViewHolder(ViewHolder holder, int position) {
 
+
             Log.e("arrName", "" + arrName);
             Log.e("arrName.get(position)", "" + arrName.get(position));
 
             Log.e("Allpos", "" + position);
-            try{
-                Log.e("getfound",""+get);
-                Log.e("getfoundarrName",""+arrName);
+            try {
+                Log.e("getfound", "" + get);
+                Log.e("getfoundarrName", "" + arrName);
 
                 // arrName.get(pos).matches("get");
                 //   Log.e("matches",""+arrName.get(pos).contains("get"));
+                Log.e("postion", "" + position + " " + lastSavePos);
 
-                String match= String.valueOf(get.equals(arrName.get(position )));
-                if(match.equalsIgnoreCase("true")){
+
+                String match = String.valueOf(get.equals(arrName.get(position)));
+                if (match.equalsIgnoreCase("true")) {
                    /* Log.e("done",""+get.equals(arrName.get(position )));
                     Log.e("done1",""+ get.contains(arrName.get(position )));
                     Log.e("done1",""+get.matches(arrName.get(position )));*/
 
-                 String abs=
+                    a = String.valueOf(get.equals(arrName.get(position)));
+                    Log.e("a", "" + a);
+                    if (a.equalsIgnoreCase("true")) {
+
+                        b = String.valueOf(arrName.indexOf(get));
+                        Log.e("b", "" + b);
+                        holder.checkBox.setChecked(true);
+
+                    }
 
                 }
 
 
+            } catch (Exception e) {
             }
-            catch (Exception e){}
+
 
             holder.a3cat.setText(arrName.get(position));
             holder.pos = position;
-
 
             if (arrName.get(position).matches("Art")) {
                 holder.img_Art.setVisibility(View.VISIBLE);
@@ -251,11 +266,14 @@ public class TopicFragment extends Fragment {
             } else {
                 holder.img_Art.setVisibility(View.GONE);
             }
-            if(position==2) {
+            if (position == 2) {
                 holder.artitem.setText(Other);
-            }
-            else
+            } else
                 holder.artitem.setText(" ");
+
+            if (position != 0 & position != 2) {
+                holder.checkBox.setVisibility(View.VISIBLE);
+            }
 
             String art = holder.a3cat.getText().toString();
             Log.e("StingArt", "" + art);
@@ -264,7 +282,116 @@ public class TopicFragment extends Fragment {
                 Log.e("VisitArt", "" + "");
 
             }
+            holder.checkBox.setTag(holder);
+
+            if (checkBoxState[position] == true)
+
+                holder.checkBox.setChecked(true);
+            else
+                holder.checkBox.setChecked(false);
+
+            holder.mainLayout.setTag(holder);
+            Log.e("main", holder.mainLayout + "");
+
+            holder.mainLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    // ViewHolder holder = (ViewHolder) v.getTag();
+                    Log.e("postionsss", "yyy");
+                    Toast.makeText(getActivity(),"call",Toast.LENGTH_SHORT).show();
+
+
+                }
+            });
+
+           /* if (position == 0 || position == 2)
+                holder.checkBox.setOnClickListener(null);
+            else {
+*/
+            holder.checkBox.setOnClickListener(new View.OnClickListener() {
+
+
+                @Override
+
+                public void onClick(View v) {
+
+                    ViewHolder holder = (ViewHolder) v.getTag();
+
+                    try {
+
+                        if (lastSavePos > -1) {
+                            checkBoxState[lastSavePos] = false;
+                            holder.checkBox.setChecked(checkBoxState[lastSavePos]);
+                        }
+
+                    } catch (Exception e) {
+
+                    }
+
+                    checkBoxState[holder.pos] = true;
+                    holder.checkBox.setChecked(checkBoxState[holder.pos]);
+                    notifyDataSetChanged();
+
+                    lastSavePos = holder.pos;
+                    Log.e("postions", lastSavePos + "");
+
+
+//                    if (((CheckBox) v).isChecked()) {
+//
+//                        Toast.makeText(getActivity(),"Checked True",Toast.LENGTH_LONG).show();
+//                        Log.e("checkboxselectedb",""+checkboxselected);
+//
+//                        if(checkboxselected==true){
+//                         //   holder.checkBox.setChecked(false);
+//                            Log.e("locabove",""+loc);
+//
+//
+//                            String loc1=loc;
+//                            Log.e("Loc1",""+loc1);
+//                            String match= String.valueOf(loc1.equals(loc));
+//                            if(match.equalsIgnoreCase("true")){
+//                   *//* Log.e("done",""+get.equals(arrName.get(position )));
+//                    Log.e("done1",""+ get.contains(arrName.get(position )));
+//                    Log.e("done1",""+get.matches(arrName.get(position )));*//*
+//
+//                                a= String.valueOf(loc1.equals(loc));
+//                                Log.e("a",""+a);
+//                                if(a.equalsIgnoreCase("true")){
+//
+//                                    b= String.valueOf(arrName.indexOf(loc1));
+//                                    Log.e("b1",""+b);
+//
+//                                    holder.checkBox.setChecked(true);
+//                                    Log.e("gfv",""+arrName.indexOf(loc1));
+//
+//                                }
+//
+//
+//                            }
+//
+//
+//                        }
+//                        else{
+//
+//                            checkboxselected=true;
+//                            Log.e("checkboxselected",""+checkboxselected);
+//                            loc=arrName.get(position);
+//                            Log.e("loc",""+loc);
+//
+//                           // holder.checkBox.setChecked(true);
+//                        }
+//
+//
+//                    }
+
+                }
+
+            });
+            //  }
+
         }
+
 
         @Override
         public int getItemCount() {
@@ -278,8 +405,8 @@ public class TopicFragment extends Fragment {
             public ImageView img_Art;
             CheckBox checkBox;
             TextView artitem;
+            RelativeLayout mainLayout;
             int pos;
-
 
 
             public ViewHolder(View itemView) {
@@ -291,12 +418,11 @@ public class TopicFragment extends Fragment {
                 img_Art = (ImageView) itemView.findViewById(R.id.img_Art);
                 artitem = (TextView) itemView.findViewById(R.id.artitem);
 
+                mainLayout = (RelativeLayout) itemView.findViewById(R.id.relative_class);
+
                 artitem.setText(" ");
 
                 a3ripple.setTag(pos);
-
-
-
 
 
                 a3ripple.setOnRippleCompleteListener(new RippleView.OnRippleCompleteListener() {
@@ -304,14 +430,13 @@ public class TopicFragment extends Fragment {
                     public void onComplete(RippleView rippleView) {
                         int position = getLayoutPosition();
 
-
                         if (arrName.get(position).matches("Art")) {
-
+                            Log.e("postion", "" + position + " " + lastSavePos);
 
                             if (position == 0) {
 
                                 Log.e("Position0", "" + position);
-                               AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                                 builder.setTitle("Make your selection");
                                 builder.setItems(art, new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int item) {
@@ -320,33 +445,34 @@ public class TopicFragment extends Fragment {
                                         Log.e("items", "" + item);
                                         itemart = String.valueOf(item);
                                         Log.e("itemart", "" + itemart);
-                                        if(itemart.equalsIgnoreCase("0")){
+                                        if (itemart.equalsIgnoreCase("0")) {
                                             nwstring = "Art";
-                                            Log.e("nwstring", "" +nwstring);
+                                            Log.e("nwstring", "" + nwstring);
                                             again = "1";
                                             Log.e("again", "" + again);
                                             Log.e("selectd ", "hbgfh" + EditClassFragment.topic1);
-                                        artitem.setText("Art");}
-                                       else if(itemart.equalsIgnoreCase("1")){
+                                            artitem.setText("Art");
+                                        } else if (itemart.equalsIgnoreCase("1")) {
                                             nwstring = "Theater";
                                             Log.e("nwstring", "" + nwstring);
                                             again = "3";
                                             Log.e("again", "" + again);
-                                            artitem.setText("Theater");}
-                                       else if(itemart.equalsIgnoreCase("2")){
+                                            artitem.setText("Theater");
+                                        } else if (itemart.equalsIgnoreCase("2")) {
                                             nwstring = "Visual Art";
                                             Log.e("nwstring", "" + nwstring);
                                             again = "5";
                                             Log.e("again", "" + again);
-                                            artitem.setText("Visual Art");}
+                                            artitem.setText("Visual Art");
+                                        }
 
 
-                                        EditClassFragment.sr_topic1 =again;
-                                        Log.e("nwstring","dd"+nwstring);
+                                        EditClassFragment.sr_topic1 = again;
+                                        Log.e("nwstring", "dd" + nwstring);
                                         EditClassFragment.topic1 = nwstring;
 
 
-                                        topic=nwstring;
+                                        topic = nwstring;
                                         Log.e("SElected", "" + topic);
 
                                         EditClassFragment.topic1 = nwstring;
@@ -355,6 +481,11 @@ public class TopicFragment extends Fragment {
                                         EditClassFragment.sr_topic1 = again;
                                         Log.e("id", "" + EditClassFragment.sr_topic1);
 
+
+                                        CurriculumFragment.curriculumtopic = nwstring;//name
+                                        Log.e("Currinwstringd", "" + CurriculumFragment.curriculumtopic);
+                                        CurriculumFragment.curriculumtopicid = again;  //id
+                                        Log.e("Currtopicidd", "" + CurriculumFragment.curriculumtopicid);
 
                                     }
                                 });
@@ -367,13 +498,14 @@ public class TopicFragment extends Fragment {
                                 }
                             }
 
-                            checkBox.setVisibility(View.GONE);
-                        }
-                        else if (arrName.get(position).matches("Other")) {
+
+                        } else if (arrName.get(position).matches("Other")) {
+                            //Log.e("artitemText", "" + lastSavePos);
+
+
                             if (position == 2) {
-                                Log.e("artitemText", "" + itemart);
-                                if(itemart!=null){
-                                    itemart=" ";
+                                if (itemart != null) {
+                                    itemart = " ";
                                     Log.e("itemTextnull", "" + itemart);
                                 }
                                 Log.e("Text", "" + itemart);
@@ -381,7 +513,7 @@ public class TopicFragment extends Fragment {
                                 final Dialog dialog = new Dialog(getActivity());
 
                                 dialog.setContentView(R.layout.popup);
-                                dialog.setCancelable(false);
+                               // dialog.setCancelable(false);
                                 dialog.setTitle("Other");
 
                                 final EditText txt = (EditText) dialog.findViewById(R.id.othername);
@@ -394,10 +526,10 @@ public class TopicFragment extends Fragment {
                                         othrdes = txt.getText().toString();
                                         Log.e("othrdes", "" + othrdes);
                                         artitem.setText(othrdes);
-                                        Other=othrdes;
-                                        otherstring=othrdes;
-                                        Log.e("OtherStr",""+otherstring);
-                                     //   CreateClassFragment.selectedtopic.setText(otherstring);
+                                        Other = othrdes;
+                                        otherstring = othrdes;
+                                        Log.e("OtherStr", "" + otherstring);
+                                        //   CreateClassFragment.selectedtopic.setText(otherstring);
                                        /* if (artitem != null) {
                                             Log.e("artitemnotnull", "" + artitem);
                                         }*/
@@ -418,16 +550,20 @@ public class TopicFragment extends Fragment {
 
                                         } else {
 
-                                            otherstring=othrdes;
-                                            otherstringid="9";
-                                            EditClassFragment.sr_topic1 =otherstringid;
-                                            Log.e("otherstringid",""+EditClassFragment.sr_topic1);
+                                            otherstring = othrdes;
+                                            otherstringid = "9";
+                                            EditClassFragment.sr_topic1 = otherstringid;
+                                            Log.e("otherstringid", "" + EditClassFragment.sr_topic1);
                                             EditClassFragment.topic1 = otherstring;
 
 
-                                            topic=otherstringid;
+                                            topic = otherstringid;
                                             Log.e("SElectedother", "" + topic);
 
+                                            CurriculumFragment.curriculumtopic = otherstring;
+                                            Log.e("Currinwstringd", "" + CurriculumFragment.curriculumtopic);
+                                            CurriculumFragment.curriculumtopicid = otherstringid;
+                                            Log.e("Currtopicidd", "" + CurriculumFragment.curriculumtopicid);
 
 
                                             dialog.dismiss();
@@ -442,21 +578,21 @@ public class TopicFragment extends Fragment {
                             }
 
                             //  artitem.setText(othrdes);
-                            checkBox.setVisibility(View.GONE);
 
-                        } else {
-                            checkBox.setVisibility(View.VISIBLE);
 
                         }
 
                         Log.e("position", "" + position);
 
-                        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                       /*checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                             @Override
                             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                                if(isChecked==true){
+                              if(isChecked==true){
                                     Log.e("isCheckedtr",""+isChecked);
-                                    checkBox.setVisibility(View.VISIBLE);
+
+
+
+                                  Toast.makeText(getActivity(),"Checked True",Toast.LENGTH_LONG).show();
 
                                 }
                                 else if(isChecked==false) {
@@ -464,26 +600,60 @@ public class TopicFragment extends Fragment {
                                     Log.e("isCheckedfal",""+isChecked);
 
                                 }
+
+
+
+
                             }
-                        });
-
-
+                        });*/
 
 
                         if (id == 2) {
                             Log.e("idcurr", "" + id);
+
                             CurriculumFragment.curriculumtopic = arrName.get(position);
                             Log.e("Curriculum.curriculumto", "" + CurriculumFragment.curriculumtopic);
                             CurriculumFragment.curriculumtopicid = arrId.get(position);
                             Log.e("Curriculum.tid", "" + CurriculumFragment.curriculumtopicid);
+
+
+                            if (CurriculumFragment.curriculumtopic.equalsIgnoreCase("Art")) {
+
+                                Log.e("bhejfkif", "FBRJKFN");
+                                CurriculumFragment.curriculumtopic = nwstring;//name
+                                Log.e("Currinwstring", "dd" + CurriculumFragment.curriculumtopic);
+                                CurriculumFragment.curriculumtopicid = again;  //id
+                                Log.e("Currtopicid", "" + CurriculumFragment.curriculumtopicid);
+                                //  topic=nwstring;
+
+                                //   Log.e("SElected", "" + topic);
+
+
+
+                                /*EditClassFragment.topic1 = nwstring;
+                                Log.e("name", "" + EditClassFragment.topic1);
+
+                                EditClassFragment.sr_topic1 = again;
+                                Log.e("id", "" + EditClassFragment.sr_topic1);*/
+                            } else if (CurriculumFragment.curriculumtopic.equalsIgnoreCase("Other")) {
+
+                                CurriculumFragment.curriculumtopic = otherstring;
+                                Log.e("curriotherstring", "" + CurriculumFragment.curriculumtopic);
+                                CurriculumFragment.curriculumtopicid = otherstringid;
+                                Log.e("curriotherstringid", "" + CurriculumFragment.curriculumtopicid);
+                                /*topic=otherstring;
+                                Log.e("SElectedother", "" + topic);*/
+
+                            }
+
+
                         }
-                        Log.e("VALUEOntext",""+EditClassFragment.topic1);
+                        Log.e("VALUEOntext", "" + EditClassFragment.topic1);
 //                        CreateClassFragment.selectedtopic.setText(EditClassFragment.topic1);
                         Log.e("EditClassFragmenttopic", "" + EditClassFragment.sr_topic1);
-                        Log.e("vbsh",""+EditClassFragment.topic1);
+                        Log.e("vbsh", "" + EditClassFragment.topic1);
                         Log.e("TopicmyList1", "" + arrId);
                         Log.e("newtopicsel", "" + EditClassFragment.newtopicsel);
-
 
 
                         if (id == 6) {
@@ -496,7 +666,7 @@ public class TopicFragment extends Fragment {
                             }
 
 
-                            Log.e("itemartnotnullEdit",""+itemart);
+                            Log.e("itemartnotnullEdit", "" + itemart);
 
                             EditClassFragment.newtopicsel = arrName.get(position);
 
@@ -506,16 +676,15 @@ public class TopicFragment extends Fragment {
                             Log.e("vbsh", "" + EditClassFragment.topic1);
                             Log.e("TopicmyList1", "" + arrId);
                             EditClassFragment.sr_topic1 = arrId.get(position);
-                            if(EditClassFragment.newtopicsel.equalsIgnoreCase("Art")){
+                            if (EditClassFragment.newtopicsel.equalsIgnoreCase("Art")) {
 
-                                Log.e("bhejfkif","FBRJKFN");
-                                EditClassFragment.newtopicsel =nwstring;//name
-                                Log.e("nwstring","dd"+nwstring);
+                                Log.e("bhejfkif", "FBRJKFN");
+                                EditClassFragment.newtopicsel = nwstring;//name
+                                Log.e("nwstring", "dd" + nwstring);
                                 EditClassFragment.topic1 = again;  //id
-                                topic=nwstring;
+                                topic = nwstring;
 
                                 Log.e("SElected", "" + topic);
-
 
 
                                 EditClassFragment.topic1 = nwstring;
@@ -523,18 +692,18 @@ public class TopicFragment extends Fragment {
 
                                 EditClassFragment.sr_topic1 = again;
                                 Log.e("id", "" + EditClassFragment.sr_topic1);
-                            }
+                            } else if (EditClassFragment.newtopicsel.equalsIgnoreCase("Other")) {
 
-                            else if (EditClassFragment.newtopicsel.equalsIgnoreCase("Other")){
-
-                                EditClassFragment.sr_topic1 =otherstringid;
-                                Log.e("otherstringid",""+EditClassFragment.sr_topic1);
+                                EditClassFragment.sr_topic1 = otherstringid;
+                                Log.e("otherstringid", "" + EditClassFragment.sr_topic1);
                                 EditClassFragment.topic1 = otherstring;
-                                topic=otherstring;
+                                topic = otherstring;
                                 Log.e("SElectedother", "" + topic);
 
                             }
-                           }
+
+
+                        }
                     }
 
                 });

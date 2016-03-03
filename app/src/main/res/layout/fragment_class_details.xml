@@ -21,7 +21,7 @@
                 android:layout_height="250dp"
                 android:background="@android:color/white"
                 android:scaleType="fitXY"
-                android:src="@drawable/no_image_icon" />
+                android:src="@drawable/noimageicon" />
 
             <RelativeLayout
                 android:id="@+id/relative_pass"

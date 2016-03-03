@@ -10,7 +10,7 @@
         android:layout_height="250dp"
         android:background="@android:color/white"
         android:scaleType="fitXY"
-        android:src="@drawable/no_image_icon" />
+        android:src="@drawable/noimageicon" />
     <ImageButton
         android:id="@+id/img_edit_icon"
         android:layout_width="40dp"

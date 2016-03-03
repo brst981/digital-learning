@@ -81,15 +81,18 @@
         android:layout_below="@+id/relative_header"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
         <android.support.v7.widget.RecyclerView
             android:id="@+id/myrecycler"
+            android:layout_weight="1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:clipToPadding="false"
             android:scrollbars="vertical" />
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+
 
         <com.andexert.library.RippleView
             android:id="@+id/ripple_topic_save"
@@ -118,7 +121,7 @@
                 android:textColor="@android:color/white"
                 android:textSize="16sp" />
         </com.andexert.library.RippleView>
+        </LinearLayout>
     </RelativeLayout>
     </RelativeLayout>
-</RelativeLayout>
 </RelativeLayout>
