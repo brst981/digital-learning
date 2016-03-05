@@ -24,6 +24,7 @@ import android.widget.Toast;
 import com.andexert.library.RippleView;
 
 import app.com.digitallearning.R;
+import app.com.digitallearning.Utill.GlobalClass;
 import app.com.digitallearning.WebServices.WSConnector;
 
 /**
@@ -316,6 +317,15 @@ public class CreateClassFragment extends Fragment {
                 zoom(1f, 1f, new PointF(0, 0));
             }
         });
+
+
+
+
+        GlobalClass.lastValue=EditClassFragment.newtopicsel;
+        Log.e("lastvalueglobalres", "" + GlobalClass.lastValue);
+
+
+
         return rootview;
     }
 
@@ -375,6 +385,10 @@ public class CreateClassFragment extends Fragment {
               //   TopicFragment.itemart=" ";
                 selecteddes.setText(description);
                 selectedtopic.setText(topic);
+
+
+
+                GlobalClass.lastValue=EditClassFragment.newtopicsel;
                 try{
                     if(topic.equalsIgnoreCase("9")){
                         selectedtopic.setText(TopicFragment.otherstring);

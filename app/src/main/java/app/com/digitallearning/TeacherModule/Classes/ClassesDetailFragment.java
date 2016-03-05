@@ -73,7 +73,7 @@ public class ClassesDetailFragment extends Fragment{
         text_topic_name = (TextView) rootview.findViewById(R.id.text_topic_name);
         text_des=(TextView) rootview.findViewById(R.id.text_des);
         Log.e("ClassDetail.newtopicsel", "" + EditClassFragment.newtopicsel);
-
+        Log.e("isheaderrec1",""+ClassFragment.titleheader);
         dlg = new ProgressDialog(getActivity());
         preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         cla_classid = preferences.getString("cla_classid", "");
@@ -114,6 +114,7 @@ public class ClassesDetailFragment extends Fragment{
                 fragmentTransaction.commit();*/
                 Intent gotoschedule = new Intent(getActivity(), ScheduleActivity.class);
                 startActivity(gotoschedule);
+                getActivity().finish();
 
 
             }
@@ -130,18 +131,18 @@ public class ClassesDetailFragment extends Fragment{
 
         activity.getSupportActionBar().setTitle("");
         headerTitle = (TextView) activity.findViewById(R.id.mytext);
-        headerTitle.setText("Class Detail");
+        headerTitle.setText(ClassFragment.titleheader);
 
 
         createCustomAnimation();
-        initData();
+       initData();
 
 
         return rootview;
     }
-    private void initData() {
+   private void initData() {
 
-        headerTitle.setText(title);
+       // headerTitle.setText(title);
 
 
         floatingActionButtonEdit.setOnClickListener(new View.OnClickListener() {
@@ -212,6 +213,7 @@ public class ClassesDetailFragment extends Fragment{
                 Intent gotocurri = new Intent(getActivity(), CurriculumActivity.class);
                 gotocurri.putExtra("curiid",curiid);
                 startActivity(gotocurri);
+                getActivity().finish();
             }
         });
         ripple_teacher_syllabus.setOnRippleCompleteListener(new RippleView.OnRippleCompleteListener() {
@@ -224,10 +226,10 @@ public class ClassesDetailFragment extends Fragment{
                 fragmentTransaction.commit();*/
                 Intent gotocurri = new Intent(getActivity(), SyllabusActivity.class);
                 startActivity(gotocurri);
-
+                getActivity().finish();
             }
         });
-    }
+   }
 
     private void createCustomAnimation() {
 
@@ -338,7 +340,8 @@ public class ClassesDetailFragment extends Fragment{
 
 
                 }
-
+                headerTitle.setText(ClassFragment.titleheader);
+                Log.e("isheaderrec",""+ClassFragment.titleheader);
 
 
             } catch (JSONException e) {
@@ -474,7 +477,7 @@ public class ClassesDetailFragment extends Fragment{
                     JSONObject obj = arr.getJSONObject(i);
 
                     arrDay = obj.getString("day");
-                    Log.e("day", "" + arrDay);
+                    Log.e("dayOn", "" + arrDay);
 
                     if(arrDay.contains("1")){
                         scheduleday.setText("Monday");
@@ -494,14 +497,14 @@ public class ClassesDetailFragment extends Fragment{
                     else if(arrDay.contains("6")){
                         scheduleday.setText("Saturday");
                     }
-                    else if(arrDay.contains("Sunday")){
-                        scheduleday.setText("Friday");
+                    else if(arrDay.contains("7")){
+                        scheduleday.setText("Sunday");
                     }
-                    else if(arrDay.contains("Every Day")){
-                        scheduleday.setText("Friday");
+                    else if(arrDay.contains("8")){
+                        scheduleday.setText("Every Day");
                     }
-                    else if(arrDay.contains("Every Weekday")){
-                        scheduleday.setText("Friday");
+                    else if(arrDay.contains("9")){
+                        scheduleday.setText("Every Weekday");
                     }
 
                 }

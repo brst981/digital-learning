@@ -1,11 +1,14 @@
 package app.com.digitallearning.TeacherModule.Schedule;
 
 import android.content.Intent;
+import android.graphics.PointF;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 
 import com.andexert.library.RippleView;
 
@@ -20,6 +23,8 @@ public class ScheduleDescriptionFragment  extends FragmentActivity {
     EditText scheduledesc;
     int viewsch,addsch;
     String desp;
+    RelativeLayout reladdsch, relative_header;
+    ImageButton imageButtonZoomIn, imageButtonZoomOut;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,7 +32,23 @@ public class ScheduleDescriptionFragment  extends FragmentActivity {
 
         scheduledesc=(EditText)findViewById(R.id.scheduledesc);
         ripple_edit_save=(RippleView)findViewById(R.id.ripple_edit_save);
+        relative_header = (RelativeLayout) findViewById(R.id.relative_header);
+        imageButtonZoomIn = (ImageButton) findViewById(R.id.img_zoom_in);
+        imageButtonZoomOut = (ImageButton) findViewById(R.id.img_zoom_out);
+        reladdsch = (RelativeLayout) findViewById(R.id.reladdsch);
+        imageButtonZoomIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                zoom(1.5f, 1.5f, new PointF(0, 0));
+            }
+        });
 
+        imageButtonZoomOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                zoom(1f, 1f, new PointF(0, 0));
+            }
+        });
 
         viewsch=getIntent().getIntExtra("viewsch",0);
         addsch=getIntent().getIntExtra("addsch",0);
@@ -58,6 +79,11 @@ public class ScheduleDescriptionFragment  extends FragmentActivity {
 
     }
 
-
+    public void zoom(Float scaleX, Float scaleY, PointF pivot) {
+        reladdsch.setPivotX(pivot.x);
+        reladdsch.setPivotY(pivot.y);
+        reladdsch.setScaleX(scaleX);
+        reladdsch.setScaleY(scaleY);
+    }
 
 }

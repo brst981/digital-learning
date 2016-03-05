@@ -34,7 +34,6 @@ import java.util.ArrayList;
 
 import app.com.digitallearning.R;
 import app.com.digitallearning.TeacherModule.ClassActivity;
-import app.com.digitallearning.TeacherModule.Classes.ClassesDetailFragment;
 import app.com.digitallearning.TeacherModule.Classes.TopicFragment;
 import app.com.digitallearning.Utill.LogMessage;
 import app.com.digitallearning.WebServices.WSConnector;
@@ -105,11 +104,13 @@ public class CurriculumFragment extends Fragment {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentManager fragmentManager = getFragmentManager();
+                /*FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 ClassesDetailFragment classesDetailFragment = new ClassesDetailFragment();
                 fragmentTransaction.replace(R.id.container, classesDetailFragment).addToBackStack(null);
-                fragmentTransaction.commit();
+                fragmentTransaction.commit();*/
+                getFragmentManager().popBackStackImmediate();
+               // getActivity().getFragmentManager().popBackStackImmediate();
             }
         });
         /*AppCompatActivity activity = (AppCompatActivity) getActivity();
@@ -129,6 +130,7 @@ public class CurriculumFragment extends Fragment {
 
          //  curriculumtopic=" ";
             /*curriculumdes="";*/
+
             new Get_carriculum().execute(cla_classid, Sch_Mem_id);
             new Country_list().execute();
         }
@@ -230,7 +232,7 @@ public class CurriculumFragment extends Fragment {
                 TopicFragment topicFragment = new TopicFragment();
                 Bundle bundle=new Bundle();
                 bundle.putInt("id1",id);
-                bundle.putInt("id",id1);
+               // bundle.putInt("id",id1);
                 fragmentTransaction.replace(R.id.container, topicFragment).addToBackStack(null);
                 topicFragment.setArguments(bundle);
                 fragmentTransaction.commit();
@@ -299,6 +301,7 @@ public class CurriculumFragment extends Fragment {
                         countryid= String.valueOf(item+1);
                         Log.e("countryid",""+countryid);
                         txtcountry.setText(curriculuncountry);
+                        Log.e("addcurriculuncountry",""+curriculuncountry);
 
                     }
                 });
@@ -477,11 +480,35 @@ public class CurriculumFragment extends Fragment {
             Log.e("Get_syllabusAPI", "" + result);
 
             if (result.contains("false")) {
+               // curriculumtopic=" ";
+               // topic.setText("");
 
 
 //{"success":false,"data":null}
              /*   LogMessage.showDialog(getActivity(), null,
                         "Class successfully deleted", "OK");*/
+
+
+                if(curriculuncountry!=null){
+                    Log.e("received",""+curriculuncountry);
+                    txtcountry.setText(curriculuncountry);
+                }
+
+                if(curriculumlib!=null){
+                    Log.e("received",""+curriculuncountry);
+                    txtlibrary.setText(curriculumlib);
+                }
+
+                if(curriculumgradefrom!=null){
+                    Log.e("received",""+curriculuncountry);
+                    gradefrom.setText(curriculumgradefrom);
+                }
+
+                if(curriculumgradeto!=null){
+                    Log.e("received",""+curriculuncountry);
+                    gradeto.setText(curriculumgradeto);
+                }
+
                 if(curriculumtopic!=null){
                     Log.e("curriculumtopicnotnull", "" + curriculumtopic);
                     topic.setText(curriculumtopic);
@@ -692,6 +719,10 @@ public class CurriculumFragment extends Fragment {
                     }
                     text_title_curriculum.setText(title);
 
+
+
+
+
                     gradefrom.setText(lo_age);
                     gradeto.setText(hi_age);
                     edt_organization_curriculum.setText(organisation);
@@ -707,6 +738,8 @@ public class CurriculumFragment extends Fragment {
                         txtlibrary.setText("Cummunity");
                     }
 
+
+                        txtcountry.setText(strcountry);
 
 
 
@@ -826,6 +859,13 @@ public class CurriculumFragment extends Fragment {
             super.onPostExecute(result);
             dlg.dismiss();
             Log.e("Add_curriculumAPI", "" + result);
+            curriculumtopic =null;
+
+            curriculumdes=null;
+            curriculuncountry=null;
+             curriculumlib=null;
+            curriculumgradefrom=null;
+            curriculumgradeto=null;
 
             if (result.contains("true")) {
 

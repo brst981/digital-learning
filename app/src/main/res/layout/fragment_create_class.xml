@@ -20,6 +20,7 @@
                 android:background="@android:color/transparent"
                 android:src="@drawable/ic_back"
                 android:scaleType="fitXY"
+                android:visibility="gone"
                 android:id="@+id/back"
                 android:padding="7dp"
                 android:layout_alignParentLeft="true"

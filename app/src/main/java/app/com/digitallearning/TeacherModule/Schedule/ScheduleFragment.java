@@ -60,7 +60,7 @@ public class ScheduleFragment extends Fragment {
     SharedPreferences preferences;
     int pos;
     int shouldempty = 2;
-    RelativeLayout teacherlogin;
+    RelativeLayout relschedule;
     ImageButton imageButtonZoomIn, imageButtonZoomOut, back;
     ArrayList<String> arrTimeId, arrdescription, arrEn_min, arrStr_min, arrEn_Hour, arrStr_Hour, arrDay, arrLocation;
 
@@ -79,7 +79,7 @@ public class ScheduleFragment extends Fragment {
 
         dlg = new ProgressDialog(getActivity());
         preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        teacherlogin = (RelativeLayout) rootview.findViewById(R.id.teacherlogin);
+        relschedule = (RelativeLayout) rootview.findViewById(R.id.relschedule);
         imageButtonZoomIn = (ImageButton) rootview.findViewById(R.id.img_zoom_in);
         imageButtonZoomOut = (ImageButton) rootview.findViewById(R.id.img_zoom_out);
         back = (ImageButton) rootview.findViewById(R.id.back);
@@ -119,7 +119,7 @@ public class ScheduleFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent inte = new Intent(getActivity(), ViewSchedule.class);
-                inte.putExtra("timeID", arrTimeId.get(pos));
+                inte.putExtra("timeID", arrTimeId.get(position));
                 startActivity(inte);
 
             }
@@ -268,6 +268,7 @@ public class ScheduleFragment extends Fragment {
             });
             TextView day = (TextView) convertView.findViewById(R.id.day);
             //  day.setText(arrDay.get(position));
+
             if (arrDay.get(position).contains("1")) {
                 day.setText("Monday");
             } else if (arrDay.get(position).contains("2")) {
@@ -400,6 +401,7 @@ public class ScheduleFragment extends Fragment {
                     arrEn_Hour.add(En_Hour);
                     arrStr_Hour.add(Str_Hour);
                     arrDay.add(day);
+                    Log.e("ArrayDay",""+arrDay);
                     arrLocation.add(Cls_Location);
 
                 }
@@ -486,9 +488,9 @@ public class ScheduleFragment extends Fragment {
     }
 
     public void zoom(Float scaleX, Float scaleY, PointF pivot) {
-        teacherlogin.setPivotX(pivot.x);
-        teacherlogin.setPivotY(pivot.y);
-        teacherlogin.setScaleX(scaleX);
-        teacherlogin.setScaleY(scaleY);
+        relschedule.setPivotX(pivot.x);
+        relschedule.setPivotY(pivot.y);
+        relschedule.setScaleX(scaleX);
+        relschedule.setScaleY(scaleY);
     }
 }

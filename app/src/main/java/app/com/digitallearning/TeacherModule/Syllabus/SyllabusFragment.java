@@ -167,9 +167,14 @@ public class SyllabusFragment extends Fragment{
                             public void onClick(DialogInterface dialog, int which) {
                                 // TODO Auto-generated method stub
                                 dialog.dismiss();
+                               /*Intent deletetoclass=new Intent(getActivity(),ClassActivity.class);
+                                startActivity(deletetoclass);
+                                getActivity().finish();*/
+                              //  getFragmentManager().popBackStackImmediate();
                                 Intent deletetoclass=new Intent(getActivity(),ClassActivity.class);
                                 startActivity(deletetoclass);
                                 getActivity().finish();
+
 
                             }
                         });
@@ -425,7 +430,26 @@ public class SyllabusFragment extends Fragment{
             if (result.contains("true")) {
                 sylbsTitle.setText(" ");
                 des.setText(" ");
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+                alertDialog.setMessage("Syllabus updated").setCancelable(false)
+                        .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
 
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                // TODO Auto-generated method stub
+                                dialog.dismiss();
+                                Intent deletetoclass=new Intent(getActivity(),ClassActivity.class);
+                                startActivity(deletetoclass);
+                                getActivity().finish();
+
+                            }
+                        });
+
+                AlertDialog dialog = alertDialog.create();
+                dialog.show();
+                TextView messageText = (TextView) dialog
+                        .findViewById(android.R.id.message);
+                messageText.setGravity(Gravity.CENTER);
 
             } else if (result.contains("false")) {
             }}}

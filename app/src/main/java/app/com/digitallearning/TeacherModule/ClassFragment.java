@@ -57,7 +57,7 @@ public class ClassFragment extends Fragment {
 
     String arrId,arrName,arrChildId,arrChildNAme,className,classStudent,classSub,a,a1,a2,b,b1,b2,a3,b3,classid,c,c1,c2,style,passcode,classType,topic,description,createdby,classname,desc;
     boolean defineClass = false;
-    public static String titleheader,Sch_Mem_id,Mem_Sch_Id,testing,subject;
+    public static String titleheader,Sch_Mem_id,Mem_Sch_Id,testing,subject,nameclass;
     public int pos,id,updateEdit;
     int id1=16;
     ImageButton imageButtonZoomIn, imageButtonZoomOut;
@@ -416,7 +416,8 @@ public class ClassFragment extends Fragment {
             // TextView t = (TextView)convertView.findViewById(R.id.position);
             // t.setText((position + 1) + ".");
            TextView text_class_name=(TextView)convertView.findViewById(R.id.text_class_name);
-            text_class_name.setText(newclassName.get(position));
+            nameclass=newclassName.get(position);
+            text_class_name.setText(nameclass);
             TextView   text_subject_name=(TextView)convertView.findViewById(R.id.text_subject_name);
             text_subject_name.setText(newclassSub.get(position));
             TextView text_studen_name=(TextView)convertView.findViewById(R.id.text_studen_name);

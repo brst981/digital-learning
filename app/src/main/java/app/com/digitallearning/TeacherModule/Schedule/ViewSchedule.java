@@ -7,6 +7,7 @@ import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.PointF;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -15,6 +16,7 @@ import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -43,6 +45,8 @@ public class ViewSchedule extends FragmentActivity {
     EditText loc;
     RelativeLayout hori, hori1;
     RippleView rippleupdate;
+    RelativeLayout reladdsch, relative_header;
+    ImageButton imageButtonZoomIn, imageButtonZoomOut;
     TextView day, description, starttime, endtime,selectedday,descrptn;
     public static String scheduledescription,selecteday;
     String srday,srdescription,srtime,srendtime,srsthour,srstmin,srendhr,srendmin,srlocation,srdayid;
@@ -70,7 +74,23 @@ public class ViewSchedule extends FragmentActivity {
         } catch (Exception e) {
         }
 
+        relative_header = (RelativeLayout) findViewById(R.id.relative_header);
+        imageButtonZoomIn = (ImageButton) findViewById(R.id.img_zoom_in);
+        imageButtonZoomOut = (ImageButton) findViewById(R.id.img_zoom_out);
+        reladdsch = (RelativeLayout) findViewById(R.id.reladdsch);
+        imageButtonZoomIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                zoom(1.5f, 1.5f, new PointF(0, 0));
+            }
+        });
 
+        imageButtonZoomOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                zoom(1f, 1f, new PointF(0, 0));
+            }
+        });
         loc = (EditText) findViewById(R.id.loc);
         selectedday = (TextView) findViewById(R.id.selectedday);
         hori = (RelativeLayout) findViewById(R.id.hori);
@@ -557,6 +577,11 @@ public class ViewSchedule extends FragmentActivity {
         Log.e("selectedayonpause",""+selecteday);
         //selecteday=" ";
     }
-
+    public void zoom(Float scaleX, Float scaleY, PointF pivot) {
+        reladdsch.setPivotX(pivot.x);
+        reladdsch.setPivotY(pivot.y);
+        reladdsch.setScaleX(scaleX);
+        reladdsch.setScaleY(scaleY);
+    }
 
 }

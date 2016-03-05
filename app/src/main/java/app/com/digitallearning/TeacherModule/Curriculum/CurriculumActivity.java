@@ -1,5 +1,6 @@
 package app.com.digitallearning.TeacherModule.Curriculum;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -7,6 +8,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 
 import app.com.digitallearning.R;
+import app.com.digitallearning.TeacherModule.ClassActivity;
 
 /**
  * Created by ${PSR} on 2/26/16.
@@ -40,7 +42,19 @@ public class CurriculumActivity extends FragmentActivity {
             CurriculumFragment.curriculumtopic =null;
             Log.e("CurriculumFragment", "" + CurriculumFragment.curriculumtopic);
             CurriculumFragment.curriculumdes=null;
+        CurriculumFragment.curriculuncountry=null;
+            CurriculumFragment. curriculumlib=null;
+        CurriculumFragment.curriculumgradefrom=null;
+        CurriculumFragment.curriculumgradeto=null;
 
+        Intent gotoclasss=new Intent(CurriculumActivity.this, ClassActivity.class);
+        startActivity(gotoclasss);
+        finish();
+        /*FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        ClassesDetailFragment classesDetailFragment = new ClassesDetailFragment();
+        fragmentTransaction.replace(R.id.container, classesDetailFragment);
+        fragmentTransaction.commit();*/
 
     }
 }

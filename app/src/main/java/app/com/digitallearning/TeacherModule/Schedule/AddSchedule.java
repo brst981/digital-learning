@@ -7,6 +7,7 @@ import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.PointF;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -15,6 +16,7 @@ import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -44,6 +46,8 @@ public class AddSchedule extends FragmentActivity {
     int displayId;
     EditText loc;
     int shouldempty;
+    RelativeLayout reladdsch, relative_header;
+    ImageButton imageButtonZoomIn, imageButtonZoomOut;
     RelativeLayout hori, hori1;
     RippleView ripple_edit_save;
     TextView day, description, starttime, endtime,selectedday,descrptn;
@@ -66,6 +70,29 @@ public class AddSchedule extends FragmentActivity {
         hori1=(RelativeLayout)findViewById(R.id.hori1);
         descrptn=(TextView)findViewById(R.id.descrptn);
         day = (TextView) findViewById(R.id.day);
+
+
+        relative_header = (RelativeLayout) findViewById(R.id.relative_header);
+        imageButtonZoomIn = (ImageButton) findViewById(R.id.img_zoom_in);
+        imageButtonZoomOut = (ImageButton) findViewById(R.id.img_zoom_out);
+        reladdsch = (RelativeLayout) findViewById(R.id.reladdsch);
+
+
+        imageButtonZoomIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                zoom(1.5f, 1.5f, new PointF(0, 0));
+            }
+        });
+
+        imageButtonZoomOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                zoom(1f, 1f, new PointF(0, 0));
+            }
+        });
+
+
         description = (TextView) findViewById(R.id.description);
         starttime = (TextView) findViewById(R.id.starttime);
         endtime = (TextView) findViewById(R.id.endtime);
@@ -611,5 +638,10 @@ else {
 
     }
 
-
+    public void zoom(Float scaleX, Float scaleY, PointF pivot) {
+        reladdsch.setPivotX(pivot.x);
+        reladdsch.setPivotY(pivot.y);
+        reladdsch.setScaleX(scaleX);
+        reladdsch.setScaleY(scaleY);
+    }
 }
