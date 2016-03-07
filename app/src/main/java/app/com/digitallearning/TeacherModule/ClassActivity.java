@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 
 import app.com.digitallearning.R;
 import app.com.digitallearning.TeacherModule.Classes.DescriptionFragment;
@@ -37,14 +36,8 @@ public class ClassActivity extends FragmentActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-      //  finish();
-        /*CreateClassFragment.slecectedclasstype=0;
-        EditClassFragment.style=" ";
-        DescriptionFragment.description=" ";
-*/
         GlobalClass.lastValue=" ";
         EditClassFragment.style=" ";
-        Log.e("EditClassFragment.style",""+EditClassFragment.style);
         TopicFragment.topic=" ";
         DescriptionFragment.description=" ";
         EditClassFragment.topic1=" ";
