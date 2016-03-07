@@ -39,7 +39,7 @@ import app.com.digitallearning.WebServices.WSConnector;
  */
 public class ViewSchedule extends FragmentActivity {
     SharedPreferences preferences;
-    String timeId, userid, cla_classid,desp;
+    String timeId, userid, cla_classid,desp, Str_Hour , En_Hour, newstarthours ,newendhours;
     ProgressDialog dlg;
     int displayId;
     EditText loc;
@@ -49,8 +49,9 @@ public class ViewSchedule extends FragmentActivity {
     ImageButton imageButtonZoomIn, imageButtonZoomOut;
     TextView day, description, starttime, endtime,selectedday,descrptn;
     public static String scheduledescription,selecteday;
-    String srday,srdescription,srtime,srendtime,srsthour,srstmin,srendhr,srendmin,srlocation,srdayid;
+    String srday,srdescription,srtime,srendtime,srsthour,srstmin,srendhr,srendmin,srlocation,srdayid,ampm,endampm;
     String[] srstarthour,srendhour;
+    int startinghours,endinghours;
     int sttime,entime;
     final CharSequence[] items = {
             "Monday", "Tuesday", "Wednesday", "Thrusday", "Friday", "Saturday", "Sunday", "Every Day", "Every Weekday"};
@@ -130,7 +131,7 @@ public class ViewSchedule extends FragmentActivity {
                 } else if (srday.contains("Every Day")) {
                     srdayid = "8";
                     Log.e("srdayid", "" + srdayid);
-                } else if (srday.contains("Every Weekday")) {
+                } else if (srday.contains("Every WeekDay")) {
                     srdayid = "9";
                     Log.e("srdayid", "" + srdayid);
                 }
@@ -138,30 +139,66 @@ public class ViewSchedule extends FragmentActivity {
                 srdescription = descrptn.getText().toString();
                 Log.e("srdescription", "" + srdescription);
 
-                srtime = starttime.getText().toString();
-                Log.e("srtime", "" + srtime);
+                srtime= starttime.getText().toString();
+                Log.e("srtime",""+srtime);
 
-                srstarthour = srtime.split(":");
+                srstarthour=srtime.split(":");
 
-                srstarthour[0] = srstarthour[0].trim();
-                srsthour = srstarthour[0];
-                Log.e("ssrsthour", "" + srsthour);
+                srstarthour[0]=srstarthour[0].trim();
+                srsthour=srstarthour[0];
+                Log.e("ssrsthour",""+srsthour);
 
-                srstarthour[1] = srstarthour[1].trim();
-                srstmin = srstarthour[0];
-                Log.e("srstmin", "" + srstmin);
+                try {
+                    srstarthour[1] = srstarthour[1].trim();
+                    srstmin = srstarthour[1];
+                    Log.e("srstmin", "" + srstmin);
+                }
+                catch(Exception e){}
 
-                srendtime = endtime.getText().toString();
+                sttime= Integer.parseInt(srsthour);
+                Log.e("intsttime",""+sttime);
 
-                srendhour = srendtime.split(":");
+                ampm = srstmin.substring(Math.max(srstmin.length() - 2, 0));
+                Log.e("ampm",""+ampm);
 
-                srendhour[0] = srendhour[0].trim();
-                srendhr = srendhour[0];
-                Log.e("srendhr", "" + srendhr);
+                if(ampm.contains("PM")){
+                    Log.e("Visit","VIST");
+                    int hor=  Integer.parseInt(srsthour);
+                    newstarthours= String.valueOf(hor+12);
+                    Log.e("plus",""+newstarthours);
+                    srsthour=newstarthours;
 
-                srendhour[1] = srendhour[1].trim();
-                srendmin = srendhour[1];
-                Log.e("srendmin", "" + srendmin);
+                }
+                srendtime=endtime.getText().toString();
+
+                srendhour=srendtime.split(":");
+
+                srendhour[0]=srendhour[0].trim();
+                srendhr=srendhour[0];
+                //   Log.e("srendhr",""+srendhr);
+                try {
+                    srendhour[1]=srendhour[1].trim();
+                    srendmin=srendhour[1];
+                    Log.e("srendmin",""+srendmin);
+                }
+                catch(Exception e){}
+                try {
+
+                    entime=Integer.parseInt(srendhr);
+                    Log.e("entime",""+entime);
+                }
+                catch(Exception e){}
+
+                endampm = srendmin.substring(Math.max(srendmin.length() - 2, 0));
+                Log.e("endampm",""+endampm);
+
+                if(endampm.contains("PM")){
+                    Log.e("Visit","VIST");
+                    int hor=  Integer.parseInt(srendhr);
+                    newendhours= String.valueOf(hor+12);
+                    Log.e("plus",""+newendhours);
+                    srendhr=newendhours;
+                }
 
                 srlocation = loc.getText().toString();
                 Log.e("srlocation", "" + srlocation);
@@ -220,15 +257,11 @@ public class ViewSchedule extends FragmentActivity {
             public void onClick(View v) {
 
 
-                /**
-                 *  Custom Alert Dialog ...
-                 */
                 AlertDialog.Builder builder = new AlertDialog.Builder(ViewSchedule.this);
                 builder.setTitle("Make your selection");
                 builder.setItems(items, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int item) {
-                        // Do something with the selection
-                        //  mDoneButton.setText(items[item]);
+
                         Log.e("items[item]", "" + items[item]);
                         selecteday = String.valueOf(items[item]);
                         Log.e("selecteday", "" + selecteday);
@@ -246,11 +279,7 @@ public class ViewSchedule extends FragmentActivity {
         hori1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               /* FragmentManager fragmentManager = getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                ScheduleDescriptionFragment scheduleDescriptionFragment = new ScheduleDescriptionFragment();
-                fragmentTransaction.replace(R.id.container, scheduleDescriptionFragment).addToBackStack(null);
-                fragmentTransaction.commit();*/
+
                 int viewsch=12;
                 desp=descrptn.getText().toString();
                 Intent gotodesp=new Intent(ViewSchedule.this,ScheduleDescriptionFragment.class);
@@ -262,7 +291,7 @@ public class ViewSchedule extends FragmentActivity {
         });
 
         Log.e("scheduledescription", "" + scheduledescription);
-        //     descrptn.setText(scheduledescription);
+
         starttime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -336,13 +365,13 @@ public class ViewSchedule extends FragmentActivity {
                     String day1 = obj.getString("day");
                     Log.e("day", "" + day1);
 
-                    String Str_Hour = obj.getString("Str_Hour");
+                     Str_Hour = obj.getString("Str_Hour");
                     Log.e("Str_Hour", "" + Str_Hour);
 
                     String Str_Min = obj.getString("Str_Min");
                     Log.e("Str_Min", "" + Str_Min);
 
-                    String En_Hour = obj.getString("En_Hour");
+                     En_Hour = obj.getString("En_Hour");
                     Log.e("En_Hour", "" + En_Hour);
 
                     String En_Min = obj.getString("En_Min");
@@ -384,15 +413,32 @@ public class ViewSchedule extends FragmentActivity {
                     }
                     if(scheduledescription==null){
                     descrptn.setText(Description);}
-                    else{
+                    else {
                         descrptn.setText(scheduledescription);
                     }
 
-                    //showTimePicker();
-                    starttime.setText(pad(Integer.parseInt(Str_Hour)) + ":" + pad(Integer.parseInt(Str_Min)) );
-                    endtime.setText(pad(Integer.parseInt(En_Hour)) + ":" + pad(Integer.parseInt(En_Min))  );
-                   /* starttime.setText(Str_Hour + ":" + Str_Min);
-                    endtime.setText(En_Hour + ":" + En_Min);*/
+                    try {
+                        startinghours = Integer.parseInt(Str_Hour);
+                        if (startinghours > 12) {
+
+                            Str_Hour = String.valueOf(startinghours - 12);
+                            starttime.setText(pad(Integer.parseInt(Str_Hour)) + ":" + pad(Integer.parseInt(Str_Min)) +" "+ "PM");
+
+                        } else {
+                            starttime.setText(pad(Integer.parseInt(Str_Hour)) + ":" + pad(Integer.parseInt(Str_Min)) +" "+ "AM");
+                        }
+
+                        endinghours = Integer.parseInt(En_Hour);
+                        if (endinghours > 12) {
+
+                            En_Hour = String.valueOf(endinghours - 12);
+                            endtime.setText(pad(Integer.parseInt(En_Hour)) + ":" + pad(Integer.parseInt(Str_Min)) + " "+"PM");
+
+                        } else {
+                            endtime.setText(pad(Integer.parseInt(En_Hour)) + ":" + pad(Integer.parseInt(Str_Min)) + " "+"AM");
+                        }
+                    }
+                    catch (Exception e){}
                     loc.setText(Cls_Location);
                 }
 
@@ -401,7 +447,6 @@ public class ViewSchedule extends FragmentActivity {
                 e.printStackTrace();
             }
         }
-
     }
 
 
@@ -435,12 +480,6 @@ public class ViewSchedule extends FragmentActivity {
                 Log.e("REsulTinAddSchedule", "" + result);
                 if (result.contains("true")) {
 
-                    /*FragmentManager fragmentManager = getSupportFragmentManager();
-                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                    ScheduleFragment scheduleFragment = new ScheduleFragment();
-                    fragmentTransaction.replace(R.id.container, scheduleFragment).addToBackStack(null);
-                    fragmentTransaction.commit();*/
-
                     Intent gotoschedule=new Intent(ViewSchedule.this, ScheduleActivity.class);
                     startActivity(gotoschedule);
                     finish();
@@ -468,18 +507,18 @@ public class ViewSchedule extends FragmentActivity {
 
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
-            // Use the current time as the default values for the picker
+
             final Calendar c = Calendar.getInstance();
             int hour = c.get(Calendar.HOUR_OF_DAY);
             int minute = c.get(Calendar.MINUTE);
 
-            // Create a new instance of TimePickerDialog and return it
+
             return new TimePickerDialog(getActivity(), this, hour, minute,
                     DateFormat.is24HourFormat(getActivity()));
         }
 
         public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-            // Do something with the time chosen by the user
+
             String AM_PM = "";
 
             Calendar datetime = Calendar.getInstance();
@@ -496,22 +535,16 @@ public class ViewSchedule extends FragmentActivity {
             String min = (datetime.get(Calendar.MINUTE) == 0) ? "12" : datetime
                     .get(Calendar.MINUTE) + "";
 
-
-
-            //    starttime.setText(hours + " : " + min + AM_PM);
-            starttime.setText(pad(Integer.parseInt(hours)) + ":" + pad(Integer.parseInt(min)) + AM_PM );
+            starttime.setText(pad(Integer.parseInt(hours)) + ":" + pad(Integer.parseInt(min))+" " + AM_PM );
 
         }
 
-
     }
-
 
     protected void showTimePicker1() {
         TimePickerFragmentEndTime newFragment = new TimePickerFragmentEndTime();
         newFragment.show(getFragmentManager(), "timePicker");
     }
-
 
 
 
@@ -547,11 +580,7 @@ public class ViewSchedule extends FragmentActivity {
                     .get(Calendar.HOUR) + "";
             String min = (datetime.get(Calendar.MINUTE) == 0) ? "12" : datetime
                     .get(Calendar.MINUTE) + "";
-
-
-
-            //    starttime.setText(hours + " : " + min + AM_PM);
-            endtime.setText(pad(Integer.parseInt(hours)) + ":" + pad(Integer.parseInt(min)) + AM_PM );
+            endtime.setText(pad(Integer.parseInt(hours)) + ":" + pad(Integer.parseInt(min)) +" " + AM_PM );
 
         }
 
@@ -567,7 +596,6 @@ public class ViewSchedule extends FragmentActivity {
     @Override
     public void onStart() {
         super.onStart();
-       // selecteday=" ";
         Log.e("selectedayonstart",""+selecteday);
     }
 
@@ -575,7 +603,6 @@ public class ViewSchedule extends FragmentActivity {
     public void onPause() {
         super.onPause();
         Log.e("selectedayonpause",""+selecteday);
-        //selecteday=" ";
     }
     public void zoom(Float scaleX, Float scaleY, PointF pivot) {
         reladdsch.setPivotX(pivot.x);

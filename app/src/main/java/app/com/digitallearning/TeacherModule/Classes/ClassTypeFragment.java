@@ -69,14 +69,6 @@ public class ClassTypeFragment extends Fragment {
                 checkBox2.setVisibility(View.GONE);
                 checkBox3.setVisibility(View.GONE);
 
-              /*  FragmentManager fragmentManager = getFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                CreateClassFragment createClassFragment = new CreateClassFragment();
-                Bundle bundle=new Bundle();
-                bundle.putString("Instructor","Instructor");
-                fragmentTransaction.replace(R.id.container, createClassFragment).addToBackStack(null);
-                createClassFragment.setArguments(bundle);
-                fragmentTransaction.commit();*/
             }
         });
         ripple_main1.setOnRippleCompleteListener(new RippleView.OnRippleCompleteListener() {
@@ -88,15 +80,6 @@ public class ClassTypeFragment extends Fragment {
                 checkBox1.setVisibility(View.GONE);
                 checkBox3.setVisibility(View.GONE);
 
-
-              /*  FragmentManager fragmentManager = getFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                CreateClassFragment createClassFragment = new CreateClassFragment();
-                Bundle bundle=new Bundle();
-                bundle.putString("Blended","Blended");
-                fragmentTransaction.replace(R.id.container, createClassFragment).addToBackStack(null);
-                createClassFragment.setArguments(bundle);
-                fragmentTransaction.commit();*/
             }
         });
         ripple_main2.setOnRippleCompleteListener(new RippleView.OnRippleCompleteListener() {
@@ -109,15 +92,6 @@ public class ClassTypeFragment extends Fragment {
                 checkBox1.setVisibility(View.GONE);
                 checkBox2.setVisibility(View.GONE);
 
-
-               /* FragmentManager fragmentManager = getFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                CreateClassFragment createClassFragment = new CreateClassFragment();
-                Bundle bundle=new Bundle();
-                bundle.putString("Self-Paced","Self-Paced");
-                fragmentTransaction.replace(R.id.container, createClassFragment).addToBackStack(null);
-                createClassFragment.setArguments(bundle);
-                fragmentTransaction.commit();*/
             }
         });
         rippleSave.setOnRippleCompleteListener(new RippleView.OnRippleCompleteListener() {
@@ -125,15 +99,6 @@ public class ClassTypeFragment extends Fragment {
             public void onComplete(RippleView rippleView) {
                getFragmentManager().popBackStackImmediate();
 
-          /*      FragmentManager fragmentManager = getFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                EditClassFragment createClassFragment = new EditClassFragment();
-               *//* Bundle arg=new Bundle();
-                arg.putString("classtpye",classtpye);*//*
-                Log.e("classclasstpye",""+classtpye);
-                fragmentTransaction.replace(R.id.container, createClassFragment).addToBackStack(null);
-                //createClassFragment.setArguments(arg);
-                fragmentTransaction.commit();*/
             }
         });
         imageButtonZoomIn.setOnClickListener(new View.OnClickListener() {

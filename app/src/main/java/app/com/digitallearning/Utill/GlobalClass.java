@@ -5,4 +5,5 @@ package app.com.digitallearning.Utill;
  */
 public class GlobalClass {
     public static String lastValue=" ";
+    public static boolean prefClear=false;
 }

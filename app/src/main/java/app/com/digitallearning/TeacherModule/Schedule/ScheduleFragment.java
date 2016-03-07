@@ -112,7 +112,7 @@ public class ScheduleFragment extends Fragment {
         mListView = (ListView) rootview.findViewById(R.id.listview_archieved);
         mAdapter = new ListViewAdapter(getActivity());
         mListView.setAdapter(mAdapter);
-        mAdapter.notifyDataSetChanged();
+      //  mAdapter.notifyDataSetChanged();
         mAdapter.setMode(Attributes.Mode.Single);
 
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -281,11 +281,11 @@ public class ScheduleFragment extends Fragment {
                 day.setText("Friday");
             } else if (arrDay.get(position).contains("6")) {
                 day.setText("Saturday");
-            } else if (arrDay.contains("7")) {
+            } else if (arrDay.get(position).contains("7")) {
                 day.setText("Sunday");
-            } else if (arrDay.contains("8")) {
+            } else if (arrDay.get(position).contains("8")) {
                 day.setText("Every Day");
-            } else if (arrDay.contains("9")) {
+            } else if (arrDay.get(position).contains("9")) {
                 day.setText("Every Weekday");
             }
             TextView location = (TextView) convertView.findViewById(R.id.location);
@@ -466,7 +466,10 @@ public class ScheduleFragment extends Fragment {
                                 // mListView.setAdapter(mAdapter);
                                 Log.e("posdelete", "" + arrDay.get(pos));
                                 arrDay.remove(pos);
-                                mAdapter.notifyDataSetChanged();
+                                mAdapter = new ListViewAdapter(getActivity());
+
+                                mListView.setAdapter(mAdapter);
+                              //  mAdapter.notifyDataSetChanged();
                                 Log.e("sizeafterdelete", "" + arrDay.size());
                                 Log.e("sizeafterdelete", "" + arrDay.size());
                             }

@@ -36,9 +36,6 @@ import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
@@ -46,7 +43,6 @@ import java.util.ArrayList;
 
 import app.com.digitallearning.Constant.AppConstant;
 import app.com.digitallearning.R;
-import app.com.digitallearning.WebServices.WSConnector;
 
 /**
  * Created by ${ShalviSharma} on 12/22/15.
@@ -249,72 +245,12 @@ public class ChangePictureFragment extends Fragment {
         }
     }
 
-    /*class Class_image extends AsyncTask<String, Integer, String> {
-
-
-        @Override
-        protected String doInBackground(String... params) {
-
-            return Class_image();
-
-        }
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            dlg.setMessage("Loading.....");
-            dlg.setCancelable(false);
-            dlg.show();
-
-
-        }
-
-
-        @Override
-        protected void onPostExecute(String result) {
-            super.onPostExecute(result);
-            dlg.dismiss();
-            Log.e("Class_imageAPI", "" + result);
-
-            if (result.contains("true")) {
-
-
-
-
-            } else if (result.contains("false")) {
-
-
-            }
-        }
-    }
-    public  String Class_image() {
-
-        String url = AppConstant.class_image;
-        List<NameValuePair> pairs = new ArrayList<NameValuePair>();
-        pairs.add(new BasicNameValuePair("classid", cla_classid));
-        pairs.add(new BasicNameValuePair("userid", Sch_Mem_id));
-        pairs.add(new BasicNameValuePair("cls_image", picturePath));
-
-        String result = WSAdapter.postJSONObject(url, pairs);
-
-
-        return result;
-
-    }*/
-
-
-
-
-
-
     class Class_image extends AsyncTask<String, Integer, String> {
 
 
         @Override
         protected String doInBackground(String... params) {
 
-            // String url = WSConnector.Register(params[0] ,params[1], params[2], params[3], params[4]);
-            Log.e("DoinBackground","DoinBackground");
 
             return uploadFile();
         }
@@ -337,41 +273,16 @@ public class ChangePictureFragment extends Fragment {
 
             if (result.contains("true")) {
 
-// {"result":true,"message":"Registered_Login_successfully~Congratulations. You have Signed up Successfully.","Object":{"id":140102,"full_name":"kiran","profile_pic_small":null,"location":"khanna"}}
-//jittigrewal12@gmail.com
-//{"result":true,"message":"Registered_Login_successfully~Congratulations. You have Signed up Successfully.","Object":{"id":140103,"full_name":"jot","profile_pic_small":null,"location":"gjs"}}
-//jotgrewal131994@gmail.com
-
-
-
-
                 Toast.makeText(getActivity(),"Profile pic uploaded",Toast.LENGTH_SHORT).show();
-
-       /*       try {
-
-                    jsonObject = new JSONObject(result);
-                    uid = jsonObject.getString("id");
-                    Log.e("result",""+result);
-                    Log.e("id",""+uid);
-                    String res=jsonObject.getString("message");
-                    Toast.makeText(getApplicationContext(),""+result,Toast.LENGTH_SHORT).show();
-                    Intent intentGotologin1=new Intent(RegisterActivity.this,LoginwithEmailActivity.class);
-                    startActivity(intentGotologin1);
-
-                }catch (Exception e){
-
-                }*/
             }
 
             else  if (result.contains("false")){
 
                 Toast.makeText(getActivity(),"Email address already exists !!!",Toast.LENGTH_SHORT).show();
 
-
             }
         }
     }
-
 
 
     private String uploadFile() {
@@ -423,95 +334,5 @@ public class ChangePictureFragment extends Fragment {
         Log.e("responseString", "" + responseString);
         return responseString;
     }
-
-
-
-
-    class Get_Class_image extends AsyncTask<String, Integer, String> {
-
-
-        @Override
-        protected String doInBackground(String... params) {
-
-            return WSConnector.Get_image(params[0]);
-
-        }
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            dlg.setMessage("Loading....");
-            dlg.setCancelable(false);
-            dlg.show();
-
-
-        }
-
-
-        @Override
-        protected void onPostExecute(String result) {
-            super.onPostExecute(result);
-            dlg.dismiss();
-            Log.e("REsulTinAddSchedule", "" + result);
-            if (result.contains("true")) {
-                updateTeacherLogIn(result);
-
-            } else if (result.contains("false")) {
-                Toast.makeText(getActivity(), "Wrong User", Toast.LENGTH_SHORT).show();
-
-            }
-        }
-
-
-        private void updateTeacherLogIn(String success) {
-
-            try {
-
-                JSONObject jsonObject = new JSONObject(success);
-                Log.e("jsonObject", "" + jsonObject);
-
-
-                JSONArray arr = jsonObject.getJSONArray("data");
-                Log.e("arr", " " + arr);
-                for (int i = 0; i < arr.length(); i++) {
-                    Log.e("i",""+i);
-                    JSONObject obj = arr.getJSONObject(i);
-                    Log.e("obj", "" + obj);
-                    asd= String.valueOf(obj.isNull("class_image"));
-                    Log.e("asd",""+obj.isNull("class_image"));
-                     b = Boolean.valueOf(asd);
-                    Log.e("b",""+b);
-                    if (b==false){
-                      // asd= String.valueOf((arrimage.contains("[]")));
-                        Log.e("asd",""+obj.isNull("class_image"));
-                        img_edit_picture.setImageResource(R.drawable.no_image_icon);
-                    }
-                    else{
-                    String class_image = obj.getString("class_image");
-                    Log.e("class_image", "" + class_image);
-
-                        if(class_image!=null){
-                     myUri = Uri.parse(class_image);
-                    arrimage.add(class_image);
-                    Log.e("arrimage",""+arrimage);
-                    Log.e("myUri",""+myUri);
-                            b=true;
-                            Log.e("btrue",""+b);
-
-
-                    Picasso.with(getActivity()).load(class_image).into(img_edit_picture);}}
-
-                }
-
-
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-
-
-    }
-
-
 
 }

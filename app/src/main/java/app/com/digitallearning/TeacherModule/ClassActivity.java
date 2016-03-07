@@ -10,6 +10,7 @@ import app.com.digitallearning.R;
 import app.com.digitallearning.TeacherModule.Classes.DescriptionFragment;
 import app.com.digitallearning.TeacherModule.Classes.EditClassFragment;
 import app.com.digitallearning.TeacherModule.Classes.TopicFragment;
+import app.com.digitallearning.Utill.GlobalClass;
 
 /**
  * Created by ${PSR} on 2/18/16.
@@ -21,6 +22,7 @@ public class ClassActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_class);
+        GlobalClass.lastValue="";
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
@@ -40,11 +42,16 @@ public class ClassActivity extends FragmentActivity {
         EditClassFragment.style=" ";
         DescriptionFragment.description=" ";
 */
+        GlobalClass.lastValue=" ";
         EditClassFragment.style=" ";
         Log.e("EditClassFragment.style",""+EditClassFragment.style);
         TopicFragment.topic=" ";
         DescriptionFragment.description=" ";
         EditClassFragment.topic1=" ";
+        TopicFragment.nwstring=" ";
+        TopicFragment.otherstring=" ";
+        EditClassFragment.newtopicsel="";
+        GlobalClass.prefClear=true;
      //   TopicFragment.artthe=" ";
       //  TopicFragment.itemart=" ";
 

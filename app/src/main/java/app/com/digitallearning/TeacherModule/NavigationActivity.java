@@ -259,6 +259,11 @@ public class NavigationActivity extends AppCompatActivity implements NavigationD
 
             super.onBackPressed();
 
+
+            Intent gotoclass=new Intent(NavigationActivity.this,ClassActivity.class);
+            startActivity(gotoclass);
+            finish();
+
         }
 
     }

@@ -107,11 +107,6 @@ public class ClassesDetailFragment extends Fragment{
         ripple_teacher_schedule.setOnRippleCompleteListener(new RippleView.OnRippleCompleteListener() {
             @Override
             public void onComplete(RippleView rippleView) {
-               /* FragmentManager fragmentManager = getFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                ScheduleFragment scheduleFragment = new ScheduleFragment();
-                fragmentTransaction.replace(R.id.container, scheduleFragment).addToBackStack(null);
-                fragmentTransaction.commit();*/
                 Intent gotoschedule = new Intent(getActivity(), ScheduleActivity.class);
                 startActivity(gotoschedule);
                 getActivity().finish();
@@ -142,19 +137,12 @@ public class ClassesDetailFragment extends Fragment{
     }
    private void initData() {
 
-       // headerTitle.setText(title);
-
-
         floatingActionButtonEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*FragmentManager fragmentManager = getFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                EditClassFragment classFragment = new EditClassFragment();
-                fragmentTransaction.replace(R.id.container, classFragment).addToBackStack(null);
-                fragmentTransaction.commit();*/
                 Intent intent=new Intent(getActivity(),EditClassFragment.class);
                 startActivity(intent);
+                getActivity().finish();
             }
         });
 
@@ -202,14 +190,6 @@ public class ClassesDetailFragment extends Fragment{
         rippleViewCurriculum.setOnRippleCompleteListener(new RippleView.OnRippleCompleteListener() {
             @Override
             public void onComplete(RippleView rippleView) {
-               /* FragmentManager fragmentManager = getFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                CurriculumFragment curriculumFragment = new CurriculumFragment();
-                Bundle bundle=new Bundle();
-                bundle.putInt("curiid",curiid);
-                fragmentTransaction.replace(R.id.container, curriculumFragment).addToBackStack(null);
-                curriculumFragment.setArguments(bundle);
-                fragmentTransaction.commit();*/
                 Intent gotocurri = new Intent(getActivity(), CurriculumActivity.class);
                 gotocurri.putExtra("curiid",curiid);
                 startActivity(gotocurri);
@@ -219,11 +199,6 @@ public class ClassesDetailFragment extends Fragment{
         ripple_teacher_syllabus.setOnRippleCompleteListener(new RippleView.OnRippleCompleteListener() {
             @Override
             public void onComplete(RippleView rippleView) {
-               /* FragmentManager fragmentManager=getFragmentManager();
-                FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
-                SyllabusFragment syllabusFragment=new SyllabusFragment();
-                fragmentTransaction.replace(R.id.container, syllabusFragment).addToBackStack(null);
-                fragmentTransaction.commit();*/
                 Intent gotocurri = new Intent(getActivity(), SyllabusActivity.class);
                 startActivity(gotocurri);
                 getActivity().finish();
@@ -232,10 +207,6 @@ public class ClassesDetailFragment extends Fragment{
    }
 
     private void createCustomAnimation() {
-
-
-
-
         AnimatorSet set = new AnimatorSet();
 
         ObjectAnimator scaleOutX = ObjectAnimator.ofFloat(menu_main.getMenuIconView(), "scaleX", 1.0f, 0.2f);
@@ -265,11 +236,6 @@ public class ClassesDetailFragment extends Fragment{
         menu_main.setIconToggleAnimatorSet(set);
     }
 
-
-
-
-
-
     class Get_Class_image extends AsyncTask<String, Integer, String> {
 
 
@@ -277,7 +243,6 @@ public class ClassesDetailFragment extends Fragment{
         protected String doInBackground(String... params) {
 
             return WSConnector.Get_image(params[0]);
-
         }
 
         @Override
@@ -286,10 +251,7 @@ public class ClassesDetailFragment extends Fragment{
             dlg.setMessage("Loading....");
             dlg.setCancelable(false);
             dlg.show();
-
-
         }
-
 
         @Override
         protected void onPostExecute(String result) {
@@ -350,11 +312,6 @@ public class ClassesDetailFragment extends Fragment{
         }}
 
 
-
-
-
-
-
     class Get_carriculum extends AsyncTask<String, Integer, String> {
 
 
@@ -372,10 +329,7 @@ public class ClassesDetailFragment extends Fragment{
             dlg.setCancelable(false);
             dlg.show();
 
-
         }
-
-
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
@@ -391,8 +345,6 @@ public class ClassesDetailFragment extends Fragment{
         private void updateTeacherLogIn(String success) {
 
             try {
-//[{"title":"Ggg","desc":"G\n","hi_age":"7","organisation":"f","state":"g","library":"1","topic_name":"Training ",
-// "lo_age":"2","topic_id":"12","curid":"225","country":"8","cur_class_id":"1869"}]
                 JSONObject jsonObject = new JSONObject(success);
                 JSONArray arr = jsonObject.getJSONArray("data");
                 Log.e("arr", " " + arr);
@@ -409,19 +361,6 @@ public class ClassesDetailFragment extends Fragment{
             }
         }
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
     class Schedule_listing extends AsyncTask<String, Integer, String> {
 
 
@@ -458,10 +397,6 @@ public class ClassesDetailFragment extends Fragment{
 
             }
         }
-//{"success":true,"user_type":"Teacher","Sch_Mem_id":"2155","Mem_Sch_Id":"487","Mem_Type":"1, 4","Mem_Name":"Ashish",
-// "Mem_Emailid":"brstdev@gmail.com","class_data":[{"class_id":"183599","cls_createdby":"2155","cls_name":"1",
-// "Cls_desc":"Test","subject":"Training ","cla_classid":"1800","students":"0","cls_image":"","orderid":"649",
-// "new_orderid":"125"},
 
         private void updateTeacherLogIn(String success) {
 
@@ -514,13 +449,6 @@ public class ClassesDetailFragment extends Fragment{
         }
 
     }
-
-
-
-
-
-
-
     class Get_syllabus extends AsyncTask<String, Integer, String> {
 
 
@@ -554,13 +482,7 @@ public class ClassesDetailFragment extends Fragment{
                 updateTeacherLogIn(result);
                 }
 
-            /*    JSONObject obj=new JSONObject();
-                String data=obj.getString("data");
-                Log.e("data",""data);*/
-
-                // Toast.makeText(getActivity(), "Wrong User", Toast.LENGTH_SHORT).show();
-
-            }
+        }
         }
         private void updateTeacherLogIn(String success) {
 
@@ -568,8 +490,6 @@ public class ClassesDetailFragment extends Fragment{
 
                 JSONObject jsonObject = new JSONObject(success);
 
-//[{"sy_id":"196","syllabus":"cbshjd","title":"new"}]
-                //  LogMessage.showDialog(getActivity(), null, "" +data, "OK");
                 JSONArray arr = jsonObject.getJSONArray("data");
                 Log.e("arr", " " + arr);
                 for (int i = 0; i < arr.length(); i++) {
@@ -587,11 +507,3 @@ public class ClassesDetailFragment extends Fragment{
             }
         }
     }
-
-
-
-
-
-
-
-

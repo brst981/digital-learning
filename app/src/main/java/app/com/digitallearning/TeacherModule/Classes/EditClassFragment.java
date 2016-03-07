@@ -211,7 +211,6 @@ public class EditClassFragment extends FragmentActivity {
                                 textcal="Calender";
                                 Log.e("cal",""+cal);
                             }
-
                             else if (!checkbox1.isChecked()) {
                                 cal="\" \" ";
 
@@ -270,21 +269,16 @@ public class EditClassFragment extends FragmentActivity {
                             }
                         }
                     });
-
-
-
                     dialog.show();
                     buttonSave.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-
                             feature="";
                             newfeature="";
                             Log.e("newfeaturenull",""+newfeature);
                              feature=textcal+" "+textchat+" "+textenable+" "+texttab;
                              newfeature= feature.replace("null","");
                             Log.e("newfeature",""+newfeature);
-
 
                                 text_features_detail.setText(newfeature);
                             ondialog=newfeature;
@@ -294,16 +288,12 @@ public class EditClassFragment extends FragmentActivity {
                             feature="";
                             newfeature="";
                             Log.e("newfeatureagain",""+newfeature);
-
                         }
                     });
-
                 }
 
 
             });
-
-
 
             relative_description = (RelativeLayout) findViewById(R.id.relative_description);
             relative_description.setOnClickListener(new View.OnClickListener() {

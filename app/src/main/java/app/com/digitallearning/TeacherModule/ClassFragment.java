@@ -40,6 +40,7 @@ import java.util.ArrayList;
 import app.com.digitallearning.R;
 import app.com.digitallearning.TeacherModule.Classes.CreateClassFragment;
 import app.com.digitallearning.TeacherModule.Classes.EditClassFragment;
+import app.com.digitallearning.Utill.GlobalClass;
 import app.com.digitallearning.WebServices.WSConnector;
 
 /**
@@ -89,7 +90,9 @@ public class ClassFragment extends Fragment {
         imageButtonZoomIn = (ImageButton)rootview. findViewById(R.id.img_zoom_in);
         imageButtonZoomOut = (ImageButton) rootview.findViewById(R.id.img_zoom_out);
         newrelative=(RelativeLayout)rootview.findViewById(R.id.newrelative);
-       /* try {
+
+        GlobalClass.lastValue=" ";
+        /* try {
             updateEdit = getArguments().getInt("updateEdit");
             Log.e("updateEdit", "" + updateEdit);
             if (updateEdit == 20) {
@@ -399,13 +402,13 @@ public class ClassFragment extends Fragment {
             swipeLayout.setOnDoubleClickListener(new SwipeLayout.DoubleClickListener() {
                 @Override
                 public void onDoubleClick(SwipeLayout layout, boolean surface) {
-                    Toast.makeText(mContext, "DoubleClick", Toast.LENGTH_SHORT).show();
+                  //  Toast.makeText(mContext, "DoubleClick", Toast.LENGTH_SHORT).show();
                 }
             });
             v.findViewById(R.id.delete).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Toast.makeText(mContext, "click delete", Toast.LENGTH_SHORT).show();
+                  //  Toast.makeText(mContext, "click delete", Toast.LENGTH_SHORT).show();
                 }
             });
             return v;

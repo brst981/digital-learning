@@ -52,7 +52,7 @@ public class AddSchedule extends FragmentActivity {
     RippleView ripple_edit_save;
     TextView day, description, starttime, endtime,selectedday,descrptn;
     public static String scheduledescription,selecteday;
-    String srday,srdescription,srtime,srendtime,srsthour,srstmin,srendhr,srendmin,srlocation,srdayid;
+    String srday,srdescription,srtime,srendtime,srsthour,newstarthours,srstmin,srendhr,srendmin,newendhours,srlocation,srdayid,ampm,endampm;
     String[] srstarthour={"ghshx","vxyh"};
     String[] srendhour;
     int sttime,entime;
@@ -181,17 +181,27 @@ catch (Exception e){}
                 }
                 catch(Exception e){}
 
-
                 sttime= Integer.parseInt(srsthour);
                 Log.e("intsttime",""+sttime);
 
+                 ampm = srstmin.substring(Math.max(srstmin.length() - 2, 0));
+                Log.e("ampm",""+ampm);
+
+                if(ampm.contains("PM")){
+                    Log.e("Visit","VIST");
+                  int hor=  Integer.parseInt(srsthour);
+                    newstarthours= String.valueOf(hor+12);
+                    Log.e("plus",""+newstarthours);
+                    srsthour=newstarthours;
+
+                }
                 srendtime=endtime.getText().toString();
 
                 srendhour=srendtime.split(":");
 
                 srendhour[0]=srendhour[0].trim();
                 srendhr=srendhour[0];
-                Log.e("srendhr",""+srendhr);
+             //   Log.e("srendhr",""+srendhr);
                 try {
                 srendhour[1]=srendhour[1].trim();
                 srendmin=srendhour[1];
@@ -204,6 +214,17 @@ catch (Exception e){}
                 Log.e("entime",""+entime);
                 }
                 catch(Exception e){}
+
+                endampm = srendmin.substring(Math.max(srendmin.length() - 2, 0));
+                Log.e("endampm",""+endampm);
+
+                if(endampm.contains("PM")){
+                    Log.e("Visit","VIST");
+                    int hor=  Integer.parseInt(srendhr);
+                    newendhours= String.valueOf(hor+12);
+                    Log.e("plus",""+newendhours);
+                    srendhr=newendhours;
+                }
 
                 srlocation=  loc.getText().toString();
                 Log.e("srlocation",""+srlocation);
@@ -242,6 +263,8 @@ catch (Exception e){}
 else {
                     Log.e("eintsttime",""+sttime);
                     Log.e("eintentime",""+entime);
+                    Log.e("newstarthours",""+newstarthours);
+                    Log.e("newendhours",""+newendhours);
                     new add_Schedule().execute(cla_classid, userid, srdayid, srsthour, srstmin, srendhr, srendmin, srlocation, srdescription);
                 }
                 }
@@ -475,41 +498,6 @@ else {
     }
 
 
-
-    /*public void onTimeSet(TimePicker view, int hourOfDay, int minute){
-        //Do something with the user chosen time
-        //Get reference of host activity (XML Layout File) TextView widget
-      //  TextView tv = (TextView) getActivity().findViewById(R.id.tv);
-        //Set a message for user
-
-        //Get the AM or PM for current time
-        String aMpM = "AM";
-        if(hourOfDay >11)
-        {
-            aMpM = "PM";
-        }
-
-        //Make the 24 hour time format to 12 hour time format
-        int currentHour;
-        if(hourOfDay>11)
-        {
-            currentHour = hourOfDay - 12;
-        }
-        else
-        {
-            currentHour = hourOfDay;
-        }
-
-        starttime.setText("Your chosen time is...\n\n");
-        //Display the user changed time on TextView
-        starttime.setText(starttime.getText()+ String.valueOf(currentHour)
-                + " : " + String.valueOf(minute) + " " + aMpM + "\n");
-
-    }*/
-
-
-
-
     protected void showTimePicker() {
         TimePickerFragmentStartTime newFragment = new TimePickerFragmentStartTime();
          newFragment.show(getFragmentManager(), "timePicker");
@@ -554,7 +542,7 @@ else {
 
 
         //    starttime.setText(hours + " : " + min + AM_PM);
-            starttime.setText(pad(Integer.parseInt(hours)) + ":" + pad(Integer.parseInt(min)) + AM_PM );
+            starttime.setText(pad(Integer.parseInt(hours)) + ":" + pad(Integer.parseInt(min))+" " + AM_PM );
 
 
         }
@@ -631,7 +619,7 @@ else {
 
 
             //    starttime.setText(hours + " : " + min + AM_PM);
-            endtime.setText(pad(Integer.parseInt(hours)) + ":" + pad(Integer.parseInt(min)) + AM_PM );
+            endtime.setText(pad(Integer.parseInt(hours)) + ":" + pad(Integer.parseInt(min)) +" "+ AM_PM );
 
         }
 

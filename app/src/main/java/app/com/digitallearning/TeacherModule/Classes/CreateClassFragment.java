@@ -34,7 +34,7 @@ public class CreateClassFragment extends Fragment {
     View rootview;
     Button btnSave;
     RippleView ripple_main,ripple_main1,ripple_main2;
-    String arrName,arrChildNAme,classtpye,topic,description,title,arrId,a,b,what,get;
+    String arrName,arrChildNAme,classtpye,topic,description,title,arrId,a,b,what;
     ProgressDialog dlg;
     EditText edt_title;
     static String Sch_Mem_id,userMem_Sch_Id,class_id;
@@ -72,30 +72,6 @@ public class CreateClassFragment extends Fragment {
         Log.e("abc",""+ topic);
 
         idres=getArguments().getInt("id");
-        //
-        // id1=getArguments().getInt("id1");
-        /*if(id1==16){
-            TopicFragment.topic=" ";
-            DescriptionFragment.description=" ";
-        }*/
-
-        /*if(idres==1){
-            Log.e("slecectedclasstypefirst",""+slecectedclasstype);
-
-            selecteddes.setText("");
-            selectedclass.setText("");
-              Log.e("idres",""+idres);
-        }*/
-
-
-       /*if (slecectedclasstype == 0) {
-            selectedclass.setText("Instructor");
-        } else if (slecectedclasstype == 1) {
-            selectedclass.setText("Blended");
-        }
-        else if (slecectedclasstype == 2) {
-            selectedclass.setText("Self Paced");
-        }*/
 
         Sch_Mem_id=getArguments().getString("Sch_Mem_id");
         Log.e("Sch_Mem_id",""+Sch_Mem_id);
@@ -109,39 +85,8 @@ public class CreateClassFragment extends Fragment {
         class_id=getArguments().getString("classid");
         Log.e("class_id",""+class_id);
 
-
-
-
-       /* a = class_id.replace("[", "");
-        Log.e("a",""+a);
-        b = a.replace("]", "");
-        Log.e("b",""+b);
-
-        List<String> myList = new ArrayList<String>(Arrays.asList(b.split(",")));
-
-        Log.e("myList",""+myList);*/
-
-
-
-
-        /*classtpye= ClassFragment.classtpye;
-        Log.e("getValue",""+classtpye);
-*/
         topic= TopicFragment.topic;
         Log.e("getValuetopic",""+topic);
-
-
-        /*try{
-            if(topic.equalsIgnoreCase("9")){
-                Log.e("visithere","visithere");
-                Log.e("OtherStrincreate",""+TopicFragment.otherstring);
-
-                 what=selectedtopic.getText().toString();
-                Log.e("what",""+what);
-
-            }
-            selectedtopic.setText(TopicFragment.otherstring);
-        }catch (Exception e){}*/
 
 
         try{
@@ -156,19 +101,6 @@ public class CreateClassFragment extends Fragment {
             topic="5";
         }}
         catch (Exception e){}
-
-       /* if (topic == "1") {
-
-            selectedtopic.setText("Art");
-        }
-        else if(topic == "3"){
-            selectedtopic.setText("Theater");
-        }
-
-        else if(topic == "5")
-        {
-            selectedtopic.setText("Visual Art");
-        }*/
 
         description= DescriptionFragment.description;
         Log.e("descriptionInClass",""+description);
@@ -196,11 +128,6 @@ public class CreateClassFragment extends Fragment {
 
             @Override
             public void onComplete(RippleView rippleView) {
-               /* FragmentManager fragmentManager = getFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                ClassTypeFragment classTypeFragment = new ClassTypeFragment();
-                fragmentTransaction.replace(R.id.container, classTypeFragment).addToBackStack(null);
-                fragmentTransaction.commit();*/
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                 builder.setTitle("Make your selection");
@@ -248,11 +175,11 @@ public class CreateClassFragment extends Fragment {
             @Override
             public void onComplete(RippleView rippleView) {
 
-                if(selectedtopic.getText().toString()!=null){
+                /*if(selectedtopic.getText().toString()!=null){
 
                     get=selectedtopic.getText().toString();
                     Log.e("get",""+get);
-                }
+                }*/
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 TopicFragment topicFragment = new TopicFragment();
@@ -261,10 +188,6 @@ public class CreateClassFragment extends Fragment {
                 bundle.putInt("id1",id);
                 bundle.putString("arrName",String.valueOf(arrName));
                 bundle.putString("arrId",(arrId));
-                try {
-                    bundle.putString("get",(get));
-                }
-                catch (Exception e){}
                 bundle.putString("arrChildNAme",String.valueOf(arrChildNAme));
                 fragmentTransaction.replace(R.id.container, topicFragment).addToBackStack(null);
                 topicFragment.setArguments(bundle);
@@ -319,11 +242,8 @@ public class CreateClassFragment extends Fragment {
         });
 
 
-
-
         GlobalClass.lastValue=EditClassFragment.newtopicsel;
         Log.e("lastvalueglobalres", "" + GlobalClass.lastValue);
-
 
 
         return rootview;
@@ -369,10 +289,6 @@ public class CreateClassFragment extends Fragment {
             Log.e("MainResult",""+result);
             if (result.contains("true")) {
 
-               //updateCreateClass(result);
-
-              //  Log.e("jhdj",""+"");
-              // selectedclass.setText("");
                 topic=" ";
                 Log.e("topiconPost",""+topic);
                 description=" ";
@@ -381,14 +297,17 @@ public class CreateClassFragment extends Fragment {
                 TopicFragment.topic=" ";
                 DescriptionFragment.description=" ";
                 EditClassFragment.topic1=" ";
+                TopicFragment.nwstring=" ";
+                TopicFragment.otherstring=" ";
+
               //  TopicFragment.artthe=" ";
               //   TopicFragment.itemart=" ";
                 selecteddes.setText(description);
                 selectedtopic.setText(topic);
 
-
-
-                GlobalClass.lastValue=EditClassFragment.newtopicsel;
+                EditClassFragment.newtopicsel=" ";
+                GlobalClass.prefClear=true;
+                GlobalClass.lastValue=" ";
                 try{
                     if(topic.equalsIgnoreCase("9")){
                         selectedtopic.setText(TopicFragment.otherstring);
@@ -413,18 +332,4 @@ public class CreateClassFragment extends Fragment {
         rellogin.setScaleX(scaleX);
         rellogin.setScaleY(scaleY);
     }
-
- /*   @Override
-    public void onStart() {
-        super.onStart();
-
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        selecteddes.setText("");
-        selectedclass.setText("");
-    }*/
-
-
 }
