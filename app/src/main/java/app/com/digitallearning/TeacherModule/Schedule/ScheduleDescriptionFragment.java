@@ -22,15 +22,27 @@ public class ScheduleDescriptionFragment  extends FragmentActivity {
     RippleView ripple_edit_save;
     EditText scheduledesc;
     int viewsch,addsch;
-    String desp;
+    String desp,textDescription;
     RelativeLayout reladdsch, relative_header;
     ImageButton imageButtonZoomIn, imageButtonZoomOut;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.schedule_desc_fragment);
-
         scheduledesc=(EditText)findViewById(R.id.scheduledesc);
+
+        viewsch=getIntent().getIntExtra("viewsch",0);
+        addsch=getIntent().getIntExtra("addsch",0);
+        if(addsch==10){
+            textDescription=getIntent().getStringExtra("textDescription");
+            Log.e("textDescription",""+textDescription);
+            scheduledesc.setText(textDescription);
+        }
+        if(viewsch==12){
+            desp=getIntent().getStringExtra("desp");
+            scheduledesc.setText(desp);
+        }
+
         ripple_edit_save=(RippleView)findViewById(R.id.ripple_edit_save);
         relative_header = (RelativeLayout) findViewById(R.id.relative_header);
         imageButtonZoomIn = (ImageButton) findViewById(R.id.img_zoom_in);
@@ -50,10 +62,8 @@ public class ScheduleDescriptionFragment  extends FragmentActivity {
             }
         });
 
-        viewsch=getIntent().getIntExtra("viewsch",0);
-        addsch=getIntent().getIntExtra("addsch",0);
-        desp=getIntent().getStringExtra("desp");
-        scheduledesc.setText(desp);
+
+
 
         ripple_edit_save.setOnRippleCompleteListener(new RippleView.OnRippleCompleteListener() {
             @Override
@@ -86,4 +96,13 @@ public class ScheduleDescriptionFragment  extends FragmentActivity {
         reladdsch.setScaleY(scaleY);
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        if ((addsch==10)){
+            Intent backadsch=new Intent(ScheduleDescriptionFragment.this,ScheduleActivity.class);
+            startActivity(backadsch);
+            finish();
+        }
+    }
 }

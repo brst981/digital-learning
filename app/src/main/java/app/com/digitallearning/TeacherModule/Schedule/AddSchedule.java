@@ -347,6 +347,7 @@ else {
                 fragmentTransaction.commit();*/
                 int addsch=10;
                 Intent gotodesp=new Intent(AddSchedule.this,ScheduleDescriptionFragment.class);
+                gotodesp.putExtra("textDescription",descrptn.getText().toString());
                 gotodesp.putExtra("addsch",addsch);
                 startActivity(gotodesp);
                 finish();
@@ -631,5 +632,13 @@ else {
         reladdsch.setPivotY(pivot.y);
         reladdsch.setScaleX(scaleX);
         reladdsch.setScaleY(scaleY);
+    }
+
+  @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent gotoclasss=new Intent(AddSchedule.this, ScheduleActivity.class);
+        startActivity(gotoclasss);
+        finish();
     }
 }

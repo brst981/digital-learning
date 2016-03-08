@@ -90,7 +90,7 @@
 
     </RelativeLayout>
     <EditText
-        android:hint="abc"
+
         android:textSize="18sp"
         android:id="@+id/desc"
         android:padding="5dp"

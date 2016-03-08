@@ -13,6 +13,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -32,6 +33,7 @@ import org.json.JSONObject;
 import app.com.digitallearning.R;
 import app.com.digitallearning.TeacherModule.ClassActivity;
 import app.com.digitallearning.TeacherModule.ClassFragment;
+import app.com.digitallearning.Utill.GlobalClass;
 import app.com.digitallearning.WebServices.WSConnector;
 
 /**
@@ -415,6 +417,7 @@ public class EditClassFragment extends FragmentActivity {
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
+            Log.e("singleclass",""+result);
             dlg.dismiss();
 
             if (result.contains("true")) {
@@ -452,7 +455,9 @@ public class EditClassFragment extends FragmentActivity {
                      classname = obj.getString("classname");
                     String classpassword = obj.getString("classpassword");
                      styles = obj.getString("style");
+                    Log.e("STYLE",""+styles);
                      topic_id = obj.getString("topic_id");
+                    Log.e("topic_id",""+topic_id);
                     topics = obj.getString("topic_name");
 
                      desc = obj.getString("desc");
@@ -532,40 +537,68 @@ public class EditClassFragment extends FragmentActivity {
                 edt_passcode.setText(classidgetupdate);
 
 
-                if (style!=null){
-                    if(style.contains("1")){
 
+                Log.e("StyleSt",""+style);
+                if(style==null){
+
+                    if(styles.equals("1")){
                         text_type_detail.setText("Instructor");
                     }
-                    else if(style.contains("2")){
-                        //  styles= "Blended";
+                   else if(styles.equals("2")){
                         text_type_detail.setText("Blended");
                     }
-                    else {
+                  else  if(styles.equals("3")){
+                        text_type_detail.setText("Self Paced");
+                    }
+
+
+                }
+
+                else if(style!=null){
+                    if(style.equals("1")){
+                        text_type_detail.setText("Instructor");
+                    }
+                    else if(style.equals("2")){
+                        text_type_detail.setText("Blended");
+                    }
+                    else  if(style.equals("3")){
+                        text_type_detail.setText("Self Paced");
+                    }
+                }
+
+                /*if (style!=null) {
+                    Log.e("notStylenull", "" + style);
+                    if (style.contains("1")) {
+
+                        text_type_detail.setText("Instructor");
+                    } else if (style.contains("2")) {
+                        //  styles= "Blended";
+                        text_type_detail.setText("Blended");
+                    } else if (style.contains("3")) {
                         //  styles= "Self Paced";
                         text_type_detail.setText("Self Paced");
 
                     }
-
                 }
 
-                else if(styles.contains("1")){
 
-                    //   styles= "Instructor";
-                    text_type_detail.setText("Instructor");
+
+                    else if(style==null) {
+                    if (styles.contains("1")) {
+
+                        //   styles= "Instructor";
+                        text_type_detail.setText("Instructor");
+                    } else if (styles.contains("2")) {
+                        //  styles= "Blended";
+                        text_type_detail.setText("Blended");
+                    } else if (styles.contains("3")) {
+                        //  styles= "Self Paced";
+                        text_type_detail.setText("Self Paced");
+
+                    }
+                    //  text_type_detail.setText(styles);
                 }
-                else if(styles.contains("2")){
-                    //  styles= "Blended";
-                    text_type_detail.setText("Blended");
-                }
-                else {
-                    //  styles= "Self Paced";
-                    text_type_detail.setText("Self Paced");
-
-                }
-                //  text_type_detail.setText(styles);
-
-
+*/
                 if(fromsave==1){
 
                     text_topic_detail.setText(topic1);
@@ -658,6 +691,15 @@ public class EditClassFragment extends FragmentActivity {
                 DescriptionFragment.description=" ";
                 EditClassFragment.topic1=" ";
 
+
+
+
+                TopicFragment.nwstring=" ";
+                TopicFragment.otherstring=" ";
+                EditClassFragment.newtopicsel="";
+                GlobalClass.prefClear=true;
+
+
                 Intent intenttoClass=new Intent(EditClassFragment.this , ClassActivity.class);
                 startActivity(intenttoClass);
                 finish();
@@ -713,5 +755,16 @@ public class EditClassFragment extends FragmentActivity {
         TopicFragment.topic=" ";
         DescriptionFragment.description=" ";
         EditClassFragment.topic1=" ";
+
+
+        TopicFragment.nwstring=" ";
+        TopicFragment.otherstring=" ";
+        EditClassFragment.newtopicsel="";
+        GlobalClass.prefClear=true;
+
+
+        Intent intentgotoclass=new Intent(EditClassFragment.this,ClassActivity.class);
+        startActivity(intentgotoclass);
+        finish();
     }
 }

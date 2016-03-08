@@ -71,6 +71,7 @@ public class TopicFragment extends Fragment {
     ArrayList<String> arrId, arrName, arrChildId, arrChildNAme;
     boolean[] checkBoxState;
     SharedPreferences.Editor editor;
+    ;
 
     int selectedItem;
     boolean checkboxselected;
@@ -92,25 +93,29 @@ public class TopicFragment extends Fragment {
         ripple_topic_save = (RippleView) rootview.findViewById(R.id.ripple_topic_save);
         pref = getActivity().getSharedPreferences("digitalLearning", Context.MODE_APPEND);
         editor = pref.edit();
-
+Log.e("GlobalClass.lastValue","jkj"+GlobalClass.lastValue);
         try {
             id = getArguments().getInt("id1");
+            Log.e("idreceived", "" + id);
         } catch (Exception e) {
         }
         try {
 
 
             get = getArguments().getString("get");
-
+            Log.e("gettop", "" + get);
+            Log.e("arrName", "" + arrName);
+            Log.e("CONTAIN", "" + arrName.contains("get"));
         } catch (Exception e) {
         }
         try {
             if (GlobalClass.prefClear)
                 editor.clear();
             editor.commit();
-
+          //  Toast.makeText(getActivity(),"clear",Toast.LENGTH_SHORT).show();
         }
         catch(Exception e){
+          //  Toast.makeText(getActivity(),"clear1",Toast.LENGTH_SHORT).show();
 
             editor.clear();
             editor.commit();
@@ -120,13 +125,16 @@ public class TopicFragment extends Fragment {
 
         try {
             id1 = getArguments().getInt("id");
+            Log.e("id1", "" + id1);
             if (id1 == 1) {
                 relative_header.setVisibility(View.GONE);
             }
             fromEdit = getArguments().getInt("fromEdit");
             newTitle = getArguments().getString("newTitle");
             semester = getArguments().getString("semester1");
+            Log.e("semestertopic", "" + semester);
             coursecode = getArguments().getString("coursecode1");
+            Log.e("coursecodetopic", "" + coursecode);
         } catch (Exception e) {
         }
 
@@ -211,8 +219,6 @@ public class TopicFragment extends Fragment {
             this.arrChildId = arrChildId;
             this.arrChildNAme = arrChildNAme;
 
-
-
         }
 
 
@@ -236,6 +242,7 @@ public class TopicFragment extends Fragment {
 
             try {
 
+
                 String match = String.valueOf(get.equals(arrName.get(position)));
                 if (match.equalsIgnoreCase("true")) {
 
@@ -244,6 +251,7 @@ public class TopicFragment extends Fragment {
                     if (a.equalsIgnoreCase("true")) {
 
                         b = String.valueOf(arrName.indexOf(get));
+
                         holder.checkBox.setChecked(true);
 
                     }
@@ -283,24 +291,49 @@ public class TopicFragment extends Fragment {
                 holder.artitem.setText(" ");
             }
 
+
+            /*if(position==0) {
+                holder.artitem.setText("");
+                holder.artitem.setText(nwstring);
+            }
+            else
+                holder.artitem.setText("");
+            if(position==2) {
+                holder.artitem.setText("");
+                holder.artitem.setText(otherstring);
+            }
+            else
+                holder.artitem.setText("");
+*/
+
             if (position != 0 & position != 2) {
                 holder.checkBox.setVisibility(View.VISIBLE);
             }
 
             String art = holder.a3cat.getText().toString();
 
+
             if (art.contains("Art")) {
+
 
             }
 
             holder.checkBox.setTag(holder);
-
+//            if (val == null)
+//                holder.artitem.setText("");
+//            else {
+//                if (position == 0)
+//                    holder.artitem.setText(val);
+//                else if (position == 2)
+//                    holder.artitem.setText(val);
+//            }
 
             if (checkBoxState[position] == true)
                 holder.checkBox.setChecked(true);
             else
                 holder.checkBox.setChecked(false);
             holder.mainLayout.setTag(holder);
+            Log.e("main", holder.mainLayout + "");
             holder.checkBox.setTag(holder);
             holder.checkBox.setOnClickListener(new View.OnClickListener() {
 
@@ -310,6 +343,7 @@ public class TopicFragment extends Fragment {
                     ViewHolder holder = (ViewHolder) v.getTag();
                     holder.a3ripple.performClick();
 
+                    //notifyDataSetChanged();
 
 
                 }
@@ -348,6 +382,9 @@ public class TopicFragment extends Fragment {
 
                         CharSequence[] art = {"Art", "Theater", "Visual Art"};
 
+                        Log.e("ho", "" + arrName.get(holder.pos).matches("Art"));
+
+                        Log.e("Position0", "" + holder.pos);
                         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                         builder.setTitle("Make your selection");
                         builder.setCancelable(false);
@@ -356,14 +393,22 @@ public class TopicFragment extends Fragment {
 
 
                                 selectedItem = item;
-
+                                Log.e("items", "" + item);
                                 itemart = String.valueOf(item);
+                                Log.e("itemart", "" + itemart);
                                 if (itemart.equalsIgnoreCase("0")) {
                                     notifyDataSetChanged();
                                     nwstring = "Art";
                                     val = nwstring;
+                                    Log.e("nwstring", "" + nwstring);
                                     again = "1";
-
+                                    Log.e("again", "" + again);
+                                    Log.e("selectd ", "hbgfh" + EditClassFragment.topic1);
+                                   /* for(int i=0;i<checkBoxState.length;i++)
+                                    {
+                                        checkBoxState[i]=false;
+                                        notifyDataSetChanged();
+                                    }*/
                                     holder.artitem.setText(val);
 
                                     editor.clear();
@@ -378,8 +423,10 @@ public class TopicFragment extends Fragment {
                                     notifyDataSetChanged();
                                     nwstring = "Theater";
                                     val = nwstring;
-
-                                    again = "3";
+                                    Log.e("nwstring", "" + nwstring);
+                                    Log.e("val", "" + val);
+                                    again = "4";
+                                    Log.e("again", "" + again);
                                     holder.artitem.setText(val);
                                     editor.clear();
                                     editor.putInt("pos", holder.pos);
@@ -391,7 +438,9 @@ public class TopicFragment extends Fragment {
                                     notifyDataSetChanged();
                                     nwstring = "Visual Art";
                                     val = nwstring;
+                                    Log.e("nwstring", "" + nwstring);
                                     again = "5";
+                                    Log.e("again", "" + again);
                                     holder.artitem.setText(val);
                                     editor.clear();
                                     editor.putInt("pos", holder.pos);
@@ -403,18 +452,25 @@ public class TopicFragment extends Fragment {
 
                                 if (id == 6) {
                                     EditClassFragment.sr_topic1 = again;
+                                    Log.e("nwstring", "dd" + nwstring);
                                     EditClassFragment.topic1 = nwstring;
 
 
                                     topic = nwstring;
+                                    Log.e("SElected", "" + topic);
 
                                     EditClassFragment.topic1 = nwstring;
+                                    Log.e("name", "" + EditClassFragment.topic1);
+
                                     EditClassFragment.sr_topic1 = again;
+                                    Log.e("id", "" + EditClassFragment.sr_topic1);
                                 }
                                 if (id == 2) {
 
                                     CurriculumFragment.curriculumtopic = nwstring;//name
+                                    Log.e("Currinwstringd", "" + CurriculumFragment.curriculumtopic);
                                     CurriculumFragment.curriculumtopicid = again;  //id
+                                    Log.e("Currtopicidd", "" + CurriculumFragment.curriculumtopicid);
                                 }
                             }
                         });
@@ -424,7 +480,11 @@ public class TopicFragment extends Fragment {
                     } else if (arrName.get(holder.pos).matches("Other")) {
 
 
+                        Log.e("postionn", "" + holder.pos + " " + lastSavePos);
+
+                        Log.e("Position2", "" + holder.pos);
                         final Dialog dialog = new Dialog(getActivity());
+
                         dialog.setContentView(R.layout.popup);
                         dialog.setCancelable(false);
                         dialog.setTitle("Other");
@@ -440,7 +500,7 @@ public class TopicFragment extends Fragment {
                                 notifyDataSetChanged();
 
                                 othrdes = txt.getText().toString();
-
+                                Log.e("othrdes", "" + othrdes);
                                 holder.artitem.setText(othrdes);
                                 Other = othrdes;
                                 GlobalClass.prefClear=false;
@@ -461,14 +521,17 @@ public class TopicFragment extends Fragment {
                                     otherstringid = "9";
                                     if (id == 6) {
                                         EditClassFragment.sr_topic1 = otherstringid;
+                                        Log.e("otherstringid", "" + EditClassFragment.sr_topic1);
                                         EditClassFragment.topic1 = otherstring;
                                     }
 
                                     topic = otherstringid;
+                                    Log.e("SElectedother", "" + topic);
                                     if (id == 2) {
                                         CurriculumFragment.curriculumtopic = otherstring;
+                                        Log.e("Currinwstringd", "" + CurriculumFragment.curriculumtopic);
                                         CurriculumFragment.curriculumtopicid = otherstringid;
-
+                                        Log.e("Currtopicidd", "" + CurriculumFragment.curriculumtopicid);
                                     }
 
                                     dialog.dismiss();
@@ -482,58 +545,87 @@ public class TopicFragment extends Fragment {
 
                     }
 
-
+                    Log.e("position", "" + holder.pos);
 
 
                     if (id == 2) {
+                        Log.e("idcurr", "" + id);
 
                         CurriculumFragment.curriculumtopic = arrName.get(holder.pos);
+                        Log.e("Curriculum.curriculumto", "" + CurriculumFragment.curriculumtopic);
                         CurriculumFragment.curriculumtopicid = arrId.get(holder.pos);
+                        Log.e("Curriculum.tid", "" + CurriculumFragment.curriculumtopicid);
 
 
                         if (CurriculumFragment.curriculumtopic.equalsIgnoreCase("Art")) {
 
+                            Log.e("bhejfkif", "FBRJKFN");
                             CurriculumFragment.curriculumtopic = nwstring;//name
+                            Log.e("Currinwstring", "dd" + CurriculumFragment.curriculumtopic);
                             CurriculumFragment.curriculumtopicid = again;  //id
+                            Log.e("Currtopicid", "" + CurriculumFragment.curriculumtopicid);
 
                         } else if (CurriculumFragment.curriculumtopic.equalsIgnoreCase("Other")) {
 
                             CurriculumFragment.curriculumtopic = otherstring;
+                            Log.e("curriotherstring", "" + CurriculumFragment.curriculumtopic);
                             CurriculumFragment.curriculumtopicid = otherstringid;
+                            Log.e("curriotherstringid", "" + CurriculumFragment.curriculumtopicid);
 
                         }
 
 
                     }
+                    Log.e("VALUEOntext", "" + EditClassFragment.topic1);
+                    Log.e("EditClassFragmenttopic", "" + EditClassFragment.sr_topic1);
+                    Log.e("vbsh", "" + EditClassFragment.topic1);
+                    Log.e("TopicmyList1", "" + arrId);
+                    Log.e("newtopicsel", "" + EditClassFragment.newtopicsel);
+
 
                     if (id == 6) {
-
+                        Log.e("idtxtnull", "" + id);
                         topic = arrId.get(holder.pos);
                         if (itemart != null) {
-
+                            Log.e("itemartnotn", "" + itemart);
                             artthe = itemart;
-
+                            Log.e("artthe", "" + artthe);
                         }
+
+
+                        Log.e("itemartnotnullEdit", "" + itemart);
 
                         EditClassFragment.newtopicsel = arrName.get(holder.pos);
 
-
+                        Log.e("EditClassFragmenttopic", "" + EditClassFragment.sr_topic1);
+                        Log.e("newtopicsel", "" + EditClassFragment.newtopicsel);
                         EditClassFragment.topic1 = arrName.get(holder.pos);
+                        Log.e("vbsh", "" + EditClassFragment.topic1);
+                        Log.e("TopicmyList1", "" + arrId);
                         EditClassFragment.sr_topic1 = arrId.get(holder.pos);
                         if (EditClassFragment.newtopicsel.equalsIgnoreCase("Art")) {
 
+                            Log.e("bhejfkif", "FBRJKFN");
                             EditClassFragment.newtopicsel = nwstring;//name
+                            Log.e("nwstring", "dd" + nwstring);
                             EditClassFragment.topic1 = again;  //id
                             topic = nwstring;
 
+                            Log.e("SElected", "" + topic);
+
+
                             EditClassFragment.topic1 = nwstring;
+                            Log.e("name", "" + EditClassFragment.topic1);
 
                             EditClassFragment.sr_topic1 = again;
+                            Log.e("id", "" + EditClassFragment.sr_topic1);
                         } else if (EditClassFragment.newtopicsel.equalsIgnoreCase("Other")) {
 
                             EditClassFragment.sr_topic1 = otherstringid;
+                            Log.e("otherstringid", "" + EditClassFragment.sr_topic1);
                             EditClassFragment.topic1 = otherstring;
                             topic = otherstring;
+                            Log.e("SElectedother", "" + topic);
                         }
                     }
                     //notifyDataSetChanged();
@@ -617,19 +709,26 @@ public class TopicFragment extends Fragment {
             try {
                 JSONObject jsonObject = new JSONObject(success);
                 JSONArray arr = jsonObject.getJSONArray("data");
+
                 checkBoxState = new boolean[arr.length()];
 
                 for (int i = 0; i < arr.length(); i++) {
                     JSONObject obj = arr.getJSONObject(i);
+
                     String id = obj.getString("id");
+
                     String name = obj.getString("name");
 
                     arrId.add(id);
+
                     arrName.add(name);
+
                     Object ss = obj.get("child");
+
 
                     try {
                         if (GlobalClass.lastValue.equals(name)) {
+
                             checkBoxState[i] = true;
 
                         } else
@@ -638,19 +737,25 @@ public class TopicFragment extends Fragment {
                     }
                     if (ss instanceof JSONArray) {
                         JSONArray arr1 = obj.getJSONArray("child");
+
                         if (arr1.length() != 0) {
                             for (int j = 0; j < arr1.length(); j++) {
                                 JSONObject obj1 = arr1.getJSONObject(j);
+
                                 String id1 = obj1.getString("id");
+
                                 String name1 = obj1.getString("name");
 
+
                                 arrChildId.add(id1);
+
                                 arrChildNAme.add(name1);
 
                             }
                         }
                     } else {
                         String child = obj.getString("child");
+
                     }
                 }
                 mAdapter = new MyRecyclerViewAdapter(arrId, arrName, arrChildId, arrChildNAme);

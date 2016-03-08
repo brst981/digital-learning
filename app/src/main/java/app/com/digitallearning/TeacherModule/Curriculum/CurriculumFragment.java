@@ -35,6 +35,7 @@ import java.util.ArrayList;
 import app.com.digitallearning.R;
 import app.com.digitallearning.TeacherModule.ClassActivity;
 import app.com.digitallearning.TeacherModule.Classes.TopicFragment;
+import app.com.digitallearning.Utill.GlobalClass;
 import app.com.digitallearning.Utill.LogMessage;
 import app.com.digitallearning.WebServices.WSConnector;
 
@@ -66,6 +67,7 @@ public class CurriculumFragment extends Fragment {
     String st,strstring;
     int i1;
     int idi;
+    String  gradefromId,gradetoId;
     String strcountry;
     RelativeLayout teacherlogin;
     ImageButton imageButtonZoomIn, imageButtonZoomOut,back;
@@ -187,14 +189,132 @@ public class CurriculumFragment extends Fragment {
                 }
                 Log.e("libid",""+libid);
                 addsrgradefrom=gradefrom.getText().toString();
-                Log.e("addsrgradefrom",""+addsrgradefrom);
 
+
+
+
+                if(addsrgradefrom.equals("K")){
+                    gradefromId="1";
+                }
+
+                else if(addsrgradefrom.equals("1")){
+                    gradefromId="2";
+                }
+                else if(addsrgradefrom.equals("2")){
+                    gradefromId="3";
+                }
+                else if(addsrgradefrom.equals("3")){
+                    gradefromId="4";
+                }
+                else if(addsrgradefrom.equals("4")){
+                    gradefromId="5";
+                }
+                else if(addsrgradefrom.equals("5")){
+                    gradefromId="6";
+                }
+                else if(addsrgradefrom.equals("6")){
+                    gradefromId="7";
+                }
+                else if(addsrgradefrom.equals("7")){
+                    gradefromId="8";
+                }
+                else if(addsrgradefrom.equals("8")){
+                    gradefromId="9";
+                }
+                else if(addsrgradefrom.equals("9")){
+                    gradefromId="10";
+                }
+                else if(addsrgradefrom.equals("10")){
+                    gradefromId="11";
+                }
+                else if(addsrgradefrom.equals("11")){
+                    gradefromId="12";
+                }
+                else if(addsrgradefrom.equals("12")){
+                    gradefromId="13";
+                }
+                else if(addsrgradefrom.equals("HigherEd")){
+                    gradefromId="14";
+                }
                 addsrgradeto=gradeto.getText().toString();
-                Log.e("addsrgradeto",""+addsrgradeto);
+
+
+
+
+                if(addsrgradeto.equals("K")){
+                    gradetoId="1";
+                }
+
+                else if(addsrgradeto.equals("1")){
+                    gradetoId="2";
+                }
+                else if(addsrgradeto.equals("2")){
+                    gradetoId="3";
+                }
+                else if(addsrgradeto.equals("3")){
+                    gradetoId="4";
+                }
+                else if(addsrgradeto.equals("4")){
+                    gradetoId="5";
+                }
+                else if(addsrgradeto.equals("5")){
+                    gradetoId="6";
+                }
+                else if(addsrgradeto.equals("6")){
+                    gradetoId="7";
+                }
+                else if(addsrgradeto.equals("7")){
+                    gradetoId="8";
+                }
+                else if(addsrgradeto.equals("8")){
+                    gradetoId="9";
+                }
+                else if(addsrgradeto.equals("9")){
+                    gradetoId="10";
+                }
+                else if(addsrgradeto.equals("10")){
+                    gradetoId="11";
+                }
+                else if(addsrgradeto.equals("11")){
+                    gradetoId="12";
+                }
+                else if(addsrgradeto.equals("12")){
+                    gradetoId="13";
+                }
+                else if(addsrgradeto.equals("HigherEd")){
+                    gradetoId="14";
+                }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                Log.e("gradefromId",""+gradefromId);
+
+                Log.e("gradetoId",""+gradetoId);
+
+             //   addsrgradeto=gradeto.getText().toString();
+              //  Log.e("addsrgradeto",""+addsrgradeto);
 
                 if(textsave.contains("Save")) {
 
-                    new Add_curriculum().execute(cla_classid,Sch_Mem_id,addsrtitle,curriculumtopicid,addsrdescription,libid,addsrgradefrom,addsrgradeto,addsrorganization,countryid,addsrstate);
+                    new Add_curriculum().execute(cla_classid,Sch_Mem_id,addsrtitle,curriculumtopicid,addsrdescription,libid, gradefromId,gradetoId,addsrorganization,countryid,addsrstate);
 
                 }
 
@@ -281,9 +401,6 @@ public class CurriculumFragment extends Fragment {
                 alert.show();
             }
         });
-
-
-
 
         ripple_teacher_country.setOnRippleCompleteListener(new RippleView.OnRippleCompleteListener() {
             @Override
@@ -476,7 +593,9 @@ public class CurriculumFragment extends Fragment {
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
-            dlg.dismiss();
+         //   try{
+            dlg.dismiss();//}
+         //   catch (Exception e){}
             Log.e("Get_syllabusAPI", "" + result);
 
             if (result.contains("false")) {
@@ -535,23 +654,24 @@ public class CurriculumFragment extends Fragment {
 
                 }
 
+                try {
 
-                AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
-                alertDialog.setMessage("No data").setCancelable(false)
-                        .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+                    alertDialog.setMessage("No data").setCancelable(false)
+                            .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
 
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                // TODO Auto-generated method stub
-                                dialog.dismiss();
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    // TODO Auto-generated method stub
+                                    dialog.dismiss();
                                /* Intent deletetoclass=new Intent(getActivity(),ClassActivity.class);
                                 startActivity(deletetoclass);
                                 getActivity().finish();*/
 
-                            }
-                        });
+                                }
+                            });
 
-                AlertDialog dialog = alertDialog.create();
+                    AlertDialog dialog = alertDialog.create();
 
 
 
@@ -567,7 +687,7 @@ public class CurriculumFragment extends Fragment {
                 else{
                     dialog.dismiss();
                 }
-
+                }catch (Exception e){}
             } else if (result.contains("true")) {
                 idi=10;
                 updateTeacherLogIn(result);
@@ -618,22 +738,118 @@ public class CurriculumFragment extends Fragment {
                         addsrgradefrom=gradefrom.getText().toString();
                         Log.e("addsrgradefrom",""+addsrgradefrom);
 
+
+
+
+                        if(addsrgradefrom.equals("K")){
+                            gradefromId="1";
+                        }
+
+                        else if(addsrgradefrom.equals("1")){
+                            gradefromId="2";
+                        }
+                        else if(addsrgradefrom.equals("2")){
+                            gradefromId="3";
+                        }
+                        else if(addsrgradefrom.equals("3")){
+                            gradefromId="4";
+                        }
+                        else if(addsrgradefrom.equals("4")){
+                            gradefromId="5";
+                        }
+                        else if(addsrgradefrom.equals("5")){
+                            gradefromId="6";
+                        }
+                        else if(addsrgradefrom.equals("6")){
+                            gradefromId="7";
+                        }
+                        else if(addsrgradefrom.equals("7")){
+                            gradefromId="8";
+                        }
+                        else if(addsrgradefrom.equals("8")){
+                            gradefromId="9";
+                        }
+                        else if(addsrgradefrom.equals("9")){
+                            gradefromId="10";
+                        }
+                        else if(addsrgradefrom.equals("10")){
+                            gradefromId="11";
+                        }
+                        else if(addsrgradefrom.equals("11")){
+                            gradefromId="12";
+                        }
+                        else if(addsrgradefrom.equals("12")){
+                            gradefromId="13";
+                        }
+                        else if(addsrgradefrom.equals("HigherEd")){
+                            gradefromId="14";
+                        }
                         addsrgradeto=gradeto.getText().toString();
-                        Log.e("addsrgradeto",""+addsrgradeto);
+
+
+
+
+                        if(addsrgradeto.equals("K")){
+                            gradetoId="1";
+                        }
+
+                        else if(addsrgradeto.equals("1")){
+                            gradetoId="2";
+                        }
+                        else if(addsrgradeto.equals("2")){
+                            gradetoId="3";
+                        }
+                        else if(addsrgradeto.equals("3")){
+                            gradetoId="4";
+                        }
+                        else if(addsrgradeto.equals("4")){
+                            gradetoId="5";
+                        }
+                        else if(addsrgradeto.equals("5")){
+                            gradetoId="6";
+                        }
+                        else if(addsrgradeto.equals("6")){
+                            gradetoId="7";
+                        }
+                        else if(addsrgradeto.equals("7")){
+                            gradetoId="8";
+                        }
+                        else if(addsrgradeto.equals("8")){
+                            gradetoId="9";
+                        }
+                        else if(addsrgradeto.equals("9")){
+                            gradetoId="10";
+                        }
+                        else if(addsrgradeto.equals("10")){
+                            gradetoId="11";
+                        }
+                        else if(addsrgradeto.equals("11")){
+                            gradetoId="12";
+                        }
+                        else if(addsrgradeto.equals("12")){
+                            gradetoId="13";
+                        }
+                        else if(addsrgradeto.equals("HigherEd")){
+                            gradetoId="14";
+                        }
+
+
+
+
 
                         if(curriculumtopicid==null)
                         {
                             curriculumtopicid=topic_id;
                         }
-                        else if(countryid==null){
+                         if(countryid==null){
                             countryid= String.valueOf(strcountry);
                         }
 
-                        else if(addsrdescription==null){
+                         if(addsrdescription==null){
                             addsrdescription=curriculumdes;
                         }
 
-                        new Update_curriculum().execute(cla_classid,Sch_Mem_id,addsrtitle,curriculumtopicid,addsrdescription,libid,addsrgradefrom,addsrgradeto,addsrorganization,countryid,addsrstate,curid);
+                        new Update_curriculum().execute(cla_classid,Sch_Mem_id,addsrtitle,curriculumtopicid,addsrdescription,libid,gradefromId,gradetoId,addsrorganization,countryid,addsrstate,curid);
 
                     }
                 });
@@ -702,6 +918,50 @@ public class CurriculumFragment extends Fragment {
                     Log.e("strcountry", "" + strcountry);
                     String cur_class_id = obj.getString("cur_class_id");
                     Log.e("cur_class_id", "" + cur_class_id);
+
+                    if(hi_age.equals("1")){
+                        gradeto.setText("K");
+                    }
+
+                    else if(hi_age.equals("2")){
+                        gradeto.setText("1");
+                    }
+                    else if(hi_age.equals("3")){
+                        gradeto.setText("2");
+                    }
+                    else if(hi_age.equals("4")){
+                        gradeto.setText("3");
+                    }
+                    else if(hi_age.equals("5")){
+                        gradeto.setText("4");
+                    }
+                    else if(hi_age.equals("6")){
+                        gradeto.setText("5");
+                    }
+                    else if(hi_age.equals("7")){
+                        gradeto.setText("6");
+                    }
+                    else if(hi_age.equals("8")){
+                        gradeto.setText("7");
+                    }
+                    else if(hi_age.equals("9")){
+                        gradeto.setText("8");
+                    }
+                    else if(hi_age.equals("10")){
+                        gradeto.setText("9");
+                    }
+                    else if(hi_age.equals("11")){
+                        gradeto.setText("10");
+                    }
+                    else if(hi_age.equals("12")){
+                        gradeto.setText("11");
+                    }
+                    else if(hi_age.equals("13")){
+                        gradeto.setText("12");
+                    }
+                    else if(hi_age.equals("14")){
+                        gradeto.setText("HigherEd");
+                    }
                     if(curriculumtopic!=null){
                         Log.e("ctnotnull", "" + curriculumtopic);
                         topic.setText(curriculumtopic);
@@ -723,8 +983,79 @@ public class CurriculumFragment extends Fragment {
 
 
 
-                    gradefrom.setText(lo_age);
-                    gradeto.setText(hi_age);
+                  //  gradefrom.setText(lo_age);
+                 //   gradeto.setText(hi_age);
+
+
+                    Log.e("ValUE",""+lo_age);
+
+                    Log.e("ValUEe",""+hi_age);
+                    if(lo_age.equals("1")){
+                        gradefrom.setText("K");
+                    }
+
+                    else if(lo_age.equals("2")){
+                        gradefrom.setText("1");
+                    }
+                    else if(lo_age.equals("3")){
+                        gradefrom.setText("2");
+                    }
+                    else if(lo_age.equals("4")){
+                        gradefrom.setText("3");
+                    }
+                    else if(lo_age.equals("5")){
+                        gradefrom.setText("4");
+                    }
+                    else if(hi_age.equals("6")){
+                        gradefrom.setText("5");
+                    }
+                    else if(lo_age.equals("7")){
+                        gradefrom.setText("6");
+                    }
+                    else if(lo_age.equals("8")){
+                        gradefrom.setText("7");
+                    }
+                    else if(lo_age.equals("9")){
+                        gradefrom.setText("8");
+                    }
+                    else if(lo_age.equals("10")){
+                        gradefrom.setText("9");
+                    }
+                    else if(lo_age.equals("11")){
+                        gradefrom.setText("10");
+                    }
+                    else if(lo_age.equals("12")){
+                        gradefrom.setText("11");
+                    }
+                    else if(lo_age.equals("13")){
+                        gradefrom.setText("12");
+                    }
+                    else if(lo_age.equals("14")){
+                        gradefrom.setText("HigherEd");
+                    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                     edt_organization_curriculum.setText(organisation);
                     edt_state_curriculum.setText(state);
                     if(library.contains("1")){
@@ -866,6 +1197,8 @@ public class CurriculumFragment extends Fragment {
              curriculumlib=null;
             curriculumgradefrom=null;
             curriculumgradeto=null;
+            GlobalClass.prefClear=true;
+            GlobalClass.lastValue=" ";
 
             if (result.contains("true")) {
 
@@ -953,6 +1286,18 @@ public class CurriculumFragment extends Fragment {
             super.onPostExecute(result);
             dlg.dismiss();
             Log.e("Update_curriculumAPI", "" + result);
+
+
+            GlobalClass.prefClear=true;
+            GlobalClass.lastValue=" ";
+
+
+
+
+
+
+
+
 
             if (result.contains("true")) {
                 updateTeacherLogIn(result);

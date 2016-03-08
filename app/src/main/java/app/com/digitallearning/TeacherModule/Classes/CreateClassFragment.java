@@ -95,7 +95,7 @@ public class CreateClassFragment extends Fragment {
         }
 
         if(topic.equalsIgnoreCase("Theater")){
-            topic="3";
+            topic="4";
         }
         if(topic.equalsIgnoreCase("Visual Art")){
             topic="5";
@@ -207,6 +207,7 @@ public class CreateClassFragment extends Fragment {
                 DescriptionFragment descriptionFragment = new DescriptionFragment();
                 Bundle bundle=new Bundle();
                 bundle.putInt("fromcreate",fromcreate);
+                bundle.putString("text_description_detail",selecteddes.getText().toString());
                 fragmentTransaction.replace(R.id.container, descriptionFragment).addToBackStack(null);
                 descriptionFragment.setArguments(bundle);
                 fragmentTransaction.commit();
@@ -316,7 +317,7 @@ public class CreateClassFragment extends Fragment {
                 Log.e("descriptionsd",""+description);
                 Log.e("topicasd",""+topic);
 
-                Toast.makeText(getActivity(), "Class successfully created", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Class successfully created"+topic, Toast.LENGTH_SHORT).show();
                 getFragmentManager().popBackStackImmediate();
 
 

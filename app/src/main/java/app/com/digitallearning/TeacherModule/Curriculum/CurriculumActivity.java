@@ -9,6 +9,7 @@ import android.util.Log;
 
 import app.com.digitallearning.R;
 import app.com.digitallearning.TeacherModule.ClassActivity;
+import app.com.digitallearning.Utill.GlobalClass;
 
 /**
  * Created by ${PSR} on 2/26/16.
@@ -46,6 +47,14 @@ public class CurriculumActivity extends FragmentActivity {
             CurriculumFragment. curriculumlib=null;
         CurriculumFragment.curriculumgradefrom=null;
         CurriculumFragment.curriculumgradeto=null;
+
+
+
+        GlobalClass.lastValue=" ";
+
+        GlobalClass.prefClear=true;
+
+
 
         Intent gotoclasss=new Intent(CurriculumActivity.this, ClassActivity.class);
         startActivity(gotoclasss);

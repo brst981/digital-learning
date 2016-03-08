@@ -610,5 +610,11 @@ public class ViewSchedule extends FragmentActivity {
         reladdsch.setScaleX(scaleX);
         reladdsch.setScaleY(scaleY);
     }
-
+@Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent gotoclasss=new Intent(ViewSchedule.this, ScheduleActivity.class);
+        startActivity(gotoclasss);
+        finish();
+    }
 }
