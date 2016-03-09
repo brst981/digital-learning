@@ -31,5 +31,7 @@ public class AppConstant {
     public static final String getclass_image="http://digitallearningtree.com/digitalapi/class_image.php";
 
     public static final String get_lesson="http://digitallearningtree.com/digitalapi/teach_lesson.php";
+    public static final String create_lesson="http://digitallearningtree.com/digitalapi/teach_lesson.php";
+
 
 }

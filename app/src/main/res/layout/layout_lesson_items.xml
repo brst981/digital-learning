@@ -18,14 +18,15 @@
             <FrameLayout
                 android:id="@+id/web_frame_layout"
                 android:layout_width="match_parent"
-                android:layout_height="270dp"
+                android:layout_height="250dp"
                 android:layout_margin="5dp">
                 <ImageView
                     android:src="@drawable/defaultthumbnail"
-                    android:id="@+id/webview_lesson1"
-                    android:padding="10dp"
-                    android:layout_width="180dp"
-                    android:layout_height="180dp"
+                    android:id="@+id/thumbnail"
+                    android:layout_margin="15dp"
+                    android:scaleType="fitXY"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
                     android:layout_gravity="center_horizontal|top"></ImageView>
                 <WebView
                     android:visibility="gone"
@@ -33,13 +34,19 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"></WebView>
             </FrameLayout>
+            <RelativeLayout
+                android:visibility="gone"
+                android:id="@+id/vi"
+                android:layout_below="@+id/web_frame_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
             <View
 
                 android:id="@+id/view"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_below="@+id/web_frame_layout"
+
                 android:layout_marginTop="5dp"
                 android:background="@color/color_light_grey" />
 
@@ -162,21 +169,35 @@
                 android:layout_below="@+id/textView_lesson_description1"
 
                 android:background="@color/color_light_grey" />
-
+           </RelativeLayout>
             <TextView
                 android:id="@+id/textView_lesson_description2"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_below="@+id/view4"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/vi"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
-
                 android:ellipsize="end"
                 android:gravity="left|center"
                 android:maxLines="2"
+                android:hint="abc"
                 android:paddingLeft="5dp"
                 android:textColor="@android:color/black"
                 android:textSize="14sp" />
+
+            <View
+
+                android:id="@+id/views"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@+id/textView_lesson_description2"
+                android:layout_marginTop="5dp"
+                android:background="@color/color_light_grey" />
+            <ListView
+                android:layout_below="@+id/views"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            </ListView>
 
         </RelativeLayout>
     </ScrollView>

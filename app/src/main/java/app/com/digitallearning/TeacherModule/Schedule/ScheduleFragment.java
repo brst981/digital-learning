@@ -111,7 +111,7 @@ public class ScheduleFragment extends Fragment {
         headerTitle.setText("Schedule");*/
         mListView = (ListView) rootview.findViewById(R.id.listview_archieved);
         mAdapter = new ListViewAdapter(getActivity());
-        mListView.setAdapter(mAdapter);
+      //  mListView.setAdapter(mAdapter);
       //  mAdapter.notifyDataSetChanged();
         mAdapter.setMode(Attributes.Mode.Single);
 
@@ -227,19 +227,19 @@ public class ScheduleFragment extends Fragment {
             swipeLayout.addSwipeListener(new SimpleSwipeListener() {
                 @Override
                 public void onOpen(SwipeLayout layout) {
-                    Toast.makeText(mContext, "Swipe Open", Toast.LENGTH_SHORT).show();
+                   // Toast.makeText(mContext, "Swipe Open", Toast.LENGTH_SHORT).show();
                 }
             });
             swipeLayout.setOnDoubleClickListener(new SwipeLayout.DoubleClickListener() {
                 @Override
                 public void onDoubleClick(SwipeLayout layout, boolean surface) {
-                    Toast.makeText(mContext, "DoubleClick", Toast.LENGTH_SHORT).show();
+                   // Toast.makeText(mContext, "DoubleClick", Toast.LENGTH_SHORT).show();
                 }
             });
             v.findViewById(R.id.delete).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Toast.makeText(mContext, "click delete", Toast.LENGTH_SHORT).show();
+                  //  Toast.makeText(mContext, "click delete", Toast.LENGTH_SHORT).show();
                 }
             });
 

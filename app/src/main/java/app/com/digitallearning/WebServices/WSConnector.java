@@ -453,16 +453,50 @@ public class WSConnector {
 
     }
 
-
-
     public static String Get_image(String classid) {
 
         String url = AppConstant.getclass_image;
         List<NameValuePair> pairs = new ArrayList<NameValuePair>();
         pairs.add(new BasicNameValuePair("classid", classid));
+        String result = WSAdapter.postJSONObject(url, pairs);
+        return result;
+    }
 
 
 
+    public static String Get_Lesson(String  cid,String userid) {
+
+        String url = AppConstant.get_lesson;
+        List<NameValuePair> pairs = new ArrayList<NameValuePair>();
+        pairs.add(new BasicNameValuePair("classid", cid));
+        Log.e("cid",""+cid);
+        pairs.add(new BasicNameValuePair("userid", userid));
+        Log.e("userid",""+userid);
+
+        String result = WSAdapter.postJSONObject(url, pairs);
+
+
+        return result;
+
+    }
+
+
+    public static String Add_Lesson(String  cid,String userid,String  title,String desc,String les_date,String video_url) {
+
+        String url = AppConstant.create_lesson;
+        List<NameValuePair> pairs = new ArrayList<NameValuePair>();
+        pairs.add(new BasicNameValuePair("cid", cid));
+        Log.e("cid",""+cid);
+        pairs.add(new BasicNameValuePair("userid", userid));
+        Log.e("userid",""+userid);
+        pairs.add(new BasicNameValuePair("title", title));
+        Log.e("userid",""+userid);
+        pairs.add(new BasicNameValuePair("desc", desc));
+        Log.e("userid",""+userid);
+        pairs.add(new BasicNameValuePair("les_date", les_date));
+        Log.e("userid",""+userid);
+        pairs.add(new BasicNameValuePair("video_url", video_url));
+        Log.e("userid",""+userid);
         String result = WSAdapter.postJSONObject(url, pairs);
 
 

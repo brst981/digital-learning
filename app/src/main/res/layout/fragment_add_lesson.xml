@@ -87,7 +87,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_gravity="center"
-
                 android:layout_marginTop="10dp"
                 android:background="@drawable/edittext_rectangle_selector"
                 android:hint="Title"
@@ -120,7 +119,6 @@
                 android:layout_height="40dp"
                 android:layout_below="@+id/txt_date_lesson"
                 android:layout_gravity="center"
-
                 android:layout_marginTop="10dp"
                 android:background="@drawable/edittext_rectangle_selector"
                 android:hint="Video URL(Ex-YouTube>Select Share Option)"

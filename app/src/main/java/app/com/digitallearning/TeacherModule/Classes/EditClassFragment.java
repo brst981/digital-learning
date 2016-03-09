@@ -554,7 +554,24 @@ public class EditClassFragment extends FragmentActivity {
 
                 }
 
+           else  if(style==" "){
+
+                    if(styles.equals("1")){
+                        text_type_detail.setText("Instructor");
+                    }
+                    else if(styles.equals("2")){
+                        text_type_detail.setText("Blended");
+                    }
+                    else  if(styles.equals("3")){
+                        text_type_detail.setText("Self Paced");
+                    }
+
+
+                }
+
                 else if(style!=null){
+
+                    Log.e("Stylenot","" +style);
                     if(style.equals("1")){
                         text_type_detail.setText("Instructor");
                     }
