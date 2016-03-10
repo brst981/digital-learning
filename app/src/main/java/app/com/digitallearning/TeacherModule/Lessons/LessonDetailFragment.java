@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.PointF;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -19,8 +20,10 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -40,30 +43,33 @@ import app.com.digitallearning.WebServices.WSConnector;
 /**
  * Created by ${ShalviSharma} on 12/28/15.
  */
-public class LessonDetailFragment extends Fragment {
+public class LessonDetailFragment extends Fragment implements ViewPager.OnPageChangeListener {
     View rootview;
     ViewPager _mViewPager;
     CustomPagerAdapter mPagerAdapter;
     TextView headerTitle;
     String textHeader;
-    int positionValue,pos1;
+    int positionValue, pos1;
     SharedPreferences preferences;
-    String Sch_Mem_id,cla_classid;
+    String Sch_Mem_id, cla_classid;
     ImageButton imageButtonZoomIn, imageButtonZoomOut;
     ProgressDialog dlg;
     ArrayList<Data> dataList = new ArrayList<Data>();
     ArrayList<QuizData> quizDatalist = new ArrayList<QuizData>();
+    public static int currentPage_postion = 0;
+    LayoutInflater inflater;
+    ListView quizlist;
+    CareerAdapter career;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootview = inflater.inflate(R.layout.fragment_lesson_detail, container, false);
-        _mViewPager = (ViewPager)rootview. findViewById(R.id.viewPager);
+        _mViewPager = (ViewPager) rootview.findViewById(R.id.viewPager);
         imageButtonZoomIn = (ImageButton) rootview.findViewById(R.id.img_zoom_in);
         imageButtonZoomOut = (ImageButton) rootview.findViewById(R.id.img_zoom_out);
-        dlg=new ProgressDialog(getActivity());
-        mPagerAdapter = new CustomPagerAdapter(getActivity());
+        dlg = new ProgressDialog(getActivity());
 
-     //   _mViewPager.setAdapter(mPagerAdapter);
 
         if (getArguments() != null) {
             Bundle bundle = this.getArguments();
@@ -71,26 +77,33 @@ public class LessonDetailFragment extends Fragment {
             positionValue = bundle.getInt("POSITION");
         }
         //pos1=getArguments().getInt("positioninLesson");
-       // Log.e("pos1",""+pos1);
+        // Log.e("pos1",""+pos1);
         preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        Sch_Mem_id=preferences.getString("Sch_Mem_id","");
-        Log.e("Sch_Mem_id",""+Sch_Mem_id);
+        Sch_Mem_id = preferences.getString("Sch_Mem_id", "");
+        Log.e("Sch_Mem_id", "" + Sch_Mem_id);
 
-        cla_classid=preferences.getString("cla_classid","");
-        Log.e("cla_classid",""+cla_classid);
+        cla_classid = preferences.getString("cla_classid", "");
+        Log.e("cla_classid", "" + cla_classid);
         new Get_Lesson().execute(cla_classid, Sch_Mem_id);
-        Log.e("txtHeader",""+textHeader);
-        Log.e("positionValue",""+positionValue);
+        Log.e("txtHeader", "" + textHeader);
+        Log.e("positionValue", "" + positionValue);
         AppCompatActivity activity = (AppCompatActivity) getActivity();
 
         activity.getSupportActionBar().setTitle("");
         initData();
+
+        mPagerAdapter = new CustomPagerAdapter(getActivity());
+       /* _mViewPager.setAdapter(mPagerAdapter);
+        _mViewPager.setOnPageChangeListener(this);*/
+        // currentPage_postion = _mViewPager.getCurrentItem();
+        Log.e("currentPage_postionSer", "" + currentPage_postion);
+       /* _mViewPager.setCurrentItem(currentPage_postion);
+          //  career=new CareerAdapter(getActivity(),quizDatalist);
+        quizlist.setAdapter(career);
+*/
+
+
         headerTitle = (TextView) activity.findViewById(R.id.mytext);
-
-        headerTitle.setText(textHeader);
-
-
-
 
         imageButtonZoomIn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -108,15 +121,57 @@ public class LessonDetailFragment extends Fragment {
 
         return rootview;
     }
+
     private void initData() {
-        textHeader ="sdhfygsjdgf";
+        textHeader = "sdhfygsjdgf";
+    }
+
+    /**
+     * This method will be invoked when the current page is scrolled, either as part
+     * of a programmatically initiated smooth scroll or a user initiated touch scroll.
+     *
+     * @param position             Position index of the first page currently being displayed.
+     *                             Page position+1 will be visible if positionOffset is nonzero.
+     * @param positionOffset       Value from [0, 1) indicating the offset from the page at position.
+     * @param positionOffsetPixels Value in pixels indicating the offset from position.
+     */
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+    }
+
+    /**
+     * This method will be invoked when a new page becomes selected. Animation is not
+     * necessarily complete.
+     *
+     * @param position Position index of the new selected page.
+     */
+    @Override
+    public void onPageSelected(int position) {
+
+        Log.e("Currentpos",""+position);
+
+    }
+
+    /**
+     * Called when the scroll state changes. Useful for discovering when the user
+     * begins dragging, when the pager is automatically settling to the current page,
+     * or when it is fully stopped/idle.
+     *
+     * @param state The new scroll state.
+     * @see ViewPager#SCROLL_STATE_IDLE
+     * @see ViewPager#SCROLL_STATE_DRAGGING
+     * @see ViewPager#SCROLL_STATE_SETTLING
+     */
+    @Override
+    public void onPageScrollStateChanged(int state) {
+
     }
 
     class CustomPagerAdapter extends PagerAdapter {
 
         Context mContext;
         LayoutInflater mLayoutInflater;
-
 
 
         public CustomPagerAdapter(Context mContext) {
@@ -145,36 +200,42 @@ public class LessonDetailFragment extends Fragment {
             View itemView = mLayoutInflater.inflate(R.layout.layout_lesson_items, container,
                     false);
 
-            TextView textView = (TextView)itemView.findViewById(R.id.textView_lesson_count);
-            ImageView imageViewLeft =(ImageView)itemView.findViewById(R.id.img_left_icon);
-            ImageView imageViewRight =(ImageView)itemView.findViewById(R.id.img_right_icon);
-            ImageView thumbnail=(ImageView)itemView.findViewById(R.id.thumbnail);
-            TextView textView_lesson_description2=(TextView)itemView.findViewById(R.id.textView_lesson_description2) ;
+           //  quizlist = (ListView) itemView.findViewById(R.id.quizlist);
+
+            TextView textView = (TextView) itemView.findViewById(R.id.textView_lesson_count);
+            ImageView imageViewLeft = (ImageView) itemView.findViewById(R.id.img_left_icon);
+            ImageView imageViewRight = (ImageView) itemView.findViewById(R.id.img_right_icon);
+            ImageView thumbnail = (ImageView) itemView.findViewById(R.id.thumbnail);
+            TextView textView_lesson_description2 = (TextView) itemView.findViewById(R.id.textView_lesson_description2);
             textView_lesson_description2.setText(dataList.get(position).getDescription());
             Picasso.with(getActivity()).load(dataList.get(position).getVideoThumbnail()).into(thumbnail);
+
+
+
          /*  if (position==4){
                imageViewRight.setVisibility(View.GONE);
            }*/
-
-            if (position==0){
+            headerTitle.setText(dataList.get(position).getLessonName());
+            Log.e("LessonNAme", "" + dataList.get(position).getLessonName());
+            Log.e("LessonNAmeposition", "" + position);
+            if (position == 0) {
                 imageViewLeft.setVisibility(View.GONE);
             }
-            final int pos=position+1;
+            final int pos = position + 1;
 
 
             thumbnail.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent videoclass=new Intent(getActivity(),LessonVideo.class);
-                    videoclass.putExtra("video_url",dataList.get(position).getVideoUrl());
-                    startActivity(videoclass);
+
+                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(dataList.get(position).getVideoUrl()));
+                    startActivity(browserIntent);
                 }
             });
-            textView.setText("Lesson"+" "+ pos +" "+"of"+" "+ dataList.size());
+            textView.setText("Lesson" + " " + pos + " " + "of" + " " + dataList.size());
 
 
             container.addView(itemView);
-
             return itemView;
         }
 
@@ -185,13 +246,14 @@ public class LessonDetailFragment extends Fragment {
 
         }
     }
+
     class Get_Lesson extends AsyncTask<String, Integer, String> {
 
 
         @Override
         protected String doInBackground(String... params) {
 
-            return WSConnector.Get_Lesson(params[0],params[1]);
+            return WSConnector.Get_Lesson(params[0], params[1]);
 
         }
 
@@ -239,15 +301,13 @@ public class LessonDetailFragment extends Fragment {
                 messageText.setGravity(Gravity.CENTER);
 
 
-
-
-
             } else if (result.contains("true")) {
                 updateGet_Lesson(result);
 
 
             }
         }
+
         private void updateGet_Lesson(String success) {
 
             try {
@@ -270,32 +330,14 @@ public class LessonDetailFragment extends Fragment {
                     data.setLessonClassId(obj.getString("Les_Cls_Id"));
                     data.setLessonName(obj.getString("lesson_name"));
                     data.setLessonDate(obj.getString("les_date"));
-
                     data.setDescription(obj.getString("desc"));
                     data.setLessonImage(obj.getString("les_image"));
                     data.setImageThumbnail(obj.getString("img_thumb"));
                     data.setVideoUrl(obj.getString("video_url"));
                     data.setVideoThumbnail(obj.getString("video_thumb"));
                     dataList.add(data);
+                    mPagerAdapter.notifyDataSetChanged();
 
-                    /*String les_id = obj.optString("les_id");
-                    Log.e("les_id", "" + les_id);
-                    String Les_Cls_Id = obj.getString("Les_Cls_Id");
-                    Log.e("Les_Cls_Id", "" + Les_Cls_Id);
-                    String lesson_name = obj.getString("lesson_name");
-                    Log.e("lesson_name", "" + lesson_name);
-                    String les_date = obj.getString("les_date");
-                    Log.e("les_date", "" + les_date);
-                    String desc = obj.getString("desc");
-                    Log.e("desc", "" + desc);
-                    String les_image = obj.getString("les_image");
-                    Log.e("les_image", "" + les_image);
-                    String img_thumb = obj.getString("img_thumb");
-                    Log.e("img_thumb", "" + img_thumb);
-                    String video_url = obj.getString("video_url");
-                    Log.e("video_url", "" + video_url);
-                    String video_thumb = obj.getString("video_thumb");
-                    Log.e("video_thumb", "" + video_thumb);*/
 
                     JSONArray arr1 = obj.getJSONArray("quiz_data");
                     Log.e("arr1", "" + arr1);
@@ -309,26 +351,93 @@ public class LessonDetailFragment extends Fragment {
                         quizData.setQuizDescription(obj1.getString("quiz_desc"));
                         quizDatalist.add(quizData);
 
-                        /*String quiz_master_id = obj1.getString("quiz_master_id");
-                        Log.e("quiz_master_id", "" + quiz_master_id);
-                        String quiz_name = obj1.getString("quiz_name");
-                        Log.e("quiz_name", "" + quiz_name);
-                        String quiz_desc = obj1.getString("quiz_desc");
-                        Log.e("quiz_desc", "" + quiz_desc);*/
-
                     }
-                    _mViewPager.setAdapter(mPagerAdapter);
-                }
+                    data.setQuizData(quizDatalist);
 
-            }catch (JSONException e) {
+
+                }
+                _mViewPager.setAdapter(mPagerAdapter);
+               // _mViewPager.setOnPageChangeListener(this);
+            } catch (JSONException e) {
                 e.printStackTrace();
             }
         }
     }
+
     public void zoom(Float scaleX, Float scaleY, PointF pivot) {
         _mViewPager.setPivotX(pivot.x);
         _mViewPager.setPivotY(pivot.y);
         _mViewPager.setScaleX(scaleX);
         _mViewPager.setScaleY(scaleY);
     }
+
+
+    class CareerAdapter extends BaseAdapter {
+        Context context;
+        ArrayList<Data> quizDatalist;
+
+
+        public CareerAdapter(Context context, ArrayList<Data> quizDatalist) {
+            this.quizDatalist = quizDatalist;
+            this.context = context;
+
+        }
+
+
+
+        @Override
+        public int getCount() {
+            Log.e("arr", "" + quizDatalist.size());
+            return quizDatalist.size();
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return quizDatalist.get(position);
+        }
+
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+
+        @Override
+        public View getView(final int position, View convertView, ViewGroup parent) {
+            ViewHolder holder = null;  //=new ViewHolder();
+
+            if (holder == null) {
+                inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                convertView = inflater.inflate(R.layout.lesson_detail_quiz, null);
+                holder = new ViewHolder();
+                holder.quizname = (TextView) convertView.findViewById(R.id.quizname);
+                convertView.setTag(holder);
+
+            } else {
+
+                holder = (ViewHolder) convertView.getTag();
+            }
+
+
+            Data data = quizDatalist.get(position);
+            QuizData quizData = data.getQuizData().get(position);
+
+            holder.quizname.setText(quizData.getQuizName());
+            Log.e("nameofQUiz",""+quizData.getQuizName());
+
+
+            return convertView;
+        }
+
+
+    }
+
+    static class ViewHolder {
+        TextView quizname;
+
+
+    }
+
+
 }

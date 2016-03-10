@@ -5,5 +5,5 @@ package app.com.digitallearning.Utill;
  */
 public interface OnReceiveListner {
 
-    void onReceive(Object obj,int pos,String value);
+    void onReceive();
 }

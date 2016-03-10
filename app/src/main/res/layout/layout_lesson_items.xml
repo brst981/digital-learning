@@ -21,18 +21,21 @@
                 android:layout_height="250dp"
                 android:layout_margin="5dp">
                 <ImageView
-                    android:src="@drawable/defaultthumbnail"
+                    android:src="@drawable/img_static"
                     android:id="@+id/thumbnail"
                     android:layout_margin="15dp"
                     android:scaleType="fitXY"
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
                     android:layout_gravity="center_horizontal|top"></ImageView>
-                <WebView
-                    android:visibility="gone"
-                    android:id="@+id/webview_lesson"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"></WebView>
+                <ImageView
+                    android:id="@+id/play"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="15dp"
+                    android:src="@drawable/ic_play"/>
+
             </FrameLayout>
             <RelativeLayout
                 android:visibility="gone"
@@ -194,6 +197,7 @@
                 android:layout_marginTop="5dp"
                 android:background="@color/color_light_grey" />
             <ListView
+                android:id="@+id/quizlist"
                 android:layout_below="@+id/views"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">

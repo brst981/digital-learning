@@ -503,4 +503,56 @@ public class WSConnector {
         return result;
 
     }
+
+
+
+    public static String Before_Lesson_Edit(String userid,String les_edit_id) {
+
+        String url = AppConstant.before_edit_lesson;
+        List<NameValuePair> pairs = new ArrayList<NameValuePair>();
+        pairs.add(new BasicNameValuePair("userid", userid));
+        pairs.add(new BasicNameValuePair("les_edit_id", les_edit_id));
+
+        String result = WSAdapter.postJSONObject(url, pairs);
+        return result;
+
+    }  //cla_classid,Sch_Mem_id,title,description,currentdate,lessonId,videolink
+    public static String Edit_Lesson(String  cid,String userid,String  title,String desc,String les_date,String lessonId,String video_url) {
+
+        String url = AppConstant.create_lesson;
+        List<NameValuePair> pairs = new ArrayList<NameValuePair>();
+        pairs.add(new BasicNameValuePair("cid", cid));
+        Log.e("cid",""+cid);
+        pairs.add(new BasicNameValuePair("userid", userid));
+        Log.e("userid",""+userid);
+        pairs.add(new BasicNameValuePair("title", title));
+        Log.e("title",""+title);
+        pairs.add(new BasicNameValuePair("desc", desc));
+        Log.e("desc",""+desc);
+        pairs.add(new BasicNameValuePair("les_date", les_date));
+        Log.e("les_date",""+les_date);
+        pairs.add(new BasicNameValuePair("les_id", lessonId));
+        Log.e("lessonId",""+lessonId);
+        pairs.add(new BasicNameValuePair("video_url", video_url));
+        Log.e("video_url",""+video_url);
+        String result = WSAdapter.postJSONObject(url, pairs);
+
+
+        return result;
+
+    }
+
+
+
+    public static String Delete_Lesson(String userid,String del_les_id) {
+
+        String url = AppConstant.delete_lesson;
+        List<NameValuePair> pairs = new ArrayList<NameValuePair>();
+        pairs.add(new BasicNameValuePair("userid", userid));
+        pairs.add(new BasicNameValuePair("del_les_id", del_les_id));
+
+        String result = WSAdapter.postJSONObject(url, pairs);
+        return result;
+
+    }
 }

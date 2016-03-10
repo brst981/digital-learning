@@ -8,6 +8,17 @@ import java.util.ArrayList;
  */
 public class Data implements Serializable {
 
+    private String lessonId;
+    private String lessonClassId;
+    private String lessonName;
+    private String lessonDate;
+    private String description;
+    private String lessonImage;
+    private String imageThumbnail;
+    private String videoUrl;
+    private String videoThumbnail;
+    private ArrayList<QuizData> quizData = new ArrayList<QuizData>();
+
     public String getLessonId() {
         return lessonId;
     }
@@ -90,16 +101,7 @@ public class Data implements Serializable {
 
 
 
-    private String lessonId;
-    private String lessonClassId;
-    private String lessonName;
-    private String lessonDate;
-    private String description;
-    private String lessonImage;
-    private String imageThumbnail;
-    private String videoUrl;
-    private String videoThumbnail;
-    private ArrayList<QuizData> quizData = new ArrayList<QuizData>();
+
 
 
 

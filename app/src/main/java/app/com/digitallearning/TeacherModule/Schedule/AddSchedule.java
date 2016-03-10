@@ -14,6 +14,7 @@ import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentActivity;
 import android.text.format.DateFormat;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -31,6 +32,7 @@ import org.json.JSONObject;
 import java.util.Calendar;
 
 import app.com.digitallearning.R;
+import app.com.digitallearning.TeacherModule.ClassActivity;
 import app.com.digitallearning.Utill.LogMessage;
 import app.com.digitallearning.WebServices.WSConnector;
 
@@ -406,15 +408,28 @@ else {
             Log.e("REsulTinAddSchedule", "" + result);
             if (result.contains("true")) {
 
-               // updateTeacherLogIn(result);
-               /* FragmentManager fragmentManager = getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                ScheduleFragment scheduleFragment = new ScheduleFragment();
-                fragmentTransaction.replace(R.id.container, scheduleFragment).addToBackStack(null);
-                fragmentTransaction.commit();*/
-                Intent gotoschedule=new Intent(AddSchedule.this, ScheduleActivity.class);
-                startActivity(gotoschedule);
-                finish();
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(AddSchedule.this);
+                alertDialog.setMessage("Syllabus inserted").setCancelable(false)
+                        .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                // TODO Auto-generated method stub
+                                dialog.dismiss();
+                                Intent gotoschedule=new Intent(AddSchedule.this, ClassActivity.class);
+                                startActivity(gotoschedule);
+                                finish();
+
+
+                            }
+                        });
+
+                AlertDialog dialog = alertDialog.create();
+                dialog.show();
+                TextView messageText = (TextView) dialog
+                        .findViewById(android.R.id.message);
+                messageText.setGravity(Gravity.CENTER);
+
 
 
             } else if (result.contains("false")) {

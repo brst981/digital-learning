@@ -1,3 +1,4 @@
+/*
 package app.com.digitallearning.Utill;
 
 import android.app.Dialog;
@@ -11,9 +12,11 @@ import android.widget.TextView;
 
 import app.com.digitallearning.R;
 
+*/
 /**
  * Created by ${PSR} on 3/3/16.
- */
+ *//*
+
 public class DialogBuilder extends Dialog implements View.OnClickListener {
     private TextView art, theater, visual;
     private OnReceiveListner listner;
@@ -22,13 +25,15 @@ public class DialogBuilder extends Dialog implements View.OnClickListener {
     private String value;
     private int pos;
 
-    /**
+    */
+/**
      * Create a Dialog window that uses the default dialog frame style.
      *
      * @param context The Context the Dialog is to run it.  In particular, it
      *                uses the window manager and theme in this context to
      *                present its UI.
-     */
+     *//*
+
     public DialogBuilder(Context context, OnReceiveListner listner, RecyclerView.ViewHolder viewHolder, int pos) {
         super(context);
 
@@ -53,11 +58,13 @@ public class DialogBuilder extends Dialog implements View.OnClickListener {
         visual.setOnClickListener(this);
     }
 
-    /**
+    */
+/**
      * Called when a view has been clicked.
      *
      * @param v The view that was clicked.
-     */
+     *//*
+
     @Override
     public void onClick(View v) {
         dismiss();
@@ -85,3 +92,4 @@ public class DialogBuilder extends Dialog implements View.OnClickListener {
         }
     }
 }
+*/

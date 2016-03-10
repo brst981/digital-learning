@@ -133,7 +133,9 @@ public class CurriculumFragment extends Fragment {
          //  curriculumtopic=" ";
             /*curriculumdes="";*/
 
-            new Get_carriculum().execute(cla_classid, Sch_Mem_id);
+            try{
+
+            new Get_carriculum().execute(cla_classid, Sch_Mem_id);} catch (Exception e){}
             new Country_list().execute();
         }
 

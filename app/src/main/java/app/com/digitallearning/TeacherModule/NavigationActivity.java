@@ -108,6 +108,7 @@ public class NavigationActivity extends AppCompatActivity implements NavigationD
                 }else {
                     mFragment = ClassesDetailFragment.newInstance();
                     NavigationDrawerFragment.imageView.setVisibility(View.GONE);
+                    //popBackStack();
                 }
 
 

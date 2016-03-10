@@ -109,7 +109,7 @@ public class ClassesDetailFragment extends Fragment{
             public void onComplete(RippleView rippleView) {
                 Intent gotoschedule = new Intent(getActivity(), ScheduleActivity.class);
                 startActivity(gotoschedule);
-                getActivity().finish();
+              //  getActivity().finish();
 
 
             }
@@ -193,7 +193,7 @@ public class ClassesDetailFragment extends Fragment{
                 Intent gotocurri = new Intent(getActivity(), CurriculumActivity.class);
                 gotocurri.putExtra("curiid",curiid);
                 startActivity(gotocurri);
-                getActivity().finish();
+              //  getActivity().finish();
             }
         });
         ripple_teacher_syllabus.setOnRippleCompleteListener(new RippleView.OnRippleCompleteListener() {
@@ -201,7 +201,7 @@ public class ClassesDetailFragment extends Fragment{
             public void onComplete(RippleView rippleView) {
                 Intent gotocurri = new Intent(getActivity(), SyllabusActivity.class);
                 startActivity(gotocurri);
-                getActivity().finish();
+              //  getActivity().finish();
             }
         });
    }
