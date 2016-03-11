@@ -97,7 +97,6 @@ public class LessonFragment extends Fragment  {
 
 
         headerTitle = (TextView) activity.findViewById(R.id.mytext);
-
         headerTitle.setText("Choose Lesson");
         mListView = (ListView) rootview.findViewById(R.id.listview_archieved);
         mAdapter = new ListViewAdapter(getActivity());

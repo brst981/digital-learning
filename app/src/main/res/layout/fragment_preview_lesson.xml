@@ -13,20 +13,23 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+            <ImageView
 
-
-            <FrameLayout
-                android:id="@+id/web_frame_layout"
+                android:id="@+id/thumbnail"
+                android:layout_margin="15dp"
+                android:scaleType="fitXY"
                 android:layout_width="match_parent"
-                android:layout_height="270dp"
-                android:layout_margin="5dp">
-
-                <WebView
-                    android:id="@+id/webview_lesson_preview"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"></WebView>
-            </FrameLayout>
-
+                android:layout_height="200dp"
+                android:layout_gravity="center_horizontal|top"></ImageView>
+            <ImageView
+                android:id="@+id/play"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center|center_horizontal"
+                android:src="@drawable/ic_play"
+                android:layout_alignTop="@+id/thumbnail"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="67dp" />
             <View
                 android:id="@+id/view"
                 android:layout_width="match_parent"
@@ -36,10 +39,10 @@
                 android:background="@color/color_light_grey" />
 
             <TextView
-                android:id="@+id/textView_preview_lesson_title"
+                android:id="@+id/desciption"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_below="@+id/view"
+                android:layout_below="@+id/thumbnail"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
 

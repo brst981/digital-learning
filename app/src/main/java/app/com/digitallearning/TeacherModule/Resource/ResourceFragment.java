@@ -1,14 +1,20 @@
 package app.com.digitallearning.TeacherModule.Resource;
 
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -25,7 +31,15 @@ import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.adapters.BaseSwipeAdapter;
 import com.daimajia.swipe.util.Attributes;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+
 import app.com.digitallearning.R;
+import app.com.digitallearning.TeacherModule.Model.Resource_Data;
+import app.com.digitallearning.WebServices.WSConnector;
 
 /**
  * Created by ${ShalviSharma} on 12/23/15.
@@ -38,6 +52,10 @@ public class ResourceFragment extends Fragment {
     String textHeader;
     private ListView mListView;
     ListViewAdapter mAdapter;
+    ProgressDialog dlg;
+    SharedPreferences preferences;
+    String Sch_Mem_id, cla_classid,deleteresourceId;
+    ArrayList<Resource_Data> resourcedataList = new ArrayList<Resource_Data>();
 
     public static ResourceFragment newInstance() {
         ResourceFragment mFragment = new ResourceFragment();
@@ -50,36 +68,27 @@ public class ResourceFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootview = inflater.inflate(R.layout.fragment_resource, container, false);
-
         rippleViewCreate = (RippleView) rootview.findViewById(R.id.ripple_create_resource);
+        dlg=new ProgressDialog(getActivity());
+        preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        Sch_Mem_id = preferences.getString("Sch_Mem_id", "");
+        Log.e("Sch_Mem_id", "" + Sch_Mem_id);
+
+        cla_classid = preferences.getString("cla_classid", "");
+        Log.e("cla_classid", "" + cla_classid);
 
         AppCompatActivity activity = (AppCompatActivity) getActivity();
-
         activity.getSupportActionBar().setTitle("");
-
         headerTitle = (TextView) activity.findViewById(R.id.mytext);
-
         headerTitle.setText("Class Resource");
-
         initData();
-
         swipeRefreshLayout = (SwipeRefreshLayout)rootview.findViewById(R.id.swipeRefreshLayout);
         swipeRefreshLayout.setColorSchemeColors(R.color.colorlima);
-
-        /*mRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getActivity(), new RecyclerItemClickListener.OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, int position) {
-               *//* Toast.makeText(MainActivity.this,"clicked"+" "+position,Toast.LENGTH_SHORT).show();*//*
-                Intent intent = new Intent(getActivity(), NavigationActivity.class);
-                startActivity(intent);
-
-            }
-        }));*/
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                // Refresh items
+
                 refreshItems();
             }
         });
@@ -91,12 +100,15 @@ public class ResourceFragment extends Fragment {
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //((SwipeLayout)(mListView.getChildAt(position - mListView.getFirstVisiblePosition()))).open(true);
 
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 Resource_View resource_view = new Resource_View();
+                Bundle args=new Bundle();
+                args.putString("title",resourcedataList.get(position).getTitle());
+                args.putString("description",resourcedataList.get(position).getDescription());
                 fragmentTransaction.replace(R.id.container, resource_view).addToBackStack(null);
+                resource_view.setArguments(args);
                 fragmentTransaction.commit();
             }
         });
@@ -110,10 +122,6 @@ public class ResourceFragment extends Fragment {
         mListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-               /* Toast.makeText(getActivity(), "OnItemLongClickListener", Toast.LENGTH_SHORT).show();
-                Toast.makeText(getActivity(),"clicked"+" "+position,Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(getActivity(), NavigationActivity.class);
-                startActivity(intent);*/
                 return true;
             }
         });
@@ -142,7 +150,13 @@ public class ResourceFragment extends Fragment {
         });
         return rootview;
     }
-
+    @Override
+    public void onResume() {
+        super.onResume();
+        resourcedataList.clear();
+        new Resource_Listing().execute(cla_classid, Sch_Mem_id);
+        Log.e("Resume","Resume");
+    }
     private void initData() {
         textHeader ="sdhfygsjdgf";
 
@@ -160,138 +174,15 @@ public class ResourceFragment extends Fragment {
 
     }
     private void refreshItems() {
-        // Load items
-        // ...
 
-        // Load complete
         onItemsLoadComplete();
     }
 
     private void onItemsLoadComplete() {
-        // Update the adapter and notify data set changed
-        // ...
 
-        // Stop refresh animation
         swipeRefreshLayout.setRefreshing(false);
     }
 
-    class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAdapter.ViewHolder> {
-        // List<HomeModal> homeModals;
-        private Context mContext;
-        private LayoutInflater inflater;
-
-        @Override
-        public MyRecyclerViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.resource_item_list, parent, false);
-
-            ViewHolder viewHolder = new ViewHolder(view);
-            return viewHolder;
-
-        }
-
-        @Override
-        public void onBindViewHolder(MyRecyclerViewAdapter.ViewHolder holder, int position) {
-            // holder.imageView.setImageResource(arrayListImage.get(position));
-           holder.textView.setText(textHeader);
-        }
-
-        @Override
-        public int getItemCount() {
-            return 7;
-        }
-
-        public class ViewHolder extends RecyclerView.ViewHolder {
-            /* ImageView imageView;
-             TextView textView;
-             RippleView relativeLayout;
-             LinearLayout imageButtonAnswer;
-             FrameLayout frameLayout;*/
-            TextView textView;
-            RippleView relativeLayout;
-
-            public ViewHolder(View itemView) {
-                super(itemView);
-               /* relativeLayout = (RippleView) itemView.findViewById(R.id.relative_video_it);
-                imageView = (ImageView) itemView.findViewById(R.id.img_it_Video);
-                textView=(TextView)itemView.findViewById(R.id.txt_it_duration);
-                imageButtonAnswer=(LinearLayout)itemView.findViewById(R.id.img_answers);
-                textView.setText("22m");
-                frameLayout =(FrameLayout)itemView.findViewById(R.id.relative_play_img);
-                frameLayout.setOnClickListener(this);
-
-                imageButtonAnswer.setOnClickListener(this);*/
-
-                textView=(TextView)itemView.findViewById(R.id.text_view);
-
-
-               /* relativeLayout = (RippleView) itemView.findViewById(R.id.relative_resource);
-                relativeLayout.setOnRippleCompleteListener(new RippleView.OnRippleCompleteListener() {
-                    @Override
-                    public void onComplete(RippleView rippleView) {
-                        int position = getLayoutPosition(); // gets item position
-                        Toast.makeText(getActivity(), "clicked" + " " + position, Toast.LENGTH_SHORT).show();
-                        FragmentManager fragmentManager = getFragmentManager();
-                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                        ResourceDetailFragment resourceDetailFragment = new ResourceDetailFragment();
-                        *//*Bundle savedInstanceState = new Bundle();
-                        savedInstanceState.putString("HEADER_TEXT", textHeader);
-                        savedInstanceState.putInt("POSITION", position);*//*
-                        fragmentTransaction.replace(R.id.container, resourceDetailFragment).addToBackStack(null);
-                        *//*lessonDetailFragment.setArguments(savedInstanceState);*//*
-                        fragmentTransaction.commit();
-
-                    }
-                });*/
-            }
-
-            /*@Override
-            public void onClick(View v) {
-                int position = getLayoutPosition();
-                int id = v.getId();
-                switch (id){
-                    case R.id.relative_play_img:
-                        Intent i = new Intent(getActivity(),VideoViewActivity.class);
-                        i.putExtra("position",""+position);
-                        startActivity(i);
-                        break;
-                    case R.id.img_answers:
-                        // Toast.makeText(getActivity(),"Clicked"+" "+position,Toast.LENGTH_SHORT).show();
-                        if (hasCamera()) {
-                            timestamp = "ic_plus_";
-                            timestamp = new SimpleDateFormat("MM-dd-yyyy_HH-mm-ss")
-                                    .format(Calendar.getInstance().getTime());
-                            File filepath = Environment.getExternalStorageDirectory();
-                            File dir = new File(filepath.getAbsolutePath() + "/Demosvideo/");
-                            dir.mkdirs();
-
-                            Intent intent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
-                            File mediaFile = new File(Environment
-                                    .getExternalStorageDirectory().getAbsolutePath()
-                                    + "/Demosvideo/Video_" + timestamp + ".mp4");
-                            if (mediaFile != null) {
-                                Uri fileUri = Uri.fromFile(mediaFile);
-
-                                intent.putExtra("Camera.Camera_Facing_Front", ic_plus_);
-                                intent.putExtra("Camera.Camera_Facing_Back", 0);
-                                intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
-                                intent.putExtra(MediaStore.EXTRA_DURATION_LIMIT, 30);
-                                intent.putExtra(MediaStore.EXTRA_SIZE_LIMIT, 102400);
-                                intent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 0);
-                                startActivityForResult(intent, VIDEO_CAPTURE);
-                            }
-                        } else {
-                            Toast.makeText(getActivity(), "No Media player found ",
-                                    Toast.LENGTH_SHORT).show();
-                        }
-
-                        break;
-                }
-
-
-            }*/
-        }
-    }
 
     class ListViewAdapter extends BaseSwipeAdapter {
         private Context mContext;
@@ -332,25 +223,56 @@ public class ResourceFragment extends Fragment {
             v.findViewById(R.id.archive).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    FragmentManager fragmentManager = getFragmentManager();
+                    /*FragmentManager fragmentManager = getFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                     Resource_Edit classFragment = new Resource_Edit();
+                    Bundle bundle=new Bundle();
+                    bundle.putString("title",resourcedataList.get(position).getTitle());
+                    bundle.putString("description",resourcedataList.get(position).getDescription());
                     fragmentTransaction.replace(R.id.container, classFragment).addToBackStack(null);
-                    fragmentTransaction.commit();
+                    classFragment.setArguments(bundle);
+                    fragmentTransaction.commit();*/
                 }
             });
             return v;
         }
 
         @Override
-        public void fillValues(int position, View convertView) {
-            // TextView t = (TextView)convertView.findViewById(R.id.position);
-            // t.setText((position + 1) + ".");
+        public void fillValues(final int position, View convertView) {
+            final int pos=position;
+
+            TextView title=(TextView)convertView.findViewById(R.id.title);
+            title.setText(resourcedataList.get(position).getTitle());
+            TextView archive=(TextView)convertView.findViewById(R.id.archive);
+            TextView delete=(TextView)convertView.findViewById(R.id.delete);
+            archive.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    FragmentManager fragmentManager = getFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    Resource_Edit classFragment = new Resource_Edit();
+                    Bundle bundle=new Bundle();
+                    bundle.putString("resourceId",resourcedataList.get(pos).getResourceId());
+                    bundle.putString("title",resourcedataList.get(pos).getTitle());
+                    bundle.putString("description",resourcedataList.get(pos).getDescription());
+                    fragmentTransaction.replace(R.id.container, classFragment).addToBackStack(null);
+                    classFragment.setArguments(bundle);
+                    fragmentTransaction.commit();
+                }
+            });
+            delete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    deleteresourceId= resourcedataList.get(position).getResourceId();
+                    new Delete_Resource(position).execute(Sch_Mem_id,deleteresourceId);
+                }
+            });
         }
 
         @Override
         public int getCount() {
-            return 5;
+            return resourcedataList.size();
         }
 
         @Override
@@ -362,6 +284,141 @@ public class ResourceFragment extends Fragment {
         public long getItemId(int position) {
             return position;
         }
+    }
+
+
+
+
+    class Resource_Listing extends AsyncTask<String, Integer, String> {
+
+
+        @Override
+        protected String doInBackground(String... params) {
+
+            return WSConnector.Resource_Listing(params[0], params[1]);
+
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            dlg.setMessage("Loading.....");
+            dlg.setCancelable(false);
+            dlg.show();
+
+
+        }
+
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+            dlg.dismiss();
+            Log.e("Get_LessonAPI", "" + result);
+
+            if (result.contains("false")) {
+
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+                alertDialog.setMessage("No data").setCancelable(false)
+                        .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                // TODO Auto-generated method stub
+                                dialog.dismiss();
+                            }
+                        });
+
+                AlertDialog dialog = alertDialog.create();
+                dialog.show();
+                TextView messageText = (TextView) dialog
+                        .findViewById(android.R.id.message);
+                messageText.setGravity(Gravity.CENTER);
+
+
+            } else if (result.contains("true")) {
+                updateGet_Lesson(result);
+
+
+            }
+        }
+
+        private void updateGet_Lesson(String success) {
+
+            try {
+//{"success":true,"data":[{"Res_Id":"2756","title":"we","desc":"are"},{"Res_Id":"2757","title":"jas","desc":"Kaur"}]}
+                JSONObject jsonObject = new JSONObject(success);
+
+                JSONArray arr = jsonObject.optJSONArray("data");
+                Log.e("arr", " " + arr);
+
+
+                for (int i = 0; i < arr.length(); i++) {
+                    JSONObject obj = arr.getJSONObject(i);
+
+                    Resource_Data resource_data = new Resource_Data();
+                    resource_data.setResourceId(obj.optString("Res_Id"));
+                    resource_data.setTitle(obj.getString("title"));
+                    resource_data.setDescription(obj.getString("desc"));
+                    resourcedataList.add(resource_data);
+
+                    mListView.setAdapter(mAdapter);
+                    mAdapter.setMode(Attributes.Mode.Single);
+
+                }
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+
+
+    class Delete_Resource extends AsyncTask<String, Integer, String> {
+
+        private int pos;
+
+        public Delete_Resource(int pos) {
+            this.pos = pos;
+
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+
+            return WSConnector.Delete_Resource(params[0], params[1]);
+
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            dlg.setMessage("Loading.....");
+            dlg.setCancelable(false);
+            dlg.show();
+
+
+        }
+
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+            dlg.dismiss();
+            Log.e("Get_LessonAPI", "" + result);
+
+            if (result.contains("false")) {
+                Toast.makeText(getActivity(),"Wrong user",Toast.LENGTH_SHORT).show();
+
+            } else if (result.contains("true")) {
+                resourcedataList.remove(pos);
+                mAdapter = new ListViewAdapter(getActivity());
+
+                mListView.setAdapter(mAdapter);
+            }
+        }
+
     }
 }
 

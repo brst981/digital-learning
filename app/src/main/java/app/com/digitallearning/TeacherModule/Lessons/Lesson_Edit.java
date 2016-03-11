@@ -8,6 +8,8 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Gravity;
@@ -38,7 +40,7 @@ public class Lesson_Edit extends Fragment {
     String textHeader, lessonId, userid;
     ProgressDialog dlg;
     SharedPreferences preferences;
-    RippleView ripple_save_lesson;
+    RippleView ripple_save_lesson,ripple_preview_lesson;
     String Sch_Mem_id, cla_classid, title, videolink, currentdate, description;
     ArrayList<Data> dataList = new ArrayList<Data>();
 
@@ -54,6 +56,7 @@ public class Lesson_Edit extends Fragment {
 
         headerTitle = (TextView) activity.findViewById(R.id.mytext);
         ripple_save_lesson = (RippleView) rootview.findViewById(R.id.ripple_save_lesson);
+        ripple_preview_lesson=(RippleView)rootview.findViewById(R.id.ripple_preview_lesson);
         txt_date_lesson = (TextView) rootview.findViewById(R.id.txt_date_lesson);
         edt_title_lesson = (TextView) rootview.findViewById(R.id.edt_title_lesson);
         edt_videoUrl_lesson = (TextView) rootview.findViewById(R.id.edt_videoUrl_lesson);
@@ -68,6 +71,21 @@ public class Lesson_Edit extends Fragment {
         userid = preferences.getString("Sch_Mem_id", "");
         Log.e("userid", "" + userid);
 
+
+        ripple_preview_lesson.setOnRippleCompleteListener(new RippleView.OnRippleCompleteListener() {
+            @Override
+            public void onComplete(RippleView rippleView) {
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                PreviewLessonFragment previewLessonFragment = new PreviewLessonFragment();
+                Bundle bundle = new Bundle();
+                bundle.putString("lessonId",lessonId);
+                fragmentTransaction.replace(R.id.container, previewLessonFragment).addToBackStack(null);
+                previewLessonFragment.setArguments(bundle);
+                fragmentTransaction.commit();
+
+            }
+        });
         /*SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
         Date date = new Date();
         txtDate.setText(dateFormat.format(date));*/

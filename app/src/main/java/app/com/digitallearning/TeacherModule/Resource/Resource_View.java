@@ -15,27 +15,30 @@ import app.com.digitallearning.R;
  */
 public class Resource_View extends Fragment {
     View rootview;
-    TextView headerTitle;
-    String textHeader;
+    TextView headerTitle,textdescription;
+    String textHeader,title,description;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootview = inflater.inflate(R.layout.resource_view, container, false);
+        textdescription=(TextView)rootview.findViewById(R.id.textdescription) ;
 
         AppCompatActivity activity = (AppCompatActivity) getActivity();
-
         activity.getSupportActionBar().setTitle("");
         //   getActivity().getActionBar().setHomeButtonEnabled(false);
+        title=getArguments().getString("title");
+        description=getArguments().getString("description");
 
         headerTitle = (TextView) activity.findViewById(R.id.mytext);
-
-        headerTitle.setText("sdhfygsjdgf");
+        headerTitle.setText(title);
+        textdescription.setText(description);
         initData();
+
         return rootview;
 
     }
 
     private void initData() {
-        textHeader ="sdhfygsjdgf";
+        textHeader =title;
 
 
 

@@ -176,7 +176,7 @@
             </com.andexert.library.RippleView>
 
             <com.andexert.library.RippleView
-                android:id="@+id/ripple_save_lesson"
+                android:id="@+id/ripple_preview_lesson"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
 
@@ -204,11 +204,10 @@
 
 
             <com.andexert.library.RippleView
-                android:id="@+id/ripple_preview_lesson"
+                android:id="@+id/rippleupdateresource"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
-                android:layout_below="@+id/ripple_save_lesson"
+                android:layout_below="@+id/ripple_preview_lesson"
 
                 android:layout_marginTop="10dp"
                 app:rv_color="#000"

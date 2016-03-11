@@ -63,49 +63,52 @@
         android:layout_below="@+id/relative_header"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-    <ImageView
+   <app.com.digitallearning.Utill.CircularImageView
         android:src="@drawable/images"
-        android:id="@+id/img"
-        android:layout_width="100dp"
+        android:id="@+id/imgprofilepic"
+        android:layout_width="140dp"
         android:layout_gravity="center"
-        android:layout_height="100dp"
+        android:layout_height="140dp"
         android:layout_marginTop="15dp"
         android:layout_centerHorizontal="true" />
+
     <ScrollView
         android:id="@+id/scroll"
-        android:layout_below="@+id/img"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/imgprofilepic"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <LinearLayout
-            android:layout_margin="6dp"
+
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-    <TextView
+    <EditText
         android:text="jaskaur@gmail.com"
         android:layout_marginTop="20dp"
         android:textSize="16sp"
+        android:id="@+id/email"
+        android:background="#ffffff"
         android:layout_margin="10dp"
         android:textColor="#000"
-
         android:layout_width="match_parent"
-        android:layout_height="30dp" />
+        android:layout_height="40dp" />
     <View
-
-
         android:layout_width="match_parent"
         android:layout_marginTop="3dp"
         android:layout_height="1dp"
 
         android:background="#DAD9DD" />
-    <TextView
+    <EditText
         android:hint="Phone Number"
         android:layout_marginTop="20dp"
         android:textSize="16sp"
         android:textColor="#000"
+        android:background="#ffffff"
+        android:id="@+id/phonenumber"
         android:padding="5dp"
         android:layout_width="match_parent"
-        android:layout_height="30dp" />
+        android:layout_height="40dp" />
     <View
 
 
@@ -114,14 +117,15 @@
         android:layout_height="1dp"
 
         android:background="#DAD9DD" />
-    <TextView
-        android:text="stu"
+    <EditText
+        android:id="@+id/firstname"
         android:layout_marginTop="20dp"
         android:textSize="16sp"
         android:textColor="#000"
         android:padding="5dp"
+        android:background="#ffffff"
         android:layout_width="match_parent"
-        android:layout_height="30dp" />
+        android:layout_height="40dp" />
     <View
 
 
@@ -130,14 +134,16 @@
         android:layout_height="1dp"
 
         android:background="#DAD9DD" />
-    <TextView
+    <EditText
         android:text="tech1"
+        android:background="#ffffff"
+        android:id="@+id/lastname"
         android:layout_marginTop="20dp"
         android:textSize="16sp"
         android:textColor="#000"
         android:padding="5dp"
         android:layout_width="match_parent"
-        android:layout_height="30dp" />
+        android:layout_height="40dp" />
     <View
 
         android:layout_width="match_parent"
@@ -145,14 +151,16 @@
         android:layout_height="1dp"
 
         android:background="#DAD9DD" />
-    <TextView
+    <EditText
         android:hint="Whatsapp"
         android:layout_marginTop="20dp"
         android:textSize="16sp"
         android:textColor="#000"
+        android:id="@+id/whatsapp"
+        android:background="#ffffff"
         android:padding="5dp"
         android:layout_width="match_parent"
-        android:layout_height="30dp" />
+        android:layout_height="40dp" />
     <View
 
         android:layout_width="match_parent"
@@ -160,14 +168,16 @@
         android:layout_height="1dp"
 
         android:background="#DAD9DD" />
-    <TextView
+    <EditText
         android:hint="WeChat"
         android:layout_marginTop="20dp"
         android:textSize="16sp"
         android:textColor="#000"
+        android:background="#ffffff"
+        android:id="@+id/wechat"
         android:padding="5dp"
         android:layout_width="match_parent"
-        android:layout_height="30dp" />
+        android:layout_height="40dp" />
     <View
 
 
@@ -176,10 +186,11 @@
         android:layout_height="1dp"
 
         android:background="#DAD9DD" />
-    <TextView
+    <EditText
         android:hint="No Description"
         android:layout_marginTop="20dp"
         android:textSize="16sp"
+        android:id="@+id/description"
         android:textColor="#000"
         android:background="@drawable/edit_text_selector_round"
         android:padding="5dp"
@@ -190,7 +201,7 @@
 
 
             <com.andexert.library.RippleView
-                android:id="@+id/ripple_login"
+                android:id="@+id/ripple_update"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/linear_checkbox"

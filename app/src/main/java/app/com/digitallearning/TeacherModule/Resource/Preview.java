@@ -15,11 +15,14 @@ import app.com.digitallearning.R;
  */
 public class Preview extends Fragment {
     View rootview;
-    TextView headerTitle;
-    String textHeader;
+    TextView headerTitle,edt_description_lesson;
+    String textHeader,title ,des;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        rootview = inflater.inflate(R.layout.resource_edit, container, false);
+        rootview = inflater.inflate(R.layout.preview_res, container, false);
+        edt_description_lesson=(TextView)rootview.findViewById(R.id.edt_description_lesson);
+      //  title=getArguments().getString("title");
+       // des=getArguments().getString("des");
 
         AppCompatActivity activity = (AppCompatActivity) getActivity();
 
@@ -28,15 +31,16 @@ public class Preview extends Fragment {
 
         headerTitle = (TextView) activity.findViewById(R.id.mytext);
 
-      //  headerTitle.setText("Add Class Resource");
+     //   headerTitle.setText(title);
         initData();
+       // edt_description_lesson.setText(des);
         return rootview;
 
     }
 
     private void initData() {
         textHeader ="sdhfygsjdgf";
-
+//
 
 
 

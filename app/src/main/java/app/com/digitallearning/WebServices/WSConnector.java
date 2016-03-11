@@ -45,13 +45,6 @@ public class WSConnector {
         return result;
 
     }
-// E/Sch_Mem_id: android test
-//    02-01 16:36:10.328 25104-25271/app.com.digitallearning E/Mem_Sch_Id: Instructor
-//    02-01 16:36:10.328 25104-25271/app.com.digitallearning E/title:  Music
-//    02-01 16:36:10.329 25104-25271/app.com.digitallearning E/classtpye: one
-//    02-01 16:36:10.329 25104-25271/app.com.digitallearning E/topic: 2155
-//            02-01 16:36:10.329 25104-25271/app.com.digitallearning E/String Response?????: enter this method
- //   02-01 16:36:11.241 25104-25104/app.com.digitallearning E/MainResult: {"success":false,"data":"Parameter missing"}
 
     public static String CreateClass(String Sch_Mem_id,String Mem_Sch_Id,String title,String classtpye,String arrId,String description) {
 
@@ -551,6 +544,77 @@ public class WSConnector {
         pairs.add(new BasicNameValuePair("userid", userid));
         pairs.add(new BasicNameValuePair("del_les_id", del_les_id));
 
+        String result = WSAdapter.postJSONObject(url, pairs);
+        return result;
+
+    }
+    public static String Teacher_getProfile(String userid,String name) {
+
+        String url = AppConstant.teacher_getProfile;
+        List<NameValuePair> pairs = new ArrayList<NameValuePair>();
+        pairs.add(new BasicNameValuePair("userid", userid));
+        pairs.add(new BasicNameValuePair("username", name));
+
+        String result = WSAdapter.postJSONObject(url, pairs);
+        return result;
+
+    }// cid , userid , schid , title , desc.
+    public static String Add_Resource(String cid,String userid,String schid,String title,String desc) {
+
+        String url = AppConstant.add_Resource;
+        List<NameValuePair> pairs = new ArrayList<NameValuePair>();
+        pairs.add(new BasicNameValuePair("cid", cid));
+        pairs.add(new BasicNameValuePair("userid", userid));
+        pairs.add(new BasicNameValuePair("schid", schid));
+        pairs.add(new BasicNameValuePair("title", title));
+        pairs.add(new BasicNameValuePair("desc", desc));
+        String result = WSAdapter.postJSONObject(url, pairs);
+        return result;
+    }
+
+    public static String Resource_Listing(String classid,String userid) {
+
+        String url = AppConstant.resource_Listing;
+        List<NameValuePair> pairs = new ArrayList<NameValuePair>();
+        pairs.add(new BasicNameValuePair("classid", classid));
+        pairs.add(new BasicNameValuePair("userid", userid));
+
+        String result = WSAdapter.postJSONObject(url, pairs);
+        return result;
+
+    }
+
+    public static String Update_Resource(String classid,String userid,String schid,String title,String desc,String res_id) {
+
+        String url = AppConstant.add_Resource;
+        List<NameValuePair> pairs = new ArrayList<NameValuePair>();
+        pairs.add(new BasicNameValuePair("cid", classid));
+        pairs.add(new BasicNameValuePair("userid", userid));
+        pairs.add(new BasicNameValuePair("schid", schid));
+        pairs.add(new BasicNameValuePair("title", title));
+        pairs.add(new BasicNameValuePair("desc", desc));
+        pairs.add(new BasicNameValuePair("res_id", res_id));
+
+        Log.e("classid",""+classid);
+        Log.e("userid",""+userid);
+        Log.e("schid",""+schid);
+        Log.e("title",""+title);
+        Log.e("desc",""+desc);
+        Log.e("res_id",""+res_id);
+
+        String result = WSAdapter.postJSONObject(url, pairs);
+        return result;//userid , del_res_id.
+
+    }
+
+
+    public static String Delete_Resource(String userid,String del_res_id) {
+
+        String url = AppConstant.resource_Listing;
+        List<NameValuePair> pairs = new ArrayList<NameValuePair>();
+
+        pairs.add(new BasicNameValuePair("userid", userid));
+        pairs.add(new BasicNameValuePair("del_res_id", del_res_id));
         String result = WSAdapter.postJSONObject(url, pairs);
         return result;
 
