@@ -39,7 +39,7 @@ import app.com.digitallearning.WebServices.WSConnector;
  */
 public class ViewSchedule extends FragmentActivity {
     SharedPreferences preferences;
-    String timeId, userid, cla_classid,desp, Str_Hour , En_Hour, newstarthours ,newendhours;
+    String timeId, userid, cla_classid, desp, Str_Hour, En_Hour, newstarthours, newendhours;
     ProgressDialog dlg;
     int displayId;
     EditText loc;
@@ -47,12 +47,12 @@ public class ViewSchedule extends FragmentActivity {
     RippleView rippleupdate;
     RelativeLayout reladdsch, relative_header;
     ImageButton imageButtonZoomIn, imageButtonZoomOut;
-    TextView day, description, starttime, endtime,selectedday,descrptn;
-    public static String scheduledescription,selecteday;
-    String srday,srdescription,srtime,srendtime,srsthour,srstmin,srendhr,srendmin,srlocation,srdayid,ampm,endampm;
-    String[] srstarthour,srendhour;
-    int startinghours,endinghours;
-    int sttime,entime;
+    TextView day, description, starttime, endtime, selectedday, descrptn;
+    public static String scheduledescription, selecteday;
+    String srday, srdescription, srtime, srendtime, srsthour, srstmin, srendhr, srendmin, srlocation, srdayid, ampm, endampm;
+    String[] srstarthour, srendhour;
+    int startinghours, endinghours;
+    int sttime, entime;
     final CharSequence[] items = {
             "Monday", "Tuesday", "Wednesday", "Thrusday", "Friday", "Saturday", "Sunday", "Every Day", "Every Weekday"};
 
@@ -139,100 +139,93 @@ public class ViewSchedule extends FragmentActivity {
                 srdescription = descrptn.getText().toString();
                 Log.e("srdescription", "" + srdescription);
 
-                srtime= starttime.getText().toString();
-                Log.e("srtime",""+srtime);
+                srtime = starttime.getText().toString();
+                Log.e("srtime", "" + srtime);
 
-                srstarthour=srtime.split(":");
+                srstarthour = srtime.split(":");
 
-                srstarthour[0]=srstarthour[0].trim();
-                srsthour=srstarthour[0];
-                Log.e("ssrsthour",""+srsthour);
+                srstarthour[0] = srstarthour[0].trim();
+                srsthour = srstarthour[0];
+                Log.e("ssrsthour", "" + srsthour);
 
                 try {
                     srstarthour[1] = srstarthour[1].trim();
                     srstmin = srstarthour[1];
                     Log.e("srstmin", "" + srstmin);
+                } catch (Exception e) {
                 }
-                catch(Exception e){}
 
-                sttime= Integer.parseInt(srsthour);
-                Log.e("intsttime",""+sttime);
+                sttime = Integer.parseInt(srsthour);
+                Log.e("intsttime", "" + sttime);
 
                 ampm = srstmin.substring(Math.max(srstmin.length() - 2, 0));
-                Log.e("ampm",""+ampm);
+                Log.e("ampm", "" + ampm);
 
-                if(ampm.contains("PM")){
-                    Log.e("Visit","VIST");
-                    int hor=  Integer.parseInt(srsthour);
-                    newstarthours= String.valueOf(hor+12);
-                    Log.e("plus",""+newstarthours);
-                    srsthour=newstarthours;
+                if (ampm.contains("PM")) {
+                    Log.e("Visit", "VIST");
+                    int hor = Integer.parseInt(srsthour);
+                    newstarthours = String.valueOf(hor + 12);
+                    Log.e("plus", "" + newstarthours);
+                    srsthour = newstarthours;
 
                 }
-                srendtime=endtime.getText().toString();
+                srendtime = endtime.getText().toString();
 
-                srendhour=srendtime.split(":");
+                srendhour = srendtime.split(":");
 
-                srendhour[0]=srendhour[0].trim();
-                srendhr=srendhour[0];
+                srendhour[0] = srendhour[0].trim();
+                srendhr = srendhour[0];
                 //   Log.e("srendhr",""+srendhr);
                 try {
-                    srendhour[1]=srendhour[1].trim();
-                    srendmin=srendhour[1];
-                    Log.e("srendmin",""+srendmin);
+                    srendhour[1] = srendhour[1].trim();
+                    srendmin = srendhour[1];
+                    Log.e("srendmin", "" + srendmin);
+                } catch (Exception e) {
                 }
-                catch(Exception e){}
                 try {
 
-                    entime=Integer.parseInt(srendhr);
-                    Log.e("entime",""+entime);
+                    entime = Integer.parseInt(srendhr);
+                    Log.e("entime", "" + entime);
+                } catch (Exception e) {
                 }
-                catch(Exception e){}
 
                 endampm = srendmin.substring(Math.max(srendmin.length() - 2, 0));
-                Log.e("endampm",""+endampm);
+                Log.e("endampm", "" + endampm);
 
-                if(endampm.contains("PM")){
-                    Log.e("Visit","VIST");
-                    int hor=  Integer.parseInt(srendhr);
-                    newendhours= String.valueOf(hor+12);
-                    Log.e("plus",""+newendhours);
-                    srendhr=newendhours;
+                if (endampm.contains("PM")) {
+                    Log.e("Visit", "VIST");
+                    int hor = Integer.parseInt(srendhr);
+                    newendhours = String.valueOf(hor + 12);
+                    Log.e("plus", "" + newendhours);
+                    srendhr = newendhours;
                 }
 
                 srlocation = loc.getText().toString();
                 Log.e("srlocation", "" + srlocation);
 
 
-                Log.e("srdayid..",""+srdayid);
-                if(srday.equalsIgnoreCase(" ")){
+                Log.e("srdayid..", "" + srdayid);
+                if (srday.equalsIgnoreCase(" ")) {
 
                     LogMessage.showDialog(ViewSchedule.this, null,
                             "Please select day", "OK");
-                }
-                else  if(srdescription.equalsIgnoreCase(" ")){
+                } else if (srdescription.equalsIgnoreCase(" ")) {
 
                     LogMessage.showDialog(ViewSchedule.this, null,
                             "Please select description", "OK");
-                }
-                else if(srtime.equalsIgnoreCase("")){
-
-
+                } else if (srtime.equalsIgnoreCase("")) {
 
 
                     LogMessage.showDialog(ViewSchedule.this, null,
                             "Please select start time", "OK");
-                }
-                else  if(srendtime.equalsIgnoreCase("")){
+                } else if (srendtime.equalsIgnoreCase("")) {
 
                     LogMessage.showDialog(ViewSchedule.this, null,
                             "Please select end time", "OK");
-                    Log.e("issttime",""+sttime);
-                    Log.e("issttime",""+sttime);
+                    Log.e("issttime", "" + sttime);
+                    Log.e("issttime", "" + sttime);
 
-                }
-
-                else   if(sttime > entime){
+                } else if (sttime > entime) {
                     LogMessage.showDialog(ViewSchedule.this, null,
                             "Please select valid time", "OK");
                 }
@@ -280,11 +273,11 @@ public class ViewSchedule extends FragmentActivity {
             @Override
             public void onClick(View v) {
 
-                int viewsch=12;
-                desp=descrptn.getText().toString();
-                Intent gotodesp=new Intent(ViewSchedule.this,ScheduleDescriptionFragment.class);
-                gotodesp.putExtra("viewsch",viewsch);
-                gotodesp.putExtra("desp",desp);
+                int viewsch = 12;
+                desp = descrptn.getText().toString();
+                Intent gotodesp = new Intent(ViewSchedule.this, ScheduleDescriptionFragment.class);
+                gotodesp.putExtra("viewsch", viewsch);
+                gotodesp.putExtra("desp", desp);
                 startActivity(gotodesp);
                 finish();
             }
@@ -307,7 +300,6 @@ public class ViewSchedule extends FragmentActivity {
 
 
     }
-
 
 
     class Before_Schedule_listing extends AsyncTask<String, Integer, String> {
@@ -365,13 +357,13 @@ public class ViewSchedule extends FragmentActivity {
                     String day1 = obj.getString("day");
                     Log.e("day", "" + day1);
 
-                     Str_Hour = obj.getString("Str_Hour");
+                    Str_Hour = obj.getString("Str_Hour");
                     Log.e("Str_Hour", "" + Str_Hour);
 
                     String Str_Min = obj.getString("Str_Min");
                     Log.e("Str_Min", "" + Str_Min);
 
-                     En_Hour = obj.getString("En_Hour");
+                    En_Hour = obj.getString("En_Hour");
                     Log.e("En_Hour", "" + En_Hour);
 
                     String En_Min = obj.getString("En_Min");
@@ -399,21 +391,19 @@ public class ViewSchedule extends FragmentActivity {
                             selectedday.setText("Friday");
                         } else if (day1.contains("6")) {
                             selectedday.setText("Saturday");
-                        }else if (day1.contains("7")) {
+                        } else if (day1.contains("7")) {
                             selectedday.setText("Sunday");
-                        }
-                        else if (day1.contains("8")) {
+                        } else if (day1.contains("8")) {
                             selectedday.setText("Every Day");
-                        }
-                        else if (day1.contains("9")) {
+                        } else if (day1.contains("9")) {
                             selectedday.setText("Every WeekDay");
                         }
                     } else {
                         selectedday.setText(selecteday);
                     }
-                    if(scheduledescription==null){
-                    descrptn.setText(Description);}
-                    else {
+                    if (scheduledescription == null) {
+                        descrptn.setText(Description);
+                    } else {
                         descrptn.setText(scheduledescription);
                     }
 
@@ -422,23 +412,23 @@ public class ViewSchedule extends FragmentActivity {
                         if (startinghours > 12) {
 
                             Str_Hour = String.valueOf(startinghours - 12);
-                            starttime.setText(pad(Integer.parseInt(Str_Hour)) + ":" + pad(Integer.parseInt(Str_Min)) +" "+ "PM");
+                            starttime.setText(pad(Integer.parseInt(Str_Hour)) + ":" + pad(Integer.parseInt(Str_Min)) + " " + "PM");
 
                         } else {
-                            starttime.setText(pad(Integer.parseInt(Str_Hour)) + ":" + pad(Integer.parseInt(Str_Min)) +" "+ "AM");
+                            starttime.setText(pad(Integer.parseInt(Str_Hour)) + ":" + pad(Integer.parseInt(Str_Min)) + " " + "AM");
                         }
 
                         endinghours = Integer.parseInt(En_Hour);
                         if (endinghours > 12) {
 
                             En_Hour = String.valueOf(endinghours - 12);
-                            endtime.setText(pad(Integer.parseInt(En_Hour)) + ":" + pad(Integer.parseInt(Str_Min)) + " "+"PM");
+                            endtime.setText(pad(Integer.parseInt(En_Hour)) + ":" + pad(Integer.parseInt(Str_Min)) + " " + "PM");
 
                         } else {
-                            endtime.setText(pad(Integer.parseInt(En_Hour)) + ":" + pad(Integer.parseInt(Str_Min)) + " "+"AM");
+                            endtime.setText(pad(Integer.parseInt(En_Hour)) + ":" + pad(Integer.parseInt(Str_Min)) + " " + "AM");
                         }
+                    } catch (Exception e) {
                     }
-                    catch (Exception e){}
                     loc.setText(Cls_Location);
                 }
 
@@ -450,56 +440,49 @@ public class ViewSchedule extends FragmentActivity {
     }
 
 
+    class update_Schedule extends AsyncTask<String, Integer, String> {
 
 
-        class update_Schedule extends AsyncTask<String, Integer, String> {
+        @Override
+        protected String doInBackground(String... params) {
+
+            return WSConnector.update_Schedule(params[0], params[1], params[2], params[3], params[4], params[5], params[6], params[7], params[8], params[9]);
+
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            dlg.setMessage("Loading....");
+            dlg.setCancelable(false);
+            dlg.show();
 
 
-            @Override
-            protected String doInBackground(String... params) {
-
-                return WSConnector.update_Schedule(params[0], params[1], params[2],params[3],params[4],params[5],params[6],params[7],params[8],params[9]);
-
-            }
-
-            @Override
-            protected void onPreExecute() {
-                super.onPreExecute();
-                dlg.setMessage("Loading....");
-                dlg.setCancelable(false);
-                dlg.show();
-
-
-            }
-
-
-            @Override
-            protected void onPostExecute(String result) {
-                super.onPostExecute(result);
-                dlg.dismiss();
-                Log.e("REsulTinAddSchedule", "" + result);
-                if (result.contains("true")) {
-
-                    Intent gotoschedule=new Intent(ViewSchedule.this, ScheduleActivity.class);
-                    startActivity(gotoschedule);
-                    finish();
-                } else if (result.contains("false")) {
-                    Toast.makeText(ViewSchedule.this, "Wrong User", Toast.LENGTH_SHORT).show();
-
-                }
-            }
         }
 
 
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+            dlg.dismiss();
+            Log.e("REsulTinAddSchedule", "" + result);
+            if (result.contains("true")) {
 
+//                    Intent gotoschedule=new Intent(ViewSchedule.this, ScheduleActivity.class);
+//                    startActivity(gotoschedule);
+                finish();
+            } else if (result.contains("false")) {
+                Toast.makeText(ViewSchedule.this, "Wrong User", Toast.LENGTH_SHORT).show();
+
+            }
+        }
+    }
 
 
     protected void showTimePicker() {
         TimePickerFragmentStartTime newFragment = new TimePickerFragmentStartTime();
         newFragment.show(getFragmentManager(), "timePicker");
     }
-
-
 
 
     public class TimePickerFragmentStartTime extends android.app.DialogFragment implements
@@ -535,7 +518,7 @@ public class ViewSchedule extends FragmentActivity {
             String min = (datetime.get(Calendar.MINUTE) == 0) ? "12" : datetime
                     .get(Calendar.MINUTE) + "";
 
-            starttime.setText(pad(Integer.parseInt(hours)) + ":" + pad(Integer.parseInt(min))+" " + AM_PM );
+            starttime.setText(pad(Integer.parseInt(hours)) + ":" + pad(Integer.parseInt(min)) + " " + AM_PM);
 
         }
 
@@ -545,7 +528,6 @@ public class ViewSchedule extends FragmentActivity {
         TimePickerFragmentEndTime newFragment = new TimePickerFragmentEndTime();
         newFragment.show(getFragmentManager(), "timePicker");
     }
-
 
 
     public class TimePickerFragmentEndTime extends android.app.DialogFragment implements
@@ -580,12 +562,13 @@ public class ViewSchedule extends FragmentActivity {
                     .get(Calendar.HOUR) + "";
             String min = (datetime.get(Calendar.MINUTE) == 0) ? "12" : datetime
                     .get(Calendar.MINUTE) + "";
-            endtime.setText(pad(Integer.parseInt(hours)) + ":" + pad(Integer.parseInt(min)) +" " + AM_PM );
+            endtime.setText(pad(Integer.parseInt(hours)) + ":" + pad(Integer.parseInt(min)) + " " + AM_PM);
 
         }
 
 
     }
+
     private static String pad(int c) {
         if (c >= 10)
             return String.valueOf(c);
@@ -596,25 +579,25 @@ public class ViewSchedule extends FragmentActivity {
     @Override
     public void onStart() {
         super.onStart();
-        Log.e("selectedayonstart",""+selecteday);
+        Log.e("selectedayonstart", "" + selecteday);
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        Log.e("selectedayonpause",""+selecteday);
+        Log.e("selectedayonpause", "" + selecteday);
     }
+
     public void zoom(Float scaleX, Float scaleY, PointF pivot) {
         reladdsch.setPivotX(pivot.x);
         reladdsch.setPivotY(pivot.y);
         reladdsch.setScaleX(scaleX);
         reladdsch.setScaleY(scaleY);
     }
-@Override
+
+    @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Intent gotoclasss=new Intent(ViewSchedule.this, ScheduleActivity.class);
-        startActivity(gotoclasss);
-        finish();
+
     }
 }

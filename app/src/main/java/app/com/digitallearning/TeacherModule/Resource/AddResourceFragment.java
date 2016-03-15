@@ -118,7 +118,7 @@ public class AddResourceFragment extends Fragment{
             if (result.contains("false")) {
 
             } else if (result.contains("true")) {
-
+                getFragmentManager().popBackStack();
 
             }
         }

@@ -10,6 +10,7 @@ import android.content.SharedPreferences;
 import android.graphics.PointF;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
@@ -18,7 +19,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -71,7 +71,14 @@ public class TopicFragment extends Fragment {
     ArrayList<String> arrId, arrName, arrChildId, arrChildNAme;
     boolean[] checkBoxState;
     SharedPreferences.Editor editor;
-    ;
+    private String dataValue = null;
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+
+    }
 
     int selectedItem;
     boolean checkboxselected;
@@ -80,8 +87,10 @@ public class TopicFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // final InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         //  imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
-        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+
+        // getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         rootview = inflater.inflate(R.layout.fragment_topic, container, false);
+
         mRecyclerView = (RecyclerView) rootview.findViewById(R.id.myrecycler);
         back = (ImageView) rootview.findViewById(R.id.back);
         dlg = new ProgressDialog(getActivity());
@@ -93,7 +102,13 @@ public class TopicFragment extends Fragment {
         ripple_topic_save = (RippleView) rootview.findViewById(R.id.ripple_topic_save);
         pref = getActivity().getSharedPreferences("digitalLearning", Context.MODE_APPEND);
         editor = pref.edit();
-Log.e("GlobalClass.lastValue","jkj"+GlobalClass.lastValue);
+        Log.e("GlobalClass.lastValue", "jkj" + GlobalClass.lastValue);
+
+        if (getArguments() != null)
+            dataValue = getArguments().getString(CurriculumFragment.TOPIC_DATA);
+        else
+            dataValue = null;
+
         try {
             id = getArguments().getInt("id1");
             Log.e("idreceived", "" + id);
@@ -112,10 +127,9 @@ Log.e("GlobalClass.lastValue","jkj"+GlobalClass.lastValue);
             if (GlobalClass.prefClear)
                 editor.clear();
             editor.commit();
-          //  Toast.makeText(getActivity(),"clear",Toast.LENGTH_SHORT).show();
-        }
-        catch(Exception e){
-          //  Toast.makeText(getActivity(),"clear1",Toast.LENGTH_SHORT).show();
+            //  Toast.makeText(getActivity(),"clear",Toast.LENGTH_SHORT).show();
+        } catch (Exception e) {
+            //  Toast.makeText(getActivity(),"clear1",Toast.LENGTH_SHORT).show();
 
             editor.clear();
             editor.commit();
@@ -239,7 +253,6 @@ Log.e("GlobalClass.lastValue","jkj"+GlobalClass.lastValue);
         public void onBindViewHolder(final ViewHolder holder, int position) {
 
 
-
             try {
 
 
@@ -332,6 +345,14 @@ Log.e("GlobalClass.lastValue","jkj"+GlobalClass.lastValue);
                 holder.checkBox.setChecked(true);
             else
                 holder.checkBox.setChecked(false);
+
+            if (dataValue != null) {
+                if (holder.a3cat.getText().toString().equals(dataValue)) {
+                    holder.checkBox.setChecked(true);
+                }
+            }
+
+
             holder.mainLayout.setTag(holder);
             Log.e("main", holder.mainLayout + "");
             holder.checkBox.setTag(holder);
@@ -342,7 +363,7 @@ Log.e("GlobalClass.lastValue","jkj"+GlobalClass.lastValue);
 
                     ViewHolder holder = (ViewHolder) v.getTag();
                     holder.a3ripple.performClick();
-
+                    dataValue = null;
                     //notifyDataSetChanged();
 
 
@@ -366,12 +387,13 @@ Log.e("GlobalClass.lastValue","jkj"+GlobalClass.lastValue);
 
                     }
 
+                    dataValue = null;
                     checkBoxState[holder.pos] = true;
                     holder.checkBox.setChecked(checkBoxState[holder.pos]);
 
                     lastSavePos = holder.pos;
 
-                    if (!arrName.get(holder.pos).matches("Art") && !arrName.get(holder.pos).matches("Other")){
+                    if (!arrName.get(holder.pos).matches("Art") && !arrName.get(holder.pos).matches("Other")) {
                         editor.putInt("pos", holder.pos);
                         editor.commit();
                         notifyDataSetChanged();
@@ -416,7 +438,7 @@ Log.e("GlobalClass.lastValue","jkj"+GlobalClass.lastValue);
                                     editor.putInt("pos", holder.pos);
                                     editor.putString("val", val);
                                     editor.commit();
-                                    GlobalClass.prefClear=false;
+                                    GlobalClass.prefClear = false;
                                     //notifyDataSetChanged();
 
                                 } else if (itemart.equalsIgnoreCase("1")) {
@@ -432,7 +454,7 @@ Log.e("GlobalClass.lastValue","jkj"+GlobalClass.lastValue);
                                     editor.putInt("pos", holder.pos);
                                     editor.putString("val", val);
                                     editor.commit();
-                                    GlobalClass.prefClear=false;
+                                    GlobalClass.prefClear = false;
 
                                 } else if (itemart.equalsIgnoreCase("2")) {
                                     notifyDataSetChanged();
@@ -446,7 +468,7 @@ Log.e("GlobalClass.lastValue","jkj"+GlobalClass.lastValue);
                                     editor.putInt("pos", holder.pos);
                                     editor.putString("val", val);
                                     editor.commit();
-                                    GlobalClass.prefClear=false;
+                                    GlobalClass.prefClear = false;
 
                                 }
 
@@ -503,7 +525,7 @@ Log.e("GlobalClass.lastValue","jkj"+GlobalClass.lastValue);
                                 Log.e("othrdes", "" + othrdes);
                                 holder.artitem.setText(othrdes);
                                 Other = othrdes;
-                                GlobalClass.prefClear=false;
+                                GlobalClass.prefClear = false;
 
                                 otherstring = othrdes;
                                 editor.clear();

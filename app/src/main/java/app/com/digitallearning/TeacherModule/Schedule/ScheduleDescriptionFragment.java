@@ -99,10 +99,10 @@ public class ScheduleDescriptionFragment  extends FragmentActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        if ((addsch==10)){
-            Intent backadsch=new Intent(ScheduleDescriptionFragment.this,ScheduleActivity.class);
+      /*  if ((addsch==10)){
+            Intent backadsch=new Intent(ScheduleDescriptionFragment.this,ScheduleFragment.class);
             startActivity(backadsch);
             finish();
-        }
+        }*/
     }
 }

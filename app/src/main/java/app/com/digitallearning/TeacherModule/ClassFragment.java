@@ -321,7 +321,7 @@ public class ClassFragment extends Fragment {
                     intent.putExtra("Mem_Sch_Id",Mem_Sch_Id);
                     intent.putExtra("fromclassfag",fromclassfag);
                     startActivity(intent);
-                    getActivity().finish();
+                  //  getActivity().finish();
 
                 }
             });

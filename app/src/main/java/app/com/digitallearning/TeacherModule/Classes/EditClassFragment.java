@@ -384,8 +384,20 @@ public class EditClassFragment extends FragmentActivity {
                 if(sr_topic1==null){
                     sr_topic1=topic_id;
                 }
-
-               new Update_Class().execute(classidgetupdate,created,ClassFragment.Mem_Sch_Id,sr_title,sr_classtppeval,sr_topic1,sr_description,check,semeserval,coursecodeval,cal,stu,chat,grades);
+              //  cal1,chat1,enable1,tab1  cal,stu,chat,grades
+                if(cal1!=null){
+                    cal= String.valueOf(true);
+                }
+                else if(chat1!=null){
+                    chat= String.valueOf(true);
+                }
+                else if(enable1!=null){
+                    grades= String.valueOf(true);
+                }
+                else if(tab1!=null){
+                    stu= String.valueOf(true);
+                }
+                               new Update_Class().execute(classidgetupdate,created,ClassFragment.Mem_Sch_Id,sr_title,sr_classtppeval,sr_topic1,sr_description,check,semeserval,coursecodeval,cal,stu,chat,grades);
 
             }
         });
@@ -583,39 +595,6 @@ public class EditClassFragment extends FragmentActivity {
                     }
                 }
 
-                /*if (style!=null) {
-                    Log.e("notStylenull", "" + style);
-                    if (style.contains("1")) {
-
-                        text_type_detail.setText("Instructor");
-                    } else if (style.contains("2")) {
-                        //  styles= "Blended";
-                        text_type_detail.setText("Blended");
-                    } else if (style.contains("3")) {
-                        //  styles= "Self Paced";
-                        text_type_detail.setText("Self Paced");
-
-                    }
-                }
-
-
-
-                    else if(style==null) {
-                    if (styles.contains("1")) {
-
-                        //   styles= "Instructor";
-                        text_type_detail.setText("Instructor");
-                    } else if (styles.contains("2")) {
-                        //  styles= "Blended";
-                        text_type_detail.setText("Blended");
-                    } else if (styles.contains("3")) {
-                        //  styles= "Self Paced";
-                        text_type_detail.setText("Self Paced");
-
-                    }
-                    //  text_type_detail.setText(styles);
-                }
-*/
                 if(fromsave==1){
 
                     text_topic_detail.setText(topic1);
@@ -780,8 +759,6 @@ public class EditClassFragment extends FragmentActivity {
         GlobalClass.prefClear=true;
 
 
-        Intent intentgotoclass=new Intent(EditClassFragment.this,ClassActivity.class);
-        startActivity(intentgotoclass);
-        finish();
+
     }
 }

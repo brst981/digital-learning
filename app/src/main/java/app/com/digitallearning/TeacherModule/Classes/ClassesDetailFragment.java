@@ -1,5 +1,6 @@
 package app.com.digitallearning.TeacherModule.Classes;
 //Cls_desc
+
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
@@ -26,6 +27,8 @@ import android.widget.Toast;
 import com.andexert.library.RippleView;
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
@@ -35,26 +38,26 @@ import org.json.JSONObject;
 import app.com.digitallearning.R;
 import app.com.digitallearning.TeacherModule.ClassFragment;
 import app.com.digitallearning.TeacherModule.Curriculum.CurriculumActivity;
-import app.com.digitallearning.TeacherModule.Schedule.ScheduleActivity;
+import app.com.digitallearning.TeacherModule.Schedule.ScheduleFragment;
 import app.com.digitallearning.TeacherModule.Syllabus.SyllabusActivity;
 import app.com.digitallearning.WebServices.WSConnector;
 
 /**
  * Created by ${ShalviSharma} on 12/19/15.
  */
-public class ClassesDetailFragment extends Fragment{
+public class ClassesDetailFragment extends Fragment {
     View rootview;
     FloatingActionMenu menu_main;
-    FloatingActionButton floatingActionButtonEdit,floatingActionButtonChange,floatingActionButtonDelete;
-    TextView headerTitle,text_passcode_detail,curriculum,scheduleday,syllabus,text_school_name,text_topic_name,text_des;
-    String title,arrDay,titlesyllabus,titlecurriculum;
-    int curiid=10;
-    ImageView  img_edit_picture;
+    FloatingActionButton floatingActionButtonEdit, floatingActionButtonChange, floatingActionButtonDelete;
+    TextView headerTitle, text_passcode_detail, curriculum, scheduleday, syllabus, text_school_name, text_topic_name, text_des;
+    String title, arrDay, titlesyllabus, titlecurriculum;
+    int curiid = 10;
+    ImageView img_edit_picture;
     ProgressDialog dlg;
     SharedPreferences preferences;
-    String cla_classid,schoolName,Sch_Mem_id,class_image;
-    boolean classID=false;
-    RippleView rippleViewTeacherCollab,rippleViewCurriculum,ripple_teacher_syllabus,ripple_teacher_schedule;
+    String cla_classid, schoolName, Sch_Mem_id, class_image;
+    boolean classID = false;
+    RippleView rippleViewTeacherCollab, rippleViewCurriculum, ripple_teacher_syllabus, ripple_teacher_schedule;
 
 
     public static ClassesDetailFragment newInstance() {
@@ -66,14 +69,14 @@ public class ClassesDetailFragment extends Fragment{
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootview = inflater.inflate(R.layout.fragment_class_details, container, false);
         menu_main = (FloatingActionMenu) rootview.findViewById(R.id.menu_main);
         text_school_name = (TextView) rootview.findViewById(R.id.text_school_name);
         text_topic_name = (TextView) rootview.findViewById(R.id.text_topic_name);
-        text_des=(TextView) rootview.findViewById(R.id.text_des);
+        text_des = (TextView) rootview.findViewById(R.id.text_des);
         Log.e("ClassDetail.newtopicsel", "" + EditClassFragment.newtopicsel);
-        Log.e("isheaderrec1",""+ClassFragment.titleheader);
+        Log.e("isheaderrec1", "" + ClassFragment.titleheader);
         dlg = new ProgressDialog(getActivity());
         preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         cla_classid = preferences.getString("cla_classid", "");
@@ -84,12 +87,9 @@ public class ClassesDetailFragment extends Fragment{
         text_school_name.setText(schoolName);
         try {
             new Get_Class_image().execute(cla_classid);
+        } catch (Exception e) {
         }
-        catch (Exception e){}
 
-        new Get_carriculum().execute(cla_classid, Sch_Mem_id);
-        new Schedule_listing().execute(Sch_Mem_id, cla_classid);
-        new Get_syllabus().execute(cla_classid, Sch_Mem_id);
 
         text_passcode_detail = (TextView) rootview.findViewById(R.id.text_passcode_detail);
         text_passcode_detail.setText(cla_classid);
@@ -104,12 +104,14 @@ public class ClassesDetailFragment extends Fragment{
         rippleViewCurriculum = (RippleView) rootview.findViewById(R.id.ripple_teacher_curriculum);
         ripple_teacher_syllabus = (RippleView) rootview.findViewById(R.id.ripple_teacher_syllabus);
         ripple_teacher_schedule = (RippleView) rootview.findViewById(R.id.ripple_teacher_schedule);
+
+
         ripple_teacher_schedule.setOnRippleCompleteListener(new RippleView.OnRippleCompleteListener() {
             @Override
             public void onComplete(RippleView rippleView) {
-                Intent gotoschedule = new Intent(getActivity(), ScheduleActivity.class);
+                Intent gotoschedule = new Intent(getActivity(), ScheduleFragment.class);
                 startActivity(gotoschedule);
-              //  getActivity().finish();
+                //   getActivity().finish();
 
 
             }
@@ -130,22 +132,22 @@ public class ClassesDetailFragment extends Fragment{
 
 
         createCustomAnimation();
-       initData();
+        initData();
 
 
         return rootview;
     }
-   private void initData() {
+
+    private void initData() {
 
         floatingActionButtonEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(getActivity(),EditClassFragment.class);
+                Intent intent = new Intent(getActivity(), EditClassFragment.class);
                 startActivity(intent);
                 getActivity().finish();
             }
         });
-
 
 
         floatingActionButtonChange.setOnClickListener(new View.OnClickListener() {
@@ -154,9 +156,9 @@ public class ClassesDetailFragment extends Fragment{
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 ChangePictureFragment classFragment = new ChangePictureFragment();
-                Bundle bundle=new Bundle();
-                bundle.putString("class_image",class_image);
-                Log.e("sendclass_image",""+class_image);
+                Bundle bundle = new Bundle();
+                bundle.putString("class_image", class_image);
+                Log.e("sendclass_image", "" + class_image);
                 fragmentTransaction.replace(R.id.container, classFragment).addToBackStack(null);
                 classFragment.setArguments(bundle);
                 fragmentTransaction.commit();
@@ -191,9 +193,9 @@ public class ClassesDetailFragment extends Fragment{
             @Override
             public void onComplete(RippleView rippleView) {
                 Intent gotocurri = new Intent(getActivity(), CurriculumActivity.class);
-                gotocurri.putExtra("curiid",curiid);
+                gotocurri.putExtra("curiid", curiid);
                 startActivity(gotocurri);
-              //  getActivity().finish();
+                //  getActivity().finish();
             }
         });
         ripple_teacher_syllabus.setOnRippleCompleteListener(new RippleView.OnRippleCompleteListener() {
@@ -201,10 +203,10 @@ public class ClassesDetailFragment extends Fragment{
             public void onComplete(RippleView rippleView) {
                 Intent gotocurri = new Intent(getActivity(), SyllabusActivity.class);
                 startActivity(gotocurri);
-              //  getActivity().finish();
+                //  getActivity().finish();
             }
         });
-   }
+    }
 
     private void createCustomAnimation() {
         AnimatorSet set = new AnimatorSet();
@@ -282,34 +284,67 @@ public class ClassesDetailFragment extends Fragment{
                     JSONObject obj = arr.getJSONObject(i);
                     Log.e("obj", "" + obj);
 
-                     class_image = obj.getString("class_image");
+                    class_image = obj.getString("class_image");
                     Log.e("class_image", "" + class_image);
                     Log.e("Checkimg_edit_picture", "" + img_edit_picture);
                     if (img_edit_picture == null) {
                         Log.e("ifnullimg_edit_picture", "" + img_edit_picture);
                         img_edit_picture.setImageResource(R.drawable.no_image_icon);
                     }
-                    try {
-                        if (img_edit_picture != null) {
-                            Log.e("img_edit_picture", "" + img_edit_picture);
-                            Picasso.with(getActivity()).load(class_image).into(img_edit_picture);
-                        } /*else {
-                            img_edit_picture.setImageResource(R.drawable.img_loading);
-                        }*/
-                    }
-                    catch (Exception e){}
+                    // try {
+                    // if (img_edit_picture != null) {
+                    Log.e("img_edit_picture", "" + class_image);
 
 
+                    Picasso.with(getActivity()).load(class_image).networkPolicy(NetworkPolicy.OFFLINE).into(img_edit_picture,
+                            new Callback() {
+                                @Override
+                                public void onSuccess() {
+
+                                    Log.e("Onsuccess", "ss");
+
+                                }
+
+                                @Override
+                                public void onError() {
+                                    Log.e("OnError", "ss");
+
+                                    Picasso.with(getActivity())
+                                            .load(class_image)
+
+                                            .into(img_edit_picture, new Callback() {
+                                                @Override
+                                                public void onSuccess() {
+
+                                                }
+
+                                                @Override
+                                                public void onError() {
+                                                    Log.e("Picasso", "Could not fetch image");
+                                                }
+                                            });
+
+                                }
+                            });
+
+                    //  Picasso.with(getActivity()).load(class_image).placeholder(R.drawable.no_image_icon).into(img_edit_picture);
+                    //  } /*else {
+                    // img_edit_picture.setImageResource(R.drawable.img_loading);
+                    // }*/
+//                    } catch (Exception e) {
+//                    }
 
                 }
+
                 headerTitle.setText(ClassFragment.titleheader);
-                Log.e("isheaderrec",""+ClassFragment.titleheader);
+                Log.e("isheaderrec", "" + ClassFragment.titleheader);
 
 
-            } catch (JSONException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
-        }}
+        }
+    }
 
 
     class Get_carriculum extends AsyncTask<String, Integer, String> {
@@ -318,7 +353,7 @@ public class ClassesDetailFragment extends Fragment{
         @Override
         protected String doInBackground(String... params) {
 
-            return WSConnector.Get_curriculum(params[0],params[1]);
+            return WSConnector.Get_curriculum(params[0], params[1]);
 
         }
 
@@ -330,6 +365,7 @@ public class ClassesDetailFragment extends Fragment{
             dlg.show();
 
         }
+
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
@@ -337,37 +373,49 @@ public class ClassesDetailFragment extends Fragment{
             Log.e("Get_syllabusAPI", "" + result);
             if (result.contains("false")) {
 
+
+                curriculum.setText(" ");
+
+
             } else if (result.contains("true")) {
                 updateTeacherLogIn(result);
 
             }
         }
+
         private void updateTeacherLogIn(String success) {
 
             try {
-                JSONObject jsonObject = new JSONObject(success);
+
+                JSONObject jsonObject = new JSONObject(success);//addsrtitle
                 JSONArray arr = jsonObject.getJSONArray("data");
                 Log.e("arr", " " + arr);
                 for (int i = 0; i < arr.length(); i++) {
                     JSONObject obj = arr.getJSONObject(i);
 
-                     titlecurriculum = obj.getString("title");
-                    Log.e("title", "" + titlecurriculum);
+                    titlecurriculum = obj.getString("title");
+                    Log.e("title", "kk" + titlecurriculum);
+                    /*if(titlecurriculum.equals("")){
+                        curriculum.setText(" ");
+                    }
+                    else{*/
                     curriculum.setText(titlecurriculum);
                 }
 
-            }catch (JSONException e) {
+
+            } catch (JSONException e) {
                 e.printStackTrace();
             }
         }
     }
+
     class Schedule_listing extends AsyncTask<String, Integer, String> {
 
 
         @Override
         protected String doInBackground(String... params) {
 
-            return WSConnector.Schedule_listing(params[0],params[1]);
+            return WSConnector.Schedule_listing(params[0], params[1]);
 
         }
 
@@ -394,7 +442,7 @@ public class ClassesDetailFragment extends Fragment{
 
             } else if (result.contains("false")) {
                 Toast.makeText(getActivity(), "No data", Toast.LENGTH_SHORT).show();
-
+                scheduleday.setText(" ");
             }
         }
 
@@ -414,31 +462,23 @@ public class ClassesDetailFragment extends Fragment{
                     arrDay = obj.getString("day");
                     Log.e("dayOn", "" + arrDay);
 
-                    if(arrDay.contains("1")){
+                    if (arrDay.contains("1")) {
                         scheduleday.setText("Monday");
-                    }
-                    else if(arrDay.contains("2")){
+                    } else if (arrDay.contains("2")) {
                         scheduleday.setText("Tuesday");
-                    }
-                    else if(arrDay.contains("3")){
+                    } else if (arrDay.contains("3")) {
                         scheduleday.setText("Wednesday");
-                    }
-                    else if(arrDay.contains("4")){
+                    } else if (arrDay.contains("4")) {
                         scheduleday.setText("Thrusday");
-                    }
-                    else if(arrDay.contains("5")){
+                    } else if (arrDay.contains("5")) {
                         scheduleday.setText("Friday");
-                    }
-                    else if(arrDay.contains("6")){
+                    } else if (arrDay.contains("6")) {
                         scheduleday.setText("Saturday");
-                    }
-                    else if(arrDay.contains("7")){
+                    } else if (arrDay.contains("7")) {
                         scheduleday.setText("Sunday");
-                    }
-                    else if(arrDay.contains("8")){
+                    } else if (arrDay.contains("8")) {
                         scheduleday.setText("Every Day");
-                    }
-                    else if(arrDay.contains("9")){
+                    } else if (arrDay.contains("9")) {
                         scheduleday.setText("Every Weekday");
                     }
 
@@ -449,13 +489,14 @@ public class ClassesDetailFragment extends Fragment{
         }
 
     }
+
     class Get_syllabus extends AsyncTask<String, Integer, String> {
 
 
         @Override
         protected String doInBackground(String... params) {
 
-            return WSConnector.Get_syllabus(params[0],params[1]);
+            return WSConnector.Get_syllabus(params[0], params[1]);
 
         }
 
@@ -478,32 +519,44 @@ public class ClassesDetailFragment extends Fragment{
 
             if (result.contains("false")) {
 
+                syllabus.setText(" ");
+
             } else if (result.contains("true")) {
                 updateTeacherLogIn(result);
-                }
-
-        }
-        }
-        private void updateTeacherLogIn(String success) {
-
-            try {
-
-                JSONObject jsonObject = new JSONObject(success);
-
-                JSONArray arr = jsonObject.getJSONArray("data");
-                Log.e("arr", " " + arr);
-                for (int i = 0; i < arr.length(); i++) {
-                    JSONObject obj = arr.getJSONObject(i);
-
-
-                     titlesyllabus = obj.getString("title");
-                    Log.e("title", "" + titlesyllabus);
-                    syllabus.setText(titlesyllabus);
-
-                }
-
-            }catch (JSONException e) {
-                e.printStackTrace();
             }
+
         }
     }
+
+    private void updateTeacherLogIn(String success) {
+
+        try {
+
+            JSONObject jsonObject = new JSONObject(success);
+
+            JSONArray arr = jsonObject.getJSONArray("data");
+            Log.e("arr", " " + arr);
+            for (int i = 0; i < arr.length(); i++) {
+                JSONObject obj = arr.getJSONObject(i);
+
+
+                titlesyllabus = obj.getString("title");
+                Log.e("title", "" + titlesyllabus);
+                syllabus.setText(titlesyllabus);
+
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        new Get_carriculum().execute(cla_classid, Sch_Mem_id);
+        new Schedule_listing().execute(Sch_Mem_id, cla_classid);
+        new Get_syllabus().execute(cla_classid, Sch_Mem_id);
+    }
+}

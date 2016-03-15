@@ -2,6 +2,7 @@ package app.com.digitallearning.TeacherModule.Classes;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.PointF;
 import android.os.AsyncTask;
@@ -13,6 +14,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -50,6 +52,7 @@ public class CreateClassFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootview = inflater.inflate(R.layout.fragment_create_class, container, false);
+
         ripple_main=(RippleView) rootview.findViewById(R.id.ripple_main);
         btnSave=(Button)rootview.findViewById(R.id.btnSave);
         dlg=new ProgressDialog(getActivity());
@@ -180,6 +183,11 @@ public class CreateClassFragment extends Fragment {
                     get=selectedtopic.getText().toString();
                     Log.e("get",""+get);
                 }*/
+                try {
+                    final InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
+                }catch (Exception e){}
+
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 TopicFragment topicFragment = new TopicFragment();

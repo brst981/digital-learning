@@ -21,10 +21,6 @@ import android.widget.TextView;
 
 import com.andexert.library.RippleView;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -180,64 +176,10 @@ public class AddLessonFragment extends Fragment{
 
 
             } else if (result.contains("true")) {
-                updateAdd_Lesson(result);
-
-             /*   ripple_edit_delete.setVisibility(View.VISIBLE);
-                ripple_edit_delete.setOnRippleCompleteListener(new RippleView.OnRippleCompleteListener() {
-                    @Override
-                    public void onComplete(RippleView rippleView) {
-                        new Delete_syllabus().execute(sy_id);
-                    }
-                });
-                savebutton.setText("Update");
-                textupdate=savebutton.getText().toString();
-                Log.e("textupdate",""+textupdate);
-                if(textupdate.contains("Update")){
-                    ripple_edit_save.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            srtitle=sylbsTitle.getText().toString();
-                            srdescription=des.getText().toString();
-                            new Update_syllabus().execute(cla_classid,Sch_Mem_id,srtitle,srdescription,sy_id);
-                        }
-                    });
-
-                }*/
-
-            /*    JSONObject obj=new JSONObject();
-                String data=obj.getString("data");
-                Log.e("data",""data);*/
-
-                // Toast.makeText(getActivity(), "Wrong User", Toast.LENGTH_SHORT).show();
-
+               // getActivity().finish();
+                getFragmentManager().popBackStack();
             }
         }
-        private void updateAdd_Lesson(String success) {
 
-            try {
-
-                JSONObject jsonObject = new JSONObject(success);
-
-//[{"sy_id":"196","syllabus":"cbshjd","title":"new"}]
-                //  LogMessage.showDialog(getActivity(), null, "" +data, "OK");
-                JSONArray arr = jsonObject.getJSONArray("data");
-                Log.e("arr", " " + arr);
-                for (int i = 0; i < arr.length(); i++) {
-                    JSONObject obj = arr.getJSONObject(i);
-
-                    /*sy_id = obj.getString("sy_id");
-                    Log.e("sy_id", "" + sy_id);
-                    String syllabus = obj.getString("syllabus");
-                    Log.e("syllabus", "" + syllabus);
-                    String title = obj.getString("title");
-                    Log.e("title", "" + title);
-                    sylbsTitle.setText(title);
-                    des.setText(syllabus);*/
-                }
-
-            }catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
     }
 }

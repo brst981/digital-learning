@@ -10,7 +10,7 @@ import android.graphics.PointF;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
@@ -43,12 +43,16 @@ import java.util.ArrayList;
 import app.com.digitallearning.R;
 import app.com.digitallearning.TeacherModule.Classes.ClassesDetailFragment;
 import app.com.digitallearning.TeacherModule.Lessons.Lesson_Edit;
+import app.com.digitallearning.Utill.OnReceiveListner;
 import app.com.digitallearning.WebServices.WSConnector;
 
 /**
  * Created by ${PSR} on 2/4/16.
  */
-public class ScheduleFragment extends Fragment {
+public class ScheduleFragment extends FragmentActivity {
+
+    public static final String RLISTNER = "r_listner";
+
     View rootview;
     RippleView rippleViewCreate;
     TextView headerTitle;
@@ -63,10 +67,34 @@ public class ScheduleFragment extends Fragment {
     RelativeLayout relschedule;
     ImageButton imageButtonZoomIn, imageButtonZoomOut, back;
     ArrayList<String> arrTimeId, arrdescription, arrEn_min, arrStr_min, arrEn_Hour, arrStr_Hour, arrDay, arrLocation;
+    OnReceiveListner mListner;
+
+
+//    @Override
+//    public void onResume() {
+//        super.onResume();
+//        new Schedule_listing().execute(userid, cla_classid);
+//    }
+
+    /*@Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        new Schedule_listing().execute(userid, cla_classid);
+    }
+*/
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        rootview = inflater.inflate(R.layout.frag_schedule, container, false);
+    protected void onResume() {
+        super.onResume();
+        new Schedule_listing().execute(userid, cla_classid);
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.frag_schedule);
+
+
         arrTimeId = new ArrayList<>();
         arrdescription = new ArrayList<>();
         arrEn_min = new ArrayList<>();
@@ -77,16 +105,16 @@ public class ScheduleFragment extends Fragment {
         arrLocation = new ArrayList<>();
 
 
-        dlg = new ProgressDialog(getActivity());
-        preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        relschedule = (RelativeLayout) rootview.findViewById(R.id.relschedule);
-        imageButtonZoomIn = (ImageButton) rootview.findViewById(R.id.img_zoom_in);
-        imageButtonZoomOut = (ImageButton) rootview.findViewById(R.id.img_zoom_out);
-        back = (ImageButton) rootview.findViewById(R.id.back);
+        dlg = new ProgressDialog(ScheduleFragment.this);
+        preferences = PreferenceManager.getDefaultSharedPreferences(ScheduleFragment.this);
+        relschedule = (RelativeLayout) findViewById(R.id.relschedule);
+        imageButtonZoomIn = (ImageButton) findViewById(R.id.img_zoom_in);
+        imageButtonZoomOut = (ImageButton) findViewById(R.id.img_zoom_out);
+        back = (ImageButton) findViewById(R.id.back);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentManager fragmentManager = getFragmentManager();
+                FragmentManager fragmentManager = getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 ClassesDetailFragment classesDetailFragment = new ClassesDetailFragment();
                 fragmentTransaction.replace(R.id.container, classesDetailFragment).addToBackStack(null);
@@ -98,8 +126,8 @@ public class ScheduleFragment extends Fragment {
 
         cla_classid = preferences.getString("cla_classid", "");
         Log.e("cla_classid", "" + cla_classid);
-        new Schedule_listing().execute(userid, cla_classid);
-        rippleViewCreate = (RippleView) rootview.findViewById(R.id.ripple_create_lesson);
+
+        rippleViewCreate = (RippleView) findViewById(R.id.ripple_create_lesson);
 
         /*AppCompatActivity activity = (AppCompatActivity) getActivity();
 
@@ -109,16 +137,16 @@ public class ScheduleFragment extends Fragment {
         headerTitle = (TextView) activity.findViewById(R.id.mytext);
 
         headerTitle.setText("Schedule");*/
-        mListView = (ListView) rootview.findViewById(R.id.listview_archieved);
-        mAdapter = new ListViewAdapter(getActivity());
-      //  mListView.setAdapter(mAdapter);
-      //  mAdapter.notifyDataSetChanged();
+        mListView = (ListView) findViewById(R.id.listview_archieved);
+        mAdapter = new ListViewAdapter(ScheduleFragment.this);
+        //  mListView.setAdapter(mAdapter);
+        //  mAdapter.notifyDataSetChanged();
         mAdapter.setMode(Attributes.Mode.Single);
 
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent inte = new Intent(getActivity(), ViewSchedule.class);
+                Intent inte = new Intent(ScheduleFragment.this, ViewSchedule.class);
                 inte.putExtra("timeID", arrTimeId.get(position));
                 startActivity(inte);
 
@@ -179,7 +207,7 @@ public class ScheduleFragment extends Fragment {
                 zoom(1f, 1f, new PointF(0, 0));
             }
         });
-        return rootview;
+
     }
 
     private void initData() {
@@ -188,24 +216,18 @@ public class ScheduleFragment extends Fragment {
         rippleViewCreate.setOnRippleCompleteListener(new RippleView.OnRippleCompleteListener() {
             @Override
             public void onComplete(RippleView rippleView) {
-              /*  FragmentManager fragmentManager = getFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                AddSchedule addSchedule = new AddSchedule();
-               *//* Bundle arg=new Bundle();
-                arg.putString("timeID",arrTimeId.get(pos));*//*
-              //  Log.e("arrTimeId.get(pos)",""+arrTimeId.get(pos));
-                fragmentTransaction.replace(R.id.container, addSchedule).addToBackStack(null);
-               // addSchedule.setArguments(arg);
-                fragmentTransaction.commit();*/
-                Intent inty = new Intent(getActivity(), AddSchedule.class);
+
+                // AddSchedule addSchedule = new AddSchedule(mListner);
+                Intent inty = new Intent(ScheduleFragment.this, AddSchedule.class);
                 inty.putExtra("shouldempty", shouldempty);
                 startActivity(inty);
-                getActivity().finish();
+                finish();
             }
         });
 
 
     }
+
 
     class ListViewAdapter extends BaseSwipeAdapter {
         private Context mContext;
@@ -227,26 +249,26 @@ public class ScheduleFragment extends Fragment {
             swipeLayout.addSwipeListener(new SimpleSwipeListener() {
                 @Override
                 public void onOpen(SwipeLayout layout) {
-                   // Toast.makeText(mContext, "Swipe Open", Toast.LENGTH_SHORT).show();
+                    // Toast.makeText(mContext, "Swipe Open", Toast.LENGTH_SHORT).show();
                 }
             });
             swipeLayout.setOnDoubleClickListener(new SwipeLayout.DoubleClickListener() {
                 @Override
                 public void onDoubleClick(SwipeLayout layout, boolean surface) {
-                   // Toast.makeText(mContext, "DoubleClick", Toast.LENGTH_SHORT).show();
+                    // Toast.makeText(mContext, "DoubleClick", Toast.LENGTH_SHORT).show();
                 }
             });
             v.findViewById(R.id.delete).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                  //  Toast.makeText(mContext, "click delete", Toast.LENGTH_SHORT).show();
+                    //  Toast.makeText(mContext, "click delete", Toast.LENGTH_SHORT).show();
                 }
             });
 
             v.findViewById(R.id.archive).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    FragmentManager fragmentManager = getFragmentManager();
+                    FragmentManager fragmentManager = getSupportFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                     Lesson_Edit classFragment = new Lesson_Edit();
                     fragmentTransaction.replace(R.id.container, classFragment).addToBackStack(null);
@@ -343,7 +365,7 @@ public class ScheduleFragment extends Fragment {
 
 
             } else if (result.contains("false")) {
-                Toast.makeText(getActivity(), "No data", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ScheduleFragment.this, "No data", Toast.LENGTH_SHORT).show();
 
             }
         }
@@ -360,6 +382,15 @@ public class ScheduleFragment extends Fragment {
                 Log.e("jsonObject", "" + jsonObject);
 
 
+
+                arrTimeId.clear();
+                arrdescription.clear();
+                arrEn_min.clear();
+                arrStr_min.clear();
+                arrEn_Hour.clear();
+                arrStr_Hour.clear();
+                arrDay.clear();
+                arrLocation.clear();
                 JSONArray arr = jsonObject.getJSONArray("data");
                 Log.e("arr", " " + arr);
                 for (int i = 0; i < arr.length(); i++) {
@@ -401,7 +432,7 @@ public class ScheduleFragment extends Fragment {
                     arrEn_Hour.add(En_Hour);
                     arrStr_Hour.add(Str_Hour);
                     arrDay.add(day);
-                    Log.e("ArrayDay",""+arrDay);
+                    Log.e("ArrayDay", "" + arrDay);
                     arrLocation.add(Cls_Location);
 
                 }
@@ -452,7 +483,7 @@ public class ScheduleFragment extends Fragment {
 
                 //  Toast.makeText(getActivity(), "Schedule deleted", Toast.LENGTH_SHORT).show();
 
-                AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(ScheduleFragment.this);
                 alertDialog.setMessage("Schedule successfully deleted").setCancelable(false)
                         .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
 
@@ -466,10 +497,10 @@ public class ScheduleFragment extends Fragment {
                                 // mListView.setAdapter(mAdapter);
                                 Log.e("posdelete", "" + arrDay.get(pos));
                                 arrDay.remove(pos);
-                                mAdapter = new ListViewAdapter(getActivity());
+                                mAdapter = new ListViewAdapter(ScheduleFragment.this);
 
                                 mListView.setAdapter(mAdapter);
-                              //  mAdapter.notifyDataSetChanged();
+                                //  mAdapter.notifyDataSetChanged();
                                 Log.e("sizeafterdelete", "" + arrDay.size());
                                 Log.e("sizeafterdelete", "" + arrDay.size());
                             }
@@ -483,7 +514,7 @@ public class ScheduleFragment extends Fragment {
 
 
             } else if (result.contains("false")) {
-                Toast.makeText(getActivity(), "Wrong User", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ScheduleFragment.this, "Wrong User", Toast.LENGTH_SHORT).show();
 
             }
         }
@@ -496,4 +527,6 @@ public class ScheduleFragment extends Fragment {
         relschedule.setScaleX(scaleX);
         relschedule.setScaleY(scaleY);
     }
+
+
 }

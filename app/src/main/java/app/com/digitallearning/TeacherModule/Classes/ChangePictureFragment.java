@@ -274,6 +274,7 @@ public class ChangePictureFragment extends Fragment {
             if (result.contains("true")) {
 
                 Toast.makeText(getActivity(),"Profile pic uploaded",Toast.LENGTH_SHORT).show();
+                getFragmentManager().popBackStack();
             }
 
             else  if (result.contains("false")){

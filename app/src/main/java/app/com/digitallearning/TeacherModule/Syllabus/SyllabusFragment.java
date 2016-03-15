@@ -3,7 +3,6 @@ package app.com.digitallearning.TeacherModule.Syllabus;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.PointF;
 import android.os.AsyncTask;
@@ -30,7 +29,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import app.com.digitallearning.R;
-import app.com.digitallearning.TeacherModule.ClassActivity;
 import app.com.digitallearning.TeacherModule.Classes.ClassesDetailFragment;
 import app.com.digitallearning.Utill.LogMessage;
 import app.com.digitallearning.WebServices.WSConnector;
@@ -171,8 +169,6 @@ public class SyllabusFragment extends Fragment{
                                 startActivity(deletetoclass);
                                 getActivity().finish();*/
                               //  getFragmentManager().popBackStackImmediate();
-                                Intent deletetoclass=new Intent(getActivity(),ClassActivity.class);
-                                startActivity(deletetoclass);
                                 getActivity().finish();
 
 
@@ -380,8 +376,6 @@ public class SyllabusFragment extends Fragment{
                             public void onClick(DialogInterface dialog, int which) {
                                 // TODO Auto-generated method stub
                                 dialog.dismiss();
-                                Intent deletetoclass=new Intent(getActivity(),ClassActivity.class);
-                                startActivity(deletetoclass);
                                 getActivity().finish();
 
                             }
@@ -438,8 +432,6 @@ public class SyllabusFragment extends Fragment{
                             public void onClick(DialogInterface dialog, int which) {
                                 // TODO Auto-generated method stub
                                 dialog.dismiss();
-                                Intent deletetoclass=new Intent(getActivity(),ClassActivity.class);
-                                startActivity(deletetoclass);
                                 getActivity().finish();
 
                             }

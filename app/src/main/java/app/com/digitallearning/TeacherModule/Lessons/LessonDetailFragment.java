@@ -26,6 +26,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -149,7 +150,7 @@ public class LessonDetailFragment extends Fragment implements ViewPager.OnPageCh
     @Override
     public void onPageSelected(int position) {
 
-        Log.e("Currentpos",""+position);
+        Log.e("Currentpos", "" + position);
 
     }
 
@@ -200,7 +201,7 @@ public class LessonDetailFragment extends Fragment implements ViewPager.OnPageCh
             View itemView = mLayoutInflater.inflate(R.layout.layout_lesson_items, container,
                     false);
 
-           //  quizlist = (ListView) itemView.findViewById(R.id.quizlist);
+            //  quizlist = (ListView) itemView.findViewById(R.id.quizlist);
 
             TextView textView = (TextView) itemView.findViewById(R.id.textView_lesson_count);
             ImageView imageViewLeft = (ImageView) itemView.findViewById(R.id.img_left_icon);
@@ -208,7 +209,12 @@ public class LessonDetailFragment extends Fragment implements ViewPager.OnPageCh
             ImageView thumbnail = (ImageView) itemView.findViewById(R.id.thumbnail);
             TextView textView_lesson_description2 = (TextView) itemView.findViewById(R.id.textView_lesson_description2);
             textView_lesson_description2.setText(dataList.get(position).getDescription());
-            Picasso.with(getActivity()).load(dataList.get(position).getVideoThumbnail()).into(thumbnail);
+
+            try {
+                Picasso.with(getActivity()).load(dataList.get(position).getVideoThumbnail()).into(thumbnail);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
 
 
@@ -228,8 +234,12 @@ public class LessonDetailFragment extends Fragment implements ViewPager.OnPageCh
                 @Override
                 public void onClick(View v) {
 
-                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(dataList.get(position).getVideoUrl()));
-                    startActivity(browserIntent);
+                    if (dataList.get(position).getVideoUrl() != null && dataList.get(position).getVideoUrl().trim().length() > 0) {
+                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(dataList.get(position).getVideoUrl()));
+                        startActivity(browserIntent);
+                    } else {
+                        Toast.makeText(getActivity(), "Wrong data", Toast.LENGTH_SHORT).show();
+                    }
                 }
             });
             textView.setText("Lesson" + " " + pos + " " + "of" + " " + dataList.size());
@@ -357,7 +367,7 @@ public class LessonDetailFragment extends Fragment implements ViewPager.OnPageCh
 
                 }
                 _mViewPager.setAdapter(mPagerAdapter);
-               // _mViewPager.setOnPageChangeListener(this);
+                // _mViewPager.setOnPageChangeListener(this);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -382,7 +392,6 @@ public class LessonDetailFragment extends Fragment implements ViewPager.OnPageCh
             this.context = context;
 
         }
-
 
 
         @Override
@@ -424,7 +433,7 @@ public class LessonDetailFragment extends Fragment implements ViewPager.OnPageCh
             QuizData quizData = data.getQuizData().get(position);
 
             holder.quizname.setText(quizData.getQuizName());
-            Log.e("nameofQUiz",""+quizData.getQuizName());
+            Log.e("nameofQUiz", "" + quizData.getQuizName());
 
 
             return convertView;

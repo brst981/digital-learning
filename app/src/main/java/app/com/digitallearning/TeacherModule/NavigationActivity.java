@@ -13,7 +13,6 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
 import app.com.digitallearning.NavigationDrawerCallbacks;
 import app.com.digitallearning.R;
@@ -88,7 +87,7 @@ public class NavigationActivity extends AppCompatActivity implements NavigationD
 
         //  headerTitle = (TextView) mToolbar.findViewById(R.id.mytext);
         FragmentManager mFragmentManager = getSupportFragmentManager();
-        Toast.makeText(this, "Menu item selected -> " + position, Toast.LENGTH_SHORT).show();
+
 
 
         switch (position) {

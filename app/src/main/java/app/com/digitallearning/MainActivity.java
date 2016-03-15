@@ -260,7 +260,6 @@ public class MainActivity extends Activity {
                         int position = getLayoutPosition(); // gets item position
                         pos=getLayoutPosition();
 
-                        Toast.makeText(MainActivity.this, "clicked" + " " + position, Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(MainActivity.this, LoginActivity.class);
                         intent.putExtra("SchoolName",arrSchoolList.get(position));
                         intent.putExtra("SchoolName",arrSchoolList.get(position));

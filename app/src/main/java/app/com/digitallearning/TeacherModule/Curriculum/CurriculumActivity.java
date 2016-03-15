@@ -30,7 +30,8 @@ public class CurriculumActivity extends FragmentActivity {
         CurriculumFragment curriculumFragment = new CurriculumFragment();
         Bundle bundle = new Bundle();
         bundle.putInt("curiid", curiid);
-        fragmentTransaction.add(R.id.container, curriculumFragment);
+        fragmentTransaction.replace(R.id.container, curriculumFragment);
+       // fragmentTransaction.addToBackStack(null);
         curriculumFragment.setArguments(bundle);
         fragmentTransaction.commit();
 

@@ -48,7 +48,7 @@ import app.com.digitallearning.WebServices.WSConnector;
 /**
  * Created by ${ShalviSharma} on 12/23/15.
  */
-public class LessonFragment extends Fragment  {
+public class LessonFragment extends Fragment {
     View rootview;
     RippleView rippleViewCreate;
     TextView headerTitle;
@@ -56,7 +56,7 @@ public class LessonFragment extends Fragment  {
     private ListView mListView;
     ListViewAdapter mAdapter;
     SharedPreferences preferences;
-    String Sch_Mem_id, cla_classid,deleteId;
+    String Sch_Mem_id, cla_classid, deleteId;
     LinearLayout bottom_wrapper;
     ProgressDialog dlg;
     private RecyclerView mRecyclerView;
@@ -77,7 +77,7 @@ public class LessonFragment extends Fragment  {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootview = inflater.inflate(R.layout.fragment_lesson, container, false);
-        dlg = new ProgressDialog(getActivity());
+
         rippleViewCreate = (RippleView) rootview.findViewById(R.id.ripple_create_lesson);
 
         AppCompatActivity activity = (AppCompatActivity) getActivity();
@@ -93,7 +93,6 @@ public class LessonFragment extends Fragment  {
 
         cla_classid = preferences.getString("cla_classid", "");
         Log.e("cla_classid", "" + cla_classid);
-
 
 
         headerTitle = (TextView) activity.findViewById(R.id.mytext);
@@ -186,7 +185,7 @@ public class LessonFragment extends Fragment  {
         super.onResume();
         dataList.clear();
         new Get_Lesson().execute(cla_classid, Sch_Mem_id);
-        Log.e("Resume","Resume");
+        Log.e("Resume", "Resume");
     }
 
     private void initData() {
@@ -205,7 +204,6 @@ public class LessonFragment extends Fragment  {
 
 
     }
-
 
 
     class ListViewAdapter extends BaseSwipeAdapter {
@@ -240,10 +238,10 @@ public class LessonFragment extends Fragment  {
             v.findViewById(R.id.delete).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                   // Toast.makeText(mContext, "click delete", Toast.LENGTH_SHORT).show();
+                    // Toast.makeText(mContext, "click delete", Toast.LENGTH_SHORT).show();
 
-                    deleteId=dataList.get(position).getLessonId();
-                    new Delete_Lesson().execute(Sch_Mem_id, Sch_Mem_id);
+                    deleteId = dataList.get(position).getLessonId();
+                    new Delete_Lesson(position).execute(Sch_Mem_id, deleteId);
                 }
             });
 
@@ -303,9 +301,10 @@ public class LessonFragment extends Fragment  {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            dlg.setMessage("Loading.....");
-            dlg.setCancelable(false);
-            dlg.show();
+//            dlg = new ProgressDialog(getActivity());
+//            dlg.setMessage("Loading.....");
+//            dlg.setCancelable(false);
+//            dlg.show();
 
 
         }
@@ -314,7 +313,9 @@ public class LessonFragment extends Fragment  {
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
-            dlg.dismiss();
+
+//            if (dlg != null)
+//                dlg.dismiss();
             Log.e("Get_LessonAPI", "" + result);
 
             if (result.contains("false")) {
@@ -398,13 +399,12 @@ public class LessonFragment extends Fragment  {
     }
 
 
-
-
-
-
     class Delete_Lesson extends AsyncTask<String, Integer, String> {
+        private int pos;
+        public Delete_Lesson(int pos) {
+            this.pos = pos;
 
-
+        }
         @Override
         protected String doInBackground(String... params) {
 
@@ -415,6 +415,7 @@ public class LessonFragment extends Fragment  {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+            dlg = new ProgressDialog(getActivity());
             dlg.setMessage("Loading.....");
             dlg.setCancelable(false);
             dlg.show();
@@ -426,7 +427,8 @@ public class LessonFragment extends Fragment  {
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
-            dlg.dismiss();
+            if (dlg != null)
+                dlg.dismiss();
             Log.e("Get_LessonAPI", "" + result);
 
             if (result.contains("true")) {
@@ -440,10 +442,10 @@ public class LessonFragment extends Fragment  {
                             public void onClick(DialogInterface dialog, int which) {
                                 // TODO Auto-generated method stub
                                 dialog.dismiss();
-                               /* Intent deletetoclass=new Intent(getActivity(),ClassActivity.class);
-                                startActivity(deletetoclass);
-                                getActivity().finish();*/
+                                dataList.remove(pos);
+                                mAdapter = new ListViewAdapter(getActivity());
 
+                                mListView.setAdapter(mAdapter);
                             }
                         });
 
@@ -455,22 +457,12 @@ public class LessonFragment extends Fragment  {
 
 
             } else if (result.contains("false")) {
-             //   updateGet_Lesson(result);
+                //   updateGet_Lesson(result);
 
 
             }
         }
     }
-
-
-
-
-
-
-
-
-
-
 
 
     @Override
