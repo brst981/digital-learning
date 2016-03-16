@@ -340,21 +340,6 @@ public class WSConnector {
     }
 
 
-    /*public static String Class_image(String  classid,String userid,String cls_image) {
-
-        String url = AppConstant.class_image;
-        List<NameValuePair> pairs = new ArrayList<NameValuePair>();
-        pairs.add(new BasicNameValuePair("classid", classid));
-        pairs.add(new BasicNameValuePair("userid", userid));
-        pairs.add(new BasicNameValuePair("cls_image", cls_image));
-
-        String result = WSAdapter.postJSONObject(url, pairs);
-
-
-        return result;
-
-    }*/
-
 
     public static String Delete_Curriculum(String del_currid,String userid) {
 
@@ -370,9 +355,6 @@ public class WSConnector {
         return result;
 
     }
-//cid , userid , title , topic , desc , library , lo_age , hi_age , organization , country , state.
-
-
     public static String Country_list() {
 
         String url = AppConstant.country_list;
@@ -509,7 +491,7 @@ public class WSConnector {
         String result = WSAdapter.postJSONObject(url, pairs);
         return result;
 
-    }  //cla_classid,Sch_Mem_id,title,description,currentdate,lessonId,videolink
+    }
     public static String Edit_Lesson(String  cid,String userid,String  title,String desc,String les_date,String lessonId,String video_url) {
 
         String url = AppConstant.create_lesson;
@@ -536,7 +518,6 @@ public class WSConnector {
     }
 
 
-
     public static String Delete_Lesson(String userid,String del_les_id) {
 
         String url = AppConstant.delete_lesson;
@@ -558,7 +539,7 @@ public class WSConnector {
         String result = WSAdapter.postJSONObject(url, pairs);
         return result;
 
-    }// cid , userid , schid , title , desc.
+    }
     public static String Add_Resource(String cid,String userid,String schid,String title,String desc) {
 
         String url = AppConstant.add_Resource;
@@ -603,7 +584,7 @@ public class WSConnector {
         Log.e("res_id",""+res_id);
 
         String result = WSAdapter.postJSONObject(url, pairs);
-        return result;//userid , del_res_id.
+        return result;
 
     }
 
@@ -615,6 +596,37 @@ public class WSConnector {
 
         pairs.add(new BasicNameValuePair("userid", userid));
         pairs.add(new BasicNameValuePair("del_res_id", del_res_id));
+        String result = WSAdapter.postJSONObject(url, pairs);
+        return result;
+
+    }
+
+
+    public static String Add_Student(String userid,String classid,String schid,String first_name,String last_name,String email,String password,String created_date) {
+
+        String url = AppConstant.add_student;
+        List<NameValuePair> pairs = new ArrayList<NameValuePair>();
+
+        pairs.add(new BasicNameValuePair("userid", userid));
+        pairs.add(new BasicNameValuePair("classid", classid));
+        pairs.add(new BasicNameValuePair("schid", schid));
+        pairs.add(new BasicNameValuePair("first_name", first_name));
+        pairs.add(new BasicNameValuePair("last_name", last_name));
+        pairs.add(new BasicNameValuePair("email", email));
+        pairs.add(new BasicNameValuePair("password", password));
+        pairs.add(new BasicNameValuePair("created_date", created_date));
+        String result = WSAdapter.postJSONObject(url, pairs);
+        return result;
+    }
+    public static String Get_unarchive_Student(String userid,String classid) {
+
+        String url = AppConstant.get_student;
+        List<NameValuePair> pairs = new ArrayList<NameValuePair>();
+
+        pairs.add(new BasicNameValuePair("userid", userid));
+        pairs.add(new BasicNameValuePair("classid", classid));
+        pairs.add(new BasicNameValuePair("student_type", "0"));
+
         String result = WSAdapter.postJSONObject(url, pairs);
         return result;
 

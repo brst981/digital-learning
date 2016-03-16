@@ -694,9 +694,10 @@ public class EditClassFragment extends FragmentActivity {
                 TopicFragment.otherstring=" ";
                 EditClassFragment.newtopicsel="";
                 GlobalClass.prefClear=true;
+                GlobalClass.backPress=false;
 
 
-                Intent intenttoClass=new Intent(EditClassFragment.this , ClassActivity.class);
+               Intent intenttoClass=new Intent(EditClassFragment.this , ClassActivity.class);
                 startActivity(intenttoClass);
                 finish();
 
@@ -758,7 +759,21 @@ public class EditClassFragment extends FragmentActivity {
         EditClassFragment.newtopicsel="";
         GlobalClass.prefClear=true;
 
+        if(GlobalClass.backPress)
+        {
+            Intent gotoclass=new Intent(EditClassFragment.this,ClassActivity.class);
+            startActivity(gotoclass);
+            GlobalClass.backPress=false;
+        }
+        if(GlobalClass.classDetail)
+        {
+           // getFragmentManager().popBackStack();
+            Log.e("bckk","presss");
 
+            GlobalClass.classDetail=false;
+            Intent gotoclass=new Intent(EditClassFragment.this,ClassActivity.class);
+            startActivity(gotoclass);
+        }
 
     }
 }

@@ -21,8 +21,8 @@ public class Preview extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootview = inflater.inflate(R.layout.preview_res, container, false);
         edt_description_lesson=(TextView)rootview.findViewById(R.id.edt_description_lesson);
-      //  title=getArguments().getString("title");
-       // des=getArguments().getString("des");
+        title=getArguments().getString("title");
+        des=getArguments().getString("des");
 
         AppCompatActivity activity = (AppCompatActivity) getActivity();
 
@@ -31,9 +31,9 @@ public class Preview extends Fragment {
 
         headerTitle = (TextView) activity.findViewById(R.id.mytext);
 
-     //   headerTitle.setText(title);
+        headerTitle.setText(title);
         initData();
-       // edt_description_lesson.setText(des);
+        edt_description_lesson.setText(des);
         return rootview;
 
     }

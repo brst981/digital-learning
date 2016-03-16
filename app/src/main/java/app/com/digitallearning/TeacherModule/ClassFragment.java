@@ -20,6 +20,7 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -50,6 +51,7 @@ public class ClassFragment extends Fragment {
     View rootview;
     ProgressDialog dlg;
     RippleView rippleViewCreate;
+    ImageView logout;
     private ListView mListView;
     ListViewAdapter mAdapter;
     public static RelativeLayout relative_header;
@@ -84,6 +86,15 @@ public class ClassFragment extends Fragment {
         imageButtonZoomIn = (ImageButton)rootview. findViewById(R.id.img_zoom_in);
         imageButtonZoomOut = (ImageButton) rootview.findViewById(R.id.img_zoom_out);
         newrelative=(RelativeLayout)rootview.findViewById(R.id.newrelative);
+        logout=(ImageView)rootview.findViewById(R.id.logout);
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                GlobalClass.rememberMe=false;
+                getActivity().finish();
+            }
+        });
 
         GlobalClass.lastValue=" ";
 
@@ -102,7 +113,7 @@ public class ClassFragment extends Fragment {
         Sch_Mem_id=preferences.getString("Sch_Mem_id","");
         Mem_Sch_Id=preferences.getString("Mem_Sch_Id","");
 
-        new TeacherLogIn().execute(name, password, schoolID);
+
        /* AppCompatActivity activity = (AppCompatActivity) getActivity();
 
         activity.getSupportActionBar().setTitle("");
@@ -321,7 +332,8 @@ public class ClassFragment extends Fragment {
                     intent.putExtra("Mem_Sch_Id",Mem_Sch_Id);
                     intent.putExtra("fromclassfag",fromclassfag);
                     startActivity(intent);
-                  //  getActivity().finish();
+                    getActivity().finish();
+                    GlobalClass.backPress=true;
 
                 }
             });
@@ -387,6 +399,13 @@ public class ClassFragment extends Fragment {
 
         private void updateTeacherLogIn(String success) {
 
+
+            newclassName.clear();
+            newclassStudent.clear();
+            newclassSub.clear();
+            newclassid.clear();
+            newclassdescription.clear();
+            newsubject.clear();
             try {
 
                 JSONObject jsonObject = new JSONObject(success);
@@ -438,4 +457,9 @@ public class ClassFragment extends Fragment {
         rellogin.setScaleY(scaleY);
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        new TeacherLogIn().execute(name, password, schoolID);
+    }
 }

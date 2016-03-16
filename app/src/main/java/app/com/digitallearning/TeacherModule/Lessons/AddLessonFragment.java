@@ -38,6 +38,7 @@ public class AddLessonFragment extends Fragment{
     ProgressDialog dlg;
     SharedPreferences preferences;
     String Sch_Mem_id,cla_classid,title,videolink,currentdate,description;
+    String lessontitle,lessondate,url,lessondescription;
     EditText edt_title_lesson,edt_videoUrl_lesson,edt_description_lesson;
 
     @Override
@@ -95,10 +96,21 @@ public class AddLessonFragment extends Fragment{
         rippleViewPreview.setOnRippleCompleteListener(new RippleView.OnRippleCompleteListener() {
             @Override
             public void onComplete(RippleView rippleView) {
+            //    lessontitle=edt_title_lesson.getText().toString();
+             //   lessondate=txtDate.getText().toString();
+                url=edt_videoUrl_lesson.getText().toString();
+                lessondescription=edt_description_lesson.getText().toString();
+
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                Bundle data=new Bundle();
                 PreviewLessonFragment classFragment = new PreviewLessonFragment();
+            //    data.putString("lessontitle",lessontitle);
+            //    data.putString("lessondate",lessondate);
+                data.putString("url",url);
+                data.putString("lessondescription",lessondescription);
                 fragmentTransaction.replace(R.id.container, classFragment).addToBackStack(null);
+                classFragment.setArguments(data);
                 fragmentTransaction.commit();
             }
         });

@@ -52,7 +52,7 @@ public class LessonDetailFragment extends Fragment implements ViewPager.OnPageCh
     String textHeader;
     int positionValue, pos1;
     SharedPreferences preferences;
-    String Sch_Mem_id, cla_classid;
+    String Sch_Mem_id, cla_classid,lessonname;
     ImageButton imageButtonZoomIn, imageButtonZoomOut;
     ProgressDialog dlg;
     ArrayList<Data> dataList = new ArrayList<Data>();
@@ -61,7 +61,7 @@ public class LessonDetailFragment extends Fragment implements ViewPager.OnPageCh
     LayoutInflater inflater;
     ListView quizlist;
     CareerAdapter career;
-
+    private int currentPage;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -79,6 +79,7 @@ public class LessonDetailFragment extends Fragment implements ViewPager.OnPageCh
         }
         //pos1=getArguments().getInt("positioninLesson");
         // Log.e("pos1",""+pos1);
+        lessonname=getArguments().getString("positioninLesson");
         preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         Sch_Mem_id = preferences.getString("Sch_Mem_id", "");
         Log.e("Sch_Mem_id", "" + Sch_Mem_id);
@@ -105,6 +106,7 @@ public class LessonDetailFragment extends Fragment implements ViewPager.OnPageCh
 
 
         headerTitle = (TextView) activity.findViewById(R.id.mytext);
+        headerTitle.setText(lessonname);
 
         imageButtonZoomIn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -127,47 +129,29 @@ public class LessonDetailFragment extends Fragment implements ViewPager.OnPageCh
         textHeader = "sdhfygsjdgf";
     }
 
-    /**
-     * This method will be invoked when the current page is scrolled, either as part
-     * of a programmatically initiated smooth scroll or a user initiated touch scroll.
-     *
-     * @param position             Position index of the first page currently being displayed.
-     *                             Page position+1 will be visible if positionOffset is nonzero.
-     * @param positionOffset       Value from [0, 1) indicating the offset from the page at position.
-     * @param positionOffsetPixels Value in pixels indicating the offset from position.
-     */
-    @Override
-    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
-    }
+        @Override
+        public void onPageSelected(int position) {
+            Toast.makeText(getActivity(),
+                    "Selected page position: " + position, Toast.LENGTH_SHORT).show();
+        }
 
-    /**
-     * This method will be invoked when a new page becomes selected. Animation is not
-     * necessarily complete.
-     *
-     * @param position Position index of the new selected page.
-     */
-    @Override
-    public void onPageSelected(int position) {
+        // This method will be invoked when the current page is scrolled
+        @Override
+        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            // Code goes here
+            Toast.makeText(getActivity(),
+                    "Selected page positionagain: " + position, Toast.LENGTH_SHORT).show();
+        }
 
-        Log.e("Currentpos", "" + position);
+        // Called when the scroll state changes:
+        // SCROLL_STATE_IDLE, SCROLL_STATE_DRAGGING, SCROLL_STATE_SETTLING
+        @Override
+        public void onPageScrollStateChanged(int state) {
+            // Code goes here
 
-    }
+        }
 
-    /**
-     * Called when the scroll state changes. Useful for discovering when the user
-     * begins dragging, when the pager is automatically settling to the current page,
-     * or when it is fully stopped/idle.
-     *
-     * @param state The new scroll state.
-     * @see ViewPager#SCROLL_STATE_IDLE
-     * @see ViewPager#SCROLL_STATE_DRAGGING
-     * @see ViewPager#SCROLL_STATE_SETTLING
-     */
-    @Override
-    public void onPageScrollStateChanged(int state) {
-
-    }
 
     class CustomPagerAdapter extends PagerAdapter {
 
@@ -221,7 +205,7 @@ public class LessonDetailFragment extends Fragment implements ViewPager.OnPageCh
          /*  if (position==4){
                imageViewRight.setVisibility(View.GONE);
            }*/
-            headerTitle.setText(dataList.get(position).getLessonName());
+
             Log.e("LessonNAme", "" + dataList.get(position).getLessonName());
             Log.e("LessonNAmeposition", "" + position);
             if (position == 0) {
@@ -367,6 +351,8 @@ public class LessonDetailFragment extends Fragment implements ViewPager.OnPageCh
 
                 }
                 _mViewPager.setAdapter(mPagerAdapter);
+                currentPage_postion = _mViewPager.getCurrentItem();
+                Log.e("CurrentPos",""+ currentPage_postion);
                 // _mViewPager.setOnPageChangeListener(this);
             } catch (JSONException e) {
                 e.printStackTrace();

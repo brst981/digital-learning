@@ -402,53 +402,6 @@ public class AddSchedule extends FragmentActivity {
             }
         }
 
-
-        /*private void updateTeacherLogIn(String success) {
-
-            try {
-
-                JSONObject jsonObject = new JSONObject(success);
-                Log.e("jsonObject", "" + jsonObject);
-
-
-                JSONArray arr = jsonObject.getJSONArray("data");
-                Log.e("arr", " " + arr);
-                for (int i = 0; i < arr.length(); i++) {
-                    JSONObject obj = arr.getJSONObject(i);
-                    Log.e("obj", "" + obj);
-
-                    String day1 = obj.getString("day");
-                    Log.e("day", "" + day1);
-
-                    String Str_Hour = obj.getString("Str_Hour");
-                    Log.e("Str_Hour", "" + Str_Hour);
-
-                    String Str_Min = obj.getString("Str_Min");
-                    Log.e("Str_Min", "" + Str_Min);
-
-                    String En_Hour = obj.getString("En_Hour");
-                    Log.e("En_Hour", "" + En_Hour);
-
-                    String En_Min = obj.getString("En_Min");
-                    Log.e("En_Min", "" + En_Min);
-
-                    String Cls_Location = obj.getString("Cls_Location");
-                    Log.e("Cls_Location", "" + Cls_Location);
-
-
-                    String Description = obj.getString("Description");
-                    Log.e("Description", "" + Description);
-
-
-                }
-
-
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }*/
-
-
     }
 
     private static String pad(int c) {

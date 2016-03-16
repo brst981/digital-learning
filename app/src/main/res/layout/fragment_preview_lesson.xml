@@ -21,22 +21,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:layout_gravity="center_horizontal|top"></ImageView>
-            <ImageView
-                android:id="@+id/play"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_gravity="center|center_horizontal"
-                android:src="@drawable/ic_play"
-                android:layout_alignTop="@+id/thumbnail"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="67dp" />
-            <View
-                android:id="@+id/view"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_below="@+id/web_frame_layout"
-                android:layout_marginTop="5dp"
-                android:background="@color/color_light_grey" />
+
+
 
             <TextView
                 android:id="@+id/desciption"

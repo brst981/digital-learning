@@ -19,11 +19,9 @@
                 android:id="@+id/txt_header"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-
-                android:layout_gravity="center"
                 android:layout_marginTop="10dp"
                 android:background="@android:color/white"
-                android:gravity="center"
+                android:gravity="center|left"
                 android:paddingLeft="5dp"
                 android:text="Students"
                 android:textColor="@android:color/black"
@@ -54,7 +52,6 @@
                 android:layout_height="40dp"
                 android:layout_below="@+id/edt_first_name"
                 android:layout_gravity="center"
-
                 android:layout_marginTop="10dp"
                 android:background="@drawable/edittext_rectangle_selector"
                 android:hint="Last Name"

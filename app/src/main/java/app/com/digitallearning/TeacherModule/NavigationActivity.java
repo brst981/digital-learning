@@ -23,6 +23,7 @@ import app.com.digitallearning.TeacherModule.Lessons.LessonProfile;
 import app.com.digitallearning.TeacherModule.Quiz.QuizFragment;
 import app.com.digitallearning.TeacherModule.Resource.ResourceFragment;
 import app.com.digitallearning.TeacherModule.Students.StudentFragment;
+import app.com.digitallearning.Utill.GlobalClass;
 
 /**
  * Created by ${ShalviSharma} on 12/18/15.
@@ -158,7 +159,7 @@ public class NavigationActivity extends AppCompatActivity implements NavigationD
 
             case 6:
 
-
+                GlobalClass.rememberMe=false;
                 finish();
 
 
@@ -244,9 +245,6 @@ public class NavigationActivity extends AppCompatActivity implements NavigationD
 
 
 
-
-
-
     @Override
     public void onBackPressed() {
 
@@ -259,10 +257,9 @@ public class NavigationActivity extends AppCompatActivity implements NavigationD
 
             super.onBackPressed();
 
-
-            Intent gotoclass=new Intent(NavigationActivity.this,ClassActivity.class);
+            /*Intent gotoclass=new Intent(NavigationActivity.this,ClassActivity.class);
             startActivity(gotoclass);
-            finish();
+            finish();*/
 
         }
 

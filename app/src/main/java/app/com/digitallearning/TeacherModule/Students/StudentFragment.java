@@ -1,5 +1,6 @@
 package app.com.digitallearning.TeacherModule.Students;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -30,6 +31,8 @@ public class StudentFragment extends Fragment {
     int Numboftabs =2;
     TextView headerTitle;
     RippleView rippleViewAddStudent;
+    ProgressDialog dlg;
+
 
     public static StudentFragment newInstance() {
         StudentFragment mFragment = new StudentFragment();
@@ -43,22 +46,24 @@ public class StudentFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootview = inflater.inflate(R.layout.fragment_student, container, false);
         AppCompatActivity activity = (AppCompatActivity) getActivity();
-
         activity.getSupportActionBar().setTitle("");
+
+
         headerTitle = (TextView) activity.findViewById(R.id.mytext);
 
         headerTitle.setText("Students");
         adapter =  new ViewPagerAdapter(getActivity().getSupportFragmentManager(),Titles,Numboftabs);
 
-        // Assigning ViewPager View and setting the adapter
+
+
         pager = (ViewPager)rootview.findViewById(R.id.pager);
         pager.setAdapter(adapter);
 
-        // Assiging the Sliding Tab Layout View
-        tabs = (SlidingTabLayout)rootview.findViewById(R.id.tabs);
-        tabs.setDistributeEvenly(true); // To make the Tabs Fixed set this true, This makes the tabs Space Evenly in Available width
 
-        // Setting Custom Color for the Scroll bar indicator of the Tab View
+        tabs = (SlidingTabLayout)rootview.findViewById(R.id.tabs);
+        tabs.setDistributeEvenly(true);
+
+
         tabs.setCustomTabColorizer(new SlidingTabLayout.TabColorizer() {
             @Override
             public int getIndicatorColor(int position) {
@@ -66,8 +71,6 @@ public class StudentFragment extends Fragment {
             }
         });
 
-
-        // Setting the ViewPager For the SlidingTabsLayout
         tabs.setViewPager(pager);
 
         rippleViewAddStudent=(RippleView)rootview.findViewById(R.id.ripple_add_student);
@@ -83,6 +86,9 @@ public class StudentFragment extends Fragment {
             }
         });
 
+
         return rootview;
     }
+
+
 }

@@ -1,6 +1,8 @@
 package app.com.digitallearning.TeacherModule;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.PointF;
@@ -9,9 +11,12 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
@@ -28,6 +33,7 @@ import java.util.ArrayList;
 
 import app.com.digitallearning.LoginActivity;
 import app.com.digitallearning.R;
+import app.com.digitallearning.Utill.GlobalClass;
 import app.com.digitallearning.WebServices.WSConnector;
 
 /**
@@ -47,6 +53,7 @@ public class TeacherLoginFragment extends Fragment {
     SharedPreferences preferences;
     SharedPreferences.Editor editor;
     private static final int CONTENT_VIEW_ID = 0x7f0c006c;
+    CheckBox checked;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -56,6 +63,20 @@ public class TeacherLoginFragment extends Fragment {
         teacherlogin=(RelativeLayout)rootview.findViewById(R.id.teacherlogin);
         imageButtonZoomIn = (ImageButton)rootview. findViewById(R.id.img_zoom_in);
         imageButtonZoomOut = (ImageButton)rootview. findViewById(R.id.img_zoom_out);
+        checked=(CheckBox)rootview.findViewById(R.id.checkbox_remember);
+        checked.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked==true){
+                    GlobalClass.rememberMe=true;
+                    Toast.makeText(getActivity(),"Checked",Toast.LENGTH_SHORT).show();
+                }
+                else if(isChecked=false){
+                    GlobalClass.rememberMe=false;
+                    Toast.makeText(getActivity(),"Unchecked",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
         back=(ImageButton)rootview.findViewById(R.id.back);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -168,8 +189,24 @@ public class TeacherLoginFragment extends Fragment {
 
 
             } else if (result.contains("false")) {
-                Toast.makeText(getActivity(), "Wrong User", Toast.LENGTH_SHORT).show();
 
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+                alertDialog.setMessage("Wrong Credentials").setCancelable(false)
+                        .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                // TODO Auto-generated method stub
+                                dialog.dismiss();
+
+                            }
+                        });
+
+                AlertDialog dialog = alertDialog.create();
+                dialog.show();
+                TextView messageText = (TextView) dialog
+                        .findViewById(android.R.id.message);
+                messageText.setGravity(Gravity.CENTER);
             }
         }
 

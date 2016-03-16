@@ -43,4 +43,7 @@ public class AppConstant {
     public static final String resource_Listing=server_Url+"digitalapi/resource.php";
 
 
+    public static final String add_student=server_Url+"digitalapi/student.php";
+    public static final String get_student=server_Url+"digitalapi/student.php";
+
 }

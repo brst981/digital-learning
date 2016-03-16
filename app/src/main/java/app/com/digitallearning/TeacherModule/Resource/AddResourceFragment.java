@@ -70,6 +70,8 @@ public class AddResourceFragment extends Fragment{
         rippleViewPreview.setOnRippleCompleteListener(new RippleView.OnRippleCompleteListener() {
             @Override
             public void onComplete(RippleView rippleView) {
+                title=edt_title_resource.getText().toString();
+                description=edt_description_resource.getText().toString();
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 Preview classFragment = new Preview();

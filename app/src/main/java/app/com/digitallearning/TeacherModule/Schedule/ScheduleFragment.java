@@ -57,11 +57,11 @@ public class ScheduleFragment extends FragmentActivity {
     RippleView rippleViewCreate;
     TextView headerTitle;
     String textHeader, cla_classid, userid;
+    SharedPreferences preferences;
     ProgressDialog dlg;
     private ListView mListView;
     ListViewAdapter mAdapter;
     LinearLayout bottom_wrapper;
-    SharedPreferences preferences;
     int pos;
     int shouldempty = 2;
     RelativeLayout relschedule;

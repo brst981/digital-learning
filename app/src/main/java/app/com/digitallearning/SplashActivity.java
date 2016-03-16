@@ -5,6 +5,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
+import app.com.digitallearning.TeacherModule.ClassActivity;
+import app.com.digitallearning.Utill.GlobalClass;
+
 /**
  * Created by ${ShalviSharma} on 12/17/15.
  */
@@ -19,11 +22,17 @@ public class SplashActivity extends Activity {
             public void run() {
                 /* Create an Intent that will start the Menu-Activity. */
 
-                Intent mainIntent = new Intent(SplashActivity.this, MainActivity.class);
+                if(GlobalClass.rememberMe==true){
+                    Intent toclass=new Intent(SplashActivity.this, ClassActivity.class);
+                    startActivity(toclass);
+                    finish();
+                }
+                else if(GlobalClass.rememberMe==false) {
+                    Intent mainIntent = new Intent(SplashActivity.this, MainActivity.class);
 
-                startActivity(mainIntent);
-                finish();
-
+                    startActivity(mainIntent);
+                    finish();
+                }
             }
         }, SPLASH_TIME_OUT);
 

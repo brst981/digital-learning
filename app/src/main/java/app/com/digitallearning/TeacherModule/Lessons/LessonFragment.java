@@ -48,7 +48,7 @@ import app.com.digitallearning.WebServices.WSConnector;
 /**
  * Created by ${ShalviSharma} on 12/23/15.
  */
-public class LessonFragment extends Fragment {
+public class  LessonFragment extends Fragment {
     View rootview;
     RippleView rippleViewCreate;
     TextView headerTitle;
@@ -126,7 +126,7 @@ public class LessonFragment extends Fragment {
 
                 FragmentManager fragmentManager = getFragmentManager();
                 Bundle bundle = new Bundle();
-                bundle.putInt("positioninLesson", position);
+                bundle.putString("positioninLesson", dataList.get(position).getLessonName());
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 LessonDetailFragment lessonDetailFragment = new LessonDetailFragment();
                 fragmentTransaction.replace(R.id.container, lessonDetailFragment).addToBackStack(null);

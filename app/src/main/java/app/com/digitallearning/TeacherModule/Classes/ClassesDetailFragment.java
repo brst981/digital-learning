@@ -40,6 +40,7 @@ import app.com.digitallearning.TeacherModule.ClassFragment;
 import app.com.digitallearning.TeacherModule.Curriculum.CurriculumActivity;
 import app.com.digitallearning.TeacherModule.Schedule.ScheduleFragment;
 import app.com.digitallearning.TeacherModule.Syllabus.SyllabusActivity;
+import app.com.digitallearning.Utill.GlobalClass;
 import app.com.digitallearning.WebServices.WSConnector;
 
 /**
@@ -146,6 +147,7 @@ public class ClassesDetailFragment extends Fragment {
                 Intent intent = new Intent(getActivity(), EditClassFragment.class);
                 startActivity(intent);
                 getActivity().finish();
+                GlobalClass.classDetail=true;
             }
         });
 
