@@ -112,7 +112,7 @@ public class Student_Item_Lesson extends Fragment {
 
         @Override
         public void destroyItem(ViewGroup container, int position, Object object) {
-            // Remove viewpager_item.xml from ViewPager
+
             ((ViewPager) container).removeView((RelativeLayout) object);
 
         }

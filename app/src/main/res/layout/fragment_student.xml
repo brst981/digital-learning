@@ -4,24 +4,62 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <app.com.digitallearning.SlidingLayout.SlidingTabLayout
+
+   <!-- <app.com.digitallearning.SlidingLayout.SlidingTabLayout
         android:id="@+id/tabs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorlima"
         android:elevation="2dp">
 
-    </app.com.digitallearning.SlidingLayout.SlidingTabLayout>
-    <android.support.v4.view.ViewPager
-        android:id="@+id/pager"
+    </app.com.digitallearning.SlidingLayout.SlidingTabLayout>-->
+    <RelativeLayout
+        android:background="@color/colorlima"
+        android:id="@+id/tabParent"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:padding="5dp"
+        >
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="2dp"
+            android:background="@drawable/tab_background"
+            android:layout_centerHorizontal="true">
+        <Button
+            android:text="Archieved Student(s)"
+            android:background="@color/color_white"
+            android:paddingLeft="7dp"
+            android:paddingRight="7dp"
+            android:textColor="@color/colorlima"
+            android:layout_width="180dp"
+            android:layout_height="match_parent"
+            android:id="@+id/archivebutton" />
+        <Button
+            android:text="Enrolled Student(s)"
+            android:background="@color/colorlima"
+            android:paddingLeft="7dp"
+            android:paddingRight="7dp"
+            android:textColor="#fff"
+            android:layout_width="180dp"
+            android:id="@+id/enrollbutton"
+            android:layout_height="match_parent"
+            android:layout_alignParentBottom="true"
+            android:layout_toRightOf="@+id/archivebutton"
+            android:layout_toEndOf="@+id/archivebutton" />
+        </RelativeLayout>
+    </RelativeLayout>
+    <FrameLayout
+        android:id="@+id/frame"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:layout_below="@+id/tabs"
+        android:layout_below="@+id/tabParent"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true">
 
-    </android.support.v4.view.ViewPager>
+    </FrameLayout>
     <com.andexert.library.RippleView
         android:id="@+id/ripple_add_student"
         android:layout_width="wrap_content"

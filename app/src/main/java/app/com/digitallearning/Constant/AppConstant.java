@@ -6,7 +6,9 @@ package app.com.digitallearning.Constant;
 public class AppConstant {
 
     public static final String server_Url="http://digitallearningtree.com/";
+
     public static final String school_Listing=server_Url+"digitalapi/schools.php";
+
     public static  final  String  searching=server_Url+"digitalapi/search.php";
     public  static final String login=server_Url+"digitalapi/login.php";
     public static final  String before_Class_Listing=server_Url+"digitalapi/before_class.php";
@@ -45,5 +47,11 @@ public class AppConstant {
 
     public static final String add_student=server_Url+"digitalapi/student.php";
     public static final String get_student=server_Url+"digitalapi/student.php";
+    public static final String archieve_student=server_Url+"digitalapi/archive.php";
+    public static final String unarchieve_student=server_Url+"digitalapi/archive.php";
+
+    public static final String quiz_listing=server_Url+"digitalapi/quiz.php";
+
+
 
 }

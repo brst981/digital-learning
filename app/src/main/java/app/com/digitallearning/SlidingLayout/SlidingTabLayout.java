@@ -5,6 +5,7 @@ import android.graphics.Typeface;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.util.SparseArray;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -16,6 +17,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import app.com.digitallearning.R;
+import app.com.digitallearning.TeacherModule.Students.StudentFragment;
 
 
 /**
@@ -295,6 +297,8 @@ public class SlidingTabLayout extends HorizontalScrollView {
         public void onClick(View v) {
             for (int i = 0; i < mTabStrip.getChildCount(); i++) {
                 if (v == mTabStrip.getChildAt(i)) {
+                    StudentFragment.TabPos = i;
+                    Log.e("SelectedPOs","tab"+i);
                     mViewPager.setCurrentItem(i);
                     return;
                 }

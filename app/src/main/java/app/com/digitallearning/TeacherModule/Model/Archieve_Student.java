@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * Created by ${PSR} on 3/15/16.
  */
-public class Unarchieve_Student implements Serializable {
+public class Archieve_Student implements Serializable {
 
     private String Student_Name;
     private String Student_Memid;

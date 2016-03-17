@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:id="@+id/relative_header"
+        android:layout_width="match_parent"
+        android:visibility="gone"
+        android:layout_height="60dp"
+        android:background="@color/colorlima">
+
+        <ImageButton
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="15dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_back"
+            android:scaleType="fitXY"
+            android:id="@+id/back"
+            android:padding="7dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="Student Details"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/white"
+            android:id="@+id/textView" />
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_plus"
+            android:scaleType="fitXY"
+            android:id="@+id/img_zoom_in"
+            android:layout_marginRight="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_alignBottom="@+id/img_zoom_out"
+            android:layout_toLeftOf="@+id/img_zoom_out"
+            android:layout_toStartOf="@+id/img_zoom_out" />
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_minus"
+            android:layout_centerVertical="true"
+            android:scaleType="fitXY"
+            android:id="@+id/img_zoom_out"
+            android:layout_marginRight="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_alignParentRight="true" />
+
+
+    </RelativeLayout>
+    <ImageView
+        android:id="@+id/image"
+        android:src="@drawable/images"
+        android:layout_width="match_parent"
+        android:layout_height="150dp" />
+
+    <LinearLayout
+        android:layout_margin="5dp"
+        android:padding="10dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:layout_marginTop="15dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:text="Name:"
+                android:id="@+id/name"
+                android:textAlignment="textEnd"
+                android:layout_gravity="end|center"
+                android:textSize="16dp"
+                android:textColor="#000"
+                android:layout_width="80dp"
+                android:layout_height="30dp" />
+            <TextView
+
+
+                android:textSize="16dp"
+                android:textColor="#BDBDBD"
+                android:id="@+id/strname"
+                android:layout_gravity="start|center"
+                android:layout_toRightOf="@+id/name"
+                android:layout_width="200dp"
+                android:layout_marginLeft="10dp"
+                android:layout_height="30dp" />
+        </RelativeLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#CACACA" />
+        <RelativeLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="40dp">
+            <TextView
+                android:text="Email:"
+                android:id="@+id/email"
+                android:textAlignment="textEnd"
+                android:layout_gravity="end|center"
+                android:textSize="16dp"
+                android:gravity="center|end"
+                android:textColor="#000"
+                android:layout_width="80dp"
+                android:layout_height="match_parent" />
+            <TextView
+
+                android:textSize="16dp"
+                android:id="@+id/stremail"
+                android:textColor="#BDBDBD"
+                android:gravity="center|end"
+                android:layout_gravity="start|center"
+                android:layout_toRightOf="@+id/email"
+                android:layout_width="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_height="match_parent" />
+        </RelativeLayout>
+        <View
+            android:id="@+id/view_seperator1"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#CACACA" />
+
+
+        <RelativeLayout
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:text="User Id:"
+                android:id="@+id/number"
+                android:textAlignment="textEnd"
+                android:layout_gravity="end|center"
+                android:textSize="16dp"
+                android:textColor="#000"
+                android:layout_width="80dp"
+                android:layout_height="30dp" />
+            <TextView
+
+                android:textSize="16dp"
+                android:textColor="#BDBDBD"
+                android:id="@+id/struserid"
+                android:layout_gravity="start|center"
+                android:layout_toRightOf="@+id/number"
+                android:layout_width="200dp"
+                android:layout_marginLeft="10dp"
+                android:layout_height="30dp" />
+        </RelativeLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#CACACA" />
+        <RelativeLayout
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:text="Password:"
+                android:id="@+id/whatsapp"
+                android:textAlignment="textEnd"
+                android:layout_gravity="end|center"
+                android:textSize="16dp"
+                android:textColor="#000"
+                android:layout_width="80dp"
+                android:layout_height="30dp" />
+            <TextView
+
+                android:textSize="16dp"
+                android:textColor="#BDBDBD"
+                android:id="@+id/strpassword"
+                android:layout_gravity="start|center"
+                android:layout_toRightOf="@+id/whatsapp"
+                android:layout_width="200dp"
+                android:layout_marginLeft="10dp"
+                android:layout_height="30dp" />
+        </RelativeLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#CACACA" />
+        <RelativeLayout
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:text="Status:"
+                android:id="@+id/wechat"
+                android:textAlignment="textEnd"
+                android:layout_gravity="end|center"
+                android:textSize="16dp"
+                android:textColor="#000"
+                android:layout_width="80dp"
+                android:layout_height="30dp" />
+            <TextView
+
+                android:textSize="16dp"
+                android:id="@+id/strstatus"
+                android:textColor="#BDBDBD"
+                android:layout_gravity="start|center"
+                android:layout_toRightOf="@+id/wechat"
+                android:layout_width="200dp"
+                android:layout_marginLeft="10dp"
+                android:layout_height="30dp" />
+        </RelativeLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#CACACA" />
+    </LinearLayout>
+
+    </LinearLayout>

@@ -95,4 +95,6 @@ public class AddQuiz extends Fragment{
         });
         return rootview;
     }
+//classid , user_type , userid , schid , lessonid , quiz_ans_1 , quiz_ans_2 , quiz_ans_3 , quiz_ans_4 , correct_ans ,
+// quiz_title , quiz_description , quiz_question , last_modified
 }

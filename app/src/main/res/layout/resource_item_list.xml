@@ -52,7 +52,7 @@
         <TextView
             android:layout_toRightOf="@+id/image_view"
             android:layout_width="170dp"
-            android:id="@+id/text_view"
+            android:id="@+id/quizname"
             android:text=""
             android:textSize="14sp"
             android:textColor="@android:color/black"
@@ -62,12 +62,12 @@
         <TextView
             android:layout_toRightOf="@+id/image_view"
             android:layout_width="170dp"
-            android:id="@+id/title"
+            android:id="@+id/lastmodify"
             android:text="sdhfygsjdgf"
             android:textSize="14sp"
             android:textColor="@color/color_light_grey"
             android:gravity="center|left"
-            android:layout_below="@+id/text_view"
+            android:layout_below="@+id/quizname"
             android:layout_height="30dp" />
 
         <ImageView

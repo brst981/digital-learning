@@ -618,7 +618,7 @@ public class WSConnector {
         String result = WSAdapter.postJSONObject(url, pairs);
         return result;
     }
-    public static String Get_unarchive_Student(String userid,String classid) {
+    public static String Get_archive_Student(String userid,String classid) {
 
         String url = AppConstant.get_student;
         List<NameValuePair> pairs = new ArrayList<NameValuePair>();
@@ -631,4 +631,75 @@ public class WSConnector {
         return result;
 
     }
+
+    public static String Get_enroll_Student(String userid,String classid) {
+
+        String url = AppConstant.get_student;
+        List<NameValuePair> pairs = new ArrayList<NameValuePair>();
+
+        pairs.add(new BasicNameValuePair("userid", userid));
+        pairs.add(new BasicNameValuePair("classid", classid));
+        pairs.add(new BasicNameValuePair("student_type", "1"));
+
+        String result = WSAdapter.postJSONObject(url, pairs);
+        return result;
+
+    }
+
+    public static String Unarchieve_Student(String classid,String unarch_stu_id) {
+
+        String url = AppConstant.unarchieve_student;
+        List<NameValuePair> pairs = new ArrayList<NameValuePair>();
+
+        pairs.add(new BasicNameValuePair("classid", classid));
+        pairs.add(new BasicNameValuePair("unarch_stu_id", unarch_stu_id));
+
+        Log.e("unarch",""+classid);
+        Log.e("unarchstu",""+unarch_stu_id);
+        String result = WSAdapter.postJSONObject(url, pairs);
+        return result;
+
+    }
+
+    public static String Archieve_Student(String classid,String unarch_stu_id) {
+
+        String url = AppConstant.unarchieve_student;
+        List<NameValuePair> pairs = new ArrayList<NameValuePair>();
+
+        pairs.add(new BasicNameValuePair("classid", classid));
+        pairs.add(new BasicNameValuePair("arch_stu_id", unarch_stu_id));
+
+        Log.e("unarch",""+classid);
+        Log.e("unarchstu",""+unarch_stu_id);
+        String result = WSAdapter.postJSONObject(url, pairs);
+        return result;
+
+    }
+
+    public static String Delete_Student(String classid,String unarch_stu_id) {
+
+        String url = AppConstant.add_student;
+        List<NameValuePair> pairs = new ArrayList<NameValuePair>();
+
+        pairs.add(new BasicNameValuePair("classid", classid));
+        pairs.add(new BasicNameValuePair("mem_id", unarch_stu_id));
+
+        Log.e("unarch",""+classid);
+        Log.e("unarchstu",""+unarch_stu_id);
+        String result = WSAdapter.postJSONObject(url, pairs);
+        return result;
+
+    }
+    public static String Quiz_listing(String quizcid,String userid) {
+
+        String url = AppConstant.quiz_listing;
+        List<NameValuePair> pairs = new ArrayList<NameValuePair>();
+        pairs.add(new BasicNameValuePair("quizcid", quizcid));
+        pairs.add(new BasicNameValuePair("userid", userid));
+        Log.e("userid",""+userid);
+        String result = WSAdapter.postJSONObject(url, pairs);
+        return result;
+
+    }
+
 }

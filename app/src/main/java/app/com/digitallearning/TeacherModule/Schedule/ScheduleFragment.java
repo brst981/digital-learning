@@ -69,20 +69,6 @@ public class ScheduleFragment extends FragmentActivity {
     ArrayList<String> arrTimeId, arrdescription, arrEn_min, arrStr_min, arrEn_Hour, arrStr_Hour, arrDay, arrLocation;
     OnReceiveListner mListner;
 
-
-//    @Override
-//    public void onResume() {
-//        super.onResume();
-//        new Schedule_listing().execute(userid, cla_classid);
-//    }
-
-    /*@Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        new Schedule_listing().execute(userid, cla_classid);
-    }
-*/
-
     @Override
     protected void onResume() {
         super.onResume();
@@ -106,7 +92,7 @@ public class ScheduleFragment extends FragmentActivity {
 
 
         dlg = new ProgressDialog(ScheduleFragment.this);
-        preferences = PreferenceManager.getDefaultSharedPreferences(ScheduleFragment.this);
+
         relschedule = (RelativeLayout) findViewById(R.id.relschedule);
         imageButtonZoomIn = (ImageButton) findViewById(R.id.img_zoom_in);
         imageButtonZoomOut = (ImageButton) findViewById(R.id.img_zoom_out);
@@ -121,6 +107,7 @@ public class ScheduleFragment extends FragmentActivity {
                 fragmentTransaction.commit();
             }
         });
+        preferences = PreferenceManager.getDefaultSharedPreferences(ScheduleFragment.this);
         userid = preferences.getString("Sch_Mem_id", "");
         Log.e("userid", "" + userid);
 
