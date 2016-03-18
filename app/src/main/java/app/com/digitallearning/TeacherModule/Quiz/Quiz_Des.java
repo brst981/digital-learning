@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import app.com.digitallearning.R;
@@ -17,6 +18,7 @@ public class Quiz_Des extends Fragment {
     View rootview;
     TextView headerTitle;
     String textHeader;
+    Button done;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootview = inflater.inflate(R.layout.quiz_des, container, false);
@@ -30,6 +32,14 @@ public class Quiz_Des extends Fragment {
 
         headerTitle.setText("Description");
         initData();
+        done=(Button)rootview.findViewById(R.id.done);
+        done.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                getFragmentManager().popBackStack();
+            }
+        });
         return rootview;
 
     }

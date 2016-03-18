@@ -241,7 +241,7 @@ public class ResourceFragment extends Fragment {
         public void fillValues(final int position, View convertView) {
             final int pos=position;
 
-            TextView title=(TextView)convertView.findViewById(R.id.title);
+            TextView title=(TextView)convertView.findViewById(R.id.quizname);
             title.setText(resourcedataList.get(position).getTitle());
             TextView archive=(TextView)convertView.findViewById(R.id.archive);
             TextView delete=(TextView)convertView.findViewById(R.id.delete);

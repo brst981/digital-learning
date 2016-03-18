@@ -212,7 +212,7 @@ public class QuizFragment extends Fragment {
 
         @Override
         public View generateView(int position, ViewGroup parent) {
-            View v = LayoutInflater.from(mContext).inflate(R.layout.resource_item_list, null);
+            View v = LayoutInflater.from(mContext).inflate(R.layout.quiz_item, null);
             SwipeLayout swipeLayout = (SwipeLayout)v.findViewById(getSwipeLayoutResourceId(position));
             swipeLayout.addSwipeListener(new SimpleSwipeListener() {
                 @Override
@@ -314,7 +314,7 @@ public class QuizFragment extends Fragment {
 // "new_orderid":"125"},
 
         private void updateTeacherLogIn(String success) {
-
+            quizlisting.clear();
             try {
 
                 JSONObject jsonObject = new JSONObject(success);
