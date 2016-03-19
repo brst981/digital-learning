@@ -202,19 +202,20 @@ public class Quiz_Question_Fragment extends Fragment {
                     else  if(check4.isChecked()){
                         checked=String .valueOf(4);
                     }
-
+//{"correct_ans":"2","quiz_ans_1":"1a","quiz_ans_2":"2a","quiz_ans_3":"3a","quiz_ans_4":"4a","quiz_question":"Ques 1"}}
                     JSONObject obj = new JSONObject();
                     try {
-                        obj.put("correctans", checked);
-                        obj.put("strquestion", strquestion);
-                        obj.put("strans1", strans1);
-                        obj.put("strans2",strans2);
-                        obj.put("strans3", strans3);
-                        obj.put("strans4", strans4);
+                        obj.put("correct_ans", checked);
+                        obj.put("quiz_ans_1", strans1);
+                        obj.put("quiz_ans_2",strans2);
+                        obj.put("quiz_ans_3", strans3);
+                        obj.put("quiz_ans_4", strans4);
+                        obj.put("quiz_question", strquestion);
                         Log.e("obj",""+obj);
 
                         object.put(String.valueOf(i+1), obj);
                         quizdata=object.toString();
+                        AddQuiz.dataquiz=quizdata;
 
                     } catch (JSONException e) {
                         // TODO Auto-generated catch block
@@ -225,6 +226,9 @@ public class Quiz_Question_Fragment extends Fragment {
 
                     Log.e("FinalJson",""+object);
                 Log.e("quizdata",""+quizdata);
+
+                Log.e("staticstrquestion",""+strquestion);
+                AddQuiz.strquizquestionname=strquestion;
 
                /* Quiz_Question quiz_question=new Quiz_Question();
                 quiz_question.getQuiz_question();
@@ -243,6 +247,8 @@ public class Quiz_Question_Fragment extends Fragment {
                 }
 */
 
+
+                getFragmentManager().popBackStack();
             }
         });
         return rootview;

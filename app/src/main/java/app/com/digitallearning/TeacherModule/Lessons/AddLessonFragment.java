@@ -122,6 +122,7 @@ public class AddLessonFragment extends Fragment{
                 videolink=edt_videoUrl_lesson.getText().toString();
                 description=edt_description_lesson.getText().toString();
                 currentdate=txtDate.getText().toString();
+                Log.e("currentdate",""+currentdate);
 
                 new Add_Lesson().execute(cla_classid,Sch_Mem_id,title,description,currentdate,videolink);
             }

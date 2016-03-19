@@ -702,4 +702,34 @@ public class WSConnector {
 
     }
 
+    public static String Add_Quiz(String classid,String userid,String schid,String lessonid,String quiz_title,String quiz_description,String qzdata,String last_modified) {
+
+        String url = AppConstant.quiz_listing;
+        List<NameValuePair> pairs = new ArrayList<NameValuePair>();
+        pairs.add(new BasicNameValuePair("classid", classid));
+        pairs.add(new BasicNameValuePair("userid", userid));
+        pairs.add(new BasicNameValuePair("schid", schid));
+        pairs.add(new BasicNameValuePair("lessonid", lessonid));
+        pairs.add(new BasicNameValuePair("quiz_title", quiz_title));
+        pairs.add(new BasicNameValuePair("quiz_description", quiz_description));
+        pairs.add(new BasicNameValuePair("qzdata", qzdata));
+        pairs.add(new BasicNameValuePair("last_modified", last_modified));
+        pairs.add(new BasicNameValuePair("user_type", "4"));
+
+        String result = WSAdapter.postJSONObject(url, pairs);
+        return result;
+
+    }//quizclassid , userid , quizid.
+    public static String Quiz_view(String quizclassid,String userid,String quizid) {
+
+        String url = AppConstant.quiz_listing;
+        List<NameValuePair> pairs = new ArrayList<NameValuePair>();
+        pairs.add(new BasicNameValuePair("quizclassid", quizclassid));
+        pairs.add(new BasicNameValuePair("userid", userid));
+        pairs.add(new BasicNameValuePair("quizid", quizid));
+
+        String result = WSAdapter.postJSONObject(url, pairs);
+        return result;
+
+    }
 }

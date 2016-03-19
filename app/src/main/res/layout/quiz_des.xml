@@ -4,6 +4,7 @@
     android:layout_height="match_parent">
 
     <EditText
+        android:id="@+id/description"
         android:hint="abc"
         android:padding="5dp"
         android:layout_margin="5dp"

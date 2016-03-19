@@ -29,6 +29,7 @@
         android:layout_centerHorizontal="true" />
     <TextView
         android:text="Test"
+        android:id="@+id/description"
         android:textColor="#000"
         android:layout_below="@+id/textquiz"
         android:layout_width="wrap_content"
@@ -38,8 +39,7 @@
         android:layout_centerHorizontal="true" />
 </RelativeLayout>
             <TextView
-                android:id="@+id/txt"
-                android:text="Ques"
+                android:id="@+id/questionname"
                 android:textColor="#000"
                 android:padding="10dp"
                 android:layout_margin="5dp"
@@ -54,7 +54,7 @@
                 android:id="@+id/view"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_below="@+id/txt"
+                android:layout_below="@+id/questionname"
                 android:layout_marginTop="5dp"
                 android:background="@color/color_light_grey" />
 
@@ -62,7 +62,7 @@
                 android:id="@+id/check1"
                 android:layout_marginLeft="5dp"
                 android:layout_marginTop="15dp"
-                android:layout_below="@+id/txt"
+                android:layout_below="@+id/questionname"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp" />
             <TextView

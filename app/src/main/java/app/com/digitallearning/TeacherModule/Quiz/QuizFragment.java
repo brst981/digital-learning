@@ -79,16 +79,6 @@ public class QuizFragment extends Fragment {
         swipeRefreshLayout = (SwipeRefreshLayout)rootview.findViewById(R.id.swipeRefreshLayout);
         swipeRefreshLayout.setColorSchemeColors(R.color.colorlima);
 
-        /*mRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getActivity(), new RecyclerItemClickListener.OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, int position) {
-               *//* Toast.makeText(MainActivity.this,"clicked"+" "+position,Toast.LENGTH_SHORT).show();*//*
-                Intent intent = new Intent(getActivity(), NavigationActivity.class);
-                startActivity(intent);
-
-            }
-        }));*/
-
         preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         userid = preferences.getString("Sch_Mem_id", "");
         Log.e("userid", "" + userid);
@@ -114,7 +104,10 @@ public class QuizFragment extends Fragment {
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 Quiz_View quiz_view = new Quiz_View();
+                Bundle bundle=new Bundle();
+                bundle.putString("quizid",quizlisting.get(position).getQuiz_id());
                 fragmentTransaction.replace(R.id.container, quiz_view).addToBackStack(null);
+                quiz_view.setArguments(bundle);
                 fragmentTransaction.commit();
                // ((SwipeLayout)(mListView.getChildAt(position - mListView.getFirstVisiblePosition()))).open(true);
             }
@@ -198,6 +191,7 @@ public class QuizFragment extends Fragment {
 
     class ListViewAdapter extends BaseSwipeAdapter {
         private Context mContext;
+        int pos;
 
         public ListViewAdapter(Context mContext) {
             this.mContext = mContext;
@@ -232,26 +226,42 @@ public class QuizFragment extends Fragment {
                     Toast.makeText(mContext, "click delete", Toast.LENGTH_SHORT).show();
                 }
             });
-            v.findViewById(R.id.archive).setOnClickListener(new View.OnClickListener() {
+           /* v.findViewById(R.id.archive).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    FragmentManager fragmentManager = getFragmentManager();
-                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                    Quiz_Edit classFragment = new Quiz_Edit();
-                    fragmentTransaction.replace(R.id.container, classFragment).addToBackStack(null);
-                    fragmentTransaction.commit();
+                    Log.e("pos",""+pos);
+
                 }
-            });
+            });*/
             return v;
         }
 
         @Override
-        public void fillValues(int position, View convertView) {
+        public void fillValues(final int position, View convertView) {
+            pos=position;
+            Log.e("pos1",""+pos);
              TextView quizname = (TextView)convertView.findViewById(R.id.quizname);
              quizname.setText(quizlisting.get(position).getQuiz_name());
 
             TextView lastmodify = (TextView)convertView.findViewById(R.id.lastmodify);
             lastmodify.setText(quizlisting.get(position).getLast_modify());
+            TextView archive=(TextView)convertView.findViewById(R.id.archive);
+            archive.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    FragmentManager fragmentManager = getFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    Quiz_Edit classFragment = new Quiz_Edit();
+                    Bundle bundle=new Bundle();
+                    bundle.putString("quizid",quizlisting.get(position).getQuiz_id());
+                   // bundle.putInt("pos",position);
+                    //Log.e("goingpos",""+pos);
+                    fragmentTransaction.replace(R.id.container, classFragment).addToBackStack(null);
+                    classFragment.setArguments(bundle);
+                    fragmentTransaction.commit();
+                }
+            });
+
         }
 
         @Override

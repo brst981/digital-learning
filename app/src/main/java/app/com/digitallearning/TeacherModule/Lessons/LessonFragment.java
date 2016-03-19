@@ -373,6 +373,7 @@ public class  LessonFragment extends Fragment {
                     data.setVideoThumbnail(obj.getString("video_thumb"));
                     dataList.add(data);
 
+                    Log.e("datalist",""+dataList);
 
                     JSONArray arr1 = obj.getJSONArray("quiz_data");
                     Log.e("arr1", "" + arr1);
@@ -435,7 +436,7 @@ public class  LessonFragment extends Fragment {
 
 
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
-                alertDialog.setMessage("No data").setCancelable(false)
+                alertDialog.setMessage("Lesson deleted").setCancelable(false)
                         .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
 
                             @Override

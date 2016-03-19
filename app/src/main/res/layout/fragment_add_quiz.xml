@@ -86,8 +86,21 @@
                 android:textSize="18sp"
 
                 android:id="@+id/quizquestion"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="40dp" />
+
+                <TextView
+                    android:layout_marginTop="10dp"
+                    android:gravity="right|center"
+                    android:textColor="#000"
+                    android:padding="4dp"
+                    android:background="#F4F4F4"
+                    android:textSize="18sp"
+                   android:layout_toRightOf="@+id/quizquestion"
+                    android:id="@+id/quizquestionname"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp" />
+
             </com.andexert.library.RippleView>
 
             <com.andexert.library.RippleView
