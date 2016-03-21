@@ -53,5 +53,8 @@ public class AppConstant {
     public static final String quiz_listing=server_Url+"digitalapi/quiz.php";
 
 
+    public static final String student_info=server_Url+"digitalapi/profiles.php";
+
+
 
 }

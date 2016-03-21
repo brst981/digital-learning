@@ -41,7 +41,7 @@ public class NavigationForStudent extends AppCompatActivity implements Navigatio
         imageButtonZoomOut=(ImageButton) mToolbar.findViewById(R.id.img_zoom_out);
         fromClass = getIntent().getBooleanExtra("fromClass", false);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+     //   this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         //headerTitle.setText("Car List");
         frame=(FrameLayout)findViewById(R.id.container);
         getSupportActionBar().setTitle("");

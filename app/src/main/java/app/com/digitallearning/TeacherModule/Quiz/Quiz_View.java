@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -43,6 +44,7 @@ public class Quiz_View extends Fragment {
     ViewPager _mViewPager;
     CustomPagerAdapter mPagerAdapter;
     ProgressDialog dlg;
+    int onitemid;
     ArrayList<View_Quiz_Listing> quizlisting = new ArrayList<View_Quiz_Listing>();
     ArrayList<View_Quiz_Listing_Questions> quizlisting1 = new ArrayList<View_Quiz_Listing_Questions>();
     ArrayList<View_Quiz_Name> quiznamelist = new ArrayList<View_Quiz_Name>();
@@ -64,7 +66,12 @@ public class Quiz_View extends Fragment {
         Log.e("userid", "" + userid);
         cla_classid = preferences.getString("cla_classid", "");
         Log.e("cla_classid", "" + cla_classid);
-        quizid=getArguments().getString("quizid");
+    //    try {
+            quizid=getArguments().getString("quizid");
+       // }catch (Exception e){}
+
+        onitemid=getArguments().getInt("onitemid");
+
         new Quiz_view().execute(cla_classid,userid,quizid);
         mPagerAdapter = new CustomPagerAdapter(getActivity());
         _mViewPager.setAdapter(mPagerAdapter);
@@ -125,16 +132,16 @@ public class Quiz_View extends Fragment {
             TextView textView = (TextView)itemView.findViewById(R.id.textView_lesson_count);
             ImageView imageViewLeft =(ImageView)itemView.findViewById(R.id.img_left_icon);
             ImageView imageViewRight =(ImageView)itemView.findViewById(R.id.img_right_icon);
-            TextView questionname=(TextView)itemView.findViewById(R.id.questionname);
+            EditText questionname=(EditText) itemView.findViewById(R.id.questionname);
             questionname.setText(quizlisting1.get(position).getQuestion_nameString());
 
-            TextView textView_lesson_title=(TextView)itemView.findViewById(R.id.textView_lesson_title);
+            EditText textView_lesson_title=(EditText) itemView.findViewById(R.id.textView_lesson_title);
             textView_lesson_title.setText(quizlisting.get(0).getQuiz_option());
-            TextView textView_lesson_description=(TextView)itemView.findViewById(R.id.textView_lesson_description) ;
+            EditText textView_lesson_description=(EditText) itemView.findViewById(R.id.textView_lesson_description) ;
             textView_lesson_description.setText(quizlisting.get(1).getQuiz_option());
-            TextView textView_lesson_description_=(TextView)itemView.findViewById(R.id.textView_lesson_description_);
+            EditText textView_lesson_description_=(EditText) itemView.findViewById(R.id.textView_lesson_description_);
             textView_lesson_description_.setText(quizlisting.get(2).getQuiz_option());
-            TextView textView_lesson_description1=(TextView)itemView.findViewById(R.id.textView_lesson_description1);
+            EditText textView_lesson_description1=(EditText) itemView.findViewById(R.id.textView_lesson_description1);
             textView_lesson_description1.setText(quizlisting.get(3).getQuiz_option());
 
             CheckBox check1=(CheckBox)itemView.findViewById(R.id.check1);
@@ -145,6 +152,15 @@ public class Quiz_View extends Fragment {
             check3.setEnabled(false);
             CheckBox check4=(CheckBox)itemView.findViewById(R.id.check4);
             check4.setEnabled(false);
+
+            if(onitemid==10){
+                Log.e("onitemidreceived",""+onitemid);
+                textView_lesson_title.setEnabled(false);
+                textView_lesson_description.setEnabled(false);
+                textView_lesson_description_.setEnabled(false);
+                textView_lesson_description1.setEnabled(false);
+                questionname.setEnabled(false);
+            }
 
 Log.e("Swipe","asd");
             for(int k=0;k<4;k++){

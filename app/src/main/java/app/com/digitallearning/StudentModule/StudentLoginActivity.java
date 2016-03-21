@@ -29,8 +29,12 @@ public class StudentLoginActivity extends FragmentActivity {
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        Bundle args = new Bundle();
+        args.putString("SchoolID",schoolID);
+        args.putString("SchoolName",schoolName);
         StudentLoginFragment studentLoginFragment = new StudentLoginFragment();
         fragmentTransaction.replace(R.id.container, studentLoginFragment);
+        studentLoginFragment.setArguments(args);
         fragmentTransaction.commit();
 
         /*FragmentManager fragmentManager = getSupportFragmentManager();

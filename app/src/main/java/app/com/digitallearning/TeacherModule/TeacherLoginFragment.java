@@ -182,7 +182,7 @@ public class TeacherLoginFragment extends Fragment {
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
             dlg.dismiss();
-          //  Log.e("REsulT", "" + result);
+           Log.e("REsulT", "" + result);
             if (result.contains("true")) {
 
                 updateTeacherLogIn(result);
@@ -209,7 +209,8 @@ public class TeacherLoginFragment extends Fragment {
                 messageText.setGravity(Gravity.CENTER);
             }
         }
-
+// {"success":true,"user_type":"Student","Sch_Mem_id":"2279","Mem_Sch_Id":"487","Mem_Type":"16","Mem_Name":"stu","Mem_Emailid":"ram@rkm.com",
+// "class_data":[{"class_id":"1837","class_name":"k","subject":"Music","students":"1"}]}
 
         private void updateTeacherLogIn(String success) {
 

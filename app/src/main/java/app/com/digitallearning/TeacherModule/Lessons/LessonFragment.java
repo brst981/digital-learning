@@ -89,11 +89,7 @@ public class  LessonFragment extends Fragment {
 
         preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         Sch_Mem_id = preferences.getString("Sch_Mem_id", "");
-        Log.e("Sch_Mem_id", "" + Sch_Mem_id);
-
         cla_classid = preferences.getString("cla_classid", "");
-        Log.e("cla_classid", "" + cla_classid);
-
 
         headerTitle = (TextView) activity.findViewById(R.id.mytext);
         headerTitle.setText("Choose Lesson");
@@ -301,10 +297,10 @@ public class  LessonFragment extends Fragment {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-//            dlg = new ProgressDialog(getActivity());
-//            dlg.setMessage("Loading.....");
-//            dlg.setCancelable(false);
-//            dlg.show();
+            dlg = new ProgressDialog(getActivity());
+            dlg.setMessage("Loading.....");
+            dlg.setCancelable(false);
+           dlg.show();
 
 
         }
@@ -314,8 +310,8 @@ public class  LessonFragment extends Fragment {
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
 
-//            if (dlg != null)
-//                dlg.dismiss();
+//           if (dlg != null)
+               dlg.dismiss();
             Log.e("Get_LessonAPI", "" + result);
 
             if (result.contains("false")) {

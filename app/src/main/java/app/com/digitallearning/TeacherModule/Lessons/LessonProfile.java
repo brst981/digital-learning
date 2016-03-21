@@ -71,10 +71,10 @@ public class LessonProfile extends Fragment {
     File destination = null;
     public static final int CAMERA_CAPTURE_IMAGE_REQUEST_CODE = 100;
     String picturePath, filePath;
+    File file = null;
     Uri selectedImage;
     ProgressDialog dlg;
     SharedPreferences preferences;
-    File file = null;
     RippleView ripple_update;
     String Sch_Mem_id,name,textHeader;
     String firstname,lastName,email,photo,description,wechat,phonenumber,whatsapp,social_id;

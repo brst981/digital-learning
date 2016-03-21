@@ -49,6 +49,7 @@ public class QuizFragment extends Fragment {
     private ListView mListView;
     ListViewAdapter mAdapter;
     ProgressDialog dlg;
+    int onitemid=10;
     String textHeader, cla_classid, userid;
     SharedPreferences preferences;
     ArrayList<Quiz_Listing> quizlisting = new ArrayList<Quiz_Listing>();
@@ -106,6 +107,7 @@ public class QuizFragment extends Fragment {
                 Quiz_View quiz_view = new Quiz_View();
                 Bundle bundle=new Bundle();
                 bundle.putString("quizid",quizlisting.get(position).getQuiz_id());
+                bundle.putInt("onitemid",onitemid);
                 fragmentTransaction.replace(R.id.container, quiz_view).addToBackStack(null);
                 quiz_view.setArguments(bundle);
                 fragmentTransaction.commit();

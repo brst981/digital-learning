@@ -59,7 +59,6 @@ public class LessonDetailFragment extends Fragment implements ViewPager.OnPageCh
     ArrayList<QuizData> quizDatalist = new ArrayList<QuizData>();
     public static int currentPage_postion = 0;
     LayoutInflater inflater;
-    ListView quizlist;
     CareerAdapter career;
     private int currentPage;
 
@@ -106,7 +105,7 @@ public class LessonDetailFragment extends Fragment implements ViewPager.OnPageCh
 
 
         headerTitle = (TextView) activity.findViewById(R.id.mytext);
-        headerTitle.setText(lessonname);
+
 
         imageButtonZoomIn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -185,7 +184,8 @@ public class LessonDetailFragment extends Fragment implements ViewPager.OnPageCh
             View itemView = mLayoutInflater.inflate(R.layout.layout_lesson_items, container,
                     false);
 
-            //  quizlist = (ListView) itemView.findViewById(R.id.quizlist);
+            ListView   quizlist = (ListView) itemView.findViewById(R.id.quizlist);
+            quizlist.setAdapter(career);
 
             TextView textView = (TextView) itemView.findViewById(R.id.textView_lesson_count);
             ImageView imageViewLeft = (ImageView) itemView.findViewById(R.id.img_left_icon);
@@ -206,8 +206,22 @@ public class LessonDetailFragment extends Fragment implements ViewPager.OnPageCh
                imageViewRight.setVisibility(View.GONE);
            }*/
 
-            Log.e("LessonNAme", "" + dataList.get(position).getLessonName());
+            String size= String.valueOf(dataList.get(currentPage_postion));
+
+        //     int in= Integer.parseInt(size);
+        //      in=in-1;
+        //    String size1=String.valueOf(in);
+            Log.e("Size",""+size);
+            for(int n=0;n < size.length();n++) {
+                String str = dataList.get(position).getLessonName();
+                Log.e("Str",""+str);
+                headerTitle.setText(str);
+            }
+         //   Log.e("LessonNAme", "" + dataList.get(n).getLessonName());
             Log.e("LessonNAmeposition", "" + position);
+
+
+
             if (position == 0) {
                 imageViewLeft.setVisibility(View.GONE);
             }

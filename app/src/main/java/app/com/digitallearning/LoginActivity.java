@@ -64,6 +64,8 @@ public class LoginActivity extends Activity {
             @Override
             public void onComplete(RippleView rippleView) {
                 Intent intent = new Intent(LoginActivity.this, StudentLoginActivity.class);
+                intent.putExtra("SchoolName",schoolName);
+                intent.putExtra("SchoolID",schoolID);
                 startActivity(intent);
             }
         });

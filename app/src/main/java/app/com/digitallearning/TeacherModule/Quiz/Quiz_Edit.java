@@ -50,6 +50,7 @@ public class Quiz_Edit extends Fragment {
     ArrayList<Data> dataList = new ArrayList<Data>();
     String[] lesson;
     int pos;
+    static String name;
     ArrayList<View_Quiz_Listing> quizlisting = new ArrayList<View_Quiz_Listing>();
     ArrayList<View_Quiz_Listing_Questions> quizlisting1 = new ArrayList<View_Quiz_Listing_Questions>();
     ArrayList<View_Quiz_Name> quiznamelist = new ArrayList<View_Quiz_Name>();
@@ -59,13 +60,10 @@ public class Quiz_Edit extends Fragment {
         ripple_lesson=(RippleView)rootview.findViewById(R.id.ripple_lesson);
         ripple_quizquestion=(RippleView)rootview.findViewById(R.id.ripple_quizquestion);
         ripple_quizdec=(RippleView)rootview.findViewById(R.id.ripple_quizdec);
-
-
         title=(EditText)rootview.findViewById(R.id.title);
         lessonname=(TextView)rootview.findViewById(R.id.lessonname) ;
         quizquestionname=(TextView)rootview.findViewById(R.id.quizquestionname);
         quizdecdata=(TextView)rootview.findViewById(R.id.quizdecdata);
-
         dlg=new ProgressDialog(getActivity());
         AppCompatActivity activity = (AppCompatActivity) getActivity();
         activity.getSupportActionBar().setTitle("");
@@ -93,9 +91,9 @@ public class Quiz_Edit extends Fragment {
                     public void onClick(DialogInterface dialog, int item) {
                         Log.e("items[item]",""+dataList.get(item).getLessonId());
                         //  Log.e("selectedlessonid",""+arrlessonid[item]);
-                       /* name=lesson[item];
+                        name=lesson[item];
                         lessonname.setText(name);
-                        selectedlesonid=dataList.get(item).getLessonId();*/
+                        //selectedlesonid=dataList.get(item).getLessonId();
                     }
                 });
                 AlertDialog alert = builder.create();
@@ -103,14 +101,19 @@ public class Quiz_Edit extends Fragment {
             }
         });
 
+
+
         ripple_quizquestion.setOnRippleCompleteListener(new RippleView.OnRippleCompleteListener() {
             @Override
             public void onComplete(RippleView rippleView) {
 
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                MofifyQuizQuestion mofifyQuizQuestion = new MofifyQuizQuestion();
+                Bundle bundle=new Bundle();
+                bundle.putString("quizid",quizid);
+                Quiz_View mofifyQuizQuestion = new Quiz_View();
                 fragmentTransaction.replace(R.id.container, mofifyQuizQuestion).addToBackStack(null);
+                mofifyQuizQuestion.setArguments(bundle);
                 fragmentTransaction.commit();
 
             }
@@ -278,7 +281,13 @@ public class Quiz_Edit extends Fragment {
 
                     Log.e("wrong",""+quiznamelist.get(pos).getQuiz_name());
                     title.setText(quiznamelist.get(pos).getQuiz_name());
+
+                if(name==null) {
                     lessonname.setText(quiznamelist.get(pos).getLesson_name());
+                }
+                else if(name!=null){
+                    lessonname.setText(name);
+                }
                     quizdecdata.setText(quiznamelist.get(pos).getQuiz_description());
               //  }
 

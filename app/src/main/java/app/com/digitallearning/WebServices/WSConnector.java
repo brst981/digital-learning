@@ -703,7 +703,8 @@ public class WSConnector {
     }
 
     public static String Add_Quiz(String classid,String userid,String schid,String lessonid,String quiz_title,String quiz_description,String qzdata,String last_modified) {
-
+//classid, userid , schid , lessonid , quiz_title , quiz_description , quiz_question , quiz_ans_1 , quiz_ans_2 , quiz_ans_3 , quiz_ans_4 ,
+// correct_ans , last_modified , user_type , edit_quiz_id , question_id , option_id_1 , option_id_2 , option_id_3 , option_id_4
         String url = AppConstant.quiz_listing;
         List<NameValuePair> pairs = new ArrayList<NameValuePair>();
         pairs.add(new BasicNameValuePair("classid", classid));
@@ -732,4 +733,82 @@ public class WSConnector {
         return result;
 
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    public static String Student_Info(String userid,String username) {
+
+        String url = AppConstant.student_info;
+        List<NameValuePair> pairs = new ArrayList<NameValuePair>();
+
+        pairs.add(new BasicNameValuePair("userid", userid));
+        pairs.add(new BasicNameValuePair("username", username));
+
+        String result = WSAdapter.postJSONObject(url, pairs);
+        return result;
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

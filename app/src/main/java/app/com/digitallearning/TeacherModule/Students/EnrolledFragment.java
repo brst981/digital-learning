@@ -167,7 +167,7 @@ public class EnrolledFragment extends Fragment {
         @Override
         public void fillValues(final int position, View convertView) {
           TextView text_enrolled_name = (TextView)convertView.findViewById(R.id.text_enrolled_name);
-            text_enrolled_name.setText(archivelist.get(position).getStudent_Name());
+            text_enrolled_name.setText(archivelist.get(position).getStudent_Name()+" "+archivelist.get(position).getStudent_LastName());
 
             TextView archive=(TextView)convertView.findViewById(R.id.archive);
             archive.setOnClickListener(new View.OnClickListener() {
