@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -39,38 +40,45 @@ import app.com.digitallearning.WebServices.WSConnector;
 public class Quiz_View extends Fragment {
     View rootview;
     TextView headerTitle;
-    String textHeader,quizid , userid,cla_classid,truevalue,truevalue1;
+    String textHeader,quizid , userid,cla_classid,truevalue,truevalue1,correctans,question_id, option_id ,quizzes_id;
+    String question,ans1,ans2,ans3,ans4;
     SharedPreferences preferences;
     ViewPager _mViewPager;
     CustomPagerAdapter mPagerAdapter;
     ProgressDialog dlg;
-    int onitemid;
+    int onitemid,idvalue;
+    RelativeLayout relquiz;
     ArrayList<View_Quiz_Listing> quizlisting = new ArrayList<View_Quiz_Listing>();
     ArrayList<View_Quiz_Listing_Questions> quizlisting1 = new ArrayList<View_Quiz_Listing_Questions>();
     ArrayList<View_Quiz_Name> quiznamelist = new ArrayList<View_Quiz_Name>();
+    String quizdata;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootview = inflater.inflate(R.layout.view_quiz, container, false);
         _mViewPager = (ViewPager)rootview. findViewById(R.id.viewPager);
-
+        relquiz=(RelativeLayout)rootview.findViewById(R.id.relquiz);
         dlg=new ProgressDialog(getActivity());
         AppCompatActivity activity = (AppCompatActivity) getActivity();
         activity.getSupportActionBar().setTitle("");
         //   getActivity().getActionBar().setHomeButtonEnabled(false);
 
         headerTitle = (TextView) activity.findViewById(R.id.mytext);
-        headerTitle.setText("View Quiz");
+
         initData();
         preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         userid = preferences.getString("Sch_Mem_id", "");
-        Log.e("userid", "" + userid);
         cla_classid = preferences.getString("cla_classid", "");
-        Log.e("cla_classid", "" + cla_classid);
     //    try {
             quizid=getArguments().getString("quizid");
+        idvalue=getArguments().getInt("idvalue");
        // }catch (Exception e){}
 
         onitemid=getArguments().getInt("onitemid");
+
+        question_id=getArguments().getString("question_id");
+        option_id=getArguments().getString("option_id");
+        quizzes_id=getArguments().getString("quizzes_id");
+
 
         new Quiz_view().execute(cla_classid,userid,quizid);
         mPagerAdapter = new CustomPagerAdapter(getActivity());
@@ -102,7 +110,9 @@ public class Quiz_View extends Fragment {
         }
         @Override
         public int getCount() {
-            Log.e("quizlisting",""+quizlisting1.size());
+            Log.e("quizlisting",""+quizlisting.size());
+            Log.e("quizlisting1",""+quizlisting1.size());
+            Log.e("quiznamelist",""+quiznamelist.size());
             return quizlisting1.size();
         }
         @Override
@@ -130,27 +140,28 @@ public class Quiz_View extends Fragment {
             TextView description=(TextView)itemView.findViewById(R.id.description);
             description.setText(quiznamelist.get(0).getQuiz_description());
             TextView textView = (TextView)itemView.findViewById(R.id.textView_lesson_count);
+
             ImageView imageViewLeft =(ImageView)itemView.findViewById(R.id.img_left_icon);
             ImageView imageViewRight =(ImageView)itemView.findViewById(R.id.img_right_icon);
-            EditText questionname=(EditText) itemView.findViewById(R.id.questionname);
+            final EditText questionname=(EditText) itemView.findViewById(R.id.questionname);
             questionname.setText(quizlisting1.get(position).getQuestion_nameString());
 
-            EditText textView_lesson_title=(EditText) itemView.findViewById(R.id.textView_lesson_title);
+            final EditText textView_lesson_title=(EditText) itemView.findViewById(R.id.textView_lesson_title);
             textView_lesson_title.setText(quizlisting.get(0).getQuiz_option());
-            EditText textView_lesson_description=(EditText) itemView.findViewById(R.id.textView_lesson_description) ;
+            final EditText textView_lesson_description=(EditText) itemView.findViewById(R.id.textView_lesson_description) ;
             textView_lesson_description.setText(quizlisting.get(1).getQuiz_option());
-            EditText textView_lesson_description_=(EditText) itemView.findViewById(R.id.textView_lesson_description_);
+            final EditText textView_lesson_description_=(EditText) itemView.findViewById(R.id.textView_lesson_description_);
             textView_lesson_description_.setText(quizlisting.get(2).getQuiz_option());
-            EditText textView_lesson_description1=(EditText) itemView.findViewById(R.id.textView_lesson_description1);
+            final EditText textView_lesson_description1=(EditText) itemView.findViewById(R.id.textView_lesson_description1);
             textView_lesson_description1.setText(quizlisting.get(3).getQuiz_option());
 
-            CheckBox check1=(CheckBox)itemView.findViewById(R.id.check1);
+            final CheckBox check1=(CheckBox)itemView.findViewById(R.id.check1);
             check1.setEnabled(false);
-            CheckBox check2=(CheckBox)itemView.findViewById(R.id.check2);
+            final CheckBox check2=(CheckBox)itemView.findViewById(R.id.check2);
             check2.setEnabled(false);
-            CheckBox check3=(CheckBox)itemView.findViewById(R.id.check3);
+            final CheckBox check3=(CheckBox)itemView.findViewById(R.id.check3);
             check3.setEnabled(false);
-            CheckBox check4=(CheckBox)itemView.findViewById(R.id.check4);
+            final CheckBox check4=(CheckBox)itemView.findViewById(R.id.check4);
             check4.setEnabled(false);
 
             if(onitemid==10){
@@ -160,6 +171,9 @@ public class Quiz_View extends Fragment {
                 textView_lesson_description_.setEnabled(false);
                 textView_lesson_description1.setEnabled(false);
                 questionname.setEnabled(false);
+                headerTitle.setText("View Quiz");
+                int pos=position+1;
+                textView.setText("Quiz"+" "+ pos +" "+"of"+" "+quizlisting1.size());
             }
 
 Log.e("Swipe","asd");
@@ -203,9 +217,214 @@ Log.e("Swipe","asd");
             if (position==0){
                 imageViewLeft.setVisibility(View.GONE);
             }
-            int pos=position+1;
-            textView.setText("Quiz"+" "+ pos +" "+"of"+" "+quizlisting1.size());
+
             container.addView(itemView);
+            if(idvalue==30){
+                check1.setEnabled(true);
+                check2.setEnabled(true);
+                check3.setEnabled(true);
+                check4.setEnabled(true);
+
+                check1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                        if(isChecked==true){
+                            check2.setChecked(false);
+                            check3.setChecked(false);
+                            check4.setChecked(false);
+                            correctans= String.valueOf(1);
+                        }
+                    }
+                });
+
+                check2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                        if(isChecked==true){
+                            check1.setChecked(false);
+                            check3.setChecked(false);
+                            check4.setChecked(false);
+                            correctans= String.valueOf(2);
+                        }
+                    }
+                });
+
+                check3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                        if(isChecked==true){
+                            check1.setChecked(false);
+                            check2.setChecked(false);
+                            check4.setChecked(false);
+                            correctans= String.valueOf(3);
+                        }
+                    }
+                });
+
+
+                check4.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                        if(isChecked==true){
+                            check1.setChecked(false);
+                            check2.setChecked(false);
+                            check3.setChecked(false);
+                            correctans= String.valueOf(4);
+
+                        }
+                    }
+                });
+//                relquiz.setVisibility(View.GONE);
+                textquiz.setVisibility(View.GONE);
+                description.setVisibility(View.GONE);
+                Log.e("idvalue",""+idvalue);
+                textView.setText("Save");
+                textView_lesson_title.setEnabled(true);
+                textView_lesson_description.setEnabled(true);
+                textView_lesson_description_.setEnabled(true);
+                textView_lesson_description1.setEnabled(true );
+                headerTitle.setText("Quiz Question");
+                imageViewRight.setVisibility(View.GONE);
+
+                textView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        String checked = null;
+                        if(check1.isChecked()){
+                            checked= String.valueOf(1);
+
+                        }else if(check2.isChecked()){
+                            checked= String.valueOf(2);
+                        }
+                        else if(check3.isChecked()){
+                            checked=String.valueOf(3);
+                        }
+                        else  if(check4.isChecked()){
+                            checked=String .valueOf(4);
+                        }
+
+                        JSONObject object=new JSONObject();
+                        JSONArray arr=new JSONArray();
+                       for (int i=0;i<quizlisting1.size();i++) {
+                           JSONObject object1=new JSONObject();
+                           question = questionname.getText().toString();
+                           try {
+                               object1.put(("question_id"),question_id);
+                               object1.put(("question_name"),question);
+                               JSONObject jsn=new JSONObject();
+                               JSONArray jsnarr=new JSONArray();
+
+                               for(int k=0;k<0;){
+                                   ans1 = textView_lesson_title.getText().toString();
+
+                                   JSONObject optionobj=new JSONObject();
+                                   optionobj.put(("option_id"),quizlisting.get(k).getOption_id());
+                                   optionobj.put(("quizzes_id"),quizzes_id);
+                                   optionobj.put(("quiz_option"),ans1);
+                                   optionobj.put(("correct_answer"),quizlisting.get(k).getCorrect_answer());
+                                   Log.e("optionobj", "" + optionobj);
+
+                                   jsnarr.put(optionobj);
+                                   Log.e("jsnarr", "" +  jsnarr.put(optionobj));
+                                   Log.e("jsnarrval", "" +  jsnarr);
+                               }
+
+
+                              /* for(int k1=0;k1<quizlisting.size();k1++){
+                                   ans2 = textView_lesson_description.getText().toString();
+
+                                   JSONObject optionobj1=new JSONObject();
+                                   optionobj1.put(("option_id"),quizlisting.get(k1).getOption_id());
+                                   optionobj1.put(("quizzes_id"),quizzes_id);
+                                   optionobj1.put(("quiz_option"),ans2);
+                                   optionobj1.put(("correct_answer"),quizlisting.get(k1).getCorrect_answer());
+                                   Log.e("optionobj1", "" + optionobj1);
+
+                               }
+
+                               for(int k2=0;k2<quizlisting.size();k2++){
+                                   ans3 = textView_lesson_description_.getText().toString();
+
+                                   JSONObject optionobj2=new JSONObject();
+                                   optionobj2.put(("option_id"),quizlisting.get(k2).getOption_id());
+                                   optionobj2.put(("quizzes_id"),quizzes_id);
+                                   optionobj2.put(("quiz_option"),ans3);
+                                   optionobj2.put(("correct_answer"),quizlisting.get(k2).getCorrect_answer());
+                                   Log.e("optionobj2", "" + optionobj2);
+
+                               }
+                               for(int k3=0;k3<quizlisting.size();k3++){
+                                   ans4 = textView_lesson_description1.getText().toString();
+                                   JSONObject optionobj3=new JSONObject();
+                                   optionobj3.put(("option_id"),quizlisting.get(k3).getOption_id());
+                                   optionobj3.put(("quizzes_id"),quizzes_id);
+                                   optionobj3.put(("quiz_option"),ans4);
+                                   optionobj3.put(("correct_answer"),quizlisting.get(k3).getCorrect_answer());
+                                   Log.e("optionobj3", "" + optionobj3);
+
+                               }*/
+
+                           } catch (JSONException e) {
+                               e.printStackTrace();
+                           }
+                           Log.e("object1", "" + object1);
+                       }
+                       /* JSONObject object2 = new JSONObject();
+                         //  JSONObject quiz_options = null;
+                           ans1 = textView_lesson_title.getText().toString();
+                           ans2 = textView_lesson_description.getText().toString();
+                           ans3 = textView_lesson_description_.getText().toString();
+                           ans4 = textView_lesson_description1.getText().toString();
+                        JSONArray options = new JSONArray();
+                           try {
+                            //   quiz_options = new JSONObject("quiz_options");
+
+                               for(int j=0;j<quiznamelist.size();j++){
+                                   JSONObject optionobj=new JSONObject();
+                                   optionobj.put(("option_id"),option_id);
+                                   optionobj.put(("quizzes_id"),quizzes_id);
+                                   optionobj.put(("quiz_option"),ans1);
+                                   optionobj.put(("correct_answer"),checked);
+                                   Log.e("optionobj", "" + optionobj);
+                                   Log.e("options", "" + options);
+                                  object.put(String.valueOf(j), optionobj);
+                               }
+                           } catch (JSONException e) {
+                               e.printStackTrace();
+                           }
+                           Log.e("object2", "" + object2);
+                        Log.e("object", "" + object);*/
+
+
+
+
+
+                          // JSONObject obj = new JSONObject();
+
+
+
+                               /*try {
+                               obj.put("correct_ans", checked);
+                               Log.e("correctans",""+checked);
+                               obj.put("quiz_ans_1", ans1);
+                               obj.put("quiz_ans_2",ans2);
+                               obj.put("quiz_ans_3", ans3);
+                               obj.put("quiz_ans_4", ans4);
+                               obj.put("quiz_question", question);
+                               Log.e("obj",""+obj);
+                               object.put(String.valueOf(i+1), obj);
+                               quizdata=object.toString();
+                               Log.e("quizdataView",""+quizdata);*/
+                               Quiz_Edit.dataquiz=quizdata;
+
+                        //   } catch (JSONException e) {
+                               // TODO Auto-generated catch block
+                            //   e.printStackTrace();
+                       //    }
+
+                    }
+                });
+            }
             return itemView;
         }
 

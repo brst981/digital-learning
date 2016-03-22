@@ -96,7 +96,7 @@
                 android:layout_height="50dp"
                 android:background="@color/colorlima"
                 android:elevation="8dp"
-                android:text="Save"
+                android:text="Update"
                 android:layout_marginTop="15dp"
                 android:textAllCaps="true"
                 android:gravity="center"

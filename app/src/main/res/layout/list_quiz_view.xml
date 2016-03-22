@@ -62,6 +62,7 @@
             <CheckBox
                 android:id="@+id/check1"
                 android:layout_marginLeft="5dp"
+                android:checkMark="?android:attr/listChoiceIndicatorMultiple"
                 android:layout_marginTop="15dp"
                 android:layout_below="@+id/questionname"
                 android:layout_width="wrap_content"
@@ -94,6 +95,7 @@
             <CheckBox
                 android:layout_marginLeft="5dp"
                 android:id="@+id/check2"
+                android:checkMark="?android:attr/listChoiceIndicatorMultiple"
                 android:layout_marginTop="12dp"
                 android:layout_below="@+id/check1"
                 android:layout_width="wrap_content"
@@ -125,6 +127,7 @@
             <CheckBox
                 android:id="@+id/check3"
                android:layout_marginTop="10dp"
+                android:checkMark="?android:attr/listChoiceIndicatorMultiple"
                 android:layout_marginLeft="5dp"
                 android:layout_below="@+id/check2"
                 android:layout_width="wrap_content"
@@ -158,6 +161,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_below="@+id/check3"
                 android:layout_width="wrap_content"
+                android:checkMark="?android:attr/listChoiceIndicatorMultiple"
                 android:layout_marginLeft="5dp"
                 android:layout_height="wrap_content" />
             <EditText
@@ -208,7 +212,6 @@
         android:id="@+id/relative_lesson"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-
         android:layout_alignParentBottom="true"
         android:background="@color/colorlima">
 

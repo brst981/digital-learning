@@ -26,7 +26,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import app.com.digitallearning.R;
 import app.com.digitallearning.TeacherModule.Model.Data;
@@ -41,19 +43,21 @@ import app.com.digitallearning.WebServices.WSConnector;
 public class Quiz_Edit extends Fragment {
     View rootview;
     TextView headerTitle,lessonname,quizquestionname,quizdecdata;
-    String textHeader,quizid;
+    String textHeader,quizid,selectedlesonid,Mem_Sch_Id,quiztitle,quizdescription,modifydate;
     EditText title;
-    RippleView rippleViewPreview,ripple_lesson,ripple_quizquestion,ripple_quizdec;
+    RippleView rippleViewPreview,ripple_lesson,ripple_quizquestion,ripple_quizdec,rippleupdatequiz;
     ProgressDialog dlg;
     SharedPreferences preferences;
-    String Sch_Mem_id, cla_classid;
+    String Sch_Mem_id, cla_classid,question_id, option_id,quizzes_id         ;
     ArrayList<Data> dataList = new ArrayList<Data>();
     String[] lesson;
     int pos;
+    int idvalue=30;
     static String name;
     ArrayList<View_Quiz_Listing> quizlisting = new ArrayList<View_Quiz_Listing>();
     ArrayList<View_Quiz_Listing_Questions> quizlisting1 = new ArrayList<View_Quiz_Listing_Questions>();
     ArrayList<View_Quiz_Name> quiznamelist = new ArrayList<View_Quiz_Name>();
+    public static String dataquiz;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootview = inflater.inflate(R.layout.quiz_edit, container, false);
@@ -64,6 +68,7 @@ public class Quiz_Edit extends Fragment {
         lessonname=(TextView)rootview.findViewById(R.id.lessonname) ;
         quizquestionname=(TextView)rootview.findViewById(R.id.quizquestionname);
         quizdecdata=(TextView)rootview.findViewById(R.id.quizdecdata);
+        rippleupdatequiz=(RippleView)rootview.findViewById(R.id.rippleupdatequiz);
         dlg=new ProgressDialog(getActivity());
         AppCompatActivity activity = (AppCompatActivity) getActivity();
         activity.getSupportActionBar().setTitle("");
@@ -72,7 +77,7 @@ public class Quiz_Edit extends Fragment {
         initData();
         preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         Sch_Mem_id = preferences.getString("Sch_Mem_id", "");
-        Log.e("Sch_Mem_id", "" + Sch_Mem_id);
+        Mem_Sch_Id= preferences.getString("Mem_Sch_Id", "");
         cla_classid = preferences.getString("cla_classid", "");
         ripple_lesson.setOnRippleCompleteListener(new RippleView.OnRippleCompleteListener() {
             @Override
@@ -93,7 +98,7 @@ public class Quiz_Edit extends Fragment {
                         //  Log.e("selectedlessonid",""+arrlessonid[item]);
                         name=lesson[item];
                         lessonname.setText(name);
-                        //selectedlesonid=dataList.get(item).getLessonId();
+                        selectedlesonid=dataList.get(item).getLessonId();
                     }
                 });
                 AlertDialog alert = builder.create();
@@ -111,9 +116,14 @@ public class Quiz_Edit extends Fragment {
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 Bundle bundle=new Bundle();
                 bundle.putString("quizid",quizid);
-                Quiz_View mofifyQuizQuestion = new Quiz_View();
-                fragmentTransaction.replace(R.id.container, mofifyQuizQuestion).addToBackStack(null);
-                mofifyQuizQuestion.setArguments(bundle);
+                bundle.putInt("idvalue",idvalue);
+                bundle.putString("question_id",question_id);
+                bundle.putString("option_id",option_id);
+                bundle.putString("quizzes_id",quizzes_id);
+                Log.e("question_id",""+question_id);
+                Quiz_View quiz_view = new Quiz_View();
+                fragmentTransaction.replace(R.id.container, quiz_view).addToBackStack(null);
+                quiz_view.setArguments(bundle);
                 fragmentTransaction.commit();
 
             }
@@ -128,6 +138,18 @@ public class Quiz_Edit extends Fragment {
                 fragmentTransaction.replace(R.id.container, quiz_des).addToBackStack(null);
                 fragmentTransaction.commit();
 
+            }
+        });
+        rippleupdatequiz.setOnRippleCompleteListener(new RippleView.OnRippleCompleteListener() {
+            @Override
+            public void onComplete(RippleView rippleView) {
+                quiztitle=title.getText().toString();
+                quizdescription =quizdecdata.getText().toString();
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+                final Date date = new Date();
+                modifydate=(dateFormat.format(date));
+                Log.e("modifydate",""+modifydate);
+                new Quiz_Update().execute(cla_classid, Sch_Mem_id,Mem_Sch_Id,selectedlesonid,quiztitle,quizdescription,dataquiz,modifydate,quizid);
             }
         });
         return rootview;
@@ -165,8 +187,6 @@ public class Quiz_Edit extends Fragment {
 
 //            if (dlg != null)
             dlg.dismiss();
-            Log.e("GetLesson", "" + result);
-
             if (result.contains("false")) {
 
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
@@ -314,10 +334,10 @@ public class Quiz_Edit extends Fragment {
                     quizlisting1.add(view_quiz_listing_questions);
                     quizquestionname.setText(quizlisting1.get(pos).getQuestion_nameString());
                     Log.e("quizlisting1",""+quizlisting1);
-                   /* String question_id = obj1.getString("question_id");
+                     question_id = obj1.getString("question_id");
                     Log.e("question_id", "" + question_id);
                     String question_name = obj1.getString("question_name");
-                    Log.e("question_name", "" + question_name);*/
+                    Log.e("question_name", "" + question_name);
 
                     JSONObject quiz_options = obj1.getJSONObject("quiz_options");
                     Log.e("quiz_options", "" + quiz_options);
@@ -334,6 +354,8 @@ public class Quiz_Edit extends Fragment {
                         view_quiz_listing.setCorrect_answer(object.optString("correct_answer"));
                         quizlisting.add(view_quiz_listing);
 
+                        option_id =object.getString("option_id");
+                        quizzes_id=object.getString("quizzes_id");
 
 
 
@@ -348,8 +370,33 @@ public class Quiz_Edit extends Fragment {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+        }}
+
+    class Quiz_Update extends AsyncTask<String, Integer, String> {
+
+        @Override
+        protected String doInBackground(String... params) {
+            return WSConnector.Update_Quiz(params[0], params[1], params[2],params[3],params[4],params[5],params[6],params[7],params[8]);
         }
 
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            dlg.setMessage("Loading....");
+            dlg.setCancelable(false);
+            dlg.show();
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+            dlg.dismiss();
+            if (result.contains("true")) {
+            } else if (result.contains("false")) {
+                Toast.makeText(getActivity(), "No data", Toast.LENGTH_SHORT).show();
+
+            }
+        }
     }
     @Override
     public void onResume() {

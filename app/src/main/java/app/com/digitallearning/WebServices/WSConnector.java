@@ -703,8 +703,6 @@ public class WSConnector {
     }
 
     public static String Add_Quiz(String classid,String userid,String schid,String lessonid,String quiz_title,String quiz_description,String qzdata,String last_modified) {
-//classid, userid , schid , lessonid , quiz_title , quiz_description , quiz_question , quiz_ans_1 , quiz_ans_2 , quiz_ans_3 , quiz_ans_4 ,
-// correct_ans , last_modified , user_type , edit_quiz_id , question_id , option_id_1 , option_id_2 , option_id_3 , option_id_4
         String url = AppConstant.quiz_listing;
         List<NameValuePair> pairs = new ArrayList<NameValuePair>();
         pairs.add(new BasicNameValuePair("classid", classid));
@@ -720,7 +718,7 @@ public class WSConnector {
         String result = WSAdapter.postJSONObject(url, pairs);
         return result;
 
-    }//quizclassid , userid , quizid.
+    }
     public static String Quiz_view(String quizclassid,String userid,String quizid) {
 
         String url = AppConstant.quiz_listing;
@@ -735,7 +733,32 @@ public class WSConnector {
     }
 
 
+    public static String Update_Quiz(String classid,String userid,String schid,String lessonid,String quiz_title,String quiz_description,String qzdata,String last_modified,String edit_quiz_id) {
+        String url = AppConstant.quiz_listing;
+        List<NameValuePair> pairs = new ArrayList<NameValuePair>();
+        pairs.add(new BasicNameValuePair("classid", classid));
+        pairs.add(new BasicNameValuePair("userid", userid));
+        pairs.add(new BasicNameValuePair("schid", schid));
+        pairs.add(new BasicNameValuePair("lessonid", lessonid));
+        pairs.add(new BasicNameValuePair("quiz_title", quiz_title));
+        pairs.add(new BasicNameValuePair("quiz_description", quiz_description));
+        pairs.add(new BasicNameValuePair("qzdata", qzdata));
+        pairs.add(new BasicNameValuePair("last_modified", last_modified));
+        pairs.add(new BasicNameValuePair("edit_quiz_id",edit_quiz_id));
+        pairs.add(new BasicNameValuePair("user_type", "4"));
 
+        Log.e("classid",""+classid);
+        Log.e("userid",""+userid);
+        Log.e("schid",""+schid);
+        Log.e("lessonid",""+lessonid);
+        Log.e("quiz_title",""+quiz_title);
+        Log.e("quiz_description",""+quiz_description);
+        Log.e("qzdata",""+qzdata);
+        Log.e("last_modified",""+last_modified);
+        Log.e("edit_quiz_id",""+edit_quiz_id);
+        String result = WSAdapter.postJSONObject(url, pairs);
+        return result;
+    }
 
 
 
