@@ -48,7 +48,7 @@ public class GradeFragment extends Fragment {
     private ListView mListView;
    // ListViewAdapter mAdapter;
     ProgressDialog dlg;
-    String  cla_classid, userid;
+    String  cla_classid, userid,studentid;
     SharedPreferences preferences;
     ArrayList<Archieve_Student> archivelist = new ArrayList<Archieve_Student>();
 
@@ -147,11 +147,14 @@ public class GradeFragment extends Fragment {
                     @Override
                     public void onComplete(RippleView rippleView) {
                         int position = getLayoutPosition(); // gets item position
-
+                         studentid=archivelist.get(position).getStudent_Memid();
                         FragmentManager fragmentManager=getFragmentManager();
                         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                         Grade_Lesson grade_lesson = new Grade_Lesson();
+                        Bundle bundle=new Bundle();
+                        bundle.putString("studentid",studentid);
                         fragmentTransaction.replace(R.id.container, grade_lesson).addToBackStack(null);
+                        grade_lesson.setArguments(bundle);
                         fragmentTransaction.commit();
 
                     }

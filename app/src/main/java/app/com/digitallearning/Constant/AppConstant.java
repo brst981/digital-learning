@@ -55,6 +55,6 @@ public class AppConstant {
 
     public static final String student_info=server_Url+"digitalapi/profiles.php";
 
-
+    public static final String grade_lesson=server_Url+"digitalapi/grade.php";
 
 }

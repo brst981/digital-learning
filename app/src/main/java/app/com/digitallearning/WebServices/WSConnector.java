@@ -763,8 +763,33 @@ public class WSConnector {
 
 
 
+    public static String Delete_quiz(String userid,String del_qm_id) {
+
+        String url = AppConstant.quiz_listing;
+        List<NameValuePair> pairs = new ArrayList<NameValuePair>();
+        pairs.add(new BasicNameValuePair("userid", userid));
+        pairs.add(new BasicNameValuePair("del_qm_id", del_qm_id));
 
 
+        String result = WSAdapter.postJSONObject(url, pairs);
+        return result;
+
+    }
+
+    public static String Grade_lesson(String cid,String studid) {
+
+        String url = AppConstant.grade_lesson;
+        List<NameValuePair> pairs = new ArrayList<NameValuePair>();
+        pairs.add(new BasicNameValuePair("cid", cid));
+        pairs.add(new BasicNameValuePair("studid", studid));
+
+
+        Log.e("cid",""+cid);
+        Log.e("studid",""+studid);
+        String result = WSAdapter.postJSONObject(url, pairs);
+        return result;
+
+    }
 
 
 

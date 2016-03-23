@@ -1,7 +1,9 @@
 package app.com.digitallearning.TeacherModule.Quiz;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -12,6 +14,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -50,7 +53,7 @@ public class QuizFragment extends Fragment {
     ListViewAdapter mAdapter;
     ProgressDialog dlg;
     int onitemid=10;
-    String textHeader, cla_classid, userid;
+    String textHeader, cla_classid, userid,delquizid;
     SharedPreferences preferences;
     ArrayList<Quiz_Listing> quizlisting = new ArrayList<Quiz_Listing>();
     public static QuizFragment newInstance() {
@@ -222,12 +225,12 @@ public class QuizFragment extends Fragment {
                     Toast.makeText(mContext, "DoubleClick", Toast.LENGTH_SHORT).show();
                 }
             });
-            v.findViewById(R.id.delete).setOnClickListener(new View.OnClickListener() {
+           /* v.findViewById(R.id.delete).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Toast.makeText(mContext, "click delete", Toast.LENGTH_SHORT).show();
                 }
-            });
+            });*/
            /* v.findViewById(R.id.archive).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -264,6 +267,15 @@ public class QuizFragment extends Fragment {
                 }
             });
 
+            TextView delete =(TextView)convertView.findViewById(R.id.delete);
+            delete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                   delquizid=quizlisting.get(position).getQuiz_id();
+
+                   new Delete_Quiz(position).execute(cla_classid,delquizid);
+                }
+            });
         }
 
         @Override
@@ -365,6 +377,87 @@ public class QuizFragment extends Fragment {
         }
 
     }
+
+
+
+
+
+    class Delete_Quiz extends AsyncTask<String, Integer, String> {
+        private int pos;
+        public Delete_Quiz(int pos) {
+            this.pos = pos;
+
+        }
+        @Override
+        protected String doInBackground(String... params) {
+
+            return WSConnector.Delete_quiz(params[0], params[1]);
+
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            dlg = new ProgressDialog(getActivity());
+            dlg.setMessage("Loading.....");
+            dlg.setCancelable(false);
+            dlg.show();
+
+
+        }
+
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+            if (dlg != null)
+                dlg.dismiss();
+            Log.e("Delete_Quiz", "" + result);
+
+            if (result.contains("true")) {
+
+
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+                alertDialog.setMessage("Quiz deleted").setCancelable(false)
+                        .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                // TODO Auto-generated method stub
+                                dialog.dismiss();
+                                quizlisting.remove(pos);
+                                mAdapter = new ListViewAdapter(getActivity());
+
+                                mListView.setAdapter(mAdapter);
+                            }
+                        });
+
+                AlertDialog dialog = alertDialog.create();
+                dialog.show();
+                TextView messageText = (TextView) dialog
+                        .findViewById(android.R.id.message);
+                messageText.setGravity(Gravity.CENTER);
+
+
+            } else if (result.contains("false")) {
+                //   updateGet_Lesson(result);
+
+
+            }
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
 
     @Override
     public void onResume() {

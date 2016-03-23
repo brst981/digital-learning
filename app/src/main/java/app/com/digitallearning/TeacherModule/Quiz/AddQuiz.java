@@ -289,6 +289,9 @@ public class AddQuiz extends Fragment{
                             public void onClick(DialogInterface dialog, int which) {
                                 // TODO Auto-generated method stub
 
+                                name =" ";
+                                quizdescription="";
+                                strquizquestionname=" ";
                                 getFragmentManager().popBackStack();
                                 dialog.dismiss();
 

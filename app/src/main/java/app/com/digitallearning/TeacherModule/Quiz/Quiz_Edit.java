@@ -48,7 +48,7 @@ public class Quiz_Edit extends Fragment {
     RippleView rippleViewPreview,ripple_lesson,ripple_quizquestion,ripple_quizdec,rippleupdatequiz;
     ProgressDialog dlg;
     SharedPreferences preferences;
-    String Sch_Mem_id, cla_classid,question_id, option_id,quizzes_id         ;
+    String Sch_Mem_id, cla_classid,question_id, option_id,quizzes_id ,newquizdata;
     ArrayList<Data> dataList = new ArrayList<Data>();
     String[] lesson;
     int pos;
@@ -149,7 +149,14 @@ public class Quiz_Edit extends Fragment {
                 final Date date = new Date();
                 modifydate=(dateFormat.format(date));
                 Log.e("modifydate",""+modifydate);
-                new Quiz_Update().execute(cla_classid, Sch_Mem_id,Mem_Sch_Id,selectedlesonid,quiztitle,quizdescription,dataquiz,modifydate,quizid);
+
+                newquizdata= dataquiz.replace("\"","\'");
+
+                Log.e("DATA",""+dataquiz);
+
+                Log.e("newquizdata",""+newquizdata);
+
+                new Quiz_Update().execute(cla_classid, Sch_Mem_id,Mem_Sch_Id,selectedlesonid,quiztitle,quizdescription,newquizdata,modifydate,quizid);
             }
         });
         return rootview;
@@ -172,10 +179,10 @@ public class Quiz_Edit extends Fragment {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            dlg = new ProgressDialog(getActivity());
+           /* dlg = new ProgressDialog(getActivity());
             dlg.setMessage("Loading.....");
             dlg.setCancelable(false);
-            dlg.show();
+            dlg.show();*/
 
 
         }
@@ -186,7 +193,7 @@ public class Quiz_Edit extends Fragment {
             super.onPostExecute(result);
 
 //            if (dlg != null)
-            dlg.dismiss();
+          //  dlg.dismiss();
             if (result.contains("false")) {
 
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
@@ -391,6 +398,8 @@ public class Quiz_Edit extends Fragment {
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
             dlg.dismiss();
+            Log.e("ResultUpdateQuiz",""+result);
+
             if (result.contains("true")) {
             } else if (result.contains("false")) {
                 Toast.makeText(getActivity(), "No data", Toast.LENGTH_SHORT).show();
