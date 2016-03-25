@@ -742,7 +742,7 @@ public class WSConnector {
         pairs.add(new BasicNameValuePair("lessonid", lessonid));
         pairs.add(new BasicNameValuePair("quiz_title", quiz_title));
         pairs.add(new BasicNameValuePair("quiz_description", quiz_description));
-        pairs.add(new BasicNameValuePair("qzdata", qzdata));
+        pairs.add(new BasicNameValuePair("quiz_data", qzdata));
         pairs.add(new BasicNameValuePair("last_modified", last_modified));
         pairs.add(new BasicNameValuePair("edit_quiz_id",edit_quiz_id));
         pairs.add(new BasicNameValuePair("user_type", "4"));

@@ -46,7 +46,7 @@ public class Quiz_View extends Fragment {
     ViewPager _mViewPager;
     CustomPagerAdapter mPagerAdapter;
     ProgressDialog dlg;
-    int onitemid,idvalue;
+    int onitemid,idvalue,viewpagerpos;
     RelativeLayout relquiz;
     ArrayList<View_Quiz_Listing> quizlisting = new ArrayList<View_Quiz_Listing>();
     ArrayList<View_Quiz_Listing_Questions> quizlisting1 = new ArrayList<View_Quiz_Listing_Questions>();
@@ -87,6 +87,8 @@ public class Quiz_View extends Fragment {
         _mViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             public void onPageScrollStateChanged(int state) {}
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+                viewpagerpos=position;
                 Log.e("viewpagerposition",""+position);
             }
 
@@ -146,14 +148,27 @@ public class Quiz_View extends Fragment {
             final EditText questionname=(EditText) itemView.findViewById(R.id.questionname);
             questionname.setText(quizlisting1.get(position).getQuestion_nameString());
 
-            final EditText textView_lesson_title=(EditText) itemView.findViewById(R.id.textView_lesson_title);
-            textView_lesson_title.setText(quizlisting.get(0).getQuiz_option());
-            final EditText textView_lesson_description=(EditText) itemView.findViewById(R.id.textView_lesson_description) ;
-            textView_lesson_description.setText(quizlisting.get(1).getQuiz_option());
-            final EditText textView_lesson_description_=(EditText) itemView.findViewById(R.id.textView_lesson_description_);
-            textView_lesson_description_.setText(quizlisting.get(2).getQuiz_option());
-            final EditText textView_lesson_description1=(EditText) itemView.findViewById(R.id.textView_lesson_description1);
-            textView_lesson_description1.setText(quizlisting.get(3).getQuiz_option());
+            Log.e("viewpagerpos",""+position);
+               final EditText textView_lesson_title = (EditText) itemView.findViewById(R.id.textView_lesson_title);
+
+                final EditText textView_lesson_description = (EditText) itemView.findViewById(R.id.textView_lesson_description);
+
+                final EditText textView_lesson_description_ = (EditText) itemView.findViewById(R.id.textView_lesson_description_);
+
+                final EditText textView_lesson_description1 = (EditText) itemView.findViewById(R.id.textView_lesson_description1);
+                 textView_lesson_title.setText(quizlisting.get(0).getQuiz_option());
+                 textView_lesson_description.setText(quizlisting.get(1).getQuiz_option());
+                 textView_lesson_description_.setText(quizlisting.get(2).getQuiz_option());
+                 textView_lesson_description1.setText(quizlisting.get(3).getQuiz_option());
+
+          /*  for(int x=0;x<quizlisting.size();x++){
+                Log.e("textname",""+quizlisting.get(x).getQuiz_option());
+                textView_lesson_title.setText(quizlisting.get(0).getQuiz_option());
+                textView_lesson_description.setText(quizlisting.get(1).getQuiz_option());
+                textView_lesson_description_.setText(quizlisting.get(2).getQuiz_option());
+                textView_lesson_description1.setText(quizlisting.get(3).getQuiz_option());
+            }*/
+          //  Log.e("textname",""+quizlisting.get(0).getQuiz_option());
 
             final CheckBox check1=(CheckBox)itemView.findViewById(R.id.check1);
             check1.setEnabled(false);
@@ -164,6 +179,23 @@ public class Quiz_View extends Fragment {
             final CheckBox check4=(CheckBox)itemView.findViewById(R.id.check4);
             check4.setEnabled(false);
 
+           /* if(position==0)
+            {
+              //View_Quiz_Listing data=quizlisting.get(0);
+               // Log.e("data",""+data.toString());
+                for(int i=0;i<quizlisting.size();i++)
+                {
+                    Log.e("quizlistingsize",""+quizlisting.get(i).getCorrect_answer());
+                 //   quizlisting
+
+                   *//* textView_lesson_title.setText(quizlisting.get(0).getQuiz_option());
+                    textView_lesson_description.setText(quizlisting.get(1).getQuiz_option());
+                    textView_lesson_description_.setText(quizlisting.get(2).getQuiz_option());
+                    textView_lesson_description1.setText(quizlisting.get(3).getQuiz_option());*//*
+                }
+
+            }
+*/
             if(onitemid==10){
                 Log.e("onitemidreceived",""+onitemid);
                 textView_lesson_title.setEnabled(false);
@@ -377,7 +409,8 @@ public class Quiz_View extends Fragment {
 
                                    Log.e("object",""+object);
                                quizdata=object.toString();
-
+                               Quiz_Edit.question_name=questionname.getText().toString();
+                               Log.e("isdone",""+Quiz_Edit.question_name);
 
 
                            } catch (JSONException e) {

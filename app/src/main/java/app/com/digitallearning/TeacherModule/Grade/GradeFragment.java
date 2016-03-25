@@ -124,6 +124,8 @@ public class GradeFragment extends Fragment {
 
         @Override
         public int getItemCount() {
+
+            Log.e("arSize",""+archivelist.size());
             return archivelist.size();
         }
 
@@ -242,6 +244,7 @@ public class GradeFragment extends Fragment {
                     archieve_student.setStudent_Mem_Online(obj.getString("Mem_Online"));
 
                     archivelist.add(archieve_student);
+                    Log.e("archivelist",""+archivelist);
 
                 }
                 mRecyclerView.setAdapter(mAdapter);

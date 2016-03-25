@@ -88,7 +88,6 @@ public class Grade_Lesson extends  Fragment {
         mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-
         mAdapter = new MyRecyclerViewAdapter();
 
         return rootview;
@@ -101,6 +100,7 @@ public class Grade_Lesson extends  Fragment {
             }
 
 
+
     class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAdapter.ViewHolder> {
 
         private Context mContext;
@@ -108,29 +108,31 @@ public class Grade_Lesson extends  Fragment {
         List<String> myList;
         List<String> myList1;
 
-
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View view = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.lessondetail, parent, false);
-
             ViewHolder viewHolder = new ViewHolder(view);
+
+
             return viewHolder;
         }
         @Override
         public void onBindViewHolder(ViewHolder holder, int position) {
 
             Log.e("position1", "" + position);
+            holder.lessonname.setText(quizinfolist.get(position).getQuiz_name().toString());
+            Log.e("lessonnametext", "" + quizinfolist.get(0).getQuiz_name().toString());
 
-            holder.lessonname.setText(lesson_infolist.get(position).getLesson_name());
-            Log.e("lessonnametext",""+lesson_infolist.get(position).getLesson_name());
 
 
         }
 
         @Override
         public int getItemCount() {
-            return arrLessonName.size();
+
+            Log.e("arSizelesson_infolist",""+quizinfolist.size());
+            return quizinfolist.size();
         }
 
         public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -141,14 +143,19 @@ public class Grade_Lesson extends  Fragment {
 
 
 
+
             public ViewHolder(View itemView) {
                 super(itemView);
-                lessonnameripple = (RippleView) itemView.findViewById(R.id.lessonnameripple);
+
                 lessonname=(TextView)itemView.findViewById(R.id.lessonname);
+                lessonnameripple = (RippleView) itemView.findViewById(R.id.lessonnameripple);
+                // a3ripple.setOnClickListener(this);
+
                 lessonnameripple.setOnRippleCompleteListener(new RippleView.OnRippleCompleteListener() {
                     @Override
                     public void onComplete(RippleView rippleView) {
                         int position = getLayoutPosition(); // gets item position
+
                         FragmentManager fragmentManager=getFragmentManager();
                         FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
                         Grade_Details grade_details=new Grade_Details();
@@ -162,11 +169,6 @@ public class Grade_Lesson extends  Fragment {
                 });
             }
 
-            /**
-             * Called when a view has been clicked.
-             *
-             * @param v The view that was clicked.
-             */
             @Override
             public void onClick(View v) {
                 int position = getLayoutPosition();
@@ -366,8 +368,9 @@ public class Grade_Lesson extends  Fragment {
                     Lesson_Info lesson_info=new Lesson_Info();
                     lesson_info.setLes_id(obj.optString("les_id"));
                     lesson_info.setLesson_name(obj.optString("lesson_name"));
+                    Log.e("value",""+obj.optString("lesson_name"));
                     lesson_infolist.add(lesson_info);
-                    Log.e("lesson_infolist",""+lesson_infolist);
+                    Log.e("lesson_infolist",""+lesson_infolist.get(i).getLesson_name().toString());
 
                     JSONArray quiz_total_score=jsonObject1.getJSONArray("quiz_total_score");
                     Log.e("quiz_total_score",""+quiz_total_score);
@@ -392,10 +395,10 @@ public class Grade_Lesson extends  Fragment {
                         quizinfo.setGet_point(obj2.getString("get_point"));
                         quizinfo.setTotal_point(obj2.getString("total_point"));
                         quizinfolist.add(quizinfo);
-                        Log.e("quizinfolist",""+quizinfolist);
+                        Log.e("quizinfolist",""+quizinfolist.get(k).getAss_less_id().toString());
                     }
 
-                }
+
                 JSONObject Total_number=jsonObject1.getJSONObject("Total_number");
                 Log.e("Total_number",""+Total_number);
                 String Total=Total_number.getString("Total");
@@ -404,8 +407,8 @@ public class Grade_Lesson extends  Fragment {
                     JSONObject obj3 = grade_info.getJSONObject(l);
 
                     Grade_Info gradeinfo=new Grade_Info();
-                    gradeinfo.setLesson_id(obj3.getString("lesson_id"));
-                    gradeinfo.setGrade(obj3.getString("grade"));
+                    gradeinfo.setLesson_id(obj3.getString("lesson_id").toString());
+                    gradeinfo.setGrade(obj3.getString("grade").toString());
                     gradeinfolist.add(gradeinfo);
                     Log.e("gradeinfolist",""+gradeinfolist);
                 }
@@ -414,10 +417,13 @@ public class Grade_Lesson extends  Fragment {
                 String total_grade_for_class=Total_number.getString("total_grade_for_class");
                 Log.e("total_grade_for_class",""+total_grade_for_class);
                 //lesson_infolist  quiztotalscorelist  quizinfolist gradeinfolist
+                    Log.e("sizeget",""+lesson_infolist.size());
+                }
 
 
 
 
+                mRecyclerView.setAdapter(mAdapter);
 
 
 

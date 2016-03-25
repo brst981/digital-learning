@@ -18,7 +18,7 @@ import app.com.digitallearning.R;
 public class Quiz_Des extends Fragment {
     View rootview;
     TextView headerTitle;
-    String textHeader;
+    String textHeader,descriptn;
     Button done;
     EditText description;
     @Override
@@ -30,13 +30,16 @@ public class Quiz_Des extends Fragment {
         headerTitle = (TextView) activity.findViewById(R.id.mytext);
         headerTitle.setText("Description");
         initData();
+        descriptn=getArguments().getString("descriptn");
         description=(EditText)rootview.findViewById(R.id.description);
+        description.setText(descriptn);
         done=(Button)rootview.findViewById(R.id.done);
         done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 AddQuiz.quizdescription=description.getText().toString();
+                Quiz_Edit.updatedescription=description.getText().toString();
                 getFragmentManager().popBackStack();
             }
         });
