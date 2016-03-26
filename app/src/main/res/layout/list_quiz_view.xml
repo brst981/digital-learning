@@ -19,7 +19,7 @@
     android:layout_width="match_parent"
     android:layout_height="100dp">
     <TextView
-        android:text="Quiz 1"
+
         android:id="@+id/textquiz"
         android:textColor="#000"
         android:layout_width="wrap_content"
@@ -28,7 +28,7 @@
         android:layout_marginTop="10dp"
         android:layout_centerHorizontal="true" />
     <TextView
-        android:text="Test"
+
         android:id="@+id/description"
         android:textColor="#000"
         android:layout_below="@+id/textquiz"
@@ -71,7 +71,6 @@
                 android:id="@+id/textView_lesson_title"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:text="A"
                 android:layout_toRightOf="@+id/check1"
                 android:layout_below="@+id/view"
                 android:layout_marginLeft="5dp"
@@ -104,7 +103,6 @@
                 android:id="@+id/textView_lesson_description"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:text="B"
                 android:layout_toRightOf="@+id/check2"
                 android:layout_below="@+id/view1"
                 android:layout_marginLeft="5dp"
@@ -139,7 +137,6 @@
                 android:layout_below="@+id/view2"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
-                android:text="C"
                 android:background="@null"
                 android:layout_toRightOf="@id/check3"
                 android:ellipsize="end"
@@ -172,7 +169,6 @@
                 android:layout_below="@+id/view3"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
-                android:text="D"
                 android:background="@null"
                 android:ellipsize="end"
                 android:gravity="left|center"
@@ -220,7 +216,6 @@
             android:layout_width="200dp"
             android:layout_height="match_parent"
             android:layout_centerInParent="true"
-            android:text="safkdsfk"
             android:gravity="center"
             android:textColor="@android:color/white"
             android:textSize="16sp" />

@@ -42,9 +42,10 @@ public class Grade_Details  extends Fragment {
     ListView list;
     TextView headerTitle;
     EditText edittotal;
-    String textHeader,studentid,cla_classid, userid;
+    String textHeader,studentid,cla_classid, userid,jsonResult;
     SharedPreferences preferences;
     ArrayList<String> categoryName;
+    int position;
     ProgressDialog dlg;
     ArrayList<Quiz_Listing> quizlisting = new ArrayList<Quiz_Listing>();
     @Override
@@ -65,6 +66,13 @@ public class Grade_Details  extends Fragment {
 
         cla_classid = preferences.getString("cla_classid", "");
         Log.e("cla_classid", "" + cla_classid);
+
+        jsonResult=getArguments().getString("jsonResult");
+        position=Integer.parseInt(getArguments().getString("position"));
+        Log.e("jsonres",""+jsonResult);
+        Log.e("position",""+position);
+
+
         list=(ListView)rootview.findViewById(R.id.list);
         edittotal=(EditText)rootview.findViewById(R.id.edittotal);
         edittotal.setInputType(InputType.TYPE_NULL);

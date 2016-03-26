@@ -51,6 +51,8 @@ public class Grade_Lesson extends  Fragment {
     String Sch_Mem_id, cla_classid,studentid;
     ArrayList<String> arrLessonName;
 
+    String jsonResult;
+
     ArrayList<Lesson_Info> lesson_infolist=new ArrayList<Lesson_Info>();
     ArrayList<Quiz_Total_Score> quiztotalscorelist=new ArrayList<Quiz_Total_Score>();
     ArrayList<Quiz_Info> quizinfolist=new ArrayList<Quiz_Info>();
@@ -121,8 +123,8 @@ public class Grade_Lesson extends  Fragment {
         public void onBindViewHolder(ViewHolder holder, int position) {
 
             Log.e("position1", "" + position);
-            holder.lessonname.setText(quizinfolist.get(position).getQuiz_name().toString());
-            Log.e("lessonnametext", "" + quizinfolist.get(0).getQuiz_name().toString());
+            holder.lessonname.setText(lesson_infolist.get(position).getLesson_name().toString());
+
 
 
 
@@ -131,8 +133,8 @@ public class Grade_Lesson extends  Fragment {
         @Override
         public int getItemCount() {
 
-            Log.e("arSizelesson_infolist",""+quizinfolist.size());
-            return quizinfolist.size();
+
+            return lesson_infolist.size();
         }
 
         public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -156,11 +158,21 @@ public class Grade_Lesson extends  Fragment {
                     public void onComplete(RippleView rippleView) {
                         int position = getLayoutPosition(); // gets item position
 
+
+
                         FragmentManager fragmentManager=getFragmentManager();
                         FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
                         Grade_Details grade_details=new Grade_Details();
                         Bundle bundle=new Bundle();
-                        bundle.putString("studentid",studentid);
+                        //for(int i=0;i<quizinfolist.size();i++) {
+                           // Log.e("totalname", "" + quizinfolist.get(i).getQuiz_name());
+                          //  Log.e("totalname1", "" + quizinfolist.get(i).getAss_less_id());
+
+                            bundle.putString("studentid", studentid);
+                            bundle.putString("jsonResult",jsonResult);
+                            bundle.putString("position",""+position);
+                          //  Log.e("QUIZNAMES", "" + quizinfolist.get(i).getQuiz_name());
+                      //  }
                         fragmentTransaction.replace(R.id.container,grade_details).addToBackStack(null);
                         grade_details.setArguments(bundle);
                         fragmentTransaction.commit();
@@ -339,6 +351,7 @@ public class Grade_Lesson extends  Fragment {
             super.onPostExecute(result);
             dlg.dismiss();
             Log.e("Grade_lessondetail", "" + result);
+            jsonResult = result;
             if (result.contains("true")) {
 
                 updateGrade_lessondetail(result);
@@ -352,12 +365,28 @@ public class Grade_Lesson extends  Fragment {
 
 
         private void updateGrade_lessondetail(String success) {
-         //   quizlisting.clear();
+            lesson_infolist.clear();
             try {
 
                 JSONObject jsonObject = new JSONObject(success);
 
                 JSONObject jsonObject1 = jsonObject.getJSONObject("data");
+
+
+
+
+                JSONArray quiz_total_score=jsonObject1.getJSONArray("quiz_total_score");
+                Log.e("quiz_total_score",""+quiz_total_score);
+
+                for(int j=0;j<quiz_total_score.length();j++){
+                    JSONObject obj1 = quiz_total_score.getJSONObject(j);
+                    Quiz_Total_Score quiztotalscore=new Quiz_Total_Score();
+                    quiztotalscore.setTotal(obj1.optString("total"));
+                    quiztotalscore.setLesson_id(obj1.optString("lesson_id"));
+                    quiztotalscorelist.add(quiztotalscore);
+                    Log.e("quiztotalscorelist",""+quiztotalscorelist);
+
+
 
                 JSONArray arr = jsonObject1.getJSONArray("lesson_info");
                 Log.e("arr", " " + arr);
@@ -365,24 +394,14 @@ public class Grade_Lesson extends  Fragment {
                     JSONObject obj = arr.getJSONObject(i);
                     Log.e("obj", "" + obj);
 
-                    Lesson_Info lesson_info=new Lesson_Info();
+                    Lesson_Info lesson_info = new Lesson_Info();
                     lesson_info.setLes_id(obj.optString("les_id"));
                     lesson_info.setLesson_name(obj.optString("lesson_name"));
-                    Log.e("value",""+obj.optString("lesson_name"));
+                    Log.e("value", "" + obj.optString("lesson_name"));
                     lesson_infolist.add(lesson_info);
-                    Log.e("lesson_infolist",""+lesson_infolist.get(i).getLesson_name().toString());
-
-                    JSONArray quiz_total_score=jsonObject1.getJSONArray("quiz_total_score");
-                    Log.e("quiz_total_score",""+quiz_total_score);
-
-                    for(int j=0;j<quiz_total_score.length();j++){
-                        JSONObject obj1 = quiz_total_score.getJSONObject(j);
-                        Quiz_Total_Score quiztotalscore=new Quiz_Total_Score();
-                        quiztotalscore.setTotal(obj1.optString("total"));
-                        quiztotalscore.setLesson_id(obj1.optString("lesson_id"));
-                        quiztotalscorelist.add(quiztotalscore);
-                        Log.e("quiztotalscorelist",""+quiztotalscorelist.get(j).getTotal());
-                    }
+                    Log.e("lesson_infolist", "" + lesson_infolist.get(i).getLesson_name().toString());
+                    mRecyclerView.setAdapter(mAdapter);
+                }
 
                     JSONArray quiz_info=jsonObject1.getJSONArray("quiz_info");
                     for(int k=0;k<quiz_info.length();k++){
@@ -418,12 +437,14 @@ public class Grade_Lesson extends  Fragment {
                 Log.e("total_grade_for_class",""+total_grade_for_class);
                 //lesson_infolist  quiztotalscorelist  quizinfolist gradeinfolist
                     Log.e("sizeget",""+lesson_infolist.size());
+                    Log.e("jsonobject",""+jsonObject);
+                    Log.e("jsonobject1",""+jsonObject1);
                 }
 
 
 
 
-                mRecyclerView.setAdapter(mAdapter);
+
 
 
 

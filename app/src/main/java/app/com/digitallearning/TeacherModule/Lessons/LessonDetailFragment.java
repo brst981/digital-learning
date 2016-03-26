@@ -23,8 +23,9 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.ListView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -52,7 +53,7 @@ public class LessonDetailFragment extends Fragment implements ViewPager.OnPageCh
     String textHeader;
     int positionValue, pos1;
     SharedPreferences preferences;
-    String Sch_Mem_id, cla_classid,lessonname;
+    String Sch_Mem_id, cla_classid, lessonname;
     ImageButton imageButtonZoomIn, imageButtonZoomOut;
     ProgressDialog dlg;
     ArrayList<Data> dataList = new ArrayList<Data>();
@@ -61,6 +62,7 @@ public class LessonDetailFragment extends Fragment implements ViewPager.OnPageCh
     LayoutInflater inflater;
     CareerAdapter career;
     private int currentPage;
+    private View view;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -78,7 +80,7 @@ public class LessonDetailFragment extends Fragment implements ViewPager.OnPageCh
         }
         //pos1=getArguments().getInt("positioninLesson");
         // Log.e("pos1",""+pos1);
-        lessonname=getArguments().getString("positioninLesson");
+        lessonname = getArguments().getString("positioninLesson");
         preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         Sch_Mem_id = preferences.getString("Sch_Mem_id", "");
         Log.e("Sch_Mem_id", "" + Sch_Mem_id);
@@ -129,33 +131,33 @@ public class LessonDetailFragment extends Fragment implements ViewPager.OnPageCh
     }
 
 
-        @Override
-        public void onPageSelected(int position) {
-            Toast.makeText(getActivity(),
-                    "Selected page position: " + position, Toast.LENGTH_SHORT).show();
-        }
+    @Override
+    public void onPageSelected(int position) {
+        Toast.makeText(getActivity(),
+                "Selected page position: " + position, Toast.LENGTH_SHORT).show();
+    }
 
-        // This method will be invoked when the current page is scrolled
-        @Override
-        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-            // Code goes here
-            Toast.makeText(getActivity(),
-                    "Selected page positionagain: " + position, Toast.LENGTH_SHORT).show();
-        }
+    // This method will be invoked when the current page is scrolled
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+        // Code goes here
+        Toast.makeText(getActivity(),
+                "Selected page positionagain: " + position, Toast.LENGTH_SHORT).show();
+    }
 
-        // Called when the scroll state changes:
-        // SCROLL_STATE_IDLE, SCROLL_STATE_DRAGGING, SCROLL_STATE_SETTLING
-        @Override
-        public void onPageScrollStateChanged(int state) {
-            // Code goes here
+    // Called when the scroll state changes:
+    // SCROLL_STATE_IDLE, SCROLL_STATE_DRAGGING, SCROLL_STATE_SETTLING
+    @Override
+    public void onPageScrollStateChanged(int state) {
+        // Code goes here
 
-        }
+    }
 
 
     class CustomPagerAdapter extends PagerAdapter {
 
         Context mContext;
-        LayoutInflater mLayoutInflater;
+       // LayoutInflater mLayoutInflater;
 
 
         public CustomPagerAdapter(Context mContext) {
@@ -179,14 +181,34 @@ public class LessonDetailFragment extends Fragment implements ViewPager.OnPageCh
             // Declare Variables
 
 
-            mLayoutInflater = (LayoutInflater) mContext
+            inflater = (LayoutInflater) mContext
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            View itemView = mLayoutInflater.inflate(R.layout.layout_lesson_items, container,
+            View itemView = inflater.inflate(R.layout.layout_lesson_items, container,
                     false);
 
-            ListView   quizlist = (ListView) itemView.findViewById(R.id.quizlist);
-            quizlist.setAdapter(career);
+           // ListView quizlist = (ListView) itemView.findViewById(R.id.quizlist);
+          //  quizlist.setAdapter(career);
+            ScrollView scrollquizlist = (ScrollView) itemView.findViewById(R.id.scrollquizlist);
+            LinearLayout quizlinear = (LinearLayout) itemView.findViewById(R.id.quizlinear);
 
+            inflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+            view = inflater.inflate(R.layout.quiznameinlesson, container,false);
+
+            TextView lessonquizname=(TextView)view.findViewById(R.id.lessonquizname);
+            String st=quizDatalist.get(position).getQuizName();
+          //  lessonquizname.setText(st);
+          //  Log.e("nameQuiz",""+quizDatalist.get(position).getQuizName());
+
+            for (int k = 0; k < quizDatalist.size(); k++) {
+                Log.e("Visites","bdj");
+                lessonquizname.setText(quizDatalist.get(position).getQuizName());
+                Log.e("Namequizlesson",""+quizDatalist.get(position).getQuizName());
+                Log.e("according",""+quizDatalist.get(k).getQuizName());
+
+
+            }
+            TextView quizname = (TextView) itemView.findViewById(R.id.quizname);
             TextView textView = (TextView) itemView.findViewById(R.id.textView_lesson_count);
             ImageView imageViewLeft = (ImageView) itemView.findViewById(R.id.img_left_icon);
             ImageView imageViewRight = (ImageView) itemView.findViewById(R.id.img_right_icon);
@@ -206,18 +228,14 @@ public class LessonDetailFragment extends Fragment implements ViewPager.OnPageCh
                imageViewRight.setVisibility(View.GONE);
            }*/
 
-            String size= String.valueOf(dataList.get(currentPage_postion));
+            String size = String.valueOf(dataList.get(currentPage_postion));
 
-        //     int in= Integer.parseInt(size);
-        //      in=in-1;
-        //    String size1=String.valueOf(in);
-            Log.e("Size",""+size);
-            for(int n=0;n < size.length();n++) {
-                String str = dataList.get(position).getLessonName();
-                Log.e("Str",""+str);
-                headerTitle.setText(str);
-            }
-         //   Log.e("LessonNAme", "" + dataList.get(n).getLessonName());
+            //     int in= Integer.parseInt(size);
+            //      in=in-1;
+            //    String size1=String.valueOf(in);
+            Log.e("Size", "" + size);
+
+            //   Log.e("LessonNAme", "" + dataList.get(n).getLessonName());
             Log.e("LessonNAmeposition", "" + position);
 
 
@@ -241,7 +259,10 @@ public class LessonDetailFragment extends Fragment implements ViewPager.OnPageCh
                 }
             });
             textView.setText("Lesson" + " " + pos + " " + "of" + " " + dataList.size());
-
+          //  for (int n = 0; n < size.length(); n++) {
+                String str = dataList.get(position).getLessonName();
+                headerTitle.setText(str);
+        //    }
 
             container.addView(itemView);
             return itemView;
@@ -364,9 +385,14 @@ public class LessonDetailFragment extends Fragment implements ViewPager.OnPageCh
 
 
                 }
+
+
                 _mViewPager.setAdapter(mPagerAdapter);
                 currentPage_postion = _mViewPager.getCurrentItem();
-                Log.e("CurrentPos",""+ currentPage_postion);
+
+
+
+                Log.e("CurrentPos", "" + currentPage_postion);
                 // _mViewPager.setOnPageChangeListener(this);
             } catch (JSONException e) {
                 e.printStackTrace();

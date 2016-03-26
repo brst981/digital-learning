@@ -43,12 +43,12 @@ import app.com.digitallearning.WebServices.WSConnector;
 public class Quiz_Edit extends Fragment {
     View rootview;
     TextView headerTitle,lessonname,quizquestionname,quizdecdata;
-    String textHeader,quizid,selectedlesonid,Mem_Sch_Id,quiztitle,quizdescription,modifydate;
+    String textHeader,quizid,selectedlesonid,finalselectedlessonid,Mem_Sch_Id,quiztitle,quizdescription,modifydate,quizlessonid,serquizdescripion;
     EditText title;
     RippleView rippleViewPreview,ripple_lesson,ripple_quizquestion,ripple_quizdec,rippleupdatequiz;
     ProgressDialog dlg;
     SharedPreferences preferences;
-    String Sch_Mem_id, cla_classid,question_id, option_id,quizzes_id ,newquizdata;
+    String Sch_Mem_id, cla_classid,question_id, option_id,quizzes_id ,newquizdata,serquizdata,finalquizdata;
     ArrayList<Data> dataList = new ArrayList<Data>();
     String[] lesson;
     int pos;
@@ -147,19 +147,37 @@ public class Quiz_Edit extends Fragment {
             @Override
             public void onComplete(RippleView rippleView) {
                 quiztitle=title.getText().toString();
-                quizdescription =quizdecdata.getText().toString();
+                updatedescription =quizdecdata.getText().toString();
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
                 final Date date = new Date();
                 modifydate=(dateFormat.format(date));
                 Log.e("modifydate",""+modifydate);
 
-                newquizdata= dataquiz.replace("\"","\'");
+                if(selectedlesonid==null){
+                    finalselectedlessonid=quizlessonid;
+                    Log.e("servicelessonid",""+finalselectedlessonid);
+                }
+                else if(selectedlesonid!=null){
+                    finalselectedlessonid=selectedlesonid;
+                    Log.e("selectedlesonidfinal",""+finalselectedlessonid);
+                }
+                if(newquizdata==null){
+                    finalquizdata=serquizdata;
 
-                Log.e("DATA",""+dataquiz);
+                }
+                else if(newquizdata!=null){
+                    try{
+                        newquizdata= dataquiz.replace("\"","\'");}catch (Exception e){}
 
-                Log.e("newquizdata",""+newquizdata);
+                    Log.e("DATA",""+dataquiz);
 
-                new Quiz_Update().execute(cla_classid, Sch_Mem_id,Mem_Sch_Id,selectedlesonid,quiztitle,updatedescription,newquizdata,modifydate,quizid);
+                    Log.e("newquizdata",""+newquizdata);
+
+                    finalquizdata=newquizdata;
+                }
+
+
+                new Quiz_Update().execute(cla_classid, Sch_Mem_id,Mem_Sch_Id,finalselectedlessonid,quiztitle,updatedescription,finalquizdata,modifydate,quizid);
             }
         });
         return rootview;
@@ -248,6 +266,9 @@ public class Quiz_Edit extends Fragment {
                     data.setImageThumbnail(obj.getString("img_thumb"));
                     data.setVideoUrl(obj.getString("video_url"));
                     data.setVideoThumbnail(obj.getString("video_thumb"));
+
+                     quizlessonid=obj.getString("les_id");
+
                     dataList.add(data);
                 }
 
@@ -300,12 +321,16 @@ public class Quiz_Edit extends Fragment {
                 JSONObject data = jsonObject.getJSONObject("data");
                 JSONObject quiz_info=data.getJSONObject("quiz_info");
 
+
+
                 View_Quiz_Name view_quiz_name=new View_Quiz_Name();
                 view_quiz_name.setQuiz_name(quiz_info.getString("quiz_name"));
                 view_quiz_name.setQuiz_description(quiz_info.getString("quiz_desc"));
                 view_quiz_name.setLesson_name(quiz_info.getString("lesson_name"));
                 view_quiz_name.setAss_less_id(quiz_info.getString("ass_less_id"));
                 quiznamelist.add(view_quiz_name);
+
+                serquizdescripion=quiz_info.optString("quiz_desc");
                // for(int q=0;q<quiznamelist.size();q++){
 
 
@@ -384,9 +409,10 @@ public class Quiz_Edit extends Fragment {
 
 
 
-
                     }
-
+                  JSONObject jsonObject1=new JSONObject();
+                    serquizdata= String.valueOf(jsonObject1.put("quiz_question",quiz_question));
+                    Log.e("serquizdata",""+serquizdata);
 
                 }
 
@@ -434,4 +460,6 @@ public class Quiz_Edit extends Fragment {
         new Get_Lesson().execute(cla_classid, Sch_Mem_id);
         new Quiz_view().execute(cla_classid,Sch_Mem_id,quizid);
     }
+
+
 }
