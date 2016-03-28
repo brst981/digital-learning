@@ -18,21 +18,22 @@
             <FrameLayout
                 android:id="@+id/web_frame_layout"
                 android:layout_width="match_parent"
-                android:layout_height="250dp"
-                android:layout_margin="5dp">
+                android:layout_height="210dp"
+                android:layout_margin="2dp">
 
                 <ImageView
                     android:id="@+id/thumbnail"
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
                     android:layout_gravity="center_horizontal|top"
-                    android:layout_margin="15dp"
+                    android:layout_margin="10dp"
                     android:scaleType="fitXY"
                     android:src="@drawable/no_image_icon"></ImageView>
 
                 <ImageView
                     android:id="@+id/play"
                     android:layout_width="50dp"
+                    android:layout_marginTop="15dp"
                     android:layout_height="50dp"
                     android:layout_gravity="center"
                     android:layout_marginBottom="15dp"
@@ -199,22 +200,16 @@
                 android:textColor="@android:color/black"
                 android:textSize="14sp" />
 
-            <View
 
-                android:id="@+id/views"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_below="@+id/textView_lesson_description2"
-                android:layout_marginTop="5dp"
-                android:background="@color/color_light_grey" />
 
             <ScrollView
                 android:id="@+id/scrollquizlist"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/views">
+                android:layout_below="@+id/textView_lesson_description2">
 
                 <LinearLayout
+                    android:layout_marginTop="10dp"
                     android:id="@+id/quizlinear"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -240,7 +235,6 @@
             android:layout_height="match_parent"
             android:layout_centerInParent="true"
             android:gravity="center"
-            android:text="safkdsfk"
             android:textColor="@android:color/white"
             android:textSize="16sp" />
 

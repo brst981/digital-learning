@@ -3,11 +3,11 @@ package app.com.digitallearning.TeacherModule.Grade;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,7 +21,6 @@ import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -30,8 +29,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import app.com.digitallearning.R;
+import app.com.digitallearning.TeacherModule.Model.Data_Grade;
 import app.com.digitallearning.TeacherModule.Model.Quiz_Listing;
-import app.com.digitallearning.WebServices.WSConnector;
 
 /**
  * Created by ${PSR} on 2/3/16.
@@ -45,9 +44,10 @@ public class Grade_Details  extends Fragment {
     String textHeader,studentid,cla_classid, userid,jsonResult;
     SharedPreferences preferences;
     ArrayList<String> categoryName;
-    int position;
+    int selected_position;
     ProgressDialog dlg;
     ArrayList<Quiz_Listing> quizlisting = new ArrayList<Quiz_Listing>();
+    ArrayList<Data_Grade> datagradelist=new ArrayList<Data_Grade>();
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootview = inflater.inflate(R.layout.grade_details, container, false);
@@ -68,10 +68,10 @@ public class Grade_Details  extends Fragment {
         Log.e("cla_classid", "" + cla_classid);
 
         jsonResult=getArguments().getString("jsonResult");
-        position=Integer.parseInt(getArguments().getString("position"));
+        selected_position=Integer.parseInt(getArguments().getString("position"));
         Log.e("jsonres",""+jsonResult);
-        Log.e("position",""+position);
-
+        Log.e("position",""+selected_position);
+        parseJsonData(jsonResult, selected_position);
 
         list=(ListView)rootview.findViewById(R.id.list);
         edittotal=(EditText)rootview.findViewById(R.id.edittotal);
@@ -86,7 +86,6 @@ public class Grade_Details  extends Fragment {
         });
 
 
-        new Grade_lessondetail().execute(cla_classid,studentid);
 
 
         return rootview;
@@ -98,12 +97,12 @@ public class Grade_Details  extends Fragment {
     }
     class careerAdapter extends BaseAdapter {
         Context context;
-        ArrayList<String> quizlisting;
+        ArrayList<Data_Grade> datagradelist;
 
 
 
-        public careerAdapter(Context context, ArrayList<Quiz_Listing> quizlisting) {
-          //  this.quizlisting = quizlisting;
+        public careerAdapter(Context context, ArrayList<Data_Grade> datagradelist) {
+          this.datagradelist = datagradelist;
             this.context = context;
 
         }
@@ -112,12 +111,12 @@ public class Grade_Details  extends Fragment {
         @Override
         public int getCount() {
 
-            return quizlisting.size();
+            return datagradelist.size();
         }
 
         @Override
         public Object getItem(int position) {
-            return categoryName.get(position);
+            return datagradelist.get(position);
         }
 
 
@@ -130,134 +129,154 @@ public class Grade_Details  extends Fragment {
         @Override
         public View getView(final int position, View convertView, ViewGroup parent) {
             final ViewHolder view;  //=new ViewHolder();
-            if (inflater == null) {
-                inflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
-            }
-
-
-            if (convertView == null) {
+           // if (inflater == null) {
+                inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 convertView = inflater.inflate(R.layout.listingdata, null);
-                view = new ViewHolder();
-             //   view.category = (TextView) convertView.findViewById(R.id.category);
+                view = new ViewHolder(convertView);
+                view.digit.setText(datagradelist.get(position).getQuiz_name());
+                Log.e("SHow",""+datagradelist.get(position).getQuiz_name());
+           // }
 
 
-
-                /*view.mainradiobutton.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-                    @Override
-                    public void onCheckedChanged(RadioGroup group, int isChecked) {
-
-                    }
-                });*/
+            /*if (convertView == null) {
+                convertView = inflater.inflate(R.layout.listingdata, null);
+                view = new ViewHolder(convertView);
+                view.digit.setText(datagradelist.get(position).getQuiz_name());
+                Log.e("SHow",""+datagradelist.get(position).getQuiz_name());
 
 
-               // view.category.setText(categoryName.get(position));
-               // Log.e("TEXT", "" + categoryName.get(position));
+            }*/
 
-            /* inflater=(LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-             convertView=inflater.inflate(R.layout.newcategory,parent,false);
-             view = new ViewHolder();
-             view.category=(TextView)convertView.findViewById(R.id.category);
-             view.check=(CheckBox)convertView.findViewById(R.id.check);
-             view.category.setText(categoryName.get(position));
-             Log.e("TEXT",""+categoryName.get(position));*/
-
-            }
             return convertView;
         }
 
 
     }
 
-    static class ViewHolder {
-        TextView category;
+    static class ViewHolder extends RecyclerView.ViewHolder{
+        TextView digit;
         RadioButton radiobutton;
         RadioGroup mainradiobutton;
 
+        public ViewHolder(View itemView) {
+            super(itemView);
+            digit = (TextView) itemView.findViewById(R.id.digit);
+
+        }
     }
 
-    class Grade_lessondetail extends AsyncTask<String, Integer, String> {
 
 
-        @Override
-        protected String doInBackground(String... params) {
+    public void parseJsonData(String jsonResult, int position){
 
-            return WSConnector.Grade_lesson(params[0], params[1]);
+        try {
+            JSONObject jsonObject = new JSONObject(jsonResult);
 
-        }
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            dlg.setMessage("Loading....");
-            dlg.setCancelable(false);
-            dlg.show();
+            JSONObject jsonObject_1 = jsonObject.getJSONObject("data");
+            Log.e("jsonObject_1",""+jsonObject_1);
 
 
-        }
+            /**
+             *  Lesson Id array ....
+             */
+            JSONArray lessonJsonArray = jsonObject_1.getJSONArray("lesson_info");
+            Log.e("lessonJsonArray",""+lessonJsonArray);
+            JSONObject getLessonJsonObject = lessonJsonArray.getJSONObject(position);
+            Log.e("getLessonJsonObject",""+getLessonJsonObject);
+            String lesson_id = getLessonJsonObject.getString("les_id");
+            Log.e("lesson_id",""+lesson_id);
+            String lesson_name = getLessonJsonObject.getString("lesson_name");
+            Log.e("lesson_name",""+lesson_name);
 
+            /**
+             *  Total SCore array ....
+             */
+            JSONArray totalJsonArray = jsonObject_1.getJSONArray("quiz_total_score");
+            Log.e("totalJsonArray",""+totalJsonArray);
+            JSONObject totalJsonObject = totalJsonArray.getJSONObject(position);
+            Log.e("totalJsonObject",""+totalJsonObject);
+            String quizTotalScore = totalJsonObject.getString("total");
+            Log.e("quizTotalScore",""+quizTotalScore);
 
-        @Override
-        protected void onPostExecute(String result) {
-            super.onPostExecute(result);
-            dlg.dismiss();
-            Log.e("Grade_lessondetail", "" + result);
-            if (result.contains("true")) {
+            /**
+             * Quiz Info Array ...
+             */
+            JSONArray quizInfoJsonArray = jsonObject_1.getJSONArray("quiz_info");
+            Log.e("quizInfoJsonArray",""+quizInfoJsonArray);
+            for(int i=0; i<quizInfoJsonArray.length(); i++){
+                JSONObject jsnObject = quizInfoJsonArray.getJSONObject(i);
 
-                //updateTeacherLogIn(result);
-
-
-            } else if (result.contains("false")) {
-                Toast.makeText(getActivity(), "No data", Toast.LENGTH_SHORT).show();
-
-            }
-        }
-//{"success":true,"user_type":"Teacher","Sch_Mem_id":"2155","Mem_Sch_Id":"487","Mem_Type":"1, 4","Mem_Name":"Ashish",
-// "Mem_Emailid":"brstdev@gmail.com","class_data":[{"class_id":"183599","cls_createdby":"2155","cls_name":"1",
-// "Cls_desc":"Test","subject":"Training ","cla_classid":"1800","students":"0","cls_image":"","orderid":"649",
-// "new_orderid":"125"},
-
-        private void updateTeacherLogIn(String success) {
-            quizlisting.clear();
-            try {
-
-                JSONObject jsonObject = new JSONObject(success);
-                Log.e("jsonObject", "" + jsonObject);
+                Data_Grade dataGrade=new Data_Grade();
+                String less_id = jsnObject.getString("ass_less_id");
+                Log.e("less_id",""+less_id);
+                if(less_id.equals(lesson_id)){
 
 
 
 
-                JSONArray arr = jsonObject.getJSONArray("data");
-                Log.e("arr", " " + arr);
-                for (int i = 0; i < arr.length(); i++) {
-                    JSONObject obj = arr.getJSONObject(i);
-                    Log.e("obj", "" + obj);
+                    String quizId = jsnObject.getString("quiz_id");
+                    String quizName=jsnObject.getString("quiz_name");
+                    String get_point=jsnObject.getString("get_point");
+                    String total_point=jsnObject.getString("total_point");
 
-                    Quiz_Listing data = new Quiz_Listing();
-                    data.setLast_modify(obj.optString("last_modified"));
-                    data.setQuiz_id(obj.getString("quizid"));
-                    data.setAss_less_id(obj.getString("ass_less_id"));
-                    data.setQuiz_cid(obj.getString("quiz_cid"));
-                    data.setApi_quiz_id(obj.getString("api_quizid"));
-                    data.setQuiz_desc(obj.getString("quiz_desc"));
-                    data.setQuiz_user_id(obj.getString("user_id"));
-                    data.setQuiz_name(obj.getString("quiz_name"));
-                    quizlisting.add(data);
-
-                 list.setAdapter(new careerAdapter(getActivity(), quizlisting));
+                    dataGrade.setQuiz_id(quizId);
+                    dataGrade.setQuiz_name(quizName);
+                    dataGrade.setGet_point(get_point);
+                    dataGrade.setTotal_point(total_point);
+                    datagradelist.add(dataGrade);
 
 
+                    Log.e("datagradelist",""+datagradelist);
+                    Log.e("quizName",""+quizName);
+                    Log.e("get_point",""+get_point);
+                    Log.e("total_point",""+total_point);
                 }
 
 
-
-            } catch (JSONException e) {
-                e.printStackTrace();
             }
+
+            /**
+             *  get Total Number ...
+             */
+            JSONObject jsObject = jsonObject_1.getJSONObject("Total_number");
+            String total = jsObject.getString("Total");
+
+            Log.e("jsObject",""+jsObject);
+            Log.e("total",""+total);
+
+
+            JSONArray gradeInfojsonArray=jsonObject_1.getJSONArray("grade_info");
+            for(int j=0;j<gradeInfojsonArray.length();j++){
+                JSONObject jsnObject1=gradeInfojsonArray.getJSONObject(j);
+                String less_id = jsnObject1.getString("lesson_id");
+
+
+                Log.e("jsnObject1",""+jsnObject1);
+                Log.e("less_id",""+less_id);
+                if(less_id.equals(lesson_id)) {
+
+                    String grade = jsnObject1.getString("grade");
+                    Log.e("grade",""+grade);
+                }
+
+            }
+
+
+            JSONObject totalGrade = jsonObject_1.getJSONObject("total_grade");
+            String forclass = jsObject.getString("total_grade_for_class");
+
+
+
+
+
+            Log.e("totalGrade",""+totalGrade);
+            Log.e("forclass",""+forclass);
+            list.setAdapter(new careerAdapter(getActivity(), datagradelist));
+        } catch (JSONException e) {
+            e.printStackTrace();
+            Log.e("Exxxxxxxxxxxxxxxxxxxxxx",""+e);
         }
-
     }
-
 
 }
 

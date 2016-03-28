@@ -48,7 +48,10 @@ import app.com.digitallearning.WebServices.WSConnector;
 /**
  * Created by ${ShalviSharma} on 12/23/15.
  */
-public class  LessonFragment extends Fragment {
+public class LessonFragment extends Fragment {
+
+    public static String LESSON_SIZE = "lesson_size";
+
     View rootview;
     RippleView rippleViewCreate;
     TextView headerTitle;
@@ -118,11 +121,16 @@ public class  LessonFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //((SwipeLayout)(mListView.getChildAt(position - mListView.getFirstVisiblePosition()))).open(true);
 
-                Log.e("positioninLesson", "" + position);
+                Log.e("positioninLesson", "" + position + "  name" + dataList.get(position).getLessonName());
 
                 FragmentManager fragmentManager = getFragmentManager();
                 Bundle bundle = new Bundle();
                 bundle.putString("positioninLesson", dataList.get(position).getLessonName());
+                bundle.putString("lessonid", dataList.get(position).getLessonId());
+                bundle.putString("sizeget", String.valueOf(dataList.size()));
+                Log.e("sizeget",""+String.valueOf(dataList.size()));
+                bundle.putInt("position", position);
+                bundle.putInt(LESSON_SIZE, dataList.size());
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 LessonDetailFragment lessonDetailFragment = new LessonDetailFragment();
                 fragmentTransaction.replace(R.id.container, lessonDetailFragment).addToBackStack(null);
@@ -270,6 +278,7 @@ public class  LessonFragment extends Fragment {
 
         @Override
         public int getCount() {
+
             return dataList.size();
         }
 
@@ -300,7 +309,7 @@ public class  LessonFragment extends Fragment {
             dlg = new ProgressDialog(getActivity());
             dlg.setMessage("Loading.....");
             dlg.setCancelable(false);
-           dlg.show();
+            dlg.show();
 
 
         }
@@ -311,7 +320,7 @@ public class  LessonFragment extends Fragment {
             super.onPostExecute(result);
 
 //           if (dlg != null)
-               dlg.dismiss();
+            dlg.dismiss();
             Log.e("Get_LessonAPI", "" + result);
 
             if (result.contains("false")) {
@@ -369,7 +378,7 @@ public class  LessonFragment extends Fragment {
                     data.setVideoThumbnail(obj.getString("video_thumb"));
                     dataList.add(data);
 
-                    Log.e("datalist",""+dataList);
+                    Log.e("datalist", "" + dataList);
 
                     JSONArray arr1 = obj.getJSONArray("quiz_data");
                     Log.e("arr1", "" + arr1);
@@ -398,10 +407,12 @@ public class  LessonFragment extends Fragment {
 
     class Delete_Lesson extends AsyncTask<String, Integer, String> {
         private int pos;
+
         public Delete_Lesson(int pos) {
             this.pos = pos;
 
         }
+
         @Override
         protected String doInBackground(String... params) {
 

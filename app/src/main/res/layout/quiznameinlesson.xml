@@ -7,7 +7,16 @@
         android:text="Abc"
         android:id="@+id/lessonquizname"
         android:layout_margin="5dp"
+        android:gravity="left|center"
         android:layout_width="match_parent"
-        android:layout_height="40dp" />
+        android:layout_height="30dp" />
+
+    <View
+
+        android:id="@+id/views"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/textView_lesson_description2"
+        android:background="@color/color_light_grey" />
 
 </LinearLayout>

@@ -190,6 +190,7 @@ public class Grade_Lesson extends  Fragment {
                     case R.id.a3ripple:
                         if (position == 0) {
 
+
                             break;
                         }
 

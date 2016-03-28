@@ -284,6 +284,8 @@ public class Quiz_View extends Fragment {
                 headerTitle.setText("View Quiz");
                 int pos = position + 1;
                 textView.setText("Quiz" + " " + pos + " " + "of" + " " + mQuizOpt.size());
+
+
             }
 
             Log.e("Swipe", "asd");
