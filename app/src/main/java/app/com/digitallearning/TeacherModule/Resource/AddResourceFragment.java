@@ -19,6 +19,7 @@ import android.widget.TextView;
 import com.andexert.library.RippleView;
 
 import app.com.digitallearning.R;
+import app.com.digitallearning.Utill.LogMessage;
 import app.com.digitallearning.WebServices.WSConnector;
 
 /**
@@ -63,7 +64,18 @@ public class AddResourceFragment extends Fragment{
                 fragmentTransaction.commit();*/
                 title=edt_title_resource.getText().toString();
                 description=edt_description_resource.getText().toString();
-                new Add_Resource().execute(cla_classid,Sch_Mem_id,Mem_Sch_Id,title,description);
+
+                if(title==null){
+                    LogMessage.showDialog(getActivity(), null,
+                            "Please fill required Fields", "OK");
+                }
+                else if(description==null){
+                    LogMessage.showDialog(getActivity(), null,
+                            "Please fill required Fields", "OK");
+                }
+                else {
+                    new Add_Resource().execute(cla_classid, Sch_Mem_id, Mem_Sch_Id, title, description);
+                }
             }
         });
 

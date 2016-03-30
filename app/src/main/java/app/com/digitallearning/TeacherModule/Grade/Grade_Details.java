@@ -39,15 +39,15 @@ public class Grade_Details  extends Fragment {
     View rootview;
     LayoutInflater inflater;
     ListView list;
-    TextView headerTitle;
+    TextView headerTitle,getgrade;
     EditText edittotal;
-    String textHeader,studentid,cla_classid, userid,jsonResult;
+    String textHeader,studentid,cla_classid, userid,jsonResult,quizTotalScore;
     SharedPreferences preferences;
     ArrayList<String> categoryName;
     int selected_position;
     ProgressDialog dlg;
     ArrayList<Quiz_Listing> quizlisting = new ArrayList<Quiz_Listing>();
-    ArrayList<Data_Grade> datagradelist=new ArrayList<Data_Grade>();
+    ArrayList<Data_Grade> datagradelist;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootview = inflater.inflate(R.layout.grade_details, container, false);
@@ -58,6 +58,10 @@ public class Grade_Details  extends Fragment {
         headerTitle = (TextView) activity.findViewById(R.id.mytext);
         headerTitle.setText("Grade Details");
         initData();
+
+        list=(ListView)rootview.findViewById(R.id.list);
+        edittotal=(EditText)rootview.findViewById(R.id.edittotal);
+        getgrade=(TextView)rootview.findViewById(R.id.getgrade);
         studentid=getArguments().getString("studentid");
         Log.e("studentidneed",""+studentid);
         preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
@@ -66,15 +70,14 @@ public class Grade_Details  extends Fragment {
 
         cla_classid = preferences.getString("cla_classid", "");
         Log.e("cla_classid", "" + cla_classid);
-
+        datagradelist=new ArrayList<Data_Grade>();
         jsonResult=getArguments().getString("jsonResult");
         selected_position=Integer.parseInt(getArguments().getString("position"));
         Log.e("jsonres",""+jsonResult);
         Log.e("position",""+selected_position);
         parseJsonData(jsonResult, selected_position);
 
-        list=(ListView)rootview.findViewById(R.id.list);
-        edittotal=(EditText)rootview.findViewById(R.id.edittotal);
+
         edittotal.setInputType(InputType.TYPE_NULL);
 
         edittotal.setOnTouchListener(new View.OnTouchListener() {
@@ -134,6 +137,7 @@ public class Grade_Details  extends Fragment {
                 convertView = inflater.inflate(R.layout.listingdata, null);
                 view = new ViewHolder(convertView);
                 view.digit.setText(datagradelist.get(position).getQuiz_name());
+                view.getpoint.setText(datagradelist.get(position).getGet_point());
                 Log.e("SHow",""+datagradelist.get(position).getQuiz_name());
            // }
 
@@ -154,13 +158,14 @@ public class Grade_Details  extends Fragment {
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder{
-        TextView digit;
+        TextView digit,getpoint;
         RadioButton radiobutton;
         RadioGroup mainradiobutton;
 
         public ViewHolder(View itemView) {
             super(itemView);
             digit = (TextView) itemView.findViewById(R.id.digit);
+            getpoint=(TextView)itemView.findViewById(R.id.getpoint);
 
         }
     }
@@ -195,8 +200,9 @@ public class Grade_Details  extends Fragment {
             Log.e("totalJsonArray",""+totalJsonArray);
             JSONObject totalJsonObject = totalJsonArray.getJSONObject(position);
             Log.e("totalJsonObject",""+totalJsonObject);
-            String quizTotalScore = totalJsonObject.getString("total");
+             quizTotalScore = totalJsonObject.getString("total");
             Log.e("quizTotalScore",""+quizTotalScore);
+            edittotal.setText(quizTotalScore);
 
             /**
              * Quiz Info Array ...
@@ -234,7 +240,7 @@ public class Grade_Details  extends Fragment {
 
 
             }
-
+            list.setAdapter(new careerAdapter(getActivity(), datagradelist));
             /**
              *  get Total Number ...
              */
@@ -253,17 +259,19 @@ public class Grade_Details  extends Fragment {
 
                 Log.e("jsnObject1",""+jsnObject1);
                 Log.e("less_id",""+less_id);
-                if(less_id.equals(lesson_id)) {
+               if(less_id.equals(lesson_id)) {
 
                     String grade = jsnObject1.getString("grade");
                     Log.e("grade",""+grade);
+
+                   getgrade.setText(grade);
                 }
 
             }
 
 
             JSONObject totalGrade = jsonObject_1.getJSONObject("total_grade");
-            String forclass = jsObject.getString("total_grade_for_class");
+            String forclass = totalGrade.getString("total_grade_for_class");
 
 
 
@@ -271,7 +279,7 @@ public class Grade_Details  extends Fragment {
 
             Log.e("totalGrade",""+totalGrade);
             Log.e("forclass",""+forclass);
-            list.setAdapter(new careerAdapter(getActivity(), datagradelist));
+
         } catch (JSONException e) {
             e.printStackTrace();
             Log.e("Exxxxxxxxxxxxxxxxxxxxxx",""+e);

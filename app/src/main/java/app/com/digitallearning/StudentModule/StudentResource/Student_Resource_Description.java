@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import app.com.digitallearning.R;
@@ -16,15 +17,18 @@ import app.com.digitallearning.R;
  */
 public class Student_Resource_Description extends Fragment {
     View rootview;
-    TextView headerTitle;
-    String textHeader;
+    TextView headerTitle,description;
+    String textHeader,studentdescription;
     ImageButton back;
+    RelativeLayout desres;
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootview = inflater.inflate(R.layout.student_description, container, false);
-
+        description=(TextView)rootview.findViewById(R.id.description);
+        desres=(RelativeLayout)rootview.findViewById(R.id.desres);
+        desres.setClickable(true);
         AppCompatActivity activity = (AppCompatActivity) getActivity();
 
         activity.getSupportActionBar().setTitle("");
@@ -39,6 +43,9 @@ public class Student_Resource_Description extends Fragment {
                 getFragmentManager().popBackStackImmediate();
             }
         });
+
+        studentdescription=getArguments().getString("studentdescription");
+        description.setText(studentdescription);
 
         return rootview;
     }

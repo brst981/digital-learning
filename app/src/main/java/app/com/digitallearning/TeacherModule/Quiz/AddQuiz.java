@@ -32,6 +32,7 @@ import java.util.Date;
 
 import app.com.digitallearning.R;
 import app.com.digitallearning.TeacherModule.Model.Data;
+import app.com.digitallearning.Utill.LogMessage;
 import app.com.digitallearning.WebServices.WSConnector;
 
 /**
@@ -151,7 +152,30 @@ public class AddQuiz extends Fragment{
                 Log.e("quizdescription",""+quizdescription);
                 Log.e("dataquiz",""+dataquiz);
                 Log.e("modifydate",""+modifydate);
-                new Add_Quiz().execute(cla_classid, Sch_Mem_id,Mem_Sch_Id,selectedlesonid,quiztitle,quizdescription,dataquiz,modifydate);
+
+                if(selectedlesonid==null){
+                    LogMessage.showDialog(getActivity(), null,
+                            "Please fill required Fields", "OK");
+                }
+                else if(quiztitle==null){
+                    LogMessage.showDialog(getActivity(), null,
+                            "Please fill required Fields", "OK");
+                }
+                else if(quizdescription==null){
+                    LogMessage.showDialog(getActivity(), null,
+                            "Please fill required Fields", "OK");
+                }
+                else if(dataquiz==null){
+                    LogMessage.showDialog(getActivity(), null,
+                            "Please fill required Fields", "OK");
+                }
+                else  if(modifydate==null){
+                    LogMessage.showDialog(getActivity(), null,
+                            "Please fill required Fields", "OK");
+                }
+                else {
+                    new Add_Quiz().execute(cla_classid, Sch_Mem_id, Mem_Sch_Id, selectedlesonid, quiztitle, quizdescription, dataquiz, modifydate);
+                }
             }
         });
         return rootview;

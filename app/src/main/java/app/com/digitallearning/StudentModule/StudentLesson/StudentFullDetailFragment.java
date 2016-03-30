@@ -1,16 +1,16 @@
-package app.com.digitallearning.TeacherModule.Lessons;
+package app.com.digitallearning.StudentModule.StudentLesson;
 
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
+import android.app.ProgressDialog;
+import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Gravity;
@@ -39,9 +39,9 @@ import app.com.digitallearning.Utill.LogMessage;
 import app.com.digitallearning.WebServices.WSConnector;
 
 /**
- * Created by ${PSR} on 3/28/16.
+ * Created by ${PSR} on 3/29/16.
  */
-public class FullDetailFragment extends Fragment {
+public class StudentFullDetailFragment extends Fragment {
     View rootview;
     SharedPreferences preferences;
     String Sch_Mem_id, cla_classid, lessonId, sizeget, lessonname;
@@ -58,7 +58,7 @@ public class FullDetailFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        rootview = inflater.inflate(R.layout.layout_lesson_items, container, false);
+        rootview = inflater.inflate(R.layout.student_lessson_item, container, false);
 
         quizname = (TextView) rootview.findViewById(R.id.quizname);
         textView = (TextView) rootview.findViewById(R.id.textView_lesson_count);
@@ -107,9 +107,9 @@ public class FullDetailFragment extends Fragment {
             }
         });
 
-
         return rootview;
     }
+
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -251,7 +251,7 @@ public class FullDetailFragment extends Fragment {
                     if (a == position) {
                         Log.e("quizname", "" + data.getLessonName());
                         Log.e("quizname2", "" + dataList.get(a).getLessonName());
-                      //  break;
+                        //  break;
                     }
                 }
                 headerTitle.setText(data.getLessonName());
@@ -268,7 +268,7 @@ public class FullDetailFragment extends Fragment {
 
 
                 try {
-                    Picasso.with(getActivity()).load(data.getVideoThumbnail()).into(thumbnail);
+                    Picasso.with(getActivity()).load(data.getVideoThumbnail()).placeholder(R.drawable.img_loading).into(thumbnail);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

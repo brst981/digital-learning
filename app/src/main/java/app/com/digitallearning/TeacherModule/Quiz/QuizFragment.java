@@ -374,6 +374,7 @@ public class QuizFragment extends Fragment {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+
         }
 
     }

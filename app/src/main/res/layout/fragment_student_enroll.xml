@@ -13,27 +13,37 @@
         android:layout_width="match_parent"
         android:layout_height="100sp" />
     
-    <EditText
-
+    <TextView
+        android:padding="5dp"
+         android:id="@+id/showclassid"
         android:layout_marginTop='15dp'
         android:layout_width="match_parent"
         android:layout_height="40dp" />
+    <View
+        android:id="@+id/view_seperator1"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#CACACA" />
     <EditText
         android:hint="Passcode(Required)"
         android:layout_marginTop='10dp'
+        android:background="@null"
         android:layout_width="match_parent"
         android:layout_height="40dp" />
-
+    <View
+        android:id="@+id/view_seperator2"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#CACACA" />
     <com.andexert.library.RippleView
         android:id="@+id/ripple_create"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
         android:layout_alignParentBottom="true"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginBottom="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="30dp"
         app:rv_color="#000"
         app:rv_rippleDuration="50"
         app:rv_type="rectangle"
@@ -42,7 +52,7 @@
         <Button
             android:id="@+id/button_create"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="40dp"
             android:background="@color/colorlima"
             android:elevation="8dp"
             android:text="Save"

@@ -24,6 +24,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import app.com.digitallearning.R;
+import app.com.digitallearning.Utill.LogMessage;
 import app.com.digitallearning.WebServices.WSConnector;
 
 /**
@@ -63,6 +64,8 @@ public class AddStudentFragment extends Fragment {
         ripple_save.setOnRippleCompleteListener(new RippleView.OnRippleCompleteListener() {
             @Override
             public void onComplete(RippleView rippleView) {
+
+                String emailPattern = "[a-zA-Z0-9._-]+@[a-zA-Z]+\\.+[a-zA-Z]+";
                 firstname = edt_first_name.getText().toString();
                 lastname = edt_last_name.getText().toString();
                 email = edt_email.getText().toString();
@@ -72,7 +75,29 @@ public class AddStudentFragment extends Fragment {
                 Log.e("createdDate",""+date);
                 createddate=String.valueOf(date);
                 Log.e("createdDat",""+createddate);
-                new AddStudent().execute(userid,cla_classid,schid,firstname,lastname,email,password,createddate );
+
+                if(firstname==null){
+                    LogMessage.showDialog(getActivity(), null,
+                            "Please fill required Fields" , "OK");
+                }
+                else if(lastname==null){
+                    LogMessage.showDialog(getActivity(), null,
+                            "Please fill required Fields" , "OK");
+                }
+                else if(email==null){
+                    LogMessage.showDialog(getActivity(), null,
+                            "Please fill required Fields" , "OK");
+                }
+                else if (!email.matches(emailPattern)) {
+                    LogMessage.showDialog(getActivity(), null,
+                            "Incorrect email" , "OK");
+                }
+                else if(password==null){
+                    LogMessage.showDialog(getActivity(), null,
+                            "Please fill required Fields" , "OK");
+                }
+                else{
+                new AddStudent().execute(userid,cla_classid,schid,firstname,lastname,email,password,createddate );}
 
             }
         });

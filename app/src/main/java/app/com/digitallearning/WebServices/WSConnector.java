@@ -844,15 +844,59 @@ public class WSConnector {
 
     }
 
+    public static String Student_Get_Lesson(String cid) {
+
+        String url = AppConstant.student_lesson;
+        List<NameValuePair> pairs = new ArrayList<NameValuePair>();
+        pairs.add(new BasicNameValuePair("cid", cid));
+        Log.e("cid",""+cid);
+
+
+        String result = WSAdapter.postJSONObject(url, pairs);
+
+
+        return result;
+
+    }
+
+    public static String Student_Get_Resource(String  classid , String userid) {
+
+        String url = AppConstant.student_resource;
+        List<NameValuePair> pairs = new ArrayList<NameValuePair>();
+        pairs.add(new BasicNameValuePair("classid", classid));
+        pairs.add(new BasicNameValuePair("userid", userid));
+        Log.e("classid",""+classid);
+
+
+        String result = WSAdapter.postJSONObject(url, pairs);
+
+
+        return result;
+
+    }
 
 
 
 
 
 
+    public static String Student_Enroll_class(String classid ,String userid ,String classpassword) {
+
+        String url = AppConstant.student_enroll;
+        List<NameValuePair> pairs = new ArrayList<NameValuePair>();
+        pairs.add(new BasicNameValuePair("classid", classid));
+
+        pairs.add(new BasicNameValuePair("userid", userid));
 
 
 
+        pairs.add(new BasicNameValuePair("classpassword", classpassword));
+
+
+        String result = WSAdapter.postJSONObject(url, pairs);
+        return result;
+
+    }
 
 
 

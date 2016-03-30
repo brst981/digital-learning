@@ -25,6 +25,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import app.com.digitallearning.R;
+import app.com.digitallearning.Utill.LogMessage;
 import app.com.digitallearning.WebServices.WSConnector;
 
 /**
@@ -124,7 +125,20 @@ public class AddLessonFragment extends Fragment{
                 currentdate=txtDate.getText().toString();
                 Log.e("currentdate",""+currentdate);
 
-                new Add_Lesson().execute(cla_classid,Sch_Mem_id,title,description,currentdate,videolink);
+                if(title==null){
+                    LogMessage.showDialog(getActivity(), null,
+                            "Please fill required Fields", "OK");
+                }
+                else if(description==null){
+                    LogMessage.showDialog(getActivity(), null,
+                            "Please fill required Fields", "OK");
+                }
+                else if(videolink==null){
+                    LogMessage.showDialog(getActivity(), null,
+                            "Please fill required Fields", "OK");
+                }
+                else{
+                new Add_Lesson().execute(cla_classid,Sch_Mem_id,title,description,currentdate,videolink);}
             }
         });
 

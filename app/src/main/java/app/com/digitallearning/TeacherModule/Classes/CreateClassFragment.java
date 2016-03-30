@@ -27,6 +27,7 @@ import com.andexert.library.RippleView;
 
 import app.com.digitallearning.R;
 import app.com.digitallearning.Utill.GlobalClass;
+import app.com.digitallearning.Utill.LogMessage;
 import app.com.digitallearning.WebServices.WSConnector;
 
 /**
@@ -232,8 +233,25 @@ public class CreateClassFragment extends Fragment {
                 Log.e("srdescription",""+description);
 
 
-                new CreateClass().execute(Sch_Mem_id, userMem_Sch_Id, title, EditClassFragment.style, topic, description);
-
+                if(title==null){
+                    LogMessage.showDialog(getActivity(), null,
+                            "Please fill required Fields" , "OK");
+                }
+                else if(EditClassFragment.style==null){
+                    LogMessage.showDialog(getActivity(), null,
+                            "Please fill required Fields" , "OK");
+                }
+                else if(topic==null){
+                    LogMessage.showDialog(getActivity(), null,
+                            "Please fill required Fields" , "OK");
+                }
+                else if(description==null){
+                    LogMessage.showDialog(getActivity(), null,
+                            "Please fill required Fields" , "OK");
+                }
+else {
+                    new CreateClass().execute(Sch_Mem_id, userMem_Sch_Id, title, EditClassFragment.style, topic, description);
+                }
             }
         });
         imageButtonZoomIn.setOnClickListener(new View.OnClickListener() {

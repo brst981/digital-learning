@@ -240,6 +240,9 @@ public class ArchivedFragment extends Fragment {
             }
         }
         private void updateGet_archive_Student(String success) {
+            if (archivelist.size()>0){
+                archivelist.clear();
+            }
 
             try {
                 JSONObject jsonObject = new JSONObject(success);

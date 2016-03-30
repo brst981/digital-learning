@@ -362,7 +362,7 @@ public class ClassesDetailFragment extends Fragment {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            dlg.setMessage("Loading.....");
+            dlg.setMessage("Loading curriculum.....");
             dlg.setCancelable(false);
             dlg.show();
 
@@ -424,7 +424,7 @@ public class ClassesDetailFragment extends Fragment {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            dlg.setMessage("Loading....");
+            dlg.setMessage("Loading schedule....");
             dlg.setCancelable(false);
             dlg.show();
 
@@ -505,7 +505,7 @@ public class ClassesDetailFragment extends Fragment {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            dlg.setMessage("Loading.....");
+            dlg.setMessage("Loading syllabus.....");
             dlg.setCancelable(false);
             dlg.show();
 

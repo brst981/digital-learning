@@ -56,11 +56,11 @@
             android:textColor="@android:color/black"
             android:gravity="center|left"
             android:layout_marginTop="10dp"
-            android:layout_height="30dp" />
+            android:layout_height="20dp" />
         <TextView
             android:layout_toRightOf="@+id/image_view"
             android:layout_width="170dp"
-            android:id="@+id/text_view_"
+            android:id="@+id/studentlessonname"
             android:text="sdhfygsjdgf"
             android:textSize="14sp"
             android:textColor="@color/color_light_grey"

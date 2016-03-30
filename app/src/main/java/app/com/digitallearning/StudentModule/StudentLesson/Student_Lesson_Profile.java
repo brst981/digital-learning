@@ -382,7 +382,11 @@ public class Student_Lesson_Profile extends Fragment {
                         edtwechat.setText(wechat);
                         edtwhatsapp.setText(whatsapp);
                         edtdescription.setText(description);
-                        Picasso.with(getActivity()).load(photo).into(imgprofilepic);
+                        try {
+                            Picasso.with(getActivity()).load(photo).into(imgprofilepic);
+                        }
+                        catch (Exception e){}
+
 
                     }}
 

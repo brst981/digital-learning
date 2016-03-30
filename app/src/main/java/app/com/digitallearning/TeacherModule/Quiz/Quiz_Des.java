@@ -30,7 +30,8 @@ public class Quiz_Des extends Fragment {
         headerTitle = (TextView) activity.findViewById(R.id.mytext);
         headerTitle.setText("Description");
         initData();
-        descriptn=getArguments().getString("descriptn");
+        try{
+        descriptn=getArguments().getString("descriptn");}catch (Exception e){}
         description=(EditText)rootview.findViewById(R.id.description);
         description.setText(descriptn);
         done=(Button)rootview.findViewById(R.id.done);

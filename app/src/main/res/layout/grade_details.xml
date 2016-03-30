@@ -42,11 +42,13 @@
             android:layout_height="50dp" />
 
         <EditText
-            android:hint="200"
+
+
             android:layout_marginLeft="30dp"
             android:textColor="#000"
-            android:textSize="12sp"
+            android:textSize="15sp"
             android:padding="4dp"
+            android:gravity="center"
             android:id="@+id/edittotal"
             android:background="@drawable/edittext_rectangle_selector"
             android:layout_gravity="center"
@@ -62,6 +64,7 @@
         android:layout_width="0dp"
         android:layout_height="match_parent">
         <TextView
+            android:layout_marginLeft="20dp"
             android:text="Grade:"
             android:textColor="#000"
             android:gravity="center"
@@ -69,14 +72,14 @@
             android:layout_width="0dp"
             android:layout_height="50dp"  />
         <TextView
-            android:text="A"
+            android:id="@+id/getgrade"
             android:layout_marginLeft="30dp"
             android:textColor="#000"
             android:background="@drawable/edittext_rectangle_selector"
             android:gravity="center"
             android:layout_marginRight="10dp"
             android:padding="4dp"
-            android:layout_weight="1"
+            android:layout_weight=".6"
             android:layout_width="0dp"
             android:layout_height="30dp"  />
     </LinearLayout>
@@ -99,7 +102,7 @@
     <ListView
         android:id="@+id/list"
         android:layout_above="@+id/total"
-android:layout_below="@+id/quiz"
+        android:layout_below="@+id/quiz"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -121,9 +124,10 @@ android:layout_below="@+id/quiz"
             android:padding="5dp"
             android:layout_marginTop="10dp"
             android:layout_width="0dp"
-            android:layout_weight="1.2"
+            android:layout_weight="1.6"
             android:layout_height="wrap_content" />
         <EditText
+            android:gravity="end"
             android:layout_weight="0.3"
             android:layout_marginTop="10dp"
             android:layout_width="0dp"

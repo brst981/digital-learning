@@ -370,7 +370,7 @@ public class StudentClass extends  Fragment {
 
                     preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
                     editor = preferences.edit();
-                    editor.putString("cla_classid",class_id);
+                    editor.putString("cls_clsid",class_id);
                     Log.e("prefclassid",""+class_id);
                     editor.commit();
                 }

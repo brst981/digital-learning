@@ -91,12 +91,13 @@ public class SyllabusFragment extends Fragment{
                         public void onClick(View v) {
                             if(title.isEmpty()){
                                 LogMessage.showDialog(getActivity(), null,
-                                        "Please enter title", "OK");
+                                        "Please fill required Fields", "OK");
                             }
                           else if(description.isEmpty()){
                                 LogMessage.showDialog(getActivity(), null,
-                                        "Please enter description", "OK");
+                                        "Please fill required Fields", "OK");
                             }
+
                             else{
                             new Add_syllabus().execute(cla_classid , Sch_Mem_id , title , description );
                         }}

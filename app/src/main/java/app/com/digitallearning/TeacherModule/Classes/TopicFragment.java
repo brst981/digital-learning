@@ -289,6 +289,7 @@ public class TopicFragment extends Fragment {
                 holder.artitem.setVisibility(View.VISIBLE);
             } else {
                 holder.img_Art.setVisibility(View.GONE);
+                holder.artitem.setVisibility(View.GONE);
             }
 
 

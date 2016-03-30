@@ -113,7 +113,7 @@ public class StudentLoginFragment extends Fragment {
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
             dlg.dismiss();
-            Log.e("classlisting",""+result);
+            Log.e("Studentclasslisting",""+result);
             if (result.contains("true")) {
 
                 updateStudentLogIn(result);

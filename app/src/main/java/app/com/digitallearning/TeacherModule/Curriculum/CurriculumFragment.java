@@ -131,8 +131,6 @@ public class CurriculumFragment extends Fragment {
         Log.e("cla_classid", "" + cla_classid);
 
 
-
-
         //   headerTitle = (TextView) activity.findViewById(R.id.mytext);
         relative_topic = (RelativeLayout) rootview.findViewById(R.id.relative_topic);
         ripple_teacher_country = (RippleView) rootview.findViewById(R.id.ripple_teacher_country);
@@ -257,8 +255,33 @@ public class CurriculumFragment extends Fragment {
 
                 if (textsave.contains("Save")) {
 
-                    new Add_curriculum().execute(cla_classid, Sch_Mem_id, addsrtitle, curriculumtopicid, addsrdescription, libid, gradefromId, gradetoId, addsrorganization, countryid, addsrstate);
-
+                    if (addsrtitle == null) {
+                        LogMessage.showDialog(getActivity(), null,
+                                "Please fill required Fields", "OK");
+                    } else if (curriculumtopicid == null) {
+                        LogMessage.showDialog(getActivity(), null,
+                                "Please fill required Fields", "OK");
+                    } else if (addsrdescription == null) {
+                        LogMessage.showDialog(getActivity(), null,
+                                "Please fill required Fields", "OK");
+                    } else if (libid == null) {
+                        LogMessage.showDialog(getActivity(), null,
+                                "Please fill required Fields", "OK");
+                    } else if (gradefromId == null) {
+                        LogMessage.showDialog(getActivity(), null,
+                                "Please fill required Fields", "OK");
+                    }
+                    else if(countryid==null){
+                        LogMessage.showDialog(getActivity(), null,
+                                "Please fill required Fields", "OK");
+                    }
+                    else if(gradetoId==null){
+                        LogMessage.showDialog(getActivity(), null,
+                                "Please fill required Fields", "OK");
+                    }
+                    else {
+                        new Add_curriculum().execute(cla_classid, Sch_Mem_id, addsrtitle, curriculumtopicid, addsrdescription, libid, gradefromId, gradetoId, addsrorganization, countryid, addsrstate);
+                    }
                 }
 
             }
@@ -965,7 +988,7 @@ public class CurriculumFragment extends Fragment {
                             public void onClick(DialogInterface dialog, int which) {
                                 // TODO Auto-generated method stub
                                 dialog.dismiss();
-                                GlobalClass.curriculumvalue=true;
+                                GlobalClass.curriculumvalue = true;
                                 getActivity().finish();
                             }
                         });

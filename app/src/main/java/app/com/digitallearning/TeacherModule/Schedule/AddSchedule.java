@@ -167,26 +167,43 @@ public class AddSchedule extends FragmentActivity {
                 } catch (Exception e) {
                 }
 
+                try {
+
+
                 sttime = Integer.parseInt(srsthour);
                 Log.e("intsttime", "" + sttime);
+                } catch (Exception e) {
+                }
+                try {
 
                 ampm = srstmin.substring(Math.max(srstmin.length() - 2, 0));
                 Log.e("ampm", "" + ampm);
+            } catch (Exception e) {
+            }
+               try {
+                   if (ampm.contains("PM")) {
+                       Log.e("Visit", "VIST");
+                       int hor = Integer.parseInt(srsthour);
+                       newstarthours = String.valueOf(hor + 12);
+                       Log.e("plus", "" + newstarthours);
+                       srsthour = newstarthours;
 
-                if (ampm.contains("PM")) {
-                    Log.e("Visit", "VIST");
-                    int hor = Integer.parseInt(srsthour);
-                    newstarthours = String.valueOf(hor + 12);
-                    Log.e("plus", "" + newstarthours);
-                    srsthour = newstarthours;
+                   }
+               } catch (Exception e) {
+               }
 
-                }
+
+                try{
                 srendtime = endtime.getText().toString();
-
+                } catch (Exception e) {
+                }
+                try{
                 srendhour = srendtime.split(":");
 
                 srendhour[0] = srendhour[0].trim();
                 srendhr = srendhour[0];
+                } catch (Exception e) {
+                }
                 //   Log.e("srendhr",""+srendhr);
                 try {
                     srendhour[1] = srendhour[1].trim();
@@ -201,9 +218,15 @@ public class AddSchedule extends FragmentActivity {
                 } catch (Exception e) {
                 }
 
-                endampm = srendmin.substring(Math.max(srendmin.length() - 2, 0));
-                Log.e("endampm", "" + endampm);
+                try {
+                    endampm = srendmin.substring(Math.max(srendmin.length() - 2, 0));
+                    Log.e("endampm", "" + endampm);
+                } catch (Exception e) {
+                }
 
+
+
+                try{
                 if (endampm.contains("PM")) {
                     Log.e("Visit", "VIST");
                     int hor = Integer.parseInt(srendhr);
@@ -211,20 +234,22 @@ public class AddSchedule extends FragmentActivity {
                     Log.e("plus", "" + newendhours);
                     srendhr = newendhours;
                 }
-
+                } catch (Exception e) {
+                }
                 srlocation = loc.getText().toString();
                 Log.e("srlocation", "" + srlocation);
-                if (srday.equalsIgnoreCase("")) {
+                if (srday.equals(" ")) {
+
 
                     LogMessage.showDialog(AddSchedule.this, null,
                             "Please select day", "OK");
-                } else if (srdescription.equalsIgnoreCase("")) {
+                } else if (srdescription.equals(" ")) {
 
                     LogMessage.showDialog(AddSchedule.this, null,
                             "Please select description", "OK");
                 } else if (srtime.equalsIgnoreCase("")) {
 
-
+Log.e("DAY",""+srday);
                     LogMessage.showDialog(AddSchedule.this, null,
                             "Please select start time", "OK");
                 } else if (srendtime.equalsIgnoreCase("")) {
@@ -242,8 +267,36 @@ public class AddSchedule extends FragmentActivity {
                     Log.e("eintentime", "" + entime);
                     Log.e("newstarthours", "" + newstarthours);
                     Log.e("newendhours", "" + newendhours);
-                    new add_Schedule().execute(cla_classid, userid, srdayid, srsthour, srstmin, srendhr, srendmin, srlocation, srdescription);
-                }
+
+
+                    /*if(srdayid==null){
+                        LogMessage.showDialog(getApplicationContext(), null,
+                                "Please fill required Fields" , "OK");
+                    }
+                    else if(srsthour==null){
+                        LogMessage.showDialog(getApplicationContext(), null,
+                                "Please fill required Fields" , "OK");
+                    }
+                    else if(srstmin==null){
+                        LogMessage.showDialog(getApplicationContext(), null,
+                                "Please fill required Fields" , "OK");
+                    }
+                    else if(srendhr==null){
+                        LogMessage.showDialog(getApplicationContext(), null,
+                                "Please fill required Fields" , "OK");
+                    }
+                    else if(srendmin==null){
+                        LogMessage.showDialog(getApplicationContext(), null,
+                                "Please fill required Fields" , "OK");
+                    }
+                    else if(srdescription==null){
+                        LogMessage.showDialog(getApplicationContext(), null,
+                                "Please fill required Fields" , "OK");
+                    }
+                    else{*/
+
+                    new add_Schedule().execute(cla_classid, userid, srdayid, srsthour, srstmin, srendhr, srendmin, srlocation, srdescription);}
+              // }
             }
         });
 

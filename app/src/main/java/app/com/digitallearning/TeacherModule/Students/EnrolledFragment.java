@@ -243,6 +243,9 @@ public class EnrolledFragment extends Fragment {
             }
         }
         private void updateGet_enroll_Student(String success) {
+            if (archivelist.size()>0){
+                archivelist.clear();
+            }
 
             try {
                 JSONObject jsonObject = new JSONObject(success);
