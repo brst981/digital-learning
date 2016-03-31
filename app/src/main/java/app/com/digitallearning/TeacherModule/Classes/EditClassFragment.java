@@ -69,7 +69,7 @@ public class EditClassFragment extends FragmentActivity {
     String cal1,chat1,enable1,tab1,topic_id;
     public static String textcal,textchat,textenable,texttab,feature,newfeature=null;
     static  String newTitle,newTitle1,semester1,semester2,coursecode1,coursecode2,total,newtotal,ondialog;
-    String sr_title, sr_passcode,sr_classtppe,sr_classtppeval,sr_topic,sr_feature,sr_description,classidgetupdate;
+    String sr_title, sr_passcode,sr_classtppe,sr_classtppeval,sr_topic,sr_feature,sr_description,classidgetupdate,calfinal;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -197,6 +197,7 @@ public class EditClassFragment extends FragmentActivity {
                             if (checkbox1.isChecked()) {
                                 cal="true";
                                 textcal="Calender";
+
                             }
                             else if (!checkbox1.isChecked()) {
                                 cal="\" \" ";
@@ -259,6 +260,7 @@ public class EditClassFragment extends FragmentActivity {
                     buttonSave.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
+                            Log.e("Vcal",""+cal);
                             feature="";
                             newfeature="";
 
@@ -385,9 +387,39 @@ public class EditClassFragment extends FragmentActivity {
                     sr_topic1=topic_id;
                 }
               //  cal1,chat1,enable1,tab1  cal,stu,chat,grades
-                if(cal1!=null){
+
+                Log.e("calfirst",""+cal);
+                Log.e("cal1first",""+cal1);
+
+
+
+                if (cal==null){
+                    calfinal=String.valueOf(false);
+                }
+                else  if( cal1==null){
+                    calfinal=String.valueOf(false);
+                }
+               else  if(cal!=null){
+                    calfinal=String.valueOf(true);
+                }
+
+            else  if( cal1!=null){
+                calfinal=String.valueOf(true);
+            }
+               /* if(cal1!=null){
+                    calfinal= String.valueOf(false);
+                }
+
+               else if(cal1!=null){
+                    calfinal= String.valueOf(true);
+                }
+                else if(cal!=null){
                     cal= String.valueOf(true);
                 }
+
+                else if(cal.equals(null)){
+                    cal= String.valueOf(false);
+                }*/
                 else if(chat1!=null){
                     chat= String.valueOf(true);
                 }
@@ -397,7 +429,13 @@ public class EditClassFragment extends FragmentActivity {
                 else if(tab1!=null){
                     stu= String.valueOf(true);
                 }
-                               new Update_Class().execute(classidgetupdate,created,ClassFragment.Mem_Sch_Id,sr_title,sr_classtppeval,sr_topic1,sr_description,check,semeserval,coursecodeval,cal,stu,chat,grades);
+
+                Log.e("check",""+cal);
+                Log.e("check1",""+cal1);
+                Log.e("checkchat1",""+chat1);
+                Log.e("checkchat",""+chat);
+
+                               new Update_Class().execute(classidgetupdate,created,ClassFragment.Mem_Sch_Id,sr_title,sr_classtppeval,sr_topic1,sr_description,check,semeserval,coursecodeval,calfinal,stu,chat,grades);
 
             }
         });

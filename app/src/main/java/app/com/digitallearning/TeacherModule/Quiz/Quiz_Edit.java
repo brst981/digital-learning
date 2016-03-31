@@ -161,11 +161,12 @@ public class Quiz_Edit extends Fragment {
                     finalselectedlessonid=selectedlesonid;
                     Log.e("selectedlesonidfinal",""+finalselectedlessonid);
                 }
-                if(newquizdata==null){
+                if(newquizdata!=null){
                     finalquizdata=serquizdata;
+                    Log.e("serfinalquizdata",""+finalquizdata);
 
                 }
-                else if(newquizdata!=null){
+                else if(newquizdata==null){
                     try{
                         newquizdata= dataquiz.replace("\"","\'");}catch (Exception e){}
 
@@ -174,6 +175,7 @@ public class Quiz_Edit extends Fragment {
                     Log.e("newquizdata",""+newquizdata);
 
                     finalquizdata=newquizdata;
+                    Log.e("finalquizdata",""+finalquizdata);
                 }
 
 
@@ -444,6 +446,30 @@ public class Quiz_Edit extends Fragment {
             Log.e("ResultUpdateQuiz",""+result);
 
             if (result.contains("true")) {
+
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+                alertDialog.setMessage("Quiz updated").setCancelable(false)
+                        .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                // TODO Auto-generated method stub
+                                dialog.dismiss();
+
+                                getFragmentManager().popBackStack();
+
+
+                            }
+                        });
+
+                AlertDialog dialog = alertDialog.create();
+                dialog.show();
+                TextView messageText = (TextView) dialog
+                        .findViewById(android.R.id.message);
+                messageText.setGravity(Gravity.CENTER);
+
+
+
             } else if (result.contains("false")) {
                 Toast.makeText(getActivity(), "No data", Toast.LENGTH_SHORT).show();
 

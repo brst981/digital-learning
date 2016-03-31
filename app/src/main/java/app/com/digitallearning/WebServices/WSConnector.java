@@ -875,9 +875,29 @@ public class WSConnector {
 
     }
 
+    public static String Stuent_Quiz_listing(String cid ,String userid) {
 
+        String url = AppConstant.student_quiz;
+        List<NameValuePair> pairs = new ArrayList<NameValuePair>();
+        pairs.add(new BasicNameValuePair("cid", cid));
+        pairs.add(new BasicNameValuePair("userid", userid));
+        Log.e("userid",""+userid);
+        String result = WSAdapter.postJSONObject(url, pairs);
+        return result;
 
+    }
 
+    public static String Student_Quiz_view(String cls_clsid,String quiz_id) {
+
+        String url = AppConstant.student_quiz;
+        List<NameValuePair> pairs = new ArrayList<NameValuePair>();
+        pairs.add(new BasicNameValuePair("classid", cls_clsid));
+        pairs.add(new BasicNameValuePair("quizid", quiz_id));
+
+        String result = WSAdapter.postJSONObject(url, pairs);
+        return result;
+
+    }
 
 
     public static String Student_Enroll_class(String classid ,String userid ,String classpassword) {

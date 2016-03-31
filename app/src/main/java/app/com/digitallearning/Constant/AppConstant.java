@@ -58,5 +58,6 @@ public class AppConstant {
     public static final String grade_lesson=server_Url+"digitalapi/grade.php";
     public static final String  student_lesson=server_Url+"digitalapi/class_students.php";
     public static final String  student_resource=server_Url+"digitalapi/class_resources.php";
-    public static final String  student_enroll= "http://digitallearningtree.com/digitalapi/class_students.php";
+    public static final String  student_enroll= server_Url+"digitalapi/class_students.php";
+    public static final String  student_quiz= server_Url+"digitalapi/class_quiz.php";
 }

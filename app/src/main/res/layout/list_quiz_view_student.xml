@@ -19,7 +19,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="100dp">
                 <TextView
-                    android:text="Quiz 1"
+                    android:text="new Quiz"
                     android:id="@+id/textquiz"
                     android:textColor="#000"
                     android:layout_width="wrap_content"
@@ -28,7 +28,17 @@
                     android:layout_marginTop="10dp"
                     android:layout_centerHorizontal="true" />
                 <TextView
-                    android:text="Test"
+                    android:id="@+id/timer"
+                    android:textColor="#ff0000"
+                    android:gravity="right"
+                    android:layout_marginRight="10dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="23dp"
+                    android:layout_toRightOf="@+id/textquiz"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/txtdes"
                     android:textColor="#000"
                     android:layout_below="@+id/textquiz"
                     android:layout_width="wrap_content"
@@ -39,7 +49,6 @@
             </RelativeLayout>
             <TextView
                 android:id="@+id/txt"
-                android:text="Ques 1"
                 android:textColor="#000"
                 android:padding="10dp"
                 android:layout_margin="5dp"
@@ -65,7 +74,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="40dp" />
             <TextView
-                android:id="@+id/textView_lesson_title"
+                android:id="@+id/option1"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_toRightOf="@+id/check1"
@@ -85,7 +94,8 @@
                 android:id="@+id/view1"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_below="@+id/textView_lesson_title"
+                android:layout_marginLeft="40dp"
+                android:layout_below="@+id/option1"
                 android:layout_marginTop="5dp"
                 android:background="@color/color_light_grey" />
             <CheckBox
@@ -96,7 +106,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="40dp" />
             <TextView
-                android:id="@+id/textView_lesson_description"
+                android:id="@+id/option2"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_toRightOf="@+id/check2"
@@ -115,7 +125,7 @@
                 android:id="@+id/view2"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_below="@+id/textView_lesson_description"
+                android:layout_below="@+id/option2"
 
                 android:background="@color/color_light_grey" />
             <CheckBox
@@ -126,7 +136,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="40dp" />
             <TextView
-                android:id="@+id/textView_lesson_description_"
+                android:id="@+id/option3"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_below="@+id/view2"
@@ -145,7 +155,7 @@
                 android:id="@+id/view3"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_below="@+id/textView_lesson_description_"
+                android:layout_below="@+id/option3"
 
                 android:background="@color/color_light_grey" />
 
@@ -157,7 +167,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="40dp" />
             <TextView
-                android:id="@+id/textView_lesson_description1"
+                android:id="@+id/option4"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_below="@+id/view3"
@@ -176,8 +186,7 @@
                 android:id="@+id/view4"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_below="@+id/textView_lesson_description1"
-
+                android:layout_below="@+id/option4"
                 android:background="@color/color_light_grey" />
 
             <TextView
@@ -200,7 +209,7 @@
     </ScrollView>
 
     <RelativeLayout
-        android:id="@+id/relative_lesson"
+        android:id="@+id/next"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_margin="12dp"
@@ -213,42 +222,10 @@
             android:background="@color/colorlima"
             android:elevation="8dp"
             android:text="Next"
-
             android:textAllCaps="true"
             android:gravity="center"
             android:textColor="@android:color/white"
             android:textSize="16sp" />
-        <TextView
-            android:id="@+id/textView_lesson_count"
-            android:layout_width="200dp"
-            android:layout_height="match_parent"
-            android:layout_centerInParent="true"
-            android:text="safkdsfk"
-            android:visibility="invisible"
-            android:gravity="center"
-            android:textColor="@android:color/white"
-            android:textSize="16sp" />
-
-        <ImageView
-            android:id="@+id/img_left_icon"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-
-            android:visibility="gone"
-            android:layout_marginTop="5dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:src="@drawable/ic_left_arrow"/>
-
-        <ImageView
-            android:id="@+id/img_right_icon"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:visibility="gone"
-            android:layout_marginTop="5dp"
-            android:src="@drawable/ic_right_arrow"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
 
     </RelativeLayout>
 </RelativeLayout>

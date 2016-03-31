@@ -425,7 +425,7 @@ Log.e("DAY",""+srday);
             if (result.contains("true")) {
 
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(AddSchedule.this);
-                alertDialog.setMessage("Syllabus inserted").setCancelable(false)
+                alertDialog.setMessage("Schedule inserted").setCancelable(false)
                         .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
 
                             @Override
