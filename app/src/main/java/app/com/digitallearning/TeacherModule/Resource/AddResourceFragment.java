@@ -65,11 +65,11 @@ public class AddResourceFragment extends Fragment{
                 title=edt_title_resource.getText().toString();
                 description=edt_description_resource.getText().toString();
 
-                if(title==null){
+                if(title.isEmpty()){
                     LogMessage.showDialog(getActivity(), null,
                             "Please fill required Fields", "OK");
                 }
-                else if(description==null){
+                else if(description.isEmpty()){
                     LogMessage.showDialog(getActivity(), null,
                             "Please fill required Fields", "OK");
                 }

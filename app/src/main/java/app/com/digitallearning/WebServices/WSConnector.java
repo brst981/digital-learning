@@ -918,7 +918,21 @@ public class WSConnector {
 
     }
 
+    public static String Student_Perform_Quiz(String quizmasterid ,String todaydate ,String ipaddr,String timelast,String userid,String answerdata) {
 
+        String url = AppConstant.student_quiz;
+        List<NameValuePair> pairs = new ArrayList<NameValuePair>();
+        pairs.add(new BasicNameValuePair("quizmasterid", quizmasterid));
+        pairs.add(new BasicNameValuePair("todaydate", todaydate));
+        pairs.add(new BasicNameValuePair("ipaddr", ipaddr));
+        pairs.add(new BasicNameValuePair("timelast", timelast));
+        pairs.add(new BasicNameValuePair("userid", userid));
+        pairs.add(new BasicNameValuePair("answerdata", answerdata));
+
+        String result = WSAdapter.postJSONObject(url, pairs);
+        return result;
+
+    }
 
 
 

@@ -125,20 +125,23 @@ public class AddLessonFragment extends Fragment{
                 currentdate=txtDate.getText().toString();
                 Log.e("currentdate",""+currentdate);
 
-                if(title==null){
+                if(title.isEmpty()){
+                    Log.e("lessontitle",""+title);
                     LogMessage.showDialog(getActivity(), null,
                             "Please fill required Fields", "OK");
                 }
-                else if(description==null){
+                else if(description.isEmpty()){
                     LogMessage.showDialog(getActivity(), null,
                             "Please fill required Fields", "OK");
                 }
-                else if(videolink==null){
+                else if(videolink.isEmpty()){
                     LogMessage.showDialog(getActivity(), null,
                             "Please fill required Fields", "OK");
                 }
                 else{
-                new Add_Lesson().execute(cla_classid,Sch_Mem_id,title,description,currentdate,videolink);}
+
+                new Add_Lesson().execute(cla_classid,Sch_Mem_id,title,description,currentdate,videolink);
+                }
             }
         });
 

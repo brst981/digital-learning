@@ -76,15 +76,15 @@ public class AddStudentFragment extends Fragment {
                 createddate=String.valueOf(date);
                 Log.e("createdDat",""+createddate);
 
-                if(firstname==null){
+                if(firstname.isEmpty()){
                     LogMessage.showDialog(getActivity(), null,
                             "Please fill required Fields" , "OK");
                 }
-                else if(lastname==null){
+                else if(lastname.isEmpty()){
                     LogMessage.showDialog(getActivity(), null,
                             "Please fill required Fields" , "OK");
                 }
-                else if(email==null){
+                else if(email.isEmpty()){
                     LogMessage.showDialog(getActivity(), null,
                             "Please fill required Fields" , "OK");
                 }
@@ -92,7 +92,7 @@ public class AddStudentFragment extends Fragment {
                     LogMessage.showDialog(getActivity(), null,
                             "Incorrect email" , "OK");
                 }
-                else if(password==null){
+                else if(password.isEmpty()){
                     LogMessage.showDialog(getActivity(), null,
                             "Please fill required Fields" , "OK");
                 }

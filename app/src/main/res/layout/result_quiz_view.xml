@@ -68,8 +68,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <TextView
+            android:id="@+id/txtusername"
             android:textColor="#000"
-            android:text="abcd"
             android:layout_marginLeft="10dp"
             android:layout_toRightOf="@+id/name"
             android:textSize="16sp"
@@ -86,13 +86,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <TextView
+            android:id="@+id/userscore"
             android:layout_marginTop="10dp"
             android:textColor="#000"
-            android:text="12"
             android:layout_marginLeft="10dp"
             android:layout_below="@+id/name"
             android:layout_toRightOf="@+id/name1"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
@@ -108,7 +108,7 @@
         <TextView
             android:layout_marginTop="10dp"
             android:textColor="#000"
-            android:text="1 out of 2"
+            android:id="@+id/userans"
             android:layout_marginLeft="10dp"
             android:layout_below="@+id/name1"
             android:layout_toRightOf="@+id/name2"
@@ -128,7 +128,7 @@
         <TextView
             android:layout_marginTop="10dp"
             android:textColor="#000"
-            android:text="60%"
+            android:id="@+id/userpercantage"
             android:layout_marginLeft="10dp"
             android:layout_below="@+id/name2"
             android:layout_toRightOf="@+id/name3"
@@ -161,7 +161,7 @@
         <TextView
             android:layout_marginTop="10dp"
             android:textColor="#000"
-            android:text="Pass"
+            android:id="@+id/userresult"
             android:layout_marginLeft="10dp"
             android:layout_below="@+id/lesson"
             android:layout_toRightOf="@+id/name4"
@@ -179,9 +179,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <TextView
+            android:id="@+id/usertimetaken"
             android:layout_marginTop="10dp"
             android:textColor="#000"
-            android:text="2sec"
             android:layout_marginLeft="10dp"
             android:layout_below="@+id/name4"
             android:layout_toRightOf="@+id/name5"

@@ -68,6 +68,7 @@ public class SyllabusFragment extends Fragment{
         des=(EditText)rootview.findViewById(R.id.des);
         savebutton=(Button)rootview.findViewById(R.id.savebutton);
         sylbsTitle=(EditText)rootview.findViewById(R.id.sylbsTitle);
+        teacherlogin=(RelativeLayout)rootview.findViewById(R.id.teacherlogin);
         ripple_edit_delete=(RippleView)rootview.findViewById(R.id.ripple_edit_delete);
         dlg=new ProgressDialog(getActivity());
         Sch_Mem_id=preferences.getString("Sch_Mem_id","");

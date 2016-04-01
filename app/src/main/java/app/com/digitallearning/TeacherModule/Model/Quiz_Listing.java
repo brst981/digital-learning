@@ -14,6 +14,17 @@ public class Quiz_Listing implements Serializable {
     private String api_quiz_id;
     private String quiz_desc;
     private String quiz_user_id;
+
+    public String getDashboard_id() {
+        return dashboard_id;
+    }
+
+    public void setDashboard_id(String dashboard_id) {
+        this.dashboard_id = dashboard_id;
+    }
+
+    private String dashboard_id;
+
     private String quiz_name;
     public String getLast_modify() {
         return last_modify;

@@ -112,6 +112,7 @@ public class StudentQuizFragment  extends Fragment {
                 Bundle bundle=new Bundle();
                 bundle.putInt("positioninLesson",position);
                 bundle.putString("quiz_id",quizlisting.get(position).getQuiz_id());
+                bundle.putString("dashboard_id",quizlisting.get(position).getDashboard_id());
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 Student_Quiz_View student_item_lesson = new Student_Quiz_View();
                 fragmentTransaction.replace(R.id.container, student_item_lesson).addToBackStack(null);
@@ -298,6 +299,7 @@ public class StudentQuizFragment  extends Fragment {
                     data.setQuiz_name(obj.getString("quiz_name"));
                     data.setQuiz_desc(obj.getString("quiz_desc"));
                     data.setApi_quiz_id(obj.getString("quiz_status"));
+                    data.setDashboard_id("dashboard_id");
                     quizlisting.add(data);
 
 

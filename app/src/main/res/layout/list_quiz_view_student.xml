@@ -66,11 +66,17 @@
                 android:layout_below="@+id/txt"
                 android:layout_marginTop="5dp"
                 android:background="@color/color_light_grey" />
+
+            <RelativeLayout
+                android:id="@+id/reltimer"
+                android:layout_below="@+id/view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
             <CheckBox
                 android:layout_marginLeft="5dp"
                 android:id="@+id/check1"
                 android:layout_marginTop="5dp"
-                android:layout_below="@+id/view"
+
                 android:layout_width="wrap_content"
                 android:layout_height="40dp" />
             <TextView
@@ -78,7 +84,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_toRightOf="@+id/check1"
-                android:layout_below="@+id/view"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 android:text="A"
@@ -205,6 +210,7 @@
                 android:textSize="14sp" />
 
 
+        </RelativeLayout>
         </RelativeLayout>
     </ScrollView>
 

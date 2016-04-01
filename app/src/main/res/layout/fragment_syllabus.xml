@@ -63,8 +63,13 @@
 
 
     </RelativeLayout>
-    <EditText
+    <RelativeLayout
+        android:id="@+id/teacherlogin"
         android:layout_below="@+id/relative_header"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <EditText
+
         android:id="@+id/sylbsTitle"
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -130,4 +135,5 @@
             android:textColor="@android:color/white"
             android:textSize="16sp" />
     </com.andexert.library.RippleView>
+</RelativeLayout>
 </RelativeLayout>
