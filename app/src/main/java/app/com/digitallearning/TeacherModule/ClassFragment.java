@@ -184,7 +184,7 @@ public class ClassFragment extends Fragment {
                 defineClass = true;
                 intent.putExtra("fromClass", defineClass);
                 startActivity(intent);
-                getActivity().finish();
+              //  getActivity().finish();
 
             }
         });
