@@ -790,6 +790,40 @@ public class WSConnector {
         return result;
 
     }
+//cid  stud_id  master_id hiddenquizscore gotit_point  total_point  gradeadd  totgrade  lesson_id
+
+    public static String Teacher_SaveGrade(String cid,String stud_id,String master_id,String gotit_point,String gradeadd,String totgrade,String lesson_id,String total_point) {
+
+        String url = "http://digitallearningtree.com/digitalapi/grade.php";
+        List<NameValuePair> pairs = new ArrayList<NameValuePair>();
+        pairs.add(new BasicNameValuePair("cid", cid));
+        pairs.add(new BasicNameValuePair("stud_id", stud_id));
+        pairs.add(new BasicNameValuePair("master_id", master_id));
+        pairs.add(new BasicNameValuePair("gotit_point", gotit_point));
+        pairs.add(new BasicNameValuePair("gradeadd", gradeadd));
+        pairs.add(new BasicNameValuePair("totgrade", totgrade));
+        pairs.add(new BasicNameValuePair("lesson_id", lesson_id));
+        pairs.add(new BasicNameValuePair("total_point", total_point));
+        pairs.add(new BasicNameValuePair("hiddenquizscore", "100"));
+
+
+        Log.e("srcid",""+cid);
+        Log.e("srstud_id",""+stud_id);
+        Log.e("srmaster_id",""+master_id);
+        Log.e("srgotit_point",""+gotit_point);
+        Log.e("srgradeadd",""+gradeadd);
+        Log.e("srtotgrade",""+totgrade);
+        Log.e("srlesson_id",""+lesson_id);
+        Log.e("srtotal_point",""+total_point);
+        Log.e("srhiddenquizscore","");
+
+
+
+
+        String result = WSAdapter.postJSONObject(url, pairs);
+        return result;
+
+    }
 
 
 
@@ -817,6 +851,22 @@ public class WSConnector {
 
 
 
+    public static String Student_login(String name, String password,String schoolID) {
+
+        String url = AppConstant.student_login;
+        List<NameValuePair> pairs = new ArrayList<NameValuePair>();
+        pairs.add(new BasicNameValuePair("username", name));
+        Log.e("username",""+name);
+        pairs.add(new BasicNameValuePair("password", password));
+        Log.e("password",""+password);
+        pairs.add(new BasicNameValuePair("logid", schoolID));
+        Log.e("schoolID",""+schoolID);
+        String result = WSAdapter.postJSONObject(url, pairs);
+
+
+        return result;
+
+    }
 
 
 
@@ -829,9 +879,7 @@ public class WSConnector {
 
 
 
-
-
-    public static String Student_Info(String userid,String username) {
+    public static String Student_Profile(String userid,String username) {
 
         String url = AppConstant.student_info;
         List<NameValuePair> pairs = new ArrayList<NameValuePair>();
@@ -843,6 +891,22 @@ public class WSConnector {
         return result;
 
     }
+
+    public static String Student_Info(String classid) {
+
+        String url =AppConstant.student_info;
+        List<NameValuePair> pairs = new ArrayList<NameValuePair>();
+
+        pairs.add(new BasicNameValuePair("classid", classid));
+        Log.e("infoclassid",""+classid);
+
+
+        String result = WSAdapter.postJSONObject(url, pairs);
+        return result;
+
+    }
+
+
 
     public static String Student_Get_Lesson(String cid) {
 

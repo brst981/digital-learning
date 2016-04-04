@@ -23,6 +23,7 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -58,6 +59,8 @@ public class StudentClass extends  Fragment {
     ImageButton imageButtonZoomIn, imageButtonZoomOut;
     RelativeLayout rellogin;
     ProgressDialog dlg;
+    int val=0;
+    ImageView logout;
     SharedPreferences preferences;
     SharedPreferences.Editor editor;
     ArrayList<Student_Login_Data> stulogindata=new ArrayList<Student_Login_Data>();
@@ -85,7 +88,27 @@ public class StudentClass extends  Fragment {
 
         rellogin=(RelativeLayout)rootview.findViewById(R.id.rellogin) ;
         dlg=new ProgressDialog(getActivity());
+        logout=(ImageView)rootview.findViewById(R.id.logout);
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+
+                Intent gotostudent=new Intent(getActivity(),StudentLoginActivity.class);
+
+                preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putInt("remembermecheckedstu", val);
+                Log.e("val",""+val);
+                editor.commit();
+                startActivity(gotostudent);
+                getActivity().finishAffinity();
+
+               /* GlobalClass.rememberMe=false;
+                getActivity().finish();*/
+
+            }
+        });
         relative_header=(RelativeLayout)rootview.findViewById(R.id.relative_header);
         swipeRefreshLayout = (SwipeRefreshLayout)rootview.findViewById(R.id.swipeRefreshLayout);
         swipeRefreshLayout.setColorSchemeColors(R.color.colorlima);
@@ -286,7 +309,7 @@ public class StudentClass extends  Fragment {
         @Override
         protected String doInBackground(String... params) {
 
-            return WSConnector.login(params[0], params[1], params[2]);
+            return WSConnector.Student_login(params[0], params[1], params[2]);
 
         }
 
@@ -305,7 +328,7 @@ public class StudentClass extends  Fragment {
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
             dlg.dismiss();
-            Log.e("classlisting", "" + result);
+            Log.e("classlistingstudent", "" + result);
             if (result.contains("true")) {
 
                 updateStudentLogIn(result);
@@ -338,40 +361,60 @@ public class StudentClass extends  Fragment {
         private void updateStudentLogIn(String success) {
             stulogindata.clear();
             try {
+//{"success":true,"user_type":"Teacher","Sch_Mem_id":"2155","Mem_Sch_Id":"487","Mem_Type":"1, 4","Mem_Name":"Ashish","Mem_Emailid":"brstdev@gmail.com",
+// "class_data":[{"class_id":"183607","cls_createdby":"2155","cls_name":"9Edit12h","Cls_desc":"ok","subject":"Music","cla_classid":"1808","students":"6",
+// "cls_image":"http:\/\/digitallearningtree.com\/class_photos\/1457699372star_wars_the_force_awakens_poe_rey_bb8-HD.jpg","orderid":"657","new_orderid":"133"},
 
+
+//{"success":true,"user_type":"Student","Sch_Mem_id":"2322","Mem_Sch_Id":"487","Mem_Type":"16","Mem_Name":"komal","Mem_Emailid":"komal@gmail.com",
+// "class_data":{"success":true,"data":[{"classid":"1808","classname":"9Edit12h","classdesc":"ok","topicname":"Music","student":"4","Cla_Id":"183607"}]}}
                 JSONObject jsonObject = new JSONObject(success);
 
+             //   String user_type=jsonObject.getString("user_type");
+               // Log.e("user_type",""+user_type);
                 String Sch_Mem_id = jsonObject.getString("Sch_Mem_id");
                 Log.e("Sch_Mem_id", "" + Sch_Mem_id);
                 String Mem_Sch_Id = jsonObject.getString("Mem_Sch_Id");
                 Log.e("Mem_Sch_Id", "" + Mem_Sch_Id);
+                String Mem_Type=jsonObject.getString("Mem_Type");
                 String Mem_Name = jsonObject.getString("Mem_Name");
-
+                Log.e("Mem_Name",""+Mem_Name);
                 String Mem_Emailid = jsonObject.getString("Mem_Emailid");
+                Log.e("Mem_Emailid",""+Mem_Emailid);
 
-
-                JSONArray arr = jsonObject.getJSONArray("class_data");
+                JSONObject class_data=jsonObject.getJSONObject("class_data");
+                Log.e("class_data",""+class_data);
+                JSONArray arr = class_data.getJSONArray("data");
+                Log.e("arr",""+arr);
 
                 for (int i = 0; i < arr.length(); i++) {
                     JSONObject obj = arr.getJSONObject(i);
 
                     Student_Login_Data student_login_data = new Student_Login_Data();
-                    student_login_data.setClass_id(obj.optString("class_id"));
-                    student_login_data.setClass_name(obj.optString("class_name"));
+                    student_login_data.setClass_id(obj.optString("classid"));
+                    student_login_data.setClass_name(obj.optString("classname"));
+                    student_login_data.setClassdesc(obj.optString("classdesc"));
+                    student_login_data.setTopicname(obj.optString("topicname"));
+                    student_login_data.setCla_Id(obj.optString("Cla_Id"));
+
                     student_login_data.setSubject(obj.optString("subject"));
-                    student_login_data.setStudents(obj.optString("students"));
+                    student_login_data.setStudents(obj.optString("student"));
+
+                    String class_id = obj.getString("classid");
+                    Log.e("class_id",""+class_id);
+                    String class_name = obj.getString("classname");
+                    String students = obj.getString("student");
+                    String Cla_Id=obj.optString("Cla_Id");
+                    Log.e("Cla_Id",""+Cla_Id);
+
                     stulogindata.add(student_login_data);
                     mListView.setAdapter(mAdapter);
-                    String class_id = obj.getString("class_id");
-                    String class_name = obj.getString("class_name");
-                    String subject = obj.getString("subject");
-                    String students = obj.getString("students");
-
 
                     preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
                     editor = preferences.edit();
-                    editor.putString("cls_clsid",class_id);
-                    Log.e("prefclassid",""+class_id);
+                    editor.putString("cls_clsid",Cla_Id);
+                    editor.putString("class_id",class_id);
+                    Log.e("prefclassid",""+Cla_Id);
                     editor.commit();
                 }
 

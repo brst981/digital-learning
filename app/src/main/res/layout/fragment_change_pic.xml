@@ -51,7 +51,7 @@
         android:layout_below="@+id/text_heading_"
        android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="50dp"
         app:rv_color="#000"
         app:rv_rippleDuration="100"
         app:rv_type="rectangle"

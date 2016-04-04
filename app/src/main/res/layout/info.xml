@@ -15,6 +15,7 @@
             android:background="@android:color/transparent"
             android:src="@drawable/ic_back"
             android:scaleType="fitXY"
+            android:visibility="gone"
             android:id="@+id/back"
             android:padding="7dp"
             android:layout_alignParentLeft="true"
@@ -62,19 +63,21 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <ImageView
+        <app.com.digitallearning.Utill.CircularImageView
+            android:src="@drawable/images"
+            android:id="@+id/studentimage"
             android:layout_marginTop="20dp"
-            android:src="@drawable/ic_user"
-            android:layout_width="match_parent"
+            android:layout_gravity="center"
+            android:layout_width="100dp"
             android:layout_height="100dp" />
         <LinearLayout
             android:layout_margin="5dp"
-            android:padding="15dp"
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
         <RelativeLayout
             android:orientation="horizontal"
+
             android:layout_width="match_parent"
             android:layout_height="40dp">
             <TextView
@@ -89,7 +92,6 @@
                 android:layout_height="match_parent" />
             <TextView
                 android:id="@+id/edtemailid"
-                android:text="jasdeepgrewal248@gmail.com"
                 android:textSize="16dp"
                 android:textColor="#000"
                 android:gravity="center|end"
@@ -119,7 +121,7 @@
                 android:layout_width="80dp"
                 android:layout_height="30dp" />
             <TextView
-                android:text="Jasdeep Grewal"
+
                 android:textSize="16dp"
                 android:textColor="#000"
                 android:id="@+id/edtfirstname"
@@ -148,7 +150,7 @@
                 android:layout_width="80dp"
                 android:layout_height="30dp" />
             <TextView
-                android:text="1234567890"
+
                 android:textSize="16dp"
                 android:textColor="#000"
                 android:id="@+id/edtphonenumber"
@@ -177,7 +179,7 @@
                 android:layout_width="80dp"
                 android:layout_height="30dp" />
             <TextView
-                android:text="1234"
+
                 android:textSize="16dp"
                 android:textColor="#000"
                 android:id="@+id/edtwhatsapp"
@@ -206,7 +208,7 @@
                 android:layout_width="80dp"
                 android:layout_height="30dp" />
             <TextView
-                android:text="1234"
+
                 android:textSize="16dp"
                 android:textColor="#000"
                 android:id="@+id/edtwechat"
@@ -223,14 +225,14 @@
         </LinearLayout>
 
         <TextView
+            android:id="@+id/txtdescription"
             android:layout_margin="5dp"
             android:padding="5dp"
             android:background="@drawable/edittext_rectangle_selector"
             android:textSize="18dp"
             android:textColor="#000"
-            android:text="Dis"
             android:layout_width="match_parent"
-            android:layout_height="30dp" />
+            android:layout_height="50dp" />
     </LinearLayout>
 
     

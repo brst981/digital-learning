@@ -492,11 +492,11 @@ public class Quiz_View extends Fragment {
                             }
                             Log.e("object1", "" + object1);
                         }
-                        Quiz_Edit.dataquiz = quizdata;
+                        Quiz_Edit.editdataquiz = quizdata;
 
                         getFragmentManager().popBackStack();
                         Log.e("quizdata", "" + quizdata);
-                        Log.e("quizdatainglob", "" + Quiz_Edit.dataquiz);
+                        Log.e("quizdatainglob", "" + Quiz_Edit.editdataquiz);
 
                     }
                 });

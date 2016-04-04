@@ -287,7 +287,7 @@ public class LessonProfile extends Fragment {
                         phonenumbertext.setText(phonenumber);
                         wechattext.setText(wechat);
                         whatsapptext.setText(whatsapp);
-                        Picasso.with(getActivity()).load(photo).into(imgprofilepic);
+                        Picasso.with(getActivity()).load(photo).placeholder(R.drawable.img_loading).into(imgprofilepic);
                         descriptiontext.setText(description);
 
                     }}

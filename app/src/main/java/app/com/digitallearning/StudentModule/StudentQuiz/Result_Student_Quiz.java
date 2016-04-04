@@ -1,6 +1,8 @@
 package app.com.digitallearning.StudentModule.StudentQuiz;
 
+import android.app.ProgressDialog;
 import android.graphics.PointF;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
@@ -11,8 +13,14 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import app.com.digitallearning.R;
+import app.com.digitallearning.WebServices.WSConnector;
 
 /**
  * Created by ${PSR} on 2/4/16.
@@ -24,12 +32,14 @@ public class Result_Student_Quiz extends Fragment {
     TextView headerTitle,txtusername,userscore,userans,userpercantage,userresult,usertimetaken;
     String textHeader,username,scoring ,correct,min_score,result_grade,total_time;
     ImageButton imageButtonZoomIn, imageButtonZoomOut;
+    ProgressDialog dlg;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootview = inflater.inflate(R.layout.result_quiz_view, container, false);
         back=(ImageButton)rootview.findViewById(R.id.back);
         rel=(RelativeLayout)rootview.findViewById(R.id.rel) ;
+        dlg=new ProgressDialog(getActivity());
         username= getArguments().getString("username");
         scoring=getArguments().getString("scoring");
         correct=getArguments().getString("correct");
@@ -44,13 +54,13 @@ public class Result_Student_Quiz extends Fragment {
         userresult=(TextView)rootview.findViewById(R.id.userresult);
         usertimetaken=(TextView)rootview.findViewById(R.id.usertimetaken);
         Log.e("timeres",""+usertimetaken);
-
         txtusername.setText(username);
         userscore.setText(scoring);
         userans.setText(correct);
-        userpercantage.setText(min_score);
+        userpercantage.setText(min_score +"%");
         userresult.setText(result_grade);
         usertimetaken.setText(total_time);
+
 
 
         imageButtonZoomIn = (ImageButton)rootview. findViewById(R.id.img_zoom_in);
@@ -100,6 +110,83 @@ public class Result_Student_Quiz extends Fragment {
         rel.setScaleY(scaleY);
     }
 
+    class Quiz_Perform extends AsyncTask<String, Integer, String> {
 
+        @Override
+        protected String doInBackground(String... params) {
+            return WSConnector.Student_Perform_Quiz(params[0], params[1],params[2],params[3],params[4],params[5]);
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            dlg.setMessage("Loading....");
+            dlg.setCancelable(false);
+            dlg.show();
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+            dlg.dismiss();
+            Log.e("StudentQuiz_Perform", "" + result);
+            if (result.contains("true")) {
+
+
+
+
+
+            } else if (result.contains("false")) {
+                Toast.makeText(getActivity(), "No data", Toast.LENGTH_SHORT).show();
+
+            }
+        }
+//{"success":true,"data":[{"username":"Komal","scoring":"50 out of 100 ( 50 % )","correct":"1 out of 2","min_score":"60","result_grade":"FAIL","total_time":"01 SECS "}]}
+
+        private void updateGet_Lesson(String success) {
+
+            try {
+
+                JSONObject jsonObject = new JSONObject(success);
+
+                JSONArray arr = jsonObject.optJSONArray("data");
+
+                Log.e("arr", " " + arr);
+                for (int i = 0; i < arr.length(); i++) {
+                    JSONObject obj = arr.getJSONObject(i);
+                    String username=obj.getString("username");
+                    Log.e("username",""+username);
+
+                    String scoring=obj.getString("scoring");
+                    Log.e("scoring",""+scoring);
+
+                    String correct=obj.getString("correct");
+                    Log.e("correct",""+correct);
+
+                    String min_score=obj.getString("min_score");
+                    Log.e("min_score",""+min_score);
+
+                    String result_grade=obj.getString("result_grade");
+                    Log.e("result_grade",""+result_grade);
+
+                    String total_time=obj.getString("total_time");
+                    Log.e("total_time",""+total_time);
+
+
+
+
+
+
+                }
+
+
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+
+    }
 
 }

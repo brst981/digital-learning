@@ -3,6 +3,7 @@ package app.com.digitallearning.TeacherModule.Resource;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,7 @@ public class Preview extends Fragment {
         rootview = inflater.inflate(R.layout.preview_res, container, false);
         edt_description_lesson=(TextView)rootview.findViewById(R.id.edt_description_lesson);
         title=getArguments().getString("title");
+        Log.e("titleres",""+title);
         des=getArguments().getString("des");
 
         AppCompatActivity activity = (AppCompatActivity) getActivity();

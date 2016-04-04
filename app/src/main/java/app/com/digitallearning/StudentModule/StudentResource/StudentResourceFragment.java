@@ -89,7 +89,7 @@ public class StudentResourceFragment extends  Fragment {
         mRecyclerView.setAdapter(mAdapter);
 
         preferences= PreferenceManager.getDefaultSharedPreferences(getActivity());
-        cls_clsid=preferences.getString("cls_clsid","");
+        cls_clsid=preferences.getString("class_id","");
         Sch_Mem_id=preferences.getString("Sch_Mem_id","");
 
         new Resource_Listing().execute(cls_clsid,Sch_Mem_id);
@@ -182,6 +182,8 @@ public class StudentResourceFragment extends  Fragment {
                             FragmentManager fragmentManager = getFragmentManager();
                             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                             Bundle bundle=new Bundle();
+                            bundle.putString("studenttitle",resourcedataList.get(position).getTitle());
+                        Log.e("studenttitle",""+resourcedataList.get(position).getTitle());
                             bundle.putString("studentdescription",resourcedataList.get(position).getDescription());
                             Student_Resource_Description student_resource_description = new Student_Resource_Description();
                             fragmentTransaction.replace(android.R.id.content, student_resource_description).addToBackStack(null);

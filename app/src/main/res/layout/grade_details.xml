@@ -127,7 +127,9 @@
             android:layout_weight="1.6"
             android:layout_height="wrap_content" />
         <EditText
-            android:gravity="end"
+            android:id="@+id/txtgivengrade"
+            android:text="A"
+            android:paddingLeft="7dp"
             android:layout_weight="0.3"
             android:layout_marginTop="10dp"
             android:layout_width="0dp"

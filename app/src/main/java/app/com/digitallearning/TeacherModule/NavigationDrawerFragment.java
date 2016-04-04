@@ -1,21 +1,35 @@
 package app.com.digitallearning.TeacherModule;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Fragment;
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +39,7 @@ import app.com.digitallearning.NavigationDrawerCallbacks;
 import app.com.digitallearning.NavigationItem;
 import app.com.digitallearning.R;
 import app.com.digitallearning.UI.ScrimInsetsFrameLayout;
+import app.com.digitallearning.WebServices.WSConnector;
 
 /**
  * Created by poliveira on 24/10/2014.
@@ -35,7 +50,7 @@ public class NavigationDrawerFragment extends Fragment implements NavigationDraw
     private static final String PREFERENCES_FILE = "my_app_settings"; //TODO: change this to your file
     private NavigationDrawerCallbacks mCallbacks;
     private RecyclerView mDrawerList;
-
+    String Sch_Mem_id,name;
     public static ImageView imageView;
     private View mFragmentContainerView;
     private DrawerLayout mDrawerLayout;
@@ -43,6 +58,8 @@ public class NavigationDrawerFragment extends Fragment implements NavigationDraw
     private boolean mUserLearnedDrawer;
     private boolean mFromSavedInstanceState;
     private int mCurrentSelectedPosition;
+    ProgressDialog dlg;
+    SharedPreferences preferences;
 android.support.v4.app.Fragment mFragment;
 
 
@@ -52,7 +69,7 @@ android.support.v4.app.Fragment mFragment;
         View view = inflater.inflate(R.layout.fragment_navigation_drawer, container, false);
         mDrawerList = (RecyclerView) view.findViewById(R.id.drawerList);
         imageView=(ImageView)view.findViewById(R.id.imageView);
-
+        dlg=new ProgressDialog(getActivity());
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -234,5 +251,95 @@ android.support.v4.app.Fragment mFragment;
     public static String readSharedSetting(Context ctx, String settingName, String defaultValue) {
         SharedPreferences sharedPref = ctx.getSharedPreferences(PREFERENCES_FILE, Context.MODE_PRIVATE);
         return sharedPref.getString(settingName, defaultValue);
+    }
+
+    class Teacher_getProfile extends AsyncTask<String, Integer, String> {
+
+
+        @Override
+        protected String doInBackground(String... params) {
+
+            return WSConnector.Teacher_getProfile(params[0], params[1]);
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            dlg.setMessage("Loading.....");
+            dlg.setCancelable(false);
+            dlg.show();
+
+        }
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+            dlg.dismiss();
+            Log.e("Get_LessonAPI", "" + result);
+
+            if (result.contains("true")) {
+                updateTeacher_getProfile(result);
+
+            } else if (result.contains("false")) {
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+                alertDialog.setMessage("No data").setCancelable(false)
+                        .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                // TODO Auto-generated method stub
+                                dialog.dismiss();
+                               /* Intent deletetoclass=new Intent(getActivity(),ClassActivity.class);
+                                startActivity(deletetoclass);
+                                getActivity().finish();*/
+
+                            }
+                        });
+
+                AlertDialog dialog = alertDialog.create();
+                dialog.show();
+                TextView messageText = (TextView) dialog
+                        .findViewById(android.R.id.message);
+                messageText.setGravity(Gravity.CENTER);
+            }
+        }
+        private void updateTeacher_getProfile(String success) {
+
+            try {
+
+                JSONObject jsonObject = new JSONObject(success);
+
+                JSONArray arr = jsonObject.getJSONArray("data");
+
+                JSONObject obj;
+                for (int i = 0; i < arr.length(); i++) {
+                    obj = arr.getJSONObject(i);
+
+                    String firstname = obj.getString("firstname");
+                    String lastName = obj.getString("lastName");
+                    String email = obj.getString("email");
+                    String photo = obj.getString("photo");
+                    String description = obj.getString("description");
+                    String phonenumber = obj.getString("phonenumber");
+                    Picasso.with(getActivity()).load(photo).placeholder(R.drawable.img_loading).into(imageView);
+
+                }
+
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        Sch_Mem_id = preferences.getString("Sch_Mem_id", "");
+        Log.e("Sch_Mem_id", "" + Sch_Mem_id);
+        name=preferences.getString("name","");
+        Log.e("name",""+name);
+
+        new Teacher_getProfile().execute(Sch_Mem_id, name);
     }
 }

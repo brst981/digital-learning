@@ -1,12 +1,16 @@
 package app.com.digitallearning.StudentModule;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.PointF;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
@@ -30,6 +34,8 @@ public class NavigationForStudent extends AppCompatActivity implements Navigatio
     boolean fromClass = false;
     public static boolean isFromDrawer = false;
     FrameLayout frame;
+    int val=0;
+    SharedPreferences preferences;
     ImageButton imageButtonZoomIn, imageButtonZoomOut;
     @Override
     protected void onCreate( Bundle savedInstanceState) {
@@ -116,7 +122,15 @@ public class NavigationForStudent extends AppCompatActivity implements Navigatio
 
             case 5:
 
-                finish();
+                Intent gototeacher=new Intent(NavigationForStudent.this,StudentLoginActivity.class);
+
+                preferences = PreferenceManager.getDefaultSharedPreferences(NavigationForStudent.this);
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putInt("remembermecheckedstu", val);
+                Log.e("val",""+val);
+                editor.commit();
+                startActivity(gototeacher);
+                finishAffinity();
 
 
                 break;

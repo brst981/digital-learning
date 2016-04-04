@@ -11,6 +11,37 @@ public class Student_Login_Data implements Serializable {
     private String class_name;
     private String subject;
     private String students;
+
+    public String getClassdesc() {
+        return classdesc;
+    }
+
+    public void setClassdesc(String classdesc) {
+        this.classdesc = classdesc;
+    }
+
+    public String getTopicname() {
+        return topicname;
+    }
+
+    public void setTopicname(String topicname) {
+        this.topicname = topicname;
+    }
+
+    public String getCla_Id() {
+        return Cla_Id;
+    }
+
+    public void setCla_Id(String cla_Id) {
+        Cla_Id = cla_Id;
+    }
+
+    private String classdesc;
+    private String topicname;
+    private String Cla_Id;
+
+
+
     public String getClass_id() {
         return class_id;
     }

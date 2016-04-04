@@ -627,7 +627,7 @@ public class Student_Quiz_View extends Fragment {
                     bundle.putString("result_grade",result_grade);
                     bundle.putString("total_time",total_time);
                     Log.e("timepass",""+total_time);
-                   fragmentTransaction.replace(R.id.container, resultStudentQuiz).addToBackStack(null);
+                   fragmentTransaction.replace(R.id.container, resultStudentQuiz);
                     resultStudentQuiz.setArguments(bundle);
                   fragmentTransaction.commit();
 

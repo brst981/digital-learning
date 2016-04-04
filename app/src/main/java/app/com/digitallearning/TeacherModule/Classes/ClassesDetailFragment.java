@@ -152,6 +152,7 @@ public class ClassesDetailFragment extends Fragment {
         });
 
 
+
         floatingActionButtonChange.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -312,7 +313,7 @@ public class ClassesDetailFragment extends Fragment {
                                     Log.e("OnError", "ss");
 
                                     Picasso.with(getActivity())
-                                            .load(class_image)
+                                            .load(class_image).placeholder(R.drawable.img_loading)
 
                                             .into(img_edit_picture, new Callback() {
                                                 @Override
@@ -362,7 +363,7 @@ public class ClassesDetailFragment extends Fragment {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            dlg.setMessage("Loading curriculum.....");
+            dlg.setMessage("Loading .....");
             dlg.setCancelable(false);
             dlg.show();
 
@@ -371,7 +372,11 @@ public class ClassesDetailFragment extends Fragment {
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
-            dlg.dismiss();
+            if(dlg.isShowing()){
+               // dlg.dismiss();
+            }
+
+
             Log.e("Get_syllabusAPI", "" + result);
             if (result.contains("false")) {
 
@@ -383,6 +388,9 @@ public class ClassesDetailFragment extends Fragment {
                 updateTeacherLogIn(result);
 
             }
+
+            new Schedule_listing().execute(Sch_Mem_id, cla_classid);
+
         }
 
         private void updateTeacherLogIn(String success) {
@@ -424,7 +432,7 @@ public class ClassesDetailFragment extends Fragment {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            dlg.setMessage("Loading schedule....");
+            dlg.setMessage("Loading ....");
             dlg.setCancelable(false);
             dlg.show();
 
@@ -435,7 +443,8 @@ public class ClassesDetailFragment extends Fragment {
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
-            dlg.dismiss();
+            if(dlg.isShowing())
+            //dlg.dismiss();
             Log.e("REsulTinSchedule", "" + result);
             if (result.contains("true")) {
 
@@ -446,6 +455,8 @@ public class ClassesDetailFragment extends Fragment {
                 Toast.makeText(getActivity(), "No data", Toast.LENGTH_SHORT).show();
                 scheduleday.setText(" ");
             }
+
+            new Get_syllabus().execute(cla_classid, Sch_Mem_id);
         }
 
         private void updateTeacherLogIn(String success) {
@@ -505,7 +516,7 @@ public class ClassesDetailFragment extends Fragment {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            dlg.setMessage("Loading syllabus.....");
+            dlg.setMessage("Loading .....");
             dlg.setCancelable(false);
             dlg.show();
 
@@ -558,7 +569,7 @@ public class ClassesDetailFragment extends Fragment {
         super.onResume();
 
         new Get_carriculum().execute(cla_classid, Sch_Mem_id);
-        new Schedule_listing().execute(Sch_Mem_id, cla_classid);
-        new Get_syllabus().execute(cla_classid, Sch_Mem_id);
+//        new Schedule_listing().execute(Sch_Mem_id, cla_classid);
+//        new Get_syllabus().execute(cla_classid, Sch_Mem_id);
     }
 }

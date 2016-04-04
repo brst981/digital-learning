@@ -15,9 +15,11 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.andexert.library.RippleView;
 
@@ -27,6 +29,7 @@ import org.json.JSONObject;
 
 import app.com.digitallearning.R;
 import app.com.digitallearning.StudentModule.Model.Student_Login_Data;
+import app.com.digitallearning.Utill.GlobalClass;
 import app.com.digitallearning.WebServices.WSConnector;
 
 /**
@@ -37,21 +40,32 @@ public class StudentLoginFragment extends Fragment {
     View rootview;
     ProgressDialog dlg;
     EditText edt_username, edt_pwd;
-    ImageButton back;
     String schoolID, schoolName,name,password, Sch_Mem_id,Mem_Sch_Id;
     SharedPreferences preferences;
     SharedPreferences.Editor editor;
+    int remembermecheckedstu;
+    CheckBox checked;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootview = inflater.inflate(R.layout.activity_student_login, container, false);
         rippleViewLogin = (RippleView) rootview.findViewById(R.id.ripple_login);
         edt_username = (EditText) rootview.findViewById(R.id.edt_username_student);
-        back=(ImageButton)rootview.findViewById(R.id.back);
-        back.setOnClickListener(new View.OnClickListener() {
+
+        checked=(CheckBox)rootview.findViewById(R.id.checkbox_remember);
+        checked.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onClick(View v) {
-                getFragmentManager().popBackStackImmediate();
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked==true){
+                    GlobalClass.rememberMe=true;
+                    remembermecheckedstu=11;
+                    Toast.makeText(getActivity(),"Checked",Toast.LENGTH_SHORT).show();
+                }
+                else if(isChecked==false){
+                    remembermecheckedstu=10;
+                    GlobalClass.rememberMe=false;
+                    Toast.makeText(getActivity(),"Unchecked",Toast.LENGTH_SHORT).show();
+                }
             }
         });
         dlg = new ProgressDialog(getActivity());
@@ -65,13 +79,7 @@ public class StudentLoginFragment extends Fragment {
 
 
 
-                preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-                SharedPreferences.Editor editor = preferences.edit();
-                editor.putString("name", name);
-                editor.putString("schoolName", schoolName);
-                editor.putString("password", password);
-                editor.putString("schoolID", schoolID);
-                editor.commit();
+
 
                 new StudentLogIn().execute(name, password, schoolID);
 
@@ -184,6 +192,15 @@ public class StudentLoginFragment extends Fragment {
                     Log.e("students",""+students);
 
                 }
+                preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putString("name", name);
+                editor.putString("schoolName", schoolName);
+                editor.putString("password", password);
+                editor.putString("schoolID", schoolID);
+                editor.putInt("remembermecheckedstu", remembermecheckedstu);
+                Log.e("remembermecheckedstu",""+remembermecheckedstu);
+                editor.commit();
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 StudentClass studentClass = new StudentClass();

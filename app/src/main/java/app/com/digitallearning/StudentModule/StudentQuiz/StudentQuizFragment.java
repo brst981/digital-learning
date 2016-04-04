@@ -150,7 +150,7 @@ public class StudentQuizFragment  extends Fragment {
         initData();
 
         preferences= PreferenceManager.getDefaultSharedPreferences(getActivity());
-        cid=preferences.getString("cls_clsid","");
+        cid=preferences.getString("class_id","");
         userid=preferences.getString("Sch_Mem_id","");
         new Quiz_listing().execute(cid,userid);
         return rootview;

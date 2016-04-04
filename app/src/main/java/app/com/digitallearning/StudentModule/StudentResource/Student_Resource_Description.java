@@ -3,6 +3,7 @@ package app.com.digitallearning.StudentModule.StudentResource;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,8 +18,8 @@ import app.com.digitallearning.R;
  */
 public class Student_Resource_Description extends Fragment {
     View rootview;
-    TextView headerTitle,description;
-    String textHeader,studentdescription;
+    TextView headerTitle,description,textView;
+    String textHeader,studentdescription,studenttitle;
     ImageButton back;
     RelativeLayout desres;
 
@@ -27,6 +28,7 @@ public class Student_Resource_Description extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootview = inflater.inflate(R.layout.student_description, container, false);
         description=(TextView)rootview.findViewById(R.id.description);
+        textView=(TextView)rootview.findViewById(R.id.textView);
         desres=(RelativeLayout)rootview.findViewById(R.id.desres);
         desres.setClickable(true);
         AppCompatActivity activity = (AppCompatActivity) getActivity();
@@ -44,8 +46,11 @@ public class Student_Resource_Description extends Fragment {
             }
         });
 
+        studenttitle=getArguments().getString("studenttitle");
+        Log.e("studenttitleres",""+studenttitle);
         studentdescription=getArguments().getString("studentdescription");
         description.setText(studentdescription);
+        textView.setText(studenttitle);
 
         return rootview;
     }

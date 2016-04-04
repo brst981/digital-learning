@@ -84,7 +84,7 @@ public class StudentLessonFragment  extends Fragment {
         mListView = (ListView) rootview.findViewById(R.id.listview_archieved);
         mAdapter = new ListViewAdapter(getActivity());
         preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        clsid = preferences.getString("cls_clsid", "");
+        clsid = preferences.getString("class_id", "");
 
         new Student_Get_Lesson().execute(clsid);
         NavigationDrawerStudent.imageView.setOnClickListener(new View.OnClickListener() {

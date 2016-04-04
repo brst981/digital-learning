@@ -45,7 +45,7 @@ public class TeacherLoginFragment extends Fragment {
     TextView text_school_name;
     ProgressDialog dlg;
     EditText edt_username, edt_pwd;
-    String name, password, schoolID, schoolName,Sch_Mem_id,Mem_Sch_Id,cla_classid;
+    String name, password, schoolID, schoolName,Sch_Mem_id,Mem_Sch_Id,cla_classid,user_type;
     ArrayList<String> usreId, schoolId,className,classid,classSub,classStudent;
     ArrayList<String> arrId, arrName, arrChildId, arrChildNAme;
     RelativeLayout teacherlogin;
@@ -54,6 +54,7 @@ public class TeacherLoginFragment extends Fragment {
     SharedPreferences.Editor editor;
     private static final int CONTENT_VIEW_ID = 0x7f0c006c;
     CheckBox checked;
+    int remembermechecked;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -69,9 +70,11 @@ public class TeacherLoginFragment extends Fragment {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked==true){
                     GlobalClass.rememberMe=true;
+                    remembermechecked=1;
                     Toast.makeText(getActivity(),"Checked",Toast.LENGTH_SHORT).show();
                 }
-                else if(isChecked=false){
+                else if(isChecked==false){
+                    remembermechecked=0;
                     GlobalClass.rememberMe=false;
                     Toast.makeText(getActivity(),"Unchecked",Toast.LENGTH_SHORT).show();
                 }
@@ -115,13 +118,7 @@ public class TeacherLoginFragment extends Fragment {
                 Log.e("name", "" + name);
                 password = edt_pwd.getText().toString();
                 Log.e("password", "" + password);
-                preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-                SharedPreferences.Editor editor = preferences.edit();
-                editor.putString("name", name);
-                editor.putString("schoolName", schoolName);
-                editor.putString("password", password);
-                editor.putString("schoolID", schoolID);
-                editor.commit();
+
 
 
                 new TeacherLogIn().execute(name, password, schoolID);
@@ -218,6 +215,8 @@ public class TeacherLoginFragment extends Fragment {
 
                 JSONObject jsonObject = new JSONObject(success);
 
+                 user_type=jsonObject.getString("user_type");
+
                  Sch_Mem_id = jsonObject.getString("Sch_Mem_id");
 
                  Mem_Sch_Id = jsonObject.getString("Mem_Sch_Id");
@@ -229,6 +228,7 @@ public class TeacherLoginFragment extends Fragment {
                 editor = preferences.edit();
                 editor.putString("Sch_Mem_id", Sch_Mem_id);
                 editor.putString("Mem_Sch_Id", Mem_Sch_Id);
+                editor.putString("schoolID",schoolID);
                 editor.commit();
 
 
@@ -267,6 +267,15 @@ public class TeacherLoginFragment extends Fragment {
 
 
                 }
+                preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putString("name", name);
+                editor.putString("schoolName", schoolName);
+                editor.putString("password", password);
+                editor.putString("schoolID", schoolID);
+                editor.putInt("rememberMe", remembermechecked);
+                Log.e("remembermechecked",""+remembermechecked);
+                editor.commit();
                 Intent intenttoClass=new Intent(getActivity() , ClassActivity.class);
                 startActivity(intenttoClass);
 

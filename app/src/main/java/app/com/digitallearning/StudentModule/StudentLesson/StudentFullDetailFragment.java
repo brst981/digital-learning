@@ -118,7 +118,7 @@ public class StudentFullDetailFragment extends Fragment {
         Sch_Mem_id = preferences.getString("Sch_Mem_id", "");
         Log.e("Sch_Mem_id", "" + Sch_Mem_id);
 
-        cla_classid = preferences.getString("cla_classid", "");
+        cla_classid = preferences.getString("class_id", "");
         new Get_Lesson().execute(cla_classid, Sch_Mem_id);
     }
 

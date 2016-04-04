@@ -216,10 +216,13 @@ public class Quiz_Question_Fragment extends Fragment {
                         object.put(String.valueOf(i+1), obj);
                         quizdata=object.toString();
                         AddQuiz.dataquiz=quizdata;
+                        Quiz_Edit.editdataquiz=quizdata;
+                        Log.e("updateQuiz",""+Quiz_Edit.editdataquiz);
 
                     } catch (JSONException e) {
                         // TODO Auto-generated catch block
                         e.printStackTrace();
+
                     }
                 }
 

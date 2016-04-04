@@ -15,8 +15,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -37,10 +40,11 @@ public class Info  extends Fragment {
     LinearLayout deslin;
     ImageButton back;
     ProgressDialog dlg;
+    ImageView studentimage;
     ImageButton imageButtonZoomIn, imageButtonZoomOut;
     SharedPreferences preferences;
     String Sch_Mem_id,name;
-    TextView edtemailid,edtfirstname,edtphonenumber,edtwhatsapp,edtwechat;
+    TextView edtemailid,edtfirstname,edtphonenumber,edtwhatsapp,edtwechat,txtdescription;
     String firstname,lastName,email,photo,phonenumber,description,social_id,wechat,whatsapp,cla_classid;
     ArrayList<Student_Info> studentinfolist=new ArrayList<Student_Info>();
     ArrayList<Student_Social_Data> socialdatalist=new ArrayList<Student_Social_Data>();
@@ -53,14 +57,15 @@ public class Info  extends Fragment {
         edtphonenumber=(TextView)rootview.findViewById(R.id.edtphonenumber);
         edtwhatsapp=(TextView)rootview.findViewById(R.id.edtwhatsapp);
         edtwechat=(TextView)rootview.findViewById(R.id.edtwechat);
-
+        txtdescription=(TextView)rootview.findViewById(R.id.txtdescription);
+        studentimage=(ImageView)rootview.findViewById(R.id.studentimage);
 
 
         preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         Sch_Mem_id = preferences.getString("Sch_Mem_id", "");
         Log.e("Sch_Mem_id", "" + Sch_Mem_id);
         name=preferences.getString("name","");
-        cla_classid=preferences.getString("cla_classid","");
+        cla_classid=preferences.getString("cls_clsid","");
         Log.e("name",""+name);
         dlg=new ProgressDialog(getActivity());
         back=(ImageButton)rootview.findViewById(R.id.back);
@@ -107,7 +112,7 @@ public class Info  extends Fragment {
         @Override
         protected String doInBackground(String... params) {
 
-            return WSConnector.Student_Info(params[0],params[1]);
+            return WSConnector.Student_Info(params[0]);
         }
 
         @Override
@@ -167,8 +172,10 @@ public class Info  extends Fragment {
                     lastName = obj.getString("lastName");
                     email = obj.getString("email");
                     photo = obj.getString("photo");
+                    Log.e("photo",""+photo);
                     description = obj.getString("description");
                     phonenumber = obj.getString("phonenumber");
+                    description=obj.optString("description");
                     JSONArray arr1 = obj.getJSONArray("social");
                     JSONObject obj1;
                     for (int j = 0; j < arr1.length(); j++) {
@@ -181,6 +188,8 @@ public class Info  extends Fragment {
                         edtphonenumber.setText(phonenumber);
                         edtwechat.setText(wechat);
                         edtwhatsapp.setText(whatsapp);
+                        txtdescription.setText(description);
+                        Picasso.with(getActivity()).load(photo).placeholder(R.drawable.img_loading).into(studentimage);
 
                     }}
 

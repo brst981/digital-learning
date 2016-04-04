@@ -179,7 +179,7 @@ public class Student_Lesson_Profile extends Fragment {
         });
 
 
-        new Student_Profile().execute(Sch_Mem_id,name,name);
+        new Student_Profile().execute(Sch_Mem_id,name);
 
 
         rippleupdate.setOnRippleCompleteListener(new RippleView.OnRippleCompleteListener() {
@@ -306,7 +306,7 @@ public class Student_Lesson_Profile extends Fragment {
         @Override
         protected String doInBackground(String... params) {
 
-            return WSConnector.Student_Info(params[0], params[1]);
+            return WSConnector.Student_Profile(params[0], params[1]);
         }
 
         @Override

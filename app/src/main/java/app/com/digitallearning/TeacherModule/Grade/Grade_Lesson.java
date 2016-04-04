@@ -48,7 +48,7 @@ public class Grade_Lesson extends  Fragment {
     private RecyclerView.Adapter mAdapter;
     ProgressDialog dlg;
     SharedPreferences preferences;
-    String Sch_Mem_id, cla_classid,studentid;
+    String Sch_Mem_id, cla_classid,studentid,total_grade_for_class;
     ArrayList<String> arrLessonName;
 
     String jsonResult;
@@ -171,6 +171,9 @@ public class Grade_Lesson extends  Fragment {
                             bundle.putString("studentid", studentid);
                             bundle.putString("jsonResult",jsonResult);
                             bundle.putString("position",""+position);
+                        bundle.putString("total_grade_for_class",total_grade_for_class);
+
+                        Log.e("bbbbbb",""+total_grade_for_class);
                           //  Log.e("QUIZNAMES", "" + quizinfolist.get(i).getQuiz_name());
                       //  }
                         fragmentTransaction.replace(R.id.container,grade_details).addToBackStack(null);
@@ -200,116 +203,6 @@ public class Grade_Lesson extends  Fragment {
     }
 
 
-
-
-    /*class Get_Lesson extends AsyncTask<String, Integer, String> {
-
-
-        @Override
-        protected String doInBackground(String... params) {
-
-            return WSConnector.Get_Lesson(params[0], params[1]);
-
-        }
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            dlg = new ProgressDialog(getActivity());
-            dlg.setMessage("Loading.....");
-            dlg.setCancelable(false);
-            dlg.show();
-
-
-        }
-
-
-        @Override
-        protected void onPostExecute(String result) {
-            super.onPostExecute(result);
-
-//            if (dlg != null)
-                dlg.dismiss();
-            Log.e("Get_LessonAPI", "" + result);
-
-            if (result.contains("false")) {
-
-                AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
-                alertDialog.setMessage("No data").setCancelable(false)
-                        .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                // TODO Auto-generated method stub
-                                dialog.dismiss();
-
-
-                            }
-                        });
-
-                AlertDialog dialog = alertDialog.create();
-                dialog.show();
-                TextView messageText = (TextView) dialog
-                        .findViewById(android.R.id.message);
-                messageText.setGravity(Gravity.CENTER);
-
-
-            } else if (result.contains("true")) {
-                updateGet_Lesson(result);
-
-
-            }
-        }
-
-        private void updateGet_Lesson(String success) {
-            dataList.clear();
-            try {
-
-                JSONObject jsonObject = new JSONObject(success);
-
-                JSONArray arr = jsonObject.optJSONArray("data");
-                Log.e("arr", " " + arr);
-
-
-                for (int i = 0; i < arr.length(); i++) {
-                    JSONObject obj = arr.getJSONObject(i);
-
-                    Data data = new Data();
-                    data.setLessonId(obj.optString("les_id"));
-                    data.setLessonClassId(obj.getString("Les_Cls_Id"));
-                    data.setLessonName(obj.getString("lesson_name"));
-                    data.setLessonDate(obj.getString("les_date"));
-
-                    data.setDescription(obj.getString("desc"));
-                    data.setLessonImage(obj.getString("les_image"));
-                    data.setImageThumbnail(obj.getString("img_thumb"));
-                    data.setVideoUrl(obj.getString("video_url"));
-                    data.setVideoThumbnail(obj.getString("video_thumb"));
-                    dataList.add(data);
-
-                    Log.e("datalist",""+dataList);
-
-                    JSONArray arr1 = obj.getJSONArray("quiz_data");
-                    Log.e("arr1", "" + arr1);
-
-                    *//*for (int j = 0; j < arr1.length(); j++) {
-                        JSONObject obj1 = arr1.getJSONObject(j);
-
-                        QuizData quizData = new QuizData();
-                        quizData.setQuizMasterId(obj1.getString("quiz_master_id"));
-                        quizData.setQuizName(obj1.getString("quiz_name"));
-                        quizData.setQuizDescription(obj1.getString("quiz_desc"));
-                        quizDatalist.add(quizData);
-
-                    }*//*
-                    mRecyclerView.setAdapter(mAdapter);
-                }
-
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-    }*/
 
     @Override
     public void onResume() {
@@ -434,7 +327,7 @@ public class Grade_Lesson extends  Fragment {
                 }
                 JSONObject total_grade=jsonObject1.getJSONObject("total_grade");
                 Log.e("total_grade",""+total_grade);
-                String total_grade_for_class=Total_number.getString("total_grade_for_class");
+                 total_grade_for_class=Total_number.getString("total_grade_for_class");
                 Log.e("total_grade_for_class",""+total_grade_for_class);
                 //lesson_infolist  quiztotalscorelist  quizinfolist gradeinfolist
                     Log.e("sizeget",""+lesson_infolist.size());

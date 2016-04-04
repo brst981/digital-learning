@@ -12,15 +12,6 @@
         android:layout_height="60dp"
         android:background="@color/colorlima">
 
-        <ImageButton
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:id="@+id/back"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="5dp"
-            android:background="@android:color/transparent"
-            android:scaleType="fitXY"
-            android:src="@drawable/ic_back" />
 
         <TextView
             android:id="@+id/textView"

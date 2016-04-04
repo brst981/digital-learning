@@ -233,23 +233,28 @@ public class CreateClassFragment extends Fragment {
                 Log.e("srdescription",""+description);
 
 
-                if(title==null){
+                if(title.length()<1){
+
                     LogMessage.showDialog(getActivity(), null,
                             "Please fill required Fields" , "OK");
                 }
-                else if(EditClassFragment.style==null){
+                else if(EditClassFragment.style==null|| EditClassFragment.style==" "){
                     LogMessage.showDialog(getActivity(), null,
                             "Please fill required Fields" , "OK");
                 }
-                else if(topic==null){
+                else if(topic.length()<1||topic==" "){
                     LogMessage.showDialog(getActivity(), null,
                             "Please fill required Fields" , "OK");
                 }
-                else if(description==null){
+                else if(description.length()<1|| description==" "){
                     LogMessage.showDialog(getActivity(), null,
                             "Please fill required Fields" , "OK");
                 }
 else {
+
+                    Log.e("title==========","heloo"+title);
+
+                    Log.e("title==========",""+title);
                     new CreateClass().execute(Sch_Mem_id, userMem_Sch_Id, title, EditClassFragment.style, topic, description);
                 }
             }

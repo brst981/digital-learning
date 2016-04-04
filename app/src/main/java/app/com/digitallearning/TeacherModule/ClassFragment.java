@@ -68,7 +68,7 @@ public class ClassFragment extends Fragment {
     SharedPreferences preferences;
     SharedPreferences.Editor editor;
     RelativeLayout newrelative;
-
+    int val=0;
     public  String Cls_desc;
     ArrayList<String> newusreId, newschoolId,newclassName,newclassid,newclassSub,newclassStudent,newclassdescription,newsubject;
     String name,password,schoolID;
@@ -91,8 +91,20 @@ public class ClassFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                GlobalClass.rememberMe=false;
-                getActivity().finish();
+
+                Intent gototeacher=new Intent(getActivity(),TeacherLoginActivity.class);
+
+                preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putInt("rememberMe", val);
+                Log.e("val",""+val);
+                editor.commit();
+                startActivity(gototeacher);
+                getActivity().finishAffinity();
+
+               /* GlobalClass.rememberMe=false;
+                getActivity().finish();*/
+
             }
         });
 

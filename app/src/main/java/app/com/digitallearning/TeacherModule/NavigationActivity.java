@@ -1,13 +1,16 @@
 package app.com.digitallearning.TeacherModule;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.PointF;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
@@ -23,7 +26,6 @@ import app.com.digitallearning.TeacherModule.Lessons.LessonProfile;
 import app.com.digitallearning.TeacherModule.Quiz.QuizFragment;
 import app.com.digitallearning.TeacherModule.Resource.ResourceFragment;
 import app.com.digitallearning.TeacherModule.Students.StudentFragment;
-import app.com.digitallearning.Utill.GlobalClass;
 
 /**
  * Created by ${ShalviSharma} on 12/18/15.
@@ -36,7 +38,10 @@ public class NavigationActivity extends AppCompatActivity implements NavigationD
     public static boolean isFromDrawer = false;
     ImageButton imageButtonZoomIn, imageButtonZoomOut;
     FrameLayout frame;
+    int val=0;
     boolean classID=false;
+    SharedPreferences preferences;
+    SharedPreferences.Editor editor;
     @Override
     protected void onCreate( Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -159,78 +164,19 @@ public class NavigationActivity extends AppCompatActivity implements NavigationD
 
             case 6:
 
-                GlobalClass.rememberMe=false;
-                finish();
+               Intent gototeacher=new Intent(NavigationActivity.this,TeacherLoginActivity.class);
+
+                preferences = PreferenceManager.getDefaultSharedPreferences(NavigationActivity.this);
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putInt("rememberMe", val);
+                Log.e("val",""+val);
+                editor.commit();
+                startActivity(gototeacher);
+                finishAffinity();
 
 
-                break;
-            /*case 1:
-                headerTitle.setText("Search");
-                mFragment = AdvanceSearchFragment.newInstance();
-
-                break;
-            case 2:
-                headerTitle.setText("Spare Parts");
-                mFragment = SparePartsFragment.newInstance("");
-                break;
-
-            case 3:
-                headerTitle.setText("Add your Car");
-                mFragment = AddCarDetailsFragment.newInstance();
-                break;
-
-            case 4:
-                headerTitle.setText("Add Spare Part");
-                mFragment = SpareDetails.newInstance();
-                break;
-
-            case 5:
-                headerTitle.setText("Settings");
-                mFragment = SettingFragment.newInstance();
-                break;
-            case 6:
-
-
-                AlertDialog.Builder alertDialog = new AlertDialog.Builder(MainActivity.this);
-
-                // Setting Dialog Title
-                alertDialog.setTitle("Logged out");
-
-                // Setting Dialog Message
-                alertDialog.setMessage("Do you really want to logout?");
-
-                // Setting Icon to Dialog
-
-
-                // Setting Positive "Yes" Button
-                alertDialog.setPositiveButton("YES", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog,int which) {
-                        clearPrefernces();
-                        // Write your code here to invoke YES event
-                        Intent i =  new Intent(MainActivity.this,LoginActivity.class);
-                        startActivity(i);
-                        overridePendingTransition(R.anim.slide_in_left,
-                                R.anim.slide_out_right);
-                        finish();
-                    }
-                });
-
-                // Setting Negative "NO" Button
-                alertDialog.setNegativeButton("NO", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        // Write your code here to invoke NO event
-
-                        dialog.cancel();
-                    }
-                });
-
-                // Showing Alert Message
-                alertDialog.show();
 
                 break;
-            default:
-                break;
-*/
         }
 
 
@@ -257,24 +203,10 @@ public class NavigationActivity extends AppCompatActivity implements NavigationD
 
             super.onBackPressed();
 
-            /*Intent gotoclass=new Intent(NavigationActivity.this,ClassActivity.class);
-            startActivity(gotoclass);
-            finish();*/
 
         }
 
     }
-
-   /* public void clearPrefernces() {
-        editor = sharedPreferences.edit();
-        editor.remove(email);
-        editor.remove(uid);
-        editor.remove(pwd);
-        editor.clear();
-        editor.commit();
-
-
-    }*/
 
     public void zoom(Float scaleX, Float scaleY, PointF pivot) {
         frame.setPivotX(pivot.x);
@@ -282,4 +214,5 @@ public class NavigationActivity extends AppCompatActivity implements NavigationD
         frame.setScaleX(scaleX);
         frame.setScaleY(scaleY);
     }
+
 }

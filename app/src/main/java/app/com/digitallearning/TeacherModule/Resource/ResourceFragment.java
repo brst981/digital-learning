@@ -252,9 +252,10 @@ public class ResourceFragment extends Fragment {
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                     Resource_Edit classFragment = new Resource_Edit();
                     Bundle bundle=new Bundle();
-                    bundle.putString("resourceId",resourcedataList.get(pos).getResourceId());
-                    bundle.putString("title",resourcedataList.get(pos).getTitle());
-                    bundle.putString("description",resourcedataList.get(pos).getDescription());
+                    bundle.putString("resourceId",resourcedataList.get(position).getResourceId());
+                    bundle.putString("title",resourcedataList.get(position).getTitle());
+                    Log.e("titlesend",""+resourcedataList.get(position).getTitle());
+                    bundle.putString("description",resourcedataList.get(position).getDescription());
                     fragmentTransaction.replace(R.id.container, classFragment).addToBackStack(null);
                     classFragment.setArguments(bundle);
                     fragmentTransaction.commit();
