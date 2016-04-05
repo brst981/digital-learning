@@ -16,7 +16,6 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
@@ -44,7 +43,7 @@ public class SyllabusFragment extends Fragment{
     EditText sylbsTitle,des;
     String title,description;
     ProgressDialog dlg;
-    Button savebutton;
+    TextView savebutton;
     RelativeLayout teacherlogin;
     ImageButton imageButtonZoomIn, imageButtonZoomOut,back;
 
@@ -66,7 +65,7 @@ public class SyllabusFragment extends Fragment{
         });
         preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         des=(EditText)rootview.findViewById(R.id.des);
-        savebutton=(Button)rootview.findViewById(R.id.savebutton);
+        savebutton=(TextView) rootview.findViewById(R.id.savebutton);
         sylbsTitle=(EditText)rootview.findViewById(R.id.sylbsTitle);
         teacherlogin=(RelativeLayout)rootview.findViewById(R.id.teacherlogin);
         ripple_edit_delete=(RippleView)rootview.findViewById(R.id.ripple_edit_delete);

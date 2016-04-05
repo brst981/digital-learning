@@ -183,7 +183,10 @@ public class CurriculumFragment extends Fragment {
                 addsrgradefrom = gradefrom.getText().toString();
 
 
-                if (addsrgradefrom.equals("K")) {
+                if (addsrgradefrom.equals("Other")) {
+                    gradefromId = "0";
+                }
+                else if (addsrgradefrom.equals("K")) {
                     gradefromId = "1";
                 } else if (addsrgradefrom.equals("1")) {
                     gradefromId = "2";
@@ -215,6 +218,9 @@ public class CurriculumFragment extends Fragment {
                 addsrgradeto = gradeto.getText().toString();
 
 
+                if (addsrgradeto.equals("Other")) {
+                    gradetoId = "0";
+                }
                 if (addsrgradeto.equals("K")) {
                     gradetoId = "1";
                 } else if (addsrgradeto.equals("1")) {
@@ -685,7 +691,11 @@ public class CurriculumFragment extends Fragment {
                         Log.e("addsrgradefrom", "" + addsrgradefrom);
 
 
-                        if (addsrgradefrom.equals("K")) {
+                        if (addsrgradefrom.equals("Other")) {
+                            gradefromId = "0";
+                        }
+
+                        else if (addsrgradefrom.equals("K")) {
                             gradefromId = "1";
                         } else if (addsrgradefrom.equals("1")) {
                             gradefromId = "2";
@@ -717,7 +727,10 @@ public class CurriculumFragment extends Fragment {
                         addsrgradeto = gradeto.getText().toString();
 
 
-                        if (addsrgradeto.equals("K")) {
+                        if (addsrgradeto.equals("Other")) {
+                            gradetoId = "0";
+                        }
+                        else if (addsrgradeto.equals("K")) {
                             gradetoId = "1";
                         } else if (addsrgradeto.equals("1")) {
                             gradetoId = "2";
@@ -830,7 +843,11 @@ public class CurriculumFragment extends Fragment {
                     String cur_class_id = obj.getString("cur_class_id");
                     Log.e("cur_class_id", "" + cur_class_id);
 
-                    if (hi_age.equals("1")) {
+
+                    if (hi_age.equals("0")) {
+                        gradeto.setText("Other");
+                    }
+                   else if (hi_age.equals("1")) {
                         gradeto.setText("K");
                     } else if (hi_age.equals("2")) {
                         gradeto.setText("1");
@@ -882,7 +899,11 @@ public class CurriculumFragment extends Fragment {
                     Log.e("ValUE", "" + lo_age);
 
                     Log.e("ValUEe", "" + hi_age);
-                    if (lo_age.equals("1")) {
+
+                    if (lo_age.equals("0")) {
+                        gradefrom.setText("Other");
+                    }
+                    else if (lo_age.equals("1")) {
                         gradefrom.setText("K");
                     } else if (lo_age.equals("2")) {
                         gradefrom.setText("1");
@@ -1140,7 +1161,7 @@ public class CurriculumFragment extends Fragment {
             if (result.contains("true")) {
                 updateTeacherLogIn(result);
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
-                alertDialog.setMessage("Curriculum successfully upated").setCancelable(false)
+                alertDialog.setMessage("Curriculum successfully updated").setCancelable(false)
                         .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
 
                             @Override

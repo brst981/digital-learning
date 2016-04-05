@@ -48,7 +48,7 @@ import app.com.digitallearning.WebServices.WSConnector;
  */
 public class Student_Quiz_View extends Fragment {
     View rootview;
-    TextView headerTitle;
+    TextView headerTitle,textquiz,txtdes;
     String textHeader, quiz_id, cls_clsid,totaltime,userid,useranswer,questionid,sermastrid,todaydate,android_id,correct_answer,answerdata,timelast;
     NonSwipeableViewPager _mViewPager;
     CustomPagerAdapter mPagerAdapter;
@@ -70,6 +70,7 @@ public class Student_Quiz_View extends Fragment {
     ArrayList<Student_Quiz_Info> mQuizOpt;
     String sub;
     String dashboard_id;
+    int resultid=12;
     public static ArrayList<String> finalJson=new ArrayList<>();
     final Handler handler = new Handler() {
         /**
@@ -114,6 +115,14 @@ public class Student_Quiz_View extends Fragment {
         //   getActivity().getActionBar().setHomeButtonEnabled(false);
         headerTitle = (TextView) activity.findViewById(R.id.mytext);
         headerTitle.setText("View Quiz");
+
+         textquiz = (TextView) rootview.findViewById(R.id.textquiz);
+
+         txtdes = (TextView) rootview.findViewById(R.id.txtdes);
+
+        txttimer = (TextView) rootview.findViewById(R.id.timer);
+
+
         quiz_id = getArguments().getString("quiz_id");
         preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         cls_clsid = preferences.getString("cls_clsid", "");
@@ -172,19 +181,21 @@ public class Student_Quiz_View extends Fragment {
             View itemView = mLayoutInflater.inflate(R.layout.list_quiz_view_student, container,
                     false);
 
-            TextView textquiz = (TextView) itemView.findViewById(R.id.textquiz);
-            textquiz.setText(mQuizOpt.get(position).getQuiz_name());
+
+
             TextView textView = (TextView) itemView.findViewById(R.id.txt);
             Log.e("questionname", "" + mQuizOpt.get(position).getQuiz_question());
             textView.setText(mQuizOpt.get(position).getQuiz_question());
-            TextView txtdes = (TextView) itemView.findViewById(R.id.txtdes);
-            txtdes.setText(mQuizOpt.get(position).getQuiz_desc());
+
             final TextView option1 = (TextView) itemView.findViewById(R.id.option1);
             option1.setText(mQuizOpt.get(position).getStudent_quiz_options().get(0).getQuiz_option());
             final TextView option2 = (TextView) itemView.findViewById(R.id.option2);
             option2.setText(mQuizOpt.get(position).getStudent_quiz_options().get(1).getQuiz_option());
             final TextView option3 = (TextView) itemView.findViewById(R.id.option3);
             option3.setText(mQuizOpt.get(position).getStudent_quiz_options().get(2).getQuiz_option());
+            textquiz.setText(mQuizOpt.get(position).getQuiz_name());
+            txtdes.setText(mQuizOpt.get(position).getQuiz_desc());
+
 
             final CheckBox check1 = (CheckBox) itemView.findViewById(R.id.check1);
             final CheckBox check2 = (CheckBox) itemView.findViewById(R.id.check2);
@@ -195,7 +206,7 @@ public class Student_Quiz_View extends Fragment {
             final TextView option4 = (TextView) itemView.findViewById(R.id.option4);
             option4.setText(mQuizOpt.get(position).getStudent_quiz_options().get(3).getQuiz_option());
 
-             txttimer = (TextView) itemView.findViewById(R.id.timer);
+
 
 
 
@@ -335,6 +346,7 @@ public class Student_Quiz_View extends Fragment {
 
                         if(next.getText().equals("Submit Answer")){
 
+
                              sermastrid=mQuizOpt.get(position).getMaster_id();
 
                             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
@@ -365,8 +377,15 @@ public class Student_Quiz_View extends Fragment {
                             Log.e("userid",""+userid);
                             Log.e("timelast",""+timelast);
                             Log.e("answerdata",""+answerdata);
+                            next.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    t.cancel();
+                                    new Quiz_Perform().execute(sermastrid,todaydate,android_id,timelast,userid,answerdata);
+                                }
+                            });
 
-                            new Quiz_Perform().execute(sermastrid,todaydate,android_id,timelast,userid,answerdata);
+
                         }
 
                     }
@@ -573,7 +592,7 @@ public class Student_Quiz_View extends Fragment {
             Log.e("StudentQuiz_Perform", "" + result);
             if (result.contains("true")) {
 
-              t.cancel();
+
                 finalJson.clear();
                 updateGet_Lesson(result);
 
@@ -620,6 +639,7 @@ public class Student_Quiz_View extends Fragment {
                   FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                   Result_Student_Quiz resultStudentQuiz = new Result_Student_Quiz();
                     Bundle bundle=new Bundle();
+                    bundle.putInt("resultid",resultid);
                     bundle.putString("username",username);
                     bundle.putString("scoring",scoring);
                     bundle.putString("correct",correct);

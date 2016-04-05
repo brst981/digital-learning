@@ -38,7 +38,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import app.com.digitallearning.R;
 import app.com.digitallearning.StudentModule.Model.Student_Login_Data;
@@ -50,7 +52,7 @@ import app.com.digitallearning.WebServices.WSConnector;
 public class StudentClass extends  Fragment {
     SwipeRefreshLayout swipeRefreshLayout;
     View rootview;
-    String name,password,schoolID,Sch_Mem_id,Mem_Sch_Id;
+    String name,password,schoolID,Sch_Mem_id,Mem_Sch_Id,curdate;
     private ListView mListView;
     ListViewAdapter mAdapter;
     public static RelativeLayout relative_header;
@@ -85,6 +87,9 @@ public class StudentClass extends  Fragment {
 
         imageButtonZoomIn = (ImageButton)rootview. findViewById(R.id.img_zoom_in);
         imageButtonZoomOut = (ImageButton) rootview.findViewById(R.id.img_zoom_out);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+        final Date date = new Date();
+        curdate= String.valueOf(dateFormat.format(date));
 
         rellogin=(RelativeLayout)rootview.findViewById(R.id.rellogin) ;
         dlg=new ProgressDialog(getActivity());
@@ -94,15 +99,10 @@ public class StudentClass extends  Fragment {
             public void onClick(View v) {
 
 
-                Intent gotostudent=new Intent(getActivity(),StudentLoginActivity.class);
 
-                preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-                SharedPreferences.Editor editor = preferences.edit();
-                editor.putInt("remembermecheckedstu", val);
-                Log.e("val",""+val);
-                editor.commit();
-                startActivity(gotostudent);
-                getActivity().finishAffinity();
+                new Student_Logout().execute(Sch_Mem_id,curdate);
+
+
 
                /* GlobalClass.rememberMe=false;
                 getActivity().finish();*/
@@ -445,5 +445,74 @@ public class StudentClass extends  Fragment {
         Mem_Sch_Id=preferences.getString("Mem_Sch_Id","");
 
         new StudentLogIn().execute(name, password, schoolID);
+    }
+
+
+
+    class Student_Logout extends AsyncTask<String, Integer, String> {
+
+
+
+        @Override
+        protected String doInBackground(String... params) {
+
+            return WSConnector.student_logout(params[0], params[1]);
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            dlg.setMessage("Loading.....");
+            dlg.setCancelable(false);
+            dlg.show();
+
+        }
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+            dlg.dismiss();
+            Log.e("Student_Logout", "" + result);
+
+            if (result.contains("true")) {
+
+
+                Intent gototeacher=new Intent(getActivity(),StudentLoginActivity.class);
+                preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putInt("remembermecheckedstu", val);
+                Log.e("val",""+val);
+                editor.commit();
+                startActivity(gototeacher);
+                getActivity().finishAffinity();
+
+
+
+
+
+
+            } else if (result.contains("false")) {
+                            /*AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+                            alertDialog.setMessage("No data").setCancelable(false)
+                                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            // TODO Auto-generated method stub
+                                            dialog.dismiss();
+                               *//* Intent deletetoclass=new Intent(getActivity(),ClassActivity.class);
+                                startActivity(deletetoclass);
+                                getActivity().finish();*//*
+
+                                        }
+                                    });
+
+                            AlertDialog dialog = alertDialog.create();
+                            dialog.show();
+                            TextView messageText = (TextView) dialog
+                                    .findViewById(android.R.id.message);
+                            messageText.setGravity(Gravity.CENTER);*/
+            }
+        }
+
     }
 }

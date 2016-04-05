@@ -22,7 +22,6 @@ import android.view.ViewGroup;
 import android.view.animation.OvershootInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.andexert.library.RippleView;
 import com.github.clans.fab.FloatingActionButton;
@@ -267,7 +266,7 @@ public class ClassesDetailFragment extends Fragment {
                 updateTeacherLogIn(result);
 
             } else if (result.contains("false")) {
-                Toast.makeText(getActivity(), "Wrong User", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getActivity(), "Wrong User", Toast.LENGTH_SHORT).show();
 
             }
         }
@@ -452,7 +451,7 @@ public class ClassesDetailFragment extends Fragment {
 
 
             } else if (result.contains("false")) {
-                Toast.makeText(getActivity(), "No data", Toast.LENGTH_SHORT).show();
+            //    Toast.makeText(getActivity(), "No data", Toast.LENGTH_SHORT).show();
                 scheduleday.setText(" ");
             }
 

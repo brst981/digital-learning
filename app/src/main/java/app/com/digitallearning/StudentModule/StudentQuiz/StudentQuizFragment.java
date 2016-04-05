@@ -48,7 +48,7 @@ public class StudentQuizFragment  extends Fragment {
     ProgressDialog dlg;
     ArrayList<Quiz_Listing> quizlisting = new ArrayList<Quiz_Listing>();
     SharedPreferences preferences;
-
+    int checkId=10;
     public static StudentQuizFragment newInstance() {
         StudentQuizFragment mFragment = new StudentQuizFragment();
         /*Bundle mBundle = new Bundle();
@@ -177,7 +177,7 @@ public class StudentQuizFragment  extends Fragment {
 
 
         @Override
-        public View generateView(int position, ViewGroup parent) {
+        public View generateView(final int position, ViewGroup parent) {
             View v = LayoutInflater.from(mContext).inflate(R.layout.quiz_list, null);
             SwipeLayout swipeLayout = (SwipeLayout)v.findViewById(getSwipeLayoutResourceId(position));
             swipeLayout.addSwipeListener(new SimpleSwipeListener() {
@@ -201,7 +201,12 @@ public class StudentQuizFragment  extends Fragment {
                     FragmentManager fragmentManager = getFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                     Result_Student_Quiz result_student_quiz = new Result_Student_Quiz();
+                    Bundle bundle=new Bundle();
+                    bundle.putInt("checkId",checkId);
+                    bundle.putString("masterid",quizlisting.get(position).getQuiz_id());
+                    bundle.putString("dashbordid",quizlisting.get(position).getDashboard_id());
                     fragmentTransaction.replace(R.id.container, result_student_quiz).addToBackStack(null);
+                    result_student_quiz.setArguments(bundle);
                     fragmentTransaction.commit();
 
                 }
@@ -299,7 +304,7 @@ public class StudentQuizFragment  extends Fragment {
                     data.setQuiz_name(obj.getString("quiz_name"));
                     data.setQuiz_desc(obj.getString("quiz_desc"));
                     data.setApi_quiz_id(obj.getString("quiz_status"));
-                    data.setDashboard_id("dashboard_id");
+                    data.setDashboard_id(obj.getString("dashboard_id"));
                     quizlisting.add(data);
 
 

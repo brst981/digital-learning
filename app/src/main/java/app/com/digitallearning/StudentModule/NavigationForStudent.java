@@ -1,8 +1,10 @@
 package app.com.digitallearning.StudentModule;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.PointF;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
@@ -18,11 +20,15 @@ import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import app.com.digitallearning.NavigationDrawerCallbacks;
 import app.com.digitallearning.R;
 import app.com.digitallearning.StudentModule.StudentLesson.StudentLessonFragment;
 import app.com.digitallearning.StudentModule.StudentQuiz.StudentQuizFragment;
 import app.com.digitallearning.StudentModule.StudentResource.StudentResourceFragment;
+import app.com.digitallearning.WebServices.WSConnector;
 
 /**
  * Created by ${PSR} on 1/28/16.
@@ -37,6 +43,8 @@ public class NavigationForStudent extends AppCompatActivity implements Navigatio
     int val=0;
     SharedPreferences preferences;
     ImageButton imageButtonZoomIn, imageButtonZoomOut;
+    ProgressDialog dlg;
+    String curdate,Sch_Mem_id;
     @Override
     protected void onCreate( Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,16 +55,34 @@ public class NavigationForStudent extends AppCompatActivity implements Navigatio
         imageButtonZoomOut=(ImageButton) mToolbar.findViewById(R.id.img_zoom_out);
         fromClass = getIntent().getBooleanExtra("fromClass", false);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+        preferences = PreferenceManager.getDefaultSharedPreferences(NavigationForStudent.this);
+        Sch_Mem_id = preferences.getString("Sch_Mem_id", "");
      //   this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         //headerTitle.setText("Car List");
         frame=(FrameLayout)findViewById(R.id.container);
         getSupportActionBar().setTitle("");
-
+        dlg=new ProgressDialog(NavigationForStudent.this);
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+        final Date date = new Date();
+        curdate= String.valueOf(dateFormat.format(date));
+
         mNavigationDrawerFragment = (NavigationDrawerStudent) getFragmentManager().findFragmentById(R.id.fragment_drawer);
         mNavigationDrawerFragment.setup(R.id.fragment_drawer, (DrawerLayout) findViewById(R.id.drawer), mToolbar);
 
         mNavigationDrawerFragment.closeDrawer();
+
+        //Student_Logout student_logout=new Student_Logout();
+       // student_logout.execute();
+
+        Log.e("curdate",""+curdate);
+        Log.e("Sch_Mem_id",""+Sch_Mem_id);
+
+
+
+
     }
 
 
@@ -122,86 +148,10 @@ public class NavigationForStudent extends AppCompatActivity implements Navigatio
 
             case 5:
 
-                Intent gototeacher=new Intent(NavigationForStudent.this,StudentLoginActivity.class);
-
-                preferences = PreferenceManager.getDefaultSharedPreferences(NavigationForStudent.this);
-                SharedPreferences.Editor editor = preferences.edit();
-                editor.putInt("remembermecheckedstu", val);
-                Log.e("val",""+val);
-                editor.commit();
-                startActivity(gototeacher);
-                finishAffinity();
-
+                new Student_Logout().execute(Sch_Mem_id,curdate);
 
                 break;
 
-            /*case 1:
-                headerTitle.setText("Search");
-                mFragment = AdvanceSearchFragment.newInstance();
-
-                break;
-            case 2:
-                headerTitle.setText("Spare Parts");
-                mFragment = SparePartsFragment.newInstance("");
-                break;
-
-            case 3:
-                headerTitle.setText("Add your Car");
-                mFragment = AddCarDetailsFragment.newInstance();
-                break;
-
-            case 4:
-                headerTitle.setText("Add Spare Part");
-                mFragment = SpareDetails.newInstance();
-                break;
-
-            case 5:
-                headerTitle.setText("Settings");
-                mFragment = SettingFragment.newInstance();
-                break;
-            case 6:
-
-
-                AlertDialog.Builder alertDialog = new AlertDialog.Builder(MainActivity.this);
-
-                // Setting Dialog Title
-                alertDialog.setTitle("Logged out");
-
-                // Setting Dialog Message
-                alertDialog.setMessage("Do you really want to logout?");
-
-                // Setting Icon to Dialog
-
-
-                // Setting Positive "Yes" Button
-                alertDialog.setPositiveButton("YES", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog,int which) {
-                        clearPrefernces();
-                        // Write your code here to invoke YES event
-                        Intent i =  new Intent(MainActivity.this,LoginActivity.class);
-                        startActivity(i);
-                        overridePendingTransition(R.anim.slide_in_left,
-                                R.anim.slide_out_right);
-                        finish();
-                    }
-                });
-
-                // Setting Negative "NO" Button
-                alertDialog.setNegativeButton("NO", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        // Write your code here to invoke NO event
-
-                        dialog.cancel();
-                    }
-                });
-
-                // Showing Alert Message
-                alertDialog.show();
-
-                break;
-            default:
-                break;
-*/
         }
 
 
@@ -246,4 +196,67 @@ public class NavigationForStudent extends AppCompatActivity implements Navigatio
 
 
     }*/
+   class Student_Logout extends AsyncTask<String, Integer, String> {
+
+
+
+       @Override
+       protected String doInBackground(String... params) {
+
+           return WSConnector.student_logout(params[0], params[1]);
+       }
+
+       @Override
+       protected void onPreExecute() {
+           super.onPreExecute();
+           dlg.setMessage("Loading.....");
+           dlg.setCancelable(false);
+           dlg.show();
+
+       }
+       @Override
+       protected void onPostExecute(String result) {
+           super.onPostExecute(result);
+           dlg.dismiss();
+           Log.e("Student_Logout", "" + result);
+
+           if (result.contains("true")) {
+
+
+               Intent gototeacher=new Intent(NavigationForStudent.this,StudentLoginActivity.class);
+               preferences = PreferenceManager.getDefaultSharedPreferences(NavigationForStudent.this);
+               SharedPreferences.Editor editor = preferences.edit();
+               editor.putInt("remembermecheckedstu", val);
+               Log.e("val",""+val);
+               editor.commit();
+               startActivity(gototeacher);
+               finishAffinity();
+
+           } else if (result.contains("false")) {
+                            /*AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+                            alertDialog.setMessage("No data").setCancelable(false)
+                                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            // TODO Auto-generated method stub
+                                            dialog.dismiss();
+                               *//* Intent deletetoclass=new Intent(getActivity(),ClassActivity.class);
+                                startActivity(deletetoclass);
+                                getActivity().finish();*//*
+
+                                        }
+                                    });
+
+                            AlertDialog dialog = alertDialog.create();
+                            dialog.show();
+                            TextView messageText = (TextView) dialog
+                                    .findViewById(android.R.id.message);
+                            messageText.setGravity(Gravity.CENTER);*/
+           }
+       }
+
+   }
+
+
 }

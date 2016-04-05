@@ -1,9 +1,11 @@
 package app.com.digitallearning.StudentModule.StudentQuiz;
 
 import android.app.ProgressDialog;
+import android.content.SharedPreferences;
 import android.graphics.PointF;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -30,36 +32,61 @@ public class Result_Student_Quiz extends Fragment {
     RelativeLayout rel;
     ImageButton back;
     TextView headerTitle,txtusername,userscore,userans,userpercantage,userresult,usertimetaken;
-    String textHeader,username,scoring ,correct,min_score,result_grade,total_time;
+    String textHeader,username,scoring ,correct,min_score,result_grade,total_time,name,masterid,dashbordid;
     ImageButton imageButtonZoomIn, imageButtonZoomOut;
     ProgressDialog dlg;
-
+    SharedPreferences preferences;
+    int checkId,resultid;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootview = inflater.inflate(R.layout.result_quiz_view, container, false);
-        back=(ImageButton)rootview.findViewById(R.id.back);
-        rel=(RelativeLayout)rootview.findViewById(R.id.rel) ;
-        dlg=new ProgressDialog(getActivity());
-        username= getArguments().getString("username");
-        scoring=getArguments().getString("scoring");
-        correct=getArguments().getString("correct");
-        min_score=getArguments().getString("min_score");
-        result_grade=getArguments().getString("result_grade");
-        total_time=getArguments().getString("total_time");
-
         txtusername=(TextView)rootview.findViewById(R.id.txtusername);
         userscore=(TextView)rootview.findViewById(R.id.userscore);
         userans=(TextView)rootview.findViewById(R.id.userans);
         userpercantage=(TextView)rootview.findViewById(R.id.userpercantage);
         userresult=(TextView)rootview.findViewById(R.id.userresult);
         usertimetaken=(TextView)rootview.findViewById(R.id.usertimetaken);
-        Log.e("timeres",""+usertimetaken);
-        txtusername.setText(username);
-        userscore.setText(scoring);
-        userans.setText(correct);
-        userpercantage.setText(min_score +"%");
-        userresult.setText(result_grade);
-        usertimetaken.setText(total_time);
+        back=(ImageButton)rootview.findViewById(R.id.back);
+        rel=(RelativeLayout)rootview.findViewById(R.id.rel) ;
+        dlg=new ProgressDialog(getActivity());
+        preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        name=preferences.getString("name","");
+
+        try {
+            checkId = getArguments().getInt("checkId", 0);
+            Log.e("checkId",""+checkId);
+            resultid = getArguments().getInt("resultid", 0);
+        }catch (Exception e){}
+
+        if(checkId==10){
+            masterid=getArguments().getString("masterid");
+            dashbordid=getArguments().getString("dashbordid");
+            Log.e("masterid",""+masterid);
+            Log.e("dashbordid",""+dashbordid);
+            new Student_result().execute(masterid,dashbordid,name);
+
+
+
+        }
+        if(resultid==12){
+            username= getArguments().getString("username");
+            scoring=getArguments().getString("scoring");
+            correct=getArguments().getString("correct");
+            min_score=getArguments().getString("min_score");
+            result_grade=getArguments().getString("result_grade");
+            total_time=getArguments().getString("total_time");
+            txtusername.setText(username);
+            userscore.setText(scoring);
+            userans.setText(correct);
+            userpercantage.setText(min_score +"%");
+            userresult.setText(result_grade);
+            usertimetaken.setText(total_time);
+        }
+
+
+
+
+
 
 
 
@@ -94,6 +121,8 @@ public class Result_Student_Quiz extends Fragment {
 
         headerTitle.setText("Result");
         initData();
+
+
         return rootview;
 
     }
@@ -110,11 +139,11 @@ public class Result_Student_Quiz extends Fragment {
         rel.setScaleY(scaleY);
     }
 
-    class Quiz_Perform extends AsyncTask<String, Integer, String> {
+    class Student_result extends AsyncTask<String, Integer, String> {
 
         @Override
         protected String doInBackground(String... params) {
-            return WSConnector.Student_Perform_Quiz(params[0], params[1],params[2],params[3],params[4],params[5]);
+            return WSConnector.student_result(params[0], params[1],params[2]);
         }
 
         @Override
@@ -129,9 +158,9 @@ public class Result_Student_Quiz extends Fragment {
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
             dlg.dismiss();
-            Log.e("StudentQuiz_Perform", "" + result);
+            Log.e("Student_result", "" + result);
             if (result.contains("true")) {
-
+                updateGet_Lesson(result);
 
 
 
@@ -142,7 +171,7 @@ public class Result_Student_Quiz extends Fragment {
             }
         }
 //{"success":true,"data":[{"username":"Komal","scoring":"50 out of 100 ( 50 % )","correct":"1 out of 2","min_score":"60","result_grade":"FAIL","total_time":"01 SECS "}]}
-
+// {"success":true,"data":[{"username":"stutech1","scoring":"100 out of 100 ( 100 % )","correct":"1 out of 1","min_score":"60","result_grade":"Pass","total_time":"03 secs "}]}
         private void updateGet_Lesson(String success) {
 
             try {
@@ -174,7 +203,12 @@ public class Result_Student_Quiz extends Fragment {
 
 
 
-
+                    txtusername.setText(username);
+                    userscore.setText(scoring);
+                    userans.setText(correct);
+                    userpercantage.setText(min_score +"%");
+                    userresult.setText(result_grade);
+                    usertimetaken.setText(total_time);
 
 
                 }

@@ -4,9 +4,11 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.PointF;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
@@ -46,6 +48,8 @@ public class MainActivity extends Activity {
     ArrayList<String> arrSchoolList,arrSchoolImg,mList,arrSchoolId;
     ArrayList<HashMap<String, String>> arrayList = new ArrayList<HashMap<String,String>>();
     ArrayList<HashMap<String,String>> cityZipList;
+    SharedPreferences preferences;
+    SharedPreferences.Editor editor;
     //  RelativeLayout relativeLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -266,6 +270,12 @@ public class MainActivity extends Activity {
                         intent.putExtra("SchoolName",arrSchoolList.get(position));
                         intent.putExtra("SchoolID",arrSchoolId.get(position));
                         startActivity(intent);
+
+                        preferences = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
+                        editor = preferences.edit();
+                        editor.putString("SchoolID", arrSchoolId.get(position));
+                        editor.putString("SchoolName", arrSchoolList.get(position));
+                        editor.commit();
 
                     }
                 });

@@ -149,8 +149,8 @@ public class Quiz_Edit extends Fragment {
                 quiztitle=title.getText().toString();
                 updatedescription =quizdecdata.getText().toString();
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
-              /* // newquizdata=editdataquiz;
-                Log.e("shouldnull",""+newquizdata);*/
+              newquizdata=editdataquiz;
+                Log.e("shouldnull",""+newquizdata);
                 final Date date = new Date();
                 modifydate=(dateFormat.format(date));
                 Log.e("modifydate",""+modifydate);

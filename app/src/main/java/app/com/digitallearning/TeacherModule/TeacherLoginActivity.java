@@ -34,13 +34,10 @@ public class TeacherLoginActivity extends FragmentActivity {
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
 
-                Bundle args = new Bundle();
-                args.putString("SchoolID",schoolID);
-                args.putString("SchoolName",schoolName);
+
 
                 TeacherLoginFragment teacherLoginFragment = new TeacherLoginFragment();
                 fragmentTransaction.replace(R.id.container, teacherLoginFragment);
-                teacherLoginFragment.setArguments(args);
                 fragmentTransaction.commit();
 
         }

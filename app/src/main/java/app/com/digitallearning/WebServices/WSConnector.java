@@ -999,6 +999,35 @@ public class WSConnector {
     }
 
 
+    public static String student_result(String quizmasterid ,String dashboard_id,String username) {
+
+        String url = AppConstant.student_result;
+        List<NameValuePair> pairs = new ArrayList<NameValuePair>();
+        pairs.add(new BasicNameValuePair("quizmasterid", quizmasterid));
+        pairs.add(new BasicNameValuePair("dashboard_id", dashboard_id));
+        pairs.add(new BasicNameValuePair("username", username));
+        Log.e("quizmasterid",""+quizmasterid);
+        Log.e("dashboard_id",""+dashboard_id);
+        Log.e("username",""+username);
+
+        String result = WSAdapter.postJSONObject(url, pairs);
+        return result;
+
+    }
+
+
+
+    public static String student_logout(String  userid,String curdate) {
+
+        String url = AppConstant.student_logout;
+        List<NameValuePair> pairs = new ArrayList<NameValuePair>();
+        pairs.add(new BasicNameValuePair("userid",  userid));
+        pairs.add(new BasicNameValuePair("curdate", curdate));
+
+        String result = WSAdapter.postJSONObject(url, pairs);
+        return result;
+
+    }
 
 
 }

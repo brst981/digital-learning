@@ -41,6 +41,7 @@ public class StudentLoginFragment extends Fragment {
     ProgressDialog dlg;
     EditText edt_username, edt_pwd;
     String schoolID, schoolName,name,password, Sch_Mem_id,Mem_Sch_Id;
+    TextView text_school_name;
     SharedPreferences preferences;
     SharedPreferences.Editor editor;
     int remembermecheckedstu;
@@ -51,6 +52,7 @@ public class StudentLoginFragment extends Fragment {
         rootview = inflater.inflate(R.layout.activity_student_login, container, false);
         rippleViewLogin = (RippleView) rootview.findViewById(R.id.ripple_login);
         edt_username = (EditText) rootview.findViewById(R.id.edt_username_student);
+        text_school_name=(TextView)rootview.findViewById(R.id.text_school_name);
 
         checked=(CheckBox)rootview.findViewById(R.id.checkbox_remember);
         checked.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -77,6 +79,9 @@ public class StudentLoginFragment extends Fragment {
                 name=edt_username.getText().toString();
                 password=edt_pwd.getText().toString();
 
+                Log.e("name",""+name);
+                Log.e("password",""+password);
+
 
 
 
@@ -87,10 +92,14 @@ public class StudentLoginFragment extends Fragment {
 
             }
         });
-        schoolID = getArguments().getString("SchoolID");
+        preferences=PreferenceManager.getDefaultSharedPreferences(getActivity());
+        schoolID = preferences.getString("SchoolID","");
+
         Log.e("schoolID", "" + schoolID);
-        schoolName = getArguments().getString("SchoolName");
+        schoolName = preferences.getString("SchoolName","");
         Log.e("schoolName", "" + schoolName);
+        text_school_name.setText(schoolName);
+
         return rootview;
     }
 

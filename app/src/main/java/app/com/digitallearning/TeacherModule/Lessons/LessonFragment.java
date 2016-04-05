@@ -484,4 +484,5 @@ public class LessonFragment extends Fragment {
 
         headerTitle.setText("Choose Lesson");
     }
+
 }

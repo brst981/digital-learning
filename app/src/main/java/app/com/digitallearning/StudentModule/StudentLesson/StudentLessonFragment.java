@@ -9,6 +9,7 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -81,12 +82,13 @@ public class StudentLessonFragment  extends Fragment {
 
         headerTitle.setText("Choose Lesson");
 
+
         mListView = (ListView) rootview.findViewById(R.id.listview_archieved);
         mAdapter = new ListViewAdapter(getActivity());
         preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         clsid = preferences.getString("class_id", "");
 
-        new Student_Get_Lesson().execute(clsid);
+
         NavigationDrawerStudent.imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -298,8 +300,10 @@ public class StudentLessonFragment  extends Fragment {
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
 
-//           if (dlg != null)
+        //  if (dlg != null)
+           // if(dlg.isShowing()){
             dlg.dismiss();
+       // }
             Log.e("StudentGetLesson", "" + result);
 
             if (result.contains("false")) {
@@ -378,5 +382,19 @@ public class StudentLessonFragment  extends Fragment {
                 e.printStackTrace();
             }
         }
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.e("vist","bshjsi");
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        new Student_Get_Lesson().execute(clsid);
+
     }
 }

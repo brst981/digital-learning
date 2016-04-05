@@ -102,9 +102,11 @@ public class TeacherLoginFragment extends Fragment {
         schoolId = new ArrayList<>();
 
 
-        schoolID = getArguments().getString("SchoolID");
+        preferences=PreferenceManager.getDefaultSharedPreferences(getActivity());
+        schoolID = preferences.getString("SchoolID","");
+
         Log.e("schoolID", "" + schoolID);
-        schoolName = getArguments().getString("SchoolName");
+        schoolName = preferences.getString("SchoolName","");
         Log.e("schoolName", "" + schoolName);
         text_school_name.setText(schoolName);
 
