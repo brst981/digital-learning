@@ -101,7 +101,7 @@ public class ArchivedFragment extends Fragment {
             @Override
             public void onScrollStateChanged(AbsListView view, int scrollState) {
                 Log.e("ListView", "onScrollStateChanged");
-                ((SwipeLayout)(mListView.getChildAt(scrollState - mListView.getFirstVisiblePosition()))).open(true);
+               // ((SwipeLayout)(mListView.getChildAt(scrollState - mListView.getFirstVisiblePosition()))).open(true);
             }
 
             @Override
@@ -228,7 +228,7 @@ public class ArchivedFragment extends Fragment {
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
             dlg.dismiss();
-            Log.e("StudentList", "" + result);
+            Log.e("archiveStudentList", "" + result);
             if (result.contains("true")) {
 
                 updateGet_archive_Student(result);
