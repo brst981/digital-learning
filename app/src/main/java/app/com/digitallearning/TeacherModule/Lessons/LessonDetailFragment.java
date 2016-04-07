@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import app.com.digitallearning.R;
 import app.com.digitallearning.TeacherModule.Model.Data;
 import app.com.digitallearning.TeacherModule.Model.QuizData;
+import app.com.digitallearning.Utill.GlobalClass;
 
 /**
  * Created by ${ShalviSharma} on 12/28/15.
@@ -33,7 +34,7 @@ public class LessonDetailFragment extends Fragment implements ViewPager.OnPageCh
     ViewPager _mViewPager;
     SectionsPagerAdapter mPagerAdapter;
     TextView headerTitle;
-    String textHeader,sizeget;
+    String textHeader, sizeget;
     int positionValue, pos1;
     SharedPreferences preferences;
     String Sch_Mem_id, cla_classid, lessonname, lessonid;
@@ -47,6 +48,7 @@ public class LessonDetailFragment extends Fragment implements ViewPager.OnPageCh
     private int currentPage;
     private View view;
     LayoutInflater inflater;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootview = inflater.inflate(R.layout.fragment_lesson_detail, container, false);
@@ -60,12 +62,15 @@ public class LessonDetailFragment extends Fragment implements ViewPager.OnPageCh
             Bundle bundle = this.getArguments();
             textHeader = bundle.getString("HEADER_TEXT");
             positionValue = bundle.getInt("POSITION");
+            dataList = (ArrayList<Data>) bundle.getSerializable("ArrayList");
+
+            Log.e("dataListArrayList",""+dataList);
         }
 
         lessonname = getArguments().getString("positioninLesson");
         lessonid = getArguments().getString("lessonid");
         position = getArguments().getInt("position");
-        sizeget=getArguments().getString("sizeget");
+        sizeget = getArguments().getString("sizeget");
         preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         Sch_Mem_id = preferences.getString("Sch_Mem_id", "");
         Log.e("Sch_Mem_id", "" + Sch_Mem_id);
@@ -74,7 +79,7 @@ public class LessonDetailFragment extends Fragment implements ViewPager.OnPageCh
         Log.e("cla_classid", "" + cla_classid);
         // new Get_Lesson().execute(cla_classid, Sch_Mem_id);
         Log.e("txtHeader", "" + textHeader);
-        Log.e("positionValue", "" + positionValue);
+        Log.e("positionValue", "" + position);
         AppCompatActivity activity = (AppCompatActivity) getActivity();
 
         activity.getSupportActionBar().setTitle("");
@@ -93,7 +98,7 @@ public class LessonDetailFragment extends Fragment implements ViewPager.OnPageCh
 
 
         headerTitle = (TextView) activity.findViewById(R.id.mytext);
-       // headerTitle.setText(lessonname);
+        // headerTitle.setText(lessonname);
         _mViewPager.setCurrentItem(position);
         // headerTitle.setText(lessonname);
 
@@ -125,10 +130,14 @@ public class LessonDetailFragment extends Fragment implements ViewPager.OnPageCh
         //  Toast.makeText(getActivity(),
         //         "Selected page position: " + pos, Toast.LENGTH_SHORT).show();
         position = pos;
-        //headerTitle.setText(dataList.get(position).getLessonName());
+
+        Log.e("pageselected", "jkj" + position + "");
+        // headerTitle.setText(GlobalClass.lessonsize[pos]);
+
+       headerTitle.setText(dataList.get(pos).getLessonName());
         //   _mViewPager.setCurrentItem(position);
 //        headerTitle.setText(dataList.get(position).getLessonName());
-        //  mPagerAdapter.notifyDataSetChanged();
+        mPagerAdapter.notifyDataSetChanged();
 
 
     }
@@ -139,6 +148,12 @@ public class LessonDetailFragment extends Fragment implements ViewPager.OnPageCh
         // Code goes here
         // Toast.makeText(getActivity(),
         //   "Selected page positionagain: " + position, Toast.LENGTH_SHORT).show();
+        Log.e("pagescroll11", "pageselector" + position);
+        GlobalClass.finalValue = position;
+
+        Log.e("pagescroll11", GlobalClass.finalValue + "");
+
+
     }
 
     // Called when the scroll state changes:
@@ -146,6 +161,7 @@ public class LessonDetailFragment extends Fragment implements ViewPager.OnPageCh
     @Override
     public void onPageScrollStateChanged(int state) {
         // Code goes here
+        Log.e("pagescroll", "pageselector");
 
     }
 
@@ -158,12 +174,13 @@ public class LessonDetailFragment extends Fragment implements ViewPager.OnPageCh
 
         @Override
         public Fragment getItem(int position) {
+            Log.e("pageselector", "pageselector");
             FullDetailFragment fullDeatilFragment = new FullDetailFragment();
             Bundle arg = new Bundle();
             arg.putInt("position", position);
             arg.putString("lessonId", lessonid);
-            arg.putString("sizeget",sizeget);
-            arg.putString("lessonname",lessonname);
+            arg.putString("sizeget", sizeget);
+            arg.putString("lessonname", lessonname);
             fullDeatilFragment.setArguments(arg);
             return fullDeatilFragment;
         }
@@ -175,7 +192,6 @@ public class LessonDetailFragment extends Fragment implements ViewPager.OnPageCh
 
 
     }
-
 
 
 }

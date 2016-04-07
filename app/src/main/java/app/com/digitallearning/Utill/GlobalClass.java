@@ -11,5 +11,9 @@ public class GlobalClass {
     public static boolean backPress=false;
     public static boolean classDetail   =false;
 
+    public static String [] lessonsize ;
+    public static int lessonData;
+    public static int finalValue;
+
 
 }

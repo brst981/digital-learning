@@ -92,7 +92,7 @@ public class ChangePictureFragment extends Fragment {
         try {
             class_image=getArguments().getString("class_image");
             Log.e("receivedclass_image",""+class_image);
-            Picasso.with(getActivity()).load(class_image).into(img_edit_picture);
+            //Picasso.with(getActivity()).load(class_image).into(img_edit_picture);
         }
         catch (Exception e){}
 

@@ -41,6 +41,8 @@ import app.com.digitallearning.R;
 import app.com.digitallearning.UI.ScrimInsetsFrameLayout;
 import app.com.digitallearning.WebServices.WSConnector;
 
+//import com.squareup.picasso.Picasso;
+
 /**
  * Created by poliveira on 24/10/2014.
  */

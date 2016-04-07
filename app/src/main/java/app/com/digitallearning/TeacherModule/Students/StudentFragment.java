@@ -12,7 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.andexert.library.RippleView;
@@ -36,7 +36,7 @@ public class StudentFragment extends Fragment {
     ProgressDialog dlg;
     Button archivebutton,enrollbutton;
     public static int TabPos;
-    FrameLayout frame;
+    LinearLayout frame;
 
     public static StudentFragment newInstance() {
         StudentFragment mFragment = new StudentFragment();
@@ -59,7 +59,7 @@ public class StudentFragment extends Fragment {
       //  adapter =  new ViewPagerAdapter(getActivity().getSupportFragmentManager(),Titles,Numboftabs);
         archivebutton=(Button)rootview.findViewById(R.id.archivebutton) ;
         enrollbutton=(Button)rootview.findViewById(R.id.enrollbutton) ;
-        frame=(FrameLayout)rootview.findViewById(R.id.frame);
+        frame=(LinearLayout)rootview.findViewById(R.id.frame);
 
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();

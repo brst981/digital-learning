@@ -43,6 +43,7 @@ import app.com.digitallearning.R;
 import app.com.digitallearning.TeacherModule.Model.Data;
 import app.com.digitallearning.TeacherModule.Model.QuizData;
 import app.com.digitallearning.TeacherModule.NavigationDrawerFragment;
+import app.com.digitallearning.Utill.GlobalClass;
 import app.com.digitallearning.WebServices.WSConnector;
 
 /**
@@ -128,7 +129,8 @@ public class LessonFragment extends Fragment {
                 bundle.putString("positioninLesson", dataList.get(position).getLessonName());
                 bundle.putString("lessonid", dataList.get(position).getLessonId());
                 bundle.putString("sizeget", String.valueOf(dataList.size()));
-                Log.e("sizeget",""+String.valueOf(dataList.size()));
+                bundle.putSerializable("ArrayList", dataList);
+                Log.e("sizeget", "" + String.valueOf(dataList.size()));
                 bundle.putInt("position", position);
                 bundle.putInt(LESSON_SIZE, dataList.size());
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -360,6 +362,7 @@ public class LessonFragment extends Fragment {
 
                 JSONArray arr = jsonObject.optJSONArray("data");
                 Log.e("arr", " " + arr);
+                GlobalClass.lessonsize = new String[arr.length()];
 
 
                 for (int i = 0; i < arr.length(); i++) {
@@ -369,6 +372,7 @@ public class LessonFragment extends Fragment {
                     data.setLessonId(obj.optString("les_id"));
                     data.setLessonClassId(obj.getString("Les_Cls_Id"));
                     data.setLessonName(obj.getString("lesson_name"));
+                    GlobalClass.lessonsize[i] = obj.getString("lesson_name");
                     data.setLessonDate(obj.getString("les_date"));
 
                     data.setDescription(obj.getString("desc"));

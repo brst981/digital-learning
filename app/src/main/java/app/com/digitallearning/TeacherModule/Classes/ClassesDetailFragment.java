@@ -8,6 +8,8 @@ import android.animation.ObjectAnimator;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -21,6 +23,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.OvershootInterpolator;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.andexert.library.RippleView;
@@ -33,6 +36,11 @@ import com.squareup.picasso.Picasso;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 import app.com.digitallearning.R;
 import app.com.digitallearning.TeacherModule.ClassFragment;
@@ -57,6 +65,7 @@ public class ClassesDetailFragment extends Fragment {
     SharedPreferences preferences;
     String cla_classid, schoolName, Sch_Mem_id, class_image;
     boolean classID = false;
+    ProgressBar progressbar;
     RippleView rippleViewTeacherCollab, rippleViewCurriculum, ripple_teacher_syllabus, ripple_teacher_schedule;
 
 
@@ -71,6 +80,7 @@ public class ClassesDetailFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootview = inflater.inflate(R.layout.fragment_class_details, container, false);
+        progressbar = (ProgressBar) rootview.findViewById(R.id.progressbar);
         menu_main = (FloatingActionMenu) rootview.findViewById(R.id.menu_main);
         text_school_name = (TextView) rootview.findViewById(R.id.text_school_name);
         text_topic_name = (TextView) rootview.findViewById(R.id.text_topic_name);
@@ -85,10 +95,10 @@ public class ClassesDetailFragment extends Fragment {
         Sch_Mem_id = preferences.getString("Sch_Mem_id", "");
         Log.e("Sch_Mem_id", "" + Sch_Mem_id);
         text_school_name.setText(schoolName);
-        try {
-            new Get_Class_image().execute(cla_classid);
-        } catch (Exception e) {
-        }
+        //try {
+        new Get_Class_image().execute(cla_classid);
+        //  } catch (Exception e) {
+        //  }
 
 
         text_passcode_detail = (TextView) rootview.findViewById(R.id.text_passcode_detail);
@@ -146,10 +156,9 @@ public class ClassesDetailFragment extends Fragment {
                 Intent intent = new Intent(getActivity(), EditClassFragment.class);
                 startActivity(intent);
                 getActivity().finish();
-                GlobalClass.classDetail=true;
+                GlobalClass.classDetail = true;
             }
         });
-
 
 
         floatingActionButtonChange.setOnClickListener(new View.OnClickListener() {
@@ -261,7 +270,7 @@ public class ClassesDetailFragment extends Fragment {
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
             dlg.dismiss();
-            Log.e("REsulTinAddSchedule", "" + result);
+
             if (result.contains("true")) {
                 updateTeacherLogIn(result);
 
@@ -277,52 +286,66 @@ public class ClassesDetailFragment extends Fragment {
             try {
 
                 JSONObject jsonObject = new JSONObject(success);
-                Log.e("jsonObject", "" + jsonObject);
+                Log.e("jsonObjectclassimage", "" + jsonObject);
 
 
                 JSONArray arr = jsonObject.getJSONArray("data");
-                Log.e("arr", " " + arr);
+
                 for (int i = 0; i < arr.length(); i++) {
                     JSONObject obj = arr.getJSONObject(i);
-                    Log.e("obj", "" + obj);
+
 
                     class_image = obj.getString("class_image");
                     Log.e("class_image", "" + class_image);
                     Log.e("Checkimg_edit_picture", "" + img_edit_picture);
-                    if (img_edit_picture == null) {
-                        Log.e("ifnullimg_edit_picture", "" + img_edit_picture);
-                        img_edit_picture.setImageResource(R.drawable.no_image_icon);
-                    }
-                    // try {
-                    // if (img_edit_picture != null) {
-                    Log.e("img_edit_picture", "" + class_image);
+                }
+                if (class_image.equals("")) {
+                    Log.e("ifnullimg_edit_picture", "" + img_edit_picture);
+                    img_edit_picture.setImageResource(R.drawable.no_image_icon);
+                    progressbar.setVisibility(View.GONE);
+                }
+                // try {
+                // if (img_edit_picture != null) {
+                //Log.e("img_edit_picture", "" + class_image);
 
 
+                else {
+
+
+//                       Bitmap bmp = getBitmapFromURL(class_image);
+//                        img_edit_picture.setImageBitmap(bmp);
+
+
+                    //      Bitmap image = BitmapFactory.decodeStream(url.openConnection().getInputStream());
                     Picasso.with(getActivity()).load(class_image).networkPolicy(NetworkPolicy.OFFLINE).into(img_edit_picture,
                             new Callback() {
                                 @Override
                                 public void onSuccess() {
-
-                                    Log.e("Onsuccess", "ss");
+                                    progressbar.setVisibility(View.GONE);
+                                    Log.e("Onsuccess", "sucess");
 
                                 }
 
                                 @Override
                                 public void onError() {
-                                    Log.e("OnError", "ss");
+                                    Log.e("Onsuccess", "error");
+                                    //   progressbar.setVisibility(View.GONE);
 
                                     Picasso.with(getActivity())
-                                            .load(class_image).placeholder(R.drawable.img_loading)
+                                            .load(class_image)//.placeholder(R.drawable.img_loading)
 
                                             .into(img_edit_picture, new Callback() {
                                                 @Override
                                                 public void onSuccess() {
+                                                    progressbar.setVisibility(View.GONE);
+                                                    Log.e("Onsuccess", "imageloading");
 
                                                 }
 
                                                 @Override
                                                 public void onError() {
-                                                    Log.e("Picasso", "Could not fetch image");
+                                                    Log.e("Onsuccess", "Could not fetch image");
+                                                    progressbar.setVisibility(View.GONE);
                                                 }
                                             });
 
@@ -335,8 +358,8 @@ public class ClassesDetailFragment extends Fragment {
                     // }*/
 //                    } catch (Exception e) {
 //                    }
-
                 }
+                // }
 
                 headerTitle.setText(ClassFragment.titleheader);
                 Log.e("isheaderrec", "" + ClassFragment.titleheader);
@@ -371,46 +394,55 @@ public class ClassesDetailFragment extends Fragment {
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
-            if(dlg.isShowing()){
-               // dlg.dismiss();
+            Log.e("visithere", "curriculum");
+            if (dlg.isShowing()) {
+                // dlg.dismiss();
             }
 
 
-            Log.e("Get_syllabusAPI", "" + result);
-            if (result.contains("false")) {
+            //   Log.e("Get_syllabusAPI", "" + result);
+            //   if (result.contains("false")) {
 
 
-                curriculum.setText(" ");
+            //       curriculum.setText(" ");
 
 
-            } else if (result.contains("true")) {
-                updateTeacherLogIn(result);
+            //    } else if (result.contains("true")) {
+            updateTeacherLogIn(result);
 
-            }
+            //    }
 
-            new Schedule_listing().execute(Sch_Mem_id, cla_classid);
+            //    new Schedule_listing().execute(Sch_Mem_id, cla_classid);
 
         }
 
         private void updateTeacherLogIn(String success) {
 
             try {
+                if (success.contains("true")) {
 
-                JSONObject jsonObject = new JSONObject(success);//addsrtitle
-                JSONArray arr = jsonObject.getJSONArray("data");
-                Log.e("arr", " " + arr);
-                for (int i = 0; i < arr.length(); i++) {
-                    JSONObject obj = arr.getJSONObject(i);
+                    JSONObject jsonObject = new JSONObject(success);//addsrtitle
+                    Log.e("jsonObjectcurriculum", "" + jsonObject);
+                    JSONArray arr = jsonObject.getJSONArray("data");
+                    Log.e("arr", " " + arr);
+                    for (int i = 0; i < arr.length(); i++) {
+                        JSONObject obj = arr.getJSONObject(i);
 
-                    titlecurriculum = obj.getString("title");
-                    Log.e("title", "kk" + titlecurriculum);
+                        titlecurriculum = obj.getString("title");
+                        Log.e("title", "kk" + titlecurriculum);
                     /*if(titlecurriculum.equals("")){
                         curriculum.setText(" ");
                     }
                     else{*/
-                    curriculum.setText(titlecurriculum);
+                        curriculum.setText(titlecurriculum);
+                    }
+
+
+                } else {
+                    curriculum.setText(" ");
                 }
 
+                new Schedule_listing().execute(Sch_Mem_id, cla_classid);
 
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -431,9 +463,9 @@ public class ClassesDetailFragment extends Fragment {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            dlg.setMessage("Loading ....");
-            dlg.setCancelable(false);
-            dlg.show();
+//            dlg.setMessage("Loading ....");
+//            dlg.setCancelable(false);
+//            dlg.show();
 
 
         }
@@ -442,59 +474,62 @@ public class ClassesDetailFragment extends Fragment {
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
-            if(dlg.isShowing())
+            Log.e("visithere", "schedule");
+            // if (dlg.isShowing())
             //dlg.dismiss();
-            Log.e("REsulTinSchedule", "" + result);
-            if (result.contains("true")) {
-
-                updateTeacherLogIn(result);
+            //  Log.e("REsulTinSchedule", "" + result);
 
 
-            } else if (result.contains("false")) {
-            //    Toast.makeText(getActivity(), "No data", Toast.LENGTH_SHORT).show();
-                scheduleday.setText(" ");
-            }
+            updateTeacherLogIn(result);
 
-            new Get_syllabus().execute(cla_classid, Sch_Mem_id);
+
         }
 
         private void updateTeacherLogIn(String success) {
 
             try {
+                if (success.contains("true")) {
+                    JSONObject jsonObject = new JSONObject(success);
+                    Log.e("jsonObjectschedule", "" + jsonObject);
 
-                JSONObject jsonObject = new JSONObject(success);
-                Log.e("jsonObject", "" + jsonObject);
 
+                    JSONArray arr = jsonObject.getJSONArray("data");
+                    Log.e("arr", " " + arr);
+                    for (int i = 0; i < arr.length(); i++) {
+                        JSONObject obj = arr.getJSONObject(i);
 
-                JSONArray arr = jsonObject.getJSONArray("data");
-                Log.e("arr", " " + arr);
-                for (int i = 0; i < arr.length(); i++) {
-                    JSONObject obj = arr.getJSONObject(i);
+                        arrDay = obj.getString("day");
+                        Log.e("dayOn", "" + arrDay);
 
-                    arrDay = obj.getString("day");
-                    Log.e("dayOn", "" + arrDay);
+                        if (arrDay.contains("1")) {
+                            scheduleday.setText("Monday");
+                        } else if (arrDay.contains("2")) {
+                            scheduleday.setText("Tuesday");
+                        } else if (arrDay.contains("3")) {
+                            scheduleday.setText("Wednesday");
+                        } else if (arrDay.contains("4")) {
+                            scheduleday.setText("Thrusday");
+                        } else if (arrDay.contains("5")) {
+                            scheduleday.setText("Friday");
+                        } else if (arrDay.contains("6")) {
+                            scheduleday.setText("Saturday");
+                        } else if (arrDay.contains("7")) {
+                            scheduleday.setText("Sunday");
+                        } else if (arrDay.contains("8")) {
+                            scheduleday.setText("Every Day");
+                        } else if (arrDay.contains("9")) {
+                            scheduleday.setText("Every Weekday");
+                        }
 
-                    if (arrDay.contains("1")) {
-                        scheduleday.setText("Monday");
-                    } else if (arrDay.contains("2")) {
-                        scheduleday.setText("Tuesday");
-                    } else if (arrDay.contains("3")) {
-                        scheduleday.setText("Wednesday");
-                    } else if (arrDay.contains("4")) {
-                        scheduleday.setText("Thrusday");
-                    } else if (arrDay.contains("5")) {
-                        scheduleday.setText("Friday");
-                    } else if (arrDay.contains("6")) {
-                        scheduleday.setText("Saturday");
-                    } else if (arrDay.contains("7")) {
-                        scheduleday.setText("Sunday");
-                    } else if (arrDay.contains("8")) {
-                        scheduleday.setText("Every Day");
-                    } else if (arrDay.contains("9")) {
-                        scheduleday.setText("Every Weekday");
                     }
 
+                } else {
+
+                    scheduleday.setText(" ");
                 }
+
+                new Get_syllabus().execute(cla_classid, Sch_Mem_id);
+
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -512,62 +547,73 @@ public class ClassesDetailFragment extends Fragment {
 
         }
 
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            dlg.setMessage("Loading .....");
-            dlg.setCancelable(false);
-            dlg.show();
-
-
-        }
-
 
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
-            dlg.dismiss();
-            Log.e("Get_syllabusAPI", "" + result);
+            Log.e("visithere", "syllabus");
+            if (dlg != null)
+                dlg.dismiss();
 
-            if (result.contains("false")) {
+            // if (result.contains("false")) {
 
-                syllabus.setText(" ");
+            //     syllabus.setText(" ");
 
-            } else if (result.contains("true")) {
-                updateTeacherLogIn(result);
+            //   } else if (result.contains("true")) {
+            updateTeacherLogIn(result);
+            //   }
+
+            // }
+        }
+
+        private void updateTeacherLogIn(String success) {
+
+            try {
+                if (success.contains("true")) {
+                    JSONObject jsonObject = new JSONObject(success);
+                    Log.e("jsonobjectsyllabus", "" + jsonObject);
+
+                    JSONArray arr = jsonObject.getJSONArray("data");
+                    Log.e("arr", " " + arr);
+                    for (int i = 0; i < arr.length(); i++) {
+                        JSONObject obj = arr.getJSONObject(i);
+
+
+                        titlesyllabus = obj.getString("title");
+                        Log.e("title", "" + titlesyllabus);
+                        syllabus.setText(titlesyllabus);
+
+                    }
+                } else {
+                    syllabus.setText(" ");
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
-
         }
     }
 
-    private void updateTeacherLogIn(String success) {
-
+    public static Bitmap getBitmapFromURL(String class_image) {
+        Log.e("come", "visit");
         try {
-
-            JSONObject jsonObject = new JSONObject(success);
-
-            JSONArray arr = jsonObject.getJSONArray("data");
-            Log.e("arr", " " + arr);
-            for (int i = 0; i < arr.length(); i++) {
-                JSONObject obj = arr.getJSONObject(i);
-
-
-                titlesyllabus = obj.getString("title");
-                Log.e("title", "" + titlesyllabus);
-                syllabus.setText(titlesyllabus);
-
-            }
-
-        } catch (JSONException e) {
+            URL url = new URL(class_image);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setDoInput(true);
+            connection.connect();
+            InputStream input = connection.getInputStream();
+            Bitmap myBitmap = BitmapFactory.decodeStream(input);
+            return myBitmap;
+        } catch (IOException e) {
             e.printStackTrace();
+            return null;
         }
     }
 
     @Override
     public void onResume() {
         super.onResume();
-
         new Get_carriculum().execute(cla_classid, Sch_Mem_id);
+
 //        new Schedule_listing().execute(Sch_Mem_id, cla_classid);
 //        new Get_syllabus().execute(cla_classid, Sch_Mem_id);
     }

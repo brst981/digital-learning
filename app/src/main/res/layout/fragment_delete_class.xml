@@ -65,6 +65,7 @@
 
             <EditText
 
+                android:text="admin981"
                 android:id="@+id/edt_password"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"

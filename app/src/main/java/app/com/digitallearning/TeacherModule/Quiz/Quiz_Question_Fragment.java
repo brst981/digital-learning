@@ -41,6 +41,7 @@ public class Quiz_Question_Fragment extends Fragment {
     CheckBox check1,check2,check3,check4;
     ArrayList<Quiz_Question> listing=new ArrayList<Quiz_Question>();
     String quizdata;
+    int count=1;
 
     @Override
     public View onCreateView(LayoutInflater inflater,final ViewGroup container, Bundle savedInstanceState) {
@@ -132,6 +133,62 @@ public class Quiz_Question_Fragment extends Fragment {
 
                 view = inflater.inflate(R.layout.question_layout, container,false);
 
+                final CheckBox quescheck1=(CheckBox)view.findViewById(R.id.check1) ;
+               final CheckBox  quescheck2=(CheckBox)view.findViewById(R.id.check2) ;
+                final CheckBox  quescheck3=(CheckBox)view.findViewById(R.id.check3) ;
+                final CheckBox  quescheck4=(CheckBox)view.findViewById(R.id.check4) ;
+
+                quescheck1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                        if(isChecked==true){
+                            quescheck2.setChecked(false);
+                            quescheck3.setChecked(false);
+                            quescheck4.setChecked(false);
+
+                        }
+                    }
+                });
+
+                quescheck2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                        if(isChecked==true){
+                            quescheck1.setChecked(false);
+                            quescheck3.setChecked(false);
+                            quescheck4.setChecked(false);
+
+                        }
+                    }
+                });
+
+                quescheck3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                        if(isChecked==true){
+                            quescheck1.setChecked(false);
+                            quescheck2.setChecked(false);
+                            quescheck4.setChecked(false);
+
+                        }
+                    }
+                });
+
+
+                quescheck4.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                        if(isChecked==true){
+                            quescheck1.setChecked(false);
+                            quescheck2.setChecked(false);
+                            quescheck3.setChecked(false);
+
+
+                        }
+                    }
+                });
+
+
                 Log.e("sizepos",""+pos);
                 linearlayout.addView(view, pos);
                 pos ++;
@@ -211,9 +268,11 @@ public class Quiz_Question_Fragment extends Fragment {
                         obj.put("quiz_ans_3", strans3);
                         obj.put("quiz_ans_4", strans4);
                         obj.put("quiz_question", strquestion);
+                        obj.put("count",count);
                         Log.e("obj",""+obj);
 
                         object.put(String.valueOf(i+1), obj);
+                        count++;
                         quizdata=object.toString();
                         AddQuiz.dataquiz=quizdata;
                         Quiz_Edit.editdataquiz=quizdata;

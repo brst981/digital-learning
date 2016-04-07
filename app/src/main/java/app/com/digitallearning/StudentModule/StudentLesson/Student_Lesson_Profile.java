@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -52,6 +53,8 @@ import app.com.digitallearning.Constant.AppConstant;
 import app.com.digitallearning.R;
 import app.com.digitallearning.TeacherModule.Classes.PostAPi;
 import app.com.digitallearning.WebServices.WSConnector;
+
+//import com.squareup.picasso.Picasso;
 
 /**
  * Created by ${PSR} on 2/9/16.
@@ -510,9 +513,9 @@ public class Student_Lesson_Profile extends Fragment {
     }
 
 
-
-
-
-
-
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        headerTitle.setText("Choose Lesson");
+    }
 }

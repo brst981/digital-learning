@@ -85,7 +85,7 @@ public class CurriculumFragment extends Fragment {
             "Other", "K", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "HigherEd"};
     final String[] items2 = {
             "Other", "K", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "HigherEd"};
-    final String[] library = {"Personal", "School", "Cummunity"};
+    final String[] library = {"Personal", "School", "Community"};
 
     // CharSequence[] charSequenceItems;
     @Override
@@ -270,7 +270,7 @@ public class CurriculumFragment extends Fragment {
                     } else if (addsrdescription == null) {
                         LogMessage.showDialog(getActivity(), null,
                                 "Please fill required Fields", "OK");
-                    } else if (libid == null) {
+                    } else if (curriculumlib == null) {
                         LogMessage.showDialog(getActivity(), null,
                                 "Please fill required Fields", "OK");
                     } else if (gradefromId == null) {
@@ -286,7 +286,16 @@ public class CurriculumFragment extends Fragment {
                                 "Please fill required Fields", "OK");
                     }
                     else {
-                        new Add_curriculum().execute(cla_classid, Sch_Mem_id, addsrtitle, curriculumtopicid, addsrdescription, libid, gradefromId, gradetoId, addsrorganization, countryid, addsrstate);
+
+                        Log.e("addsrtitle",""+addsrtitle);
+                        Log.e("curriculumtopicid",""+curriculumtopicid);
+                        Log.e("addsrdescription",""+addsrdescription);
+                        Log.e("libid",""+libid);
+                        Log.e("gradefromId",""+gradefromId);
+                        Log.e("countryid",""+countryid);
+                        Log.e("gradetoId",""+gradetoId);
+
+                        new Add_curriculum().execute(cla_classid, Sch_Mem_id, addsrtitle, curriculumtopicid, addsrdescription, curriculumlib, gradefromId, gradetoId, addsrorganization, countryid, addsrstate);
                     }
                 }
 

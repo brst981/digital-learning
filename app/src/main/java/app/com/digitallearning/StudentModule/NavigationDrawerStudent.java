@@ -40,6 +40,8 @@ import app.com.digitallearning.R;
 import app.com.digitallearning.UI.ScrimInsetsFrameLayout;
 import app.com.digitallearning.WebServices.WSConnector;
 
+//import com.squareup.picasso.Picasso;
+
 /**
  * Created by ${PSR} on 1/28/16.
  */
@@ -330,7 +332,7 @@ public class NavigationDrawerStudent extends Fragment implements NavigationDrawe
                         String  social_id=obj1.getString("social_id");
 
                         try {
-                            Picasso.with(getActivity()).load(photo).into(imageView);
+                          Picasso.with(getActivity()).load(photo).into(imageView);
                         }
                         catch (Exception e){}
 

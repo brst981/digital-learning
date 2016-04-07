@@ -21,7 +21,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -35,6 +34,7 @@ import app.com.digitallearning.R;
 import app.com.digitallearning.TeacherModule.ClassActivity;
 import app.com.digitallearning.TeacherModule.Model.Data;
 import app.com.digitallearning.TeacherModule.Model.QuizData;
+import app.com.digitallearning.Utill.GlobalClass;
 import app.com.digitallearning.Utill.LogMessage;
 import app.com.digitallearning.WebServices.WSConnector;
 
@@ -55,10 +55,15 @@ public class FullDetailFragment extends Fragment {
     ImageView imageViewLeft, imageViewRight, thumbnail;
     private View view;
     LayoutInflater inflater;
+    int dlgvalue=10;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootview = inflater.inflate(R.layout.layout_lesson_items, container, false);
+ for(int i=0;i< GlobalClass.lessonsize.length;i++){
+     Log.e("obtained",""+GlobalClass.lessonsize[i]);
+
+ }
 
         quizname = (TextView) rootview.findViewById(R.id.quizname);
         textView = (TextView) rootview.findViewById(R.id.textView_lesson_count);
@@ -71,6 +76,7 @@ public class FullDetailFragment extends Fragment {
         activity.getSupportActionBar().setTitle("");
         activity.getSupportActionBar().setDisplayShowHomeEnabled(true);
         headerTitle = (TextView) activity.findViewById(R.id.mytext);
+
 
 
         dlg = new ProgressDialog(getActivity());
@@ -88,7 +94,7 @@ public class FullDetailFragment extends Fragment {
         if (position == 0) {
             imageViewLeft.setVisibility(View.GONE);
         }
-        final int pos = position + 1;
+       // final int pos = position + 1;
 
 
         thumbnail.setOnClickListener(new View.OnClickListener() {
@@ -102,7 +108,23 @@ public class FullDetailFragment extends Fragment {
                     Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(data.getVideoUrl()));
                     startActivity(browserIntent);
                 } else {
-                    Toast.makeText(getActivity(), "Wrong data", Toast.LENGTH_SHORT).show();
+                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+                    alertDialog.setMessage("Video not uploaded or supported").setCancelable(false)
+                            .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    // TODO Auto-generated method stub
+                                    dialog.dismiss();
+
+                                }
+                            });
+
+                    AlertDialog dialog = alertDialog.create();
+                    dialog.show();
+                    TextView messageText = (TextView) dialog
+                            .findViewById(android.R.id.message);
+                    messageText.setGravity(Gravity.CENTER);
                 }
             }
         });
@@ -120,9 +142,10 @@ public class FullDetailFragment extends Fragment {
 
         cla_classid = preferences.getString("cla_classid", "");
         new Get_Lesson().execute(cla_classid, Sch_Mem_id);
+
     }
 
-    class Get_Lesson extends AsyncTask<String, Integer, String> {
+    class  Get_Lesson extends AsyncTask<String, Integer, String> {
 
 
         @Override
@@ -137,7 +160,9 @@ public class FullDetailFragment extends Fragment {
             super.onPreExecute();
             dlg.setMessage("Loading.....");
             dlg.setCancelable(false);
-            dlg.show();
+
+            if(dlgvalue==10){
+            dlg.show();}
 
         }
 
@@ -145,8 +170,13 @@ public class FullDetailFragment extends Fragment {
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
+            Log.e("headertext",GlobalClass.finalValue+"");
+            headerTitle.setText(GlobalClass.lessonsize[GlobalClass.finalValue]);
+
+
             if (dlg != null)
                 dlg.dismiss();
+            dlgvalue++;
             Log.e("Get_LessonAPI", "" + result);
 
             if (result.contains("false")) {
@@ -184,12 +214,17 @@ public class FullDetailFragment extends Fragment {
         }
 
         private void updateGet_Lesson(String success) {
+            int i=0;
             dataList.clear();
+
             try {
 
                 JSONObject jsonObject = new JSONObject(success);
 
                 JSONArray arr = jsonObject.optJSONArray("data");
+
+
+                Log.e("arrlength",""+arr.length());
                 Log.e("arr", " " + arr);
 
                 JSONObject obj = arr.getJSONObject(position);
@@ -234,7 +269,6 @@ public class FullDetailFragment extends Fragment {
                     inflater.inflate(R.layout.quiznameinlesson, quizlinear);
                     LinearLayout llChild = (LinearLayout) quizlinear.getChildAt(k);
 
-
                     lessonquizname = (TextView) llChild.findViewById(R.id.lessonquizname);
                     String st = quizDatalist.get(k).getQuizName();
                     lessonquizname.setText(st);
@@ -254,7 +288,9 @@ public class FullDetailFragment extends Fragment {
                       //  break;
                     }
                 }
-                headerTitle.setText(data.getLessonName());
+               // ++i;
+                Log.e("postioallSn",++i+"");
+
                 thumbnail.setTag(data);
                 // headerTitle.setText(dataList.get(position).getLessonName());
 
@@ -277,6 +313,12 @@ public class FullDetailFragment extends Fragment {
                 e.printStackTrace();
             }
         }
+
+    }
+    public void setData()
+    {
+        headerTitle.setText(GlobalClass.lessonsize[GlobalClass.lessonData]);
+
     }
 
 }

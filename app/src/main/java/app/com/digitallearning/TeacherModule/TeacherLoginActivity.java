@@ -1,12 +1,14 @@
 package app.com.digitallearning.TeacherModule;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 
+import app.com.digitallearning.MainActivity;
 import app.com.digitallearning.R;
 import app.com.digitallearning.TeacherModule.Classes.DescriptionFragment;
 import app.com.digitallearning.TeacherModule.Classes.EditClassFragment;
@@ -54,5 +56,11 @@ public class TeacherLoginActivity extends FragmentActivity {
                         Log.e("val",""+val);
                         finish();
                 }
+
+
+
+                Intent gotomain=new Intent(TeacherLoginActivity.this, MainActivity.class);
+                startActivity(gotomain);
+                finish();
         }
 }

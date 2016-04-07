@@ -62,8 +62,12 @@ public class Resource_Edit extends Fragment {
             public void onComplete(RippleView rippleView) {
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                Bundle bundle=new Bundle();
+                bundle.putString("title",title);
+                bundle.putString("des",description);
                 Preview preview = new Preview();
                 fragmentTransaction.replace(R.id.container, preview).addToBackStack(null);
+                preview.setArguments(bundle);
                 fragmentTransaction.commit();
             }
         });
@@ -126,7 +130,7 @@ Log.e("updatetitle",""+updatetitle);
             } else if (result.contains("true")) {
 
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
-                alertDialog.setMessage("Resourse updated").setCancelable(false)
+                alertDialog.setMessage("Resource updated").setCancelable(false)
                         .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
 
                             @Override

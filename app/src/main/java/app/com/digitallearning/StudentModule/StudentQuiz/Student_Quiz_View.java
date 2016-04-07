@@ -48,8 +48,8 @@ import app.com.digitallearning.WebServices.WSConnector;
  */
 public class Student_Quiz_View extends Fragment {
     View rootview;
-    TextView headerTitle,textquiz,txtdes;
-    String textHeader, quiz_id, cls_clsid,totaltime,userid,useranswer,questionid,sermastrid,todaydate,android_id,correct_answer,answerdata,timelast;
+    TextView headerTitle, textquiz, txtdes;
+    String textHeader, quiz_id, cls_clsid, totaltime, userid, useranswer, questionid, sermastrid, todaydate, android_id, correct_answer, answerdata, timelast;
     NonSwipeableViewPager _mViewPager;
     CustomPagerAdapter mPagerAdapter;
     SharedPreferences preferences;
@@ -60,18 +60,18 @@ public class Student_Quiz_View extends Fragment {
     TimerTask task;
     TextView txttimer;
     Button buttonPanel;
-    TextView  timeElapsedView;
-    int seconds=00;
-    int minutes=00;
-    int hours=00;
+    TextView timeElapsedView;
+    int seconds = 00;
+    int minutes = 00;
+    int hours = 00;
     Timer timer;
     int checkval;
     TimerTask timerTask;
     ArrayList<Student_Quiz_Info> mQuizOpt;
     String sub;
     String dashboard_id;
-    int resultid=12;
-    public static ArrayList<String> finalJson=new ArrayList<>();
+    int resultid = 12;
+    public static ArrayList<String> finalJson = new ArrayList<>();
     final Handler handler = new Handler() {
         /**
          * Closes this handler. A flush operation will be performed and all the
@@ -103,7 +103,6 @@ public class Student_Quiz_View extends Fragment {
     };
 
 
-
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootview = inflater.inflate(R.layout.view_quiz_student, container, false);
         _mViewPager = (NonSwipeableViewPager) rootview.findViewById(R.id.viewPager);
@@ -116,9 +115,9 @@ public class Student_Quiz_View extends Fragment {
         headerTitle = (TextView) activity.findViewById(R.id.mytext);
         headerTitle.setText("View Quiz");
 
-         textquiz = (TextView) rootview.findViewById(R.id.textquiz);
+        textquiz = (TextView) rootview.findViewById(R.id.textquiz);
 
-         txtdes = (TextView) rootview.findViewById(R.id.txtdes);
+        txtdes = (TextView) rootview.findViewById(R.id.txtdes);
 
         txttimer = (TextView) rootview.findViewById(R.id.timer);
 
@@ -126,8 +125,8 @@ public class Student_Quiz_View extends Fragment {
         quiz_id = getArguments().getString("quiz_id");
         preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         cls_clsid = preferences.getString("cls_clsid", "");
-        userid=preferences.getString("Sch_Mem_id","");
-        dashboard_id=getArguments().getString("dashboard_id");
+        userid = preferences.getString("Sch_Mem_id", "");
+        dashboard_id = getArguments().getString("dashboard_id");
 
 
 
@@ -151,7 +150,6 @@ public class Student_Quiz_View extends Fragment {
         Context mContext;
         LayoutInflater mLayoutInflater;
         Student_Quiz_View_Data mDataViewQuiz;
-
 
 
         public CustomPagerAdapter(Context mContext, Student_Quiz_View_Data mDataViewQuiz) {
@@ -182,7 +180,6 @@ public class Student_Quiz_View extends Fragment {
                     false);
 
 
-
             TextView textView = (TextView) itemView.findViewById(R.id.txt);
             Log.e("questionname", "" + mQuizOpt.get(position).getQuiz_question());
             textView.setText(mQuizOpt.get(position).getQuiz_question());
@@ -207,28 +204,22 @@ public class Student_Quiz_View extends Fragment {
             option4.setText(mQuizOpt.get(position).getStudent_quiz_options().get(3).getQuiz_option());
 
 
-
-
-
-
             check1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
 
-                    Log.e("checkval",""+checkval);
+                    Log.e("checkval", "" + checkval);
                     if (isChecked == true) {
-                        useranswer="0";
-                       correct_answer=option1.getText().toString();
+                        useranswer = "0";
+                        correct_answer = option1.getText().toString();
 
-                        if(checkval==0) {
+                        if (checkval == 0) {
                             timer();
                         }
                         check2.setChecked(false);
                         check3.setChecked(false);
                         check4.setChecked(false);
-
-
 
 
                     }
@@ -241,9 +232,9 @@ public class Student_Quiz_View extends Fragment {
 
                     if (isChecked == true) {
 
-                        useranswer="1";
-                        correct_answer=option2.getText().toString();
-                        if(checkval==0) {
+                        useranswer = "1";
+                        correct_answer = option2.getText().toString();
+                        if (checkval == 0) {
                             timer();
                         }
                         check1.setChecked(false);
@@ -259,9 +250,9 @@ public class Student_Quiz_View extends Fragment {
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
                     if (isChecked == true) {
-                        useranswer="2";
-                        correct_answer=option3.getText().toString();
-                        if(checkval==0) {
+                        useranswer = "2";
+                        correct_answer = option3.getText().toString();
+                        if (checkval == 0) {
                             timer();
                         }
                         check1.setChecked(false);
@@ -277,9 +268,9 @@ public class Student_Quiz_View extends Fragment {
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
                     if (isChecked == true) {
-                        useranswer="3";
-                        correct_answer=option4.getText().toString();
-                        if(checkval==0) {
+                        useranswer = "3";
+                        correct_answer = option4.getText().toString();
+                        if (checkval == 0) {
                             timer();
                         }
                         check1.setChecked(false);
@@ -290,7 +281,6 @@ public class Student_Quiz_View extends Fragment {
             });
 
 
-
             final Button next = (Button) itemView.findViewById(R.id.button_create);
 
 
@@ -299,89 +289,86 @@ public class Student_Quiz_View extends Fragment {
                 public void onClick(View v) {
 
 
-                    String currentitem= String.valueOf(_mViewPager.getCurrentItem());
-                    Log.e("currentitem",""+currentitem);
+                    String currentitem = String.valueOf(_mViewPager.getCurrentItem());
+                    Log.e("currentitem", "" + currentitem);
 
-               //{"1":{"question_id":"37319326","useranswer":"0","correct_answer":"D"}}
+                    //{"1":{"question_id":"37319326","useranswer":"0","correct_answer":"D"}}
 //{"1":{"correct_ans":"3","quiz_ans_1":"g","quiz_ans_2":"m","quiz_ans_3":"k","quiz_ans_4":"p","quiz_question":"yuo"}}
-                     questionid=mQuizOpt.get(position).getQuizzes_id();
+                    questionid = mQuizOpt.get(position).getQuizzes_id();
 //String s = _mViewPager.getC
-                    JSONObject jsonObject=new JSONObject();
+                    JSONObject jsonObject = new JSONObject();
 //                   for (int i=0;i<mQuizOpt.size();i++) {
-                        JSONObject obj=new JSONObject();
-                        try {
+                    JSONObject obj = new JSONObject();
+                    try {
 
-                            obj.put("question_id",questionid);
-                            obj.put("useranswer",useranswer);
-                            obj.put("correct_answer",correct_answer);
+                        obj.put("question_id", questionid);
+                        obj.put("useranswer", useranswer);
+                        obj.put("correct_answer", correct_answer);
 
-                            finalJson.add(obj.toString());
+                        finalJson.add(obj.toString());
 
-                           // jsonObject.put(String.valueOf(i+1), finalJson);
-                            Log.e("obj",""+obj);
-                            Log.e("finalJson",""+finalJson);
-                           // Log.e("jsonObject",""+jsonObject);
-                        }
-
-
-
-                        catch (JSONException e) {
-                            e.printStackTrace();
-                        }
+                        // jsonObject.put(String.valueOf(i+1), finalJson);
+                        Log.e("obj", "" + obj);
+                        Log.e("finalJson", "" + finalJson);
+                        // Log.e("jsonObject",""+jsonObject);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
 
 
 //                    }
 
 
                     _mViewPager.setCurrentItem(_mViewPager.getCurrentItem() + 1);
-                   // Toast.makeText(getActivity(), "Next", Toast.LENGTH_SHORT).show();
-
-                    timelast= txttimer.getText().toString();
-                    sub= String.valueOf(mQuizOpt.size());
+                    // Toast.makeText(getActivity(), "Next", Toast.LENGTH_SHORT).show();
 
 
-                    if(sub.equals(String.valueOf(mQuizOpt.size()))){
+                    sub = String.valueOf(mQuizOpt.size());
+
+
+                    if (sub.equals(String.valueOf(mQuizOpt.size()))) {
 
                         next.setText("Submit Answer");
 
-                        if(next.getText().equals("Submit Answer")){
+                        if (next.getText().equals("Submit Answer")) {
 
 
-                             sermastrid=mQuizOpt.get(position).getMaster_id();
+                            sermastrid = mQuizOpt.get(position).getMaster_id();
 
                             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
                             final Date date = new Date();
-                             todaydate= String.valueOf(dateFormat.format(date));
-                              android_id = Settings.Secure.getString(getActivity().getContentResolver(),
+                            todaydate = String.valueOf(dateFormat.format(date));
+                            android_id = Settings.Secure.getString(getActivity().getContentResolver(),
                                     Settings.Secure.ANDROID_ID);
 
-                            JSONObject object=new JSONObject();
-                            for (int j=0;j<finalJson.size();j++){
+                            JSONObject object = new JSONObject();
+                            for (int j = 0; j < finalJson.size(); j++) {
                                 String str = finalJson.get(j);
                                 try {
-                                    JSONObject object1=new JSONObject(str);
-                                    object.put(String.valueOf(j+1), object1);
-                                    Log.e("objectss",""+object);
+                                    JSONObject object1 = new JSONObject(str);
+                                    object.put(String.valueOf(j + 1), object1);
+                                    Log.e("objectss", "" + object);
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
                             }
-                            answerdata=object.toString();
+                            answerdata = object.toString();
 
 
 //String quizmasterid ,String todaydate ,String ipaddr,String timelast,String userid,String answerdata
 
-                            Log.e("mastrid",""+sermastrid);
-                            Log.e("todaydate",""+todaydate);
-                            Log.e("android_id",""+android_id);
-                            Log.e("userid",""+userid);
-                            Log.e("timelast",""+timelast);
-                            Log.e("answerdata",""+answerdata);
+                            Log.e("mastrid", "" + sermastrid);
+                            Log.e("todaydate", "" + todaydate);
+                            Log.e("android_id", "" + android_id);
+                            Log.e("userid", "" + userid);
+                            Log.e("timelast", "" + timelast);
+                            Log.e("answerdata", "" + answerdata);
                             next.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
                                     t.cancel();
-                                    new Quiz_Perform().execute(sermastrid,todaydate,android_id,timelast,userid,answerdata);
+                                    timelast = txttimer.getText().toString();
+                                    new Quiz_Perform().execute(sermastrid, todaydate, android_id, timelast, userid, answerdata);
                                 }
                             });
 
@@ -515,53 +502,56 @@ public class Student_Quiz_View extends Fragment {
         }
 
     }
-    public void timer(){
 
-        checkval=10;
+    public void timer() {
+
+        checkval = 10;
 
 
-        Log.e("Visit","visit");
+        Log.e("Visit", "visit");
 
-         t = new Timer();
+        t = new Timer();
 
         t.scheduleAtFixedRate(new TimerTask() {
 
             @Override
             public void run() {
-               try{
+                try {
 
-                getActivity().runOnUiThread(new Runnable() {
+                    getActivity().runOnUiThread(new Runnable() {
 
-                    @Override
-                    public void run() {
-                        Log.e("Visithere", "visit");
+                                                    @Override
+                                                    public void run() {
+                                                        Log.e("Visithere", "visit");
 
-                            txttimer.setText(String.valueOf(hours) + ":" + String.valueOf(minutes) + ":" + String.valueOf(seconds));
-                            totaltime = String.valueOf(hours) + ":" + String.valueOf(minutes) + ":" + String.valueOf(seconds);
+                                                        txttimer.setText(String.valueOf(hours) + ":" + String.valueOf(minutes) + ":" + String.valueOf(seconds));
+                                                        totaltime = String.valueOf(hours) + ":" + String.valueOf(minutes) + ":" + String.valueOf(seconds);
 
 
-                        seconds += 1;
-                        if (seconds == 60) {
+                                                        seconds += 1;
+                                                        if (seconds == 60) {
 
-                                txttimer.setText(String.valueOf(hours) + ":" + String.valueOf(minutes) + ":" + String.valueOf(seconds));
+                                                            txttimer.setText(String.valueOf(hours) + ":" + String.valueOf(minutes) + ":" + String.valueOf(seconds));
 
-                                seconds = 00;
-                                minutes = minutes + 1;
+                                                            seconds = 00;
+                                                            minutes = minutes + 1;
 
-                        }
-                        if (minutes == 60) {
+                                                        }
+                                                        if (minutes == 60) {
 
-                                txttimer.setText(String.valueOf(hours) + ":" + String.valueOf(minutes) + ":" + String.valueOf(seconds));
-                                minutes = 00;
-                                hours = hours + 1;
+                                                            txttimer.setText(String.valueOf(hours) + ":" + String.valueOf(minutes) + ":" + String.valueOf(seconds));
+                                                            minutes = 00;
+                                                            hours = hours + 1;
 
-                            Log.e("totaltime", "" + totaltime);
-                        }
-                    }
+                                                            Log.e("totaltime", "" + totaltime);
+                                                        }
+                                                    }
 
+                                                }
+
+                    );
+                } catch (Exception e) {
                 }
-
-                );  } catch (Exception e){}
             }
 
         }, 0, 1000);
@@ -569,12 +559,11 @@ public class Student_Quiz_View extends Fragment {
     }
 
 
-
     class Quiz_Perform extends AsyncTask<String, Integer, String> {
 
         @Override
         protected String doInBackground(String... params) {
-            return WSConnector.Student_Perform_Quiz(params[0], params[1],params[2],params[3],params[4],params[5]);
+            return WSConnector.Student_Perform_Quiz(params[0], params[1], params[2], params[3], params[4], params[5]);
         }
 
         @Override
@@ -597,8 +586,6 @@ public class Student_Quiz_View extends Fragment {
                 updateGet_Lesson(result);
 
 
-
-
             } else if (result.contains("false")) {
                 Toast.makeText(getActivity(), "No data", Toast.LENGTH_SHORT).show();
 
@@ -617,42 +604,41 @@ public class Student_Quiz_View extends Fragment {
                 Log.e("arr", " " + arr);
                 for (int i = 0; i < arr.length(); i++) {
                     JSONObject obj = arr.getJSONObject(i);
-                    String username=obj.getString("username");
-                    Log.e("username",""+username);
+                    String username = obj.getString("username");
+                    Log.e("username", "" + username);
 
-                    String scoring=obj.getString("scoring");
-                    Log.e("scoring",""+scoring);
+                    String scoring = obj.getString("scoring");
+                    Log.e("scoring", "" + scoring);
 
-                    String correct=obj.getString("correct");
-                    Log.e("correct",""+correct);
+                    String correct = obj.getString("correct");
+                    Log.e("correct", "" + correct);
 
-                    String min_score=obj.getString("min_score");
-                    Log.e("min_score",""+min_score);
+                    String min_score = obj.getString("min_score");
+                    Log.e("min_score", "" + min_score);
 
-                    String result_grade=obj.getString("result_grade");
-                    Log.e("result_grade",""+result_grade);
+                    String result_grade = obj.getString("result_grade");
+                    Log.e("result_grade", "" + result_grade);
 
-                    String total_time=obj.getString("total_time");
-                    Log.e("total_time",""+total_time);
+                    String total_time = obj.getString("total_time");
+                    Log.e("total_time", "" + total_time);
 
-                  FragmentManager fragmentManager = getFragmentManager();
-                  FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                  Result_Student_Quiz resultStudentQuiz = new Result_Student_Quiz();
-                    Bundle bundle=new Bundle();
-                    bundle.putInt("resultid",resultid);
-                    bundle.putString("username",username);
-                    bundle.putString("scoring",scoring);
-                    bundle.putString("correct",correct);
-                    bundle.putString("min_score",min_score);
-                    bundle.putString("result_grade",result_grade);
-                    bundle.putString("total_time",total_time);
-                    Log.e("timepass",""+total_time);
-                   fragmentTransaction.replace(R.id.container, resultStudentQuiz);
+                    FragmentManager fragmentManager = getFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    Result_Student_Quiz resultStudentQuiz = new Result_Student_Quiz();
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("resultid", resultid);
+                    bundle.putString("username", username);
+                    bundle.putString("scoring", scoring);
+                    bundle.putString("correct", correct);
+                    bundle.putString("min_score", min_score);
+                    bundle.putString("result_grade", result_grade);
+                    bundle.putString("total_time", total_time);
+                    Log.e("timepass", "" + total_time);
+                    fragmentTransaction.replace(R.id.container, resultStudentQuiz);
                     resultStudentQuiz.setArguments(bundle);
-                  fragmentTransaction.commit();
+                    fragmentTransaction.commit();
 
                 }
-
 
 
             } catch (JSONException e) {

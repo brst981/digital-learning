@@ -100,7 +100,7 @@ public class EnrolledFragment extends Fragment {
         mListView.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(AbsListView view, int scrollState) {
-                ((SwipeLayout)(mListView.getChildAt(scrollState - mListView.getFirstVisiblePosition()))).open(true);
+              //  ((SwipeLayout)(mListView.getChildAt(scrollState - mListView.getFirstVisiblePosition()))).open(true);
             }
 
             @Override

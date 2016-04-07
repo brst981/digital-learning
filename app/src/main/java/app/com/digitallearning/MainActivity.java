@@ -37,6 +37,8 @@ import java.util.HashMap;
 
 import app.com.digitallearning.WebServices.WSConnector;
 
+//import com.squareup.picasso.Picasso;
+
 public class MainActivity extends Activity {
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
@@ -270,6 +272,7 @@ public class MainActivity extends Activity {
                         intent.putExtra("SchoolName",arrSchoolList.get(position));
                         intent.putExtra("SchoolID",arrSchoolId.get(position));
                         startActivity(intent);
+
 
                         preferences = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
                         editor = preferences.edit();

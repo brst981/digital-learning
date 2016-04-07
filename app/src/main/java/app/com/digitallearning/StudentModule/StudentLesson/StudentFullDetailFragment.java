@@ -1,16 +1,16 @@
 package app.com.digitallearning.StudentModule.StudentLesson;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
-import android.app.ProgressDialog;
-import android.content.SharedPreferences;
-import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Gravity;
@@ -21,7 +21,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -102,7 +101,23 @@ public class StudentFullDetailFragment extends Fragment {
                     Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(data.getVideoUrl()));
                     startActivity(browserIntent);
                 } else {
-                    Toast.makeText(getActivity(), "Wrong data", Toast.LENGTH_SHORT).show();
+                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+                    alertDialog.setMessage("Video not uploaded or supported").setCancelable(false)
+                            .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    // TODO Auto-generated method stub
+                                    dialog.dismiss();
+
+                                }
+                            });
+
+                    AlertDialog dialog = alertDialog.create();
+                    dialog.show();
+                    TextView messageText = (TextView) dialog
+                            .findViewById(android.R.id.message);
+                    messageText.setGravity(Gravity.CENTER);
                 }
             }
         });
@@ -254,7 +269,7 @@ public class StudentFullDetailFragment extends Fragment {
                         //  break;
                     }
                 }
-                headerTitle.setText(data.getLessonName());
+
                 thumbnail.setTag(data);
                 // headerTitle.setText(dataList.get(position).getLessonName());
 

@@ -231,7 +231,7 @@ public class CreateClassFragment extends Fragment {
                 Log.e("srEditClass.style",""+EditClassFragment.style);
                 Log.e("srtopic",""+topic);
                 Log.e("srdescription",""+description);
-
+                Log.e("topicvalue",""+topic);
 
                 if(title.length()<1){
 
@@ -242,11 +242,24 @@ public class CreateClassFragment extends Fragment {
                     LogMessage.showDialog(getActivity(), null,
                             "Please fill required Fields" , "OK");
                 }
-                else if(topic.length()<1||topic==" "){
+
+
+                else if(topic==null || topic.equals(" ")){
+
                     LogMessage.showDialog(getActivity(), null,
                             "Please fill required Fields" , "OK");
-                }
-                else if(description.length()<1|| description==" "){
+                }/*
+                else if(topic.equals(null)){
+
+
+                    LogMessage.showDialog(getActivity(), null,
+                            "Please fill required Fields" , "OK");
+                }*/
+                /*else if(topic==" "){
+                    LogMessage.showDialog(getActivity(), null,
+                            "Please fill required Fields" , "OK");
+                }*/
+                else if(description==null|| description==" "){
                     LogMessage.showDialog(getActivity(), null,
                             "Please fill required Fields" , "OK");
                 }

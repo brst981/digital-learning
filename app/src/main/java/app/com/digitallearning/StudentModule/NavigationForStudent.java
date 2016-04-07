@@ -63,7 +63,19 @@ public class NavigationForStudent extends AppCompatActivity implements Navigatio
         getSupportActionBar().setTitle("");
         dlg=new ProgressDialog(NavigationForStudent.this);
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+        imageButtonZoomIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                zoom(1.5f, 1.5f, new PointF(0, 0));
+            }
+        });
 
+        imageButtonZoomOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                zoom(1f, 1f, new PointF(0, 0));
+            }
+        });
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
         final Date date = new Date();

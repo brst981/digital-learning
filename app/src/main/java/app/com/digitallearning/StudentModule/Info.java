@@ -19,8 +19,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.squareup.picasso.Picasso;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -189,7 +187,7 @@ public class Info  extends Fragment {
                         edtwechat.setText(wechat);
                         edtwhatsapp.setText(whatsapp);
                         txtdescription.setText(description);
-                        Picasso.with(getActivity()).load(photo).placeholder(R.drawable.img_loading).into(studentimage);
+                        //Picasso.with(getActivity()).load(photo).placeholder(R.drawable.img_loading).into(studentimage);
 
                     }}
 

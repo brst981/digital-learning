@@ -21,7 +21,6 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.andexert.library.RippleView;
 
@@ -34,6 +33,7 @@ import java.util.ArrayList;
 import app.com.digitallearning.LoginActivity;
 import app.com.digitallearning.R;
 import app.com.digitallearning.Utill.GlobalClass;
+import app.com.digitallearning.Utill.LogMessage;
 import app.com.digitallearning.WebServices.WSConnector;
 
 /**
@@ -71,12 +71,12 @@ public class TeacherLoginFragment extends Fragment {
                 if(isChecked==true){
                     GlobalClass.rememberMe=true;
                     remembermechecked=1;
-                    Toast.makeText(getActivity(),"Checked",Toast.LENGTH_SHORT).show();
+
                 }
                 else if(isChecked==false){
                     remembermechecked=0;
                     GlobalClass.rememberMe=false;
-                    Toast.makeText(getActivity(),"Unchecked",Toast.LENGTH_SHORT).show();
+
                 }
             }
         });
@@ -121,10 +121,20 @@ public class TeacherLoginFragment extends Fragment {
                 password = edt_pwd.getText().toString();
                 Log.e("password", "" + password);
 
+                if(name.length()<1){
+
+                    LogMessage.showDialog(getActivity(), null,
+                            "Please fill required Fields" , "OK");
+                }
+                else if(password.length()<1){
+                    LogMessage.showDialog(getActivity(), null,
+                            "Please fill required Fields" , "OK");
+                }
 
 
-                new TeacherLogIn().execute(name, password, schoolID);
-
+                else {
+                    new TeacherLogIn().execute(name, password, schoolID);
+                }
               /*  FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 ClassFragment classFragment = new ClassFragment();

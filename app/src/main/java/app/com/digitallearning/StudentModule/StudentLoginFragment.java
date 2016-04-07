@@ -19,7 +19,6 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.andexert.library.RippleView;
 
@@ -30,6 +29,7 @@ import org.json.JSONObject;
 import app.com.digitallearning.R;
 import app.com.digitallearning.StudentModule.Model.Student_Login_Data;
 import app.com.digitallearning.Utill.GlobalClass;
+import app.com.digitallearning.Utill.LogMessage;
 import app.com.digitallearning.WebServices.WSConnector;
 
 /**
@@ -61,12 +61,12 @@ public class StudentLoginFragment extends Fragment {
                 if(isChecked==true){
                     GlobalClass.rememberMe=true;
                     remembermecheckedstu=11;
-                    Toast.makeText(getActivity(),"Checked",Toast.LENGTH_SHORT).show();
+
                 }
                 else if(isChecked==false){
                     remembermecheckedstu=10;
                     GlobalClass.rememberMe=false;
-                    Toast.makeText(getActivity(),"Unchecked",Toast.LENGTH_SHORT).show();
+
                 }
             }
         });
@@ -82,12 +82,21 @@ public class StudentLoginFragment extends Fragment {
                 Log.e("name",""+name);
                 Log.e("password",""+password);
 
+                if(name.length()<1){
+
+                    LogMessage.showDialog(getActivity(), null,
+                            "Please fill required Fields" , "OK");
+                }
+                else if(password.length()<1){
+                    LogMessage.showDialog(getActivity(), null,
+                            "Please fill required Fields" , "OK");
+                }
+
+else {
 
 
-
-
-                new StudentLogIn().execute(name, password, schoolID);
-
+                    new StudentLogIn().execute(name, password, schoolID);
+                }
 
 
             }

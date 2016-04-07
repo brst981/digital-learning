@@ -157,6 +157,7 @@ public class StudentLessonFragment  extends Fragment {
                 Bundle bundle = new Bundle();
                 bundle.putString("positioninLesson", dataList.get(position).getLessonName());
                 bundle.putString("lessonid", dataList.get(position).getLessonId());
+                bundle.putSerializable("ArrayList", dataList);
                 bundle.putString("sizeget", String.valueOf(dataList.size()));
                 Log.e("sizeget",""+String.valueOf(dataList.size()));
                 bundle.putInt("position", position);
@@ -199,6 +200,7 @@ public class StudentLessonFragment  extends Fragment {
         return rootview;
     }
 
+
     private void initData() {
         textHeader = "sdhfygsjdgf";
 
@@ -208,8 +210,11 @@ public class StudentLessonFragment  extends Fragment {
     class ListViewAdapter extends BaseSwipeAdapter {
         private Context mContext;
 
+
         public ListViewAdapter(Context mContext) {
             this.mContext = mContext;
+
+
         }
 
         @Override
@@ -287,11 +292,11 @@ public class StudentLessonFragment  extends Fragment {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            dlg = new ProgressDialog(getActivity());
+            /*dlg = new ProgressDialog(getActivity());
             dlg.setMessage("Loading.....");
             dlg.setCancelable(false);
             dlg.show();
-
+*/
 
         }
 
@@ -300,10 +305,10 @@ public class StudentLessonFragment  extends Fragment {
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
 
-        //  if (dlg != null)
-           // if(dlg.isShowing()){
+         /*if (dlg != null)
+            if(dlg.isShowing()){
             dlg.dismiss();
-       // }
+        }*/
             Log.e("StudentGetLesson", "" + result);
 
             if (result.contains("false")) {
