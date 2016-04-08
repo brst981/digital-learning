@@ -157,7 +157,7 @@ public class AddQuiz extends Fragment{
                     LogMessage.showDialog(getActivity(), null,
                             "Please fill required Fields", "OK");
                 }
-                else if(quiztitle==null){
+                else if(quiztitle.length()<1){
                     LogMessage.showDialog(getActivity(), null,
                             "Please fill required Fields", "OK");
                 }

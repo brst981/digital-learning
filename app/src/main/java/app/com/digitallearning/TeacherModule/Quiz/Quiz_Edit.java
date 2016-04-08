@@ -58,6 +58,8 @@ public class Quiz_Edit extends Fragment {
     ArrayList<View_Quiz_Listing_Questions> quizlisting1 = new ArrayList<View_Quiz_Listing_Questions>();
     ArrayList<View_Quiz_Name> quiznamelist = new ArrayList<View_Quiz_Name>();
     public static String updatedescription,question_name,editdataquiz;
+    JSONArray quiz_question;
+    JSONObject data;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootview = inflater.inflate(R.layout.quiz_edit, container, false);
@@ -117,7 +119,7 @@ public class Quiz_Edit extends Fragment {
                 Bundle bundle=new Bundle();
                 bundle.putString("quizid",quizid);
                 bundle.putInt("idvalue",idvalue);
-                bundle.putString("question_id",question_id);
+                bundle.putString("question_id",data.toString());
                 bundle.putString("option_id",option_id);
                 bundle.putString("quizzes_id",quizzes_id);
                 Log.e("question_id",""+question_id);
@@ -147,6 +149,7 @@ public class Quiz_Edit extends Fragment {
             @Override
             public void onComplete(RippleView rippleView) {
                 newquizdata=editdataquiz;
+                Log.e("updateQuizdata",""+newquizdata);
                 quiztitle=title.getText().toString();
                 updatedescription =quizdecdata.getText().toString();
 
@@ -189,7 +192,7 @@ public class Quiz_Edit extends Fragment {
                     Log.e("finalquizdata",""+finalquizdata);
                 }
 
-
+                Log.e("finalquizdata",""+finalquizdata);
                 new Quiz_Update().execute(cla_classid, Sch_Mem_id,Mem_Sch_Id,finallessonId,quiztitle,updatedescription,finalquizdata,modifydate,quizid);
             }
         });
@@ -330,7 +333,7 @@ public class Quiz_Edit extends Fragment {
                 JSONObject jsonObject = new JSONObject(success);
                 Log.e("jsonObject", "" + jsonObject);
 
-                JSONObject data = jsonObject.getJSONObject("data");
+                data = jsonObject.getJSONObject("data");
                 JSONObject quiz_info=data.getJSONObject("quiz_info");
 
                 View_Quiz_Name view_quiz_name=new View_Quiz_Name();
@@ -353,12 +356,14 @@ public class Quiz_Edit extends Fragment {
                 }
 
 
-                if(updatedescription==null) {
+                if(updatedescription==null|| updatedescription.equals(" ")) {
                     quizdecdata.setText(quiznamelist.get(pos).getQuiz_description());
                 }
                 else if(updatedescription!=null){
                     quizdecdata.setText(updatedescription);
                 }
+
+                Log.e("setupdatedescription",""+updatedescription);
               //  }
 
 
@@ -373,17 +378,18 @@ public class Quiz_Edit extends Fragment {
                 String quiz_cid=quiz_info.getString("quiz_cid");
                 String last_modified=quiz_info.getString("last_modified");
 
-                JSONArray quiz_question=data.getJSONArray("quiz_question");
+                quiz_question=data.getJSONArray("quiz_question");
                 Log.e("quiz_question",""+quiz_question);
 
                 for(int i=0;i<quiz_question.length();i++) {
                     JSONObject obj1 = quiz_question.getJSONObject(i);
+                    Log.e("vishal",""+obj1);
                     View_Quiz_Listing_Questions view_quiz_listing_questions=new View_Quiz_Listing_Questions();
                     view_quiz_listing_questions.setQuestion_id(obj1.getString("question_id"));
                     view_quiz_listing_questions.setQuestion_nameString(obj1.getString("question_name"));
                     quizlisting1.add(view_quiz_listing_questions);
 
-                    if(question_name==null) {
+                    if(question_name==null||question_name.equals(" ")) {
                         quizquestionname.setText(quizlisting1.get(pos).getQuestion_nameString());
                     }
                     else if(question_name!=null){
@@ -456,14 +462,14 @@ public class Quiz_Edit extends Fragment {
                             public void onClick(DialogInterface dialog, int which) {
                                 // TODO Auto-generated method stub
                                 dialog.dismiss();
-                               /* quiztitle=" ";
+                                quiztitle=" ";
                                 updatedescription=" ";
                                 finalquizdata=" ";
                                 editdataquiz=" ";
                                 newquizdata=" ";
                                 question_name=" ";
                                 Log.e("cleareditdataquiz",""+editdataquiz);
-                                Log.e("cleareditdataquiznew",""+newquizdata);*/
+                                Log.e("cleareditdataquiznew",""+newquizdata);
                                 getFragmentManager().popBackStack();
 
 

@@ -30,21 +30,21 @@ import app.com.digitallearning.TeacherModule.Model.Quiz_Question;
 public class Quiz_Question_Fragment extends Fragment {
     View rootview;
     TextView headerTitle;
-    String textHeader,strquestion,strans1,strans2,strans3,strans4,correctans,position;
+    String textHeader, strquestion, strans1, strans2, strans3, strans4, correctans, position;
     ScrollView relativescrollview;
     LinearLayout linearlayout;
-    Button addmore1,save1;
+    Button addmore1, save1;
     private View view;
     LayoutInflater inflater;
     int pos = 1;
-    EditText question,ans1,ans2,ans3,ans4;
-    CheckBox check1,check2,check3,check4;
-    ArrayList<Quiz_Question> listing=new ArrayList<Quiz_Question>();
+    EditText question, ans1, ans2, ans3, ans4;
+    CheckBox check1, check2, check3, check4;
+    ArrayList<Quiz_Question> listing = new ArrayList<Quiz_Question>();
     String quizdata;
-    int count=1;
+    int count = 1;
 
     @Override
-    public View onCreateView(LayoutInflater inflater,final ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
         rootview = inflater.inflate(R.layout.quiz_question_fragment, container, false);
 
         AppCompatActivity activity = (AppCompatActivity) getActivity();
@@ -55,29 +55,29 @@ public class Quiz_Question_Fragment extends Fragment {
         relativescrollview = (ScrollView) rootview.findViewById(R.id.relativescrollview);
         linearlayout = (LinearLayout) rootview.findViewById(R.id.linearlayout);
         addmore1 = (Button) rootview.findViewById(R.id.addmore1);
-        save1=(Button)rootview.findViewById(R.id.save1) ;
+        save1 = (Button) rootview.findViewById(R.id.save1);
 
         inflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-        view = inflater.inflate(R.layout.question_layout, container,false);
-        question=(EditText) view.findViewById(R.id.question) ;
-        ans1=(EditText)view.findViewById(R.id.ans1) ;
-        ans2=(EditText)view.findViewById(R.id.ans2) ;
-        ans3=(EditText)view.findViewById(R.id.ans3) ;
-        ans4=(EditText)view.findViewById(R.id.ans4) ;
-        check1=(CheckBox)view.findViewById(R.id.check1) ;
-        check2=(CheckBox)view.findViewById(R.id.check2) ;
-        check3=(CheckBox)view.findViewById(R.id.check3) ;
-        check4=(CheckBox)view.findViewById(R.id.check4) ;
+        view = inflater.inflate(R.layout.question_layout, container, false);
+        question = (EditText) view.findViewById(R.id.question);
+        ans1 = (EditText) view.findViewById(R.id.ans1);
+        ans2 = (EditText) view.findViewById(R.id.ans2);
+        ans3 = (EditText) view.findViewById(R.id.ans3);
+        ans4 = (EditText) view.findViewById(R.id.ans4);
+        check1 = (CheckBox) view.findViewById(R.id.check1);
+        check2 = (CheckBox) view.findViewById(R.id.check2);
+        check3 = (CheckBox) view.findViewById(R.id.check3);
+        check4 = (CheckBox) view.findViewById(R.id.check4);
 
         check1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked==true){
+                if (isChecked == true) {
                     check2.setChecked(false);
                     check3.setChecked(false);
                     check4.setChecked(false);
-                    correctans= String.valueOf(1);
+                    correctans = String.valueOf(1);
                 }
             }
         });
@@ -85,11 +85,11 @@ public class Quiz_Question_Fragment extends Fragment {
         check2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked==true){
+                if (isChecked == true) {
                     check1.setChecked(false);
                     check3.setChecked(false);
                     check4.setChecked(false);
-                    correctans= String.valueOf(2);
+                    correctans = String.valueOf(2);
                 }
             }
         });
@@ -97,11 +97,11 @@ public class Quiz_Question_Fragment extends Fragment {
         check3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked==true){
+                if (isChecked == true) {
                     check1.setChecked(false);
                     check2.setChecked(false);
                     check4.setChecked(false);
-                    correctans= String.valueOf(3);
+                    correctans = String.valueOf(3);
                 }
             }
         });
@@ -110,11 +110,11 @@ public class Quiz_Question_Fragment extends Fragment {
         check4.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked==true){
+                if (isChecked == true) {
                     check1.setChecked(false);
                     check2.setChecked(false);
                     check3.setChecked(false);
-                    correctans= String.valueOf(4);
+                    correctans = String.valueOf(4);
 
                 }
             }
@@ -128,20 +128,20 @@ public class Quiz_Question_Fragment extends Fragment {
         addmore1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               // view = inflater.inflate(R.layout.question_layout, container,false);
+                // view = inflater.inflate(R.layout.question_layout, container,false);
                 LayoutInflater inflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-                view = inflater.inflate(R.layout.question_layout, container,false);
+                view = inflater.inflate(R.layout.question_layout, container, false);
 
-                final CheckBox quescheck1=(CheckBox)view.findViewById(R.id.check1) ;
-               final CheckBox  quescheck2=(CheckBox)view.findViewById(R.id.check2) ;
-                final CheckBox  quescheck3=(CheckBox)view.findViewById(R.id.check3) ;
-                final CheckBox  quescheck4=(CheckBox)view.findViewById(R.id.check4) ;
+                final CheckBox quescheck1 = (CheckBox) view.findViewById(R.id.check1);
+                final CheckBox quescheck2 = (CheckBox) view.findViewById(R.id.check2);
+                final CheckBox quescheck3 = (CheckBox) view.findViewById(R.id.check3);
+                final CheckBox quescheck4 = (CheckBox) view.findViewById(R.id.check4);
 
                 quescheck1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                     @Override
                     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                        if(isChecked==true){
+                        if (isChecked == true) {
                             quescheck2.setChecked(false);
                             quescheck3.setChecked(false);
                             quescheck4.setChecked(false);
@@ -153,7 +153,7 @@ public class Quiz_Question_Fragment extends Fragment {
                 quescheck2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                     @Override
                     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                        if(isChecked==true){
+                        if (isChecked == true) {
                             quescheck1.setChecked(false);
                             quescheck3.setChecked(false);
                             quescheck4.setChecked(false);
@@ -165,7 +165,7 @@ public class Quiz_Question_Fragment extends Fragment {
                 quescheck3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                     @Override
                     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                        if(isChecked==true){
+                        if (isChecked == true) {
                             quescheck1.setChecked(false);
                             quescheck2.setChecked(false);
                             quescheck4.setChecked(false);
@@ -178,7 +178,7 @@ public class Quiz_Question_Fragment extends Fragment {
                 quescheck4.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                     @Override
                     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                        if(isChecked==true){
+                        if (isChecked == true) {
                             quescheck1.setChecked(false);
                             quescheck2.setChecked(false);
                             quescheck3.setChecked(false);
@@ -189,9 +189,9 @@ public class Quiz_Question_Fragment extends Fragment {
                 });
 
 
-                Log.e("sizepos",""+pos);
+                Log.e("sizepos", "" + pos);
                 linearlayout.addView(view, pos);
-                pos ++;
+                pos++;
 
                 relativescrollview.post(new Runnable() {
                     @Override
@@ -210,73 +210,72 @@ public class Quiz_Question_Fragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-               position= String.valueOf(pos);
-               strquestion=question.getText().toString();
-                strans1=ans1.getText().toString();
-                strans2=ans2.getText().toString();
-                strans3=ans3.getText().toString();
-                strans4=ans4.getText().toString();
+                position = String.valueOf(pos);
+                strquestion = question.getText().toString();
+                strans1 = ans1.getText().toString();
+                strans2 = ans2.getText().toString();
+                strans3 = ans3.getText().toString();
+                strans4 = ans4.getText().toString();
 
-                Log.e("childcount",""+linearlayout.getChildCount());
-                Log.e("strquestion",""+strquestion);
-                Log.e("strans1",""+strans1);
-                Log.e("strans2",""+strans2);
-                Log.e("strans3",""+strans3);
-                Log.e("strans4",""+strans4);
-                Log.e("correctans",""+correctans);
-                JSONObject object=new JSONObject();
-                for (int i=0;i<linearlayout.getChildCount();i++){
-                    JSONObject object1=new JSONObject();
+                Log.e("childcount", "" + linearlayout.getChildCount());
+                Log.e("strquestion", "" + strquestion);
+                Log.e("strans1", "" + strans1);
+                Log.e("strans2", "" + strans2);
+                Log.e("strans3", "" + strans3);
+                Log.e("strans4", "" + strans4);
+                Log.e("correctans", "" + correctans);
+                JSONObject object = new JSONObject();
+                for (int i = 0; i < linearlayout.getChildCount(); i++) {
+                    JSONObject object1 = new JSONObject();
                     View view = linearlayout.getChildAt(i);
 
-                    question=(EditText) view.findViewById(R.id.question) ;
-                    ans1=(EditText)view.findViewById(R.id.ans1) ;
-                    ans2=(EditText)view.findViewById(R.id.ans2) ;
-                    ans3=(EditText)view.findViewById(R.id.ans3) ;
-                    ans4=(EditText)view.findViewById(R.id.ans4) ;
-                    check1=(CheckBox)view.findViewById(R.id.check1) ;
-                    check2=(CheckBox)view.findViewById(R.id.check2) ;
-                    check3=(CheckBox)view.findViewById(R.id.check3) ;
-                    check4=(CheckBox)view.findViewById(R.id.check4) ;
+                    question = (EditText) view.findViewById(R.id.question);
+                    ans1 = (EditText) view.findViewById(R.id.ans1);
+                    ans2 = (EditText) view.findViewById(R.id.ans2);
+                    ans3 = (EditText) view.findViewById(R.id.ans3);
+                    ans4 = (EditText) view.findViewById(R.id.ans4);
+                    check1 = (CheckBox) view.findViewById(R.id.check1);
+                    check2 = (CheckBox) view.findViewById(R.id.check2);
+                    check3 = (CheckBox) view.findViewById(R.id.check3);
+                    check4 = (CheckBox) view.findViewById(R.id.check4);
 
-                    position= String.valueOf(pos);
-                    strquestion=question.getText().toString();
-                    strans1=ans1.getText().toString();
-                    strans2=ans2.getText().toString();
-                    strans3=ans3.getText().toString();
-                    strans4=ans4.getText().toString();
+                    position = String.valueOf(pos);
+                    strquestion = question.getText().toString();
+                    strans1 = ans1.getText().toString();
+                    strans2 = ans2.getText().toString();
+                    strans3 = ans3.getText().toString();
+                    strans4 = ans4.getText().toString();
 
                     String checked = null;
-                    if(check1.isChecked()){
-                        checked= String.valueOf(1);
+                    if (check1.isChecked()) {
+                        checked = String.valueOf(1);
 
-                    }else if(check2.isChecked()){
-                        checked= String.valueOf(2);
-                    }
-                    else if(check3.isChecked()){
-                        checked=String.valueOf(3);
-                    }
-                    else  if(check4.isChecked()){
-                        checked=String .valueOf(4);
+                    } else if (check2.isChecked()) {
+                        checked = String.valueOf(2);
+                    } else if (check3.isChecked()) {
+                        checked = String.valueOf(3);
+                    } else if (check4.isChecked()) {
+                        checked = String.valueOf(4);
                     }
 //{"correct_ans":"2","quiz_ans_1":"1a","quiz_ans_2":"2a","quiz_ans_3":"3a","quiz_ans_4":"4a","quiz_question":"Ques 1"}}
                     JSONObject obj = new JSONObject();
                     try {
                         obj.put("correct_ans", checked);
                         obj.put("quiz_ans_1", strans1);
-                        obj.put("quiz_ans_2",strans2);
+                        obj.put("quiz_ans_2", strans2);
                         obj.put("quiz_ans_3", strans3);
                         obj.put("quiz_ans_4", strans4);
                         obj.put("quiz_question", strquestion);
-                        obj.put("count",count);
-                        Log.e("obj",""+obj);
+                        obj.put("count", count);
+                        Log.e("obj", "" + obj);
 
-                        object.put(String.valueOf(i+1), obj);
+                        object.put(String.valueOf(i + 1), obj);
                         count++;
-                        quizdata=object.toString();
-                        AddQuiz.dataquiz=quizdata;
-                        Quiz_Edit.editdataquiz=quizdata;
-                        Log.e("updateQuiz",""+Quiz_Edit.editdataquiz);
+                        quizdata = object.toString();
+                        Log.e("quizdatacorre", "" + quizdata);
+                        AddQuiz.dataquiz = quizdata;
+                     //  Quiz_Edit.editdataquiz = quizdata;
+                        Log.e("updateQuizdata", "" + Quiz_Edit.editdataquiz);
 
                     } catch (JSONException e) {
                         // TODO Auto-generated catch block
@@ -286,11 +285,11 @@ public class Quiz_Question_Fragment extends Fragment {
                 }
 
 
-                    Log.e("FinalJson",""+object);
-                Log.e("quizdata",""+quizdata);
+                Log.e("FinalJson", "" + object);
+                Log.e("quizdata", "" + quizdata);
 
-                Log.e("staticstrquestion",""+strquestion);
-                AddQuiz.strquizquestionname=strquestion;
+                Log.e("staticstrquestion", "" + strquestion);
+                AddQuiz.strquizquestionname = strquestion;
 
                /* Quiz_Question quiz_question=new Quiz_Question();
                 quiz_question.getQuiz_question();

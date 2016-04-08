@@ -426,7 +426,7 @@ public class SyllabusFragment extends Fragment{
                 sylbsTitle.setText(" ");
                 des.setText(" ");
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
-                alertDialog.setMessage("Syllabus updated").setCancelable(false)
+                alertDialog.setMessage("Syllabus deleted").setCancelable(false)
                         .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
 
                             @Override

@@ -63,7 +63,7 @@ public class TopicFragment extends Fragment {
     RelativeLayout rellogin, relative_header;
     int id, fromEdit;
     int fromsave = 1;
-    String othrdes, a, b;
+    String othrdes, a, b,text;
     int id1;
     SharedPreferences pref;
     String get, loc, cheat;
@@ -276,6 +276,24 @@ public class TopicFragment extends Fragment {
             }
 
 
+            if(id==6){
+                Log.e("idreceived6",""+id);
+                 text=holder.artitem.getText().toString();
+
+                if(othrdes==null || othrdes.equals("")){
+                    Log.e("wrongdataiothrdes",""+othrdes);
+                    holder.artitem.setText("");
+                }
+                if(val==null || val.equals("")){
+                    Log.e("wrongdataval",""+val);
+                    holder.artitem.setText("");
+                }
+
+                Log.e("wrongdata",""+othrdes);
+                Log.e("wrongdatas",""+val);
+                Log.e("idreceivedtext","qwqwe"+text);
+                holder.artitem.setText("");
+            }
             holder.a3cat.setText(arrName.get(position));
             holder.pos = position;
 
