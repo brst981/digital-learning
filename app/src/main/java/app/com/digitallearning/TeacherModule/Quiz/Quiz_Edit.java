@@ -181,7 +181,8 @@ public class Quiz_Edit extends Fragment {
                 }
                 else if(newquizdata!=null){
                     try{
-                        newquizdata= editdataquiz.replace("\"","\'");}
+                        newquizdata= editdataquiz;//.replace("\"","\'");
+                         }
                     catch (Exception e){}
 
                     Log.e("DATA",""+editdataquiz);

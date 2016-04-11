@@ -134,10 +134,10 @@ public class AddLessonFragment extends Fragment{
                     LogMessage.showDialog(getActivity(), null,
                             "Please fill required Fields", "OK");
                 }
-                else if(videolink.isEmpty()){
+                /*else if(videolink.isEmpty()){
                     LogMessage.showDialog(getActivity(), null,
                             "Please fill required Fields", "OK");
-                }
+                }*/
                 else{
 
                 new Add_Lesson().execute(cla_classid,Sch_Mem_id,title,description,currentdate,videolink);

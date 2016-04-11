@@ -62,6 +62,7 @@ public class Quiz_View extends Fragment {
     JSONArray firstarr;
     int currentCount = -1;
     int pagerChildCount = -1;
+    int pos;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -176,7 +177,7 @@ public class Quiz_View extends Fragment {
             questionname.setText(mQuizOpt.get(position).getQuestion_name());
 
             Log.e("mQuizOpt",""+mQuizOpt);
-            Log.e("mData_options",""+mData_options);
+            Log.e("mData_options",""+mData_options);  https://youtu.be/42ebdXqke34
             Log.e("viewpagerpos", "" + position);
 //            final EditText[] mEditDat = new EditText[4];
 //
@@ -283,7 +284,7 @@ public class Quiz_View extends Fragment {
                 textView_lesson_description1.setEnabled(false);
                 questionname.setEnabled(false);
                 headerTitle.setText("View Quiz");
-                int pos = position + 1;
+                 pos = position + 1;
                 textView.setText("Quiz" + " " + pos + " " + "of" + " " + mQuizOpt.size());
 
 
@@ -387,7 +388,13 @@ public class Quiz_View extends Fragment {
                 textquiz.setVisibility(View.GONE);
                 description.setVisibility(View.GONE);
                 Log.e("idvalue", "" + idvalue);
-                textView.setText("Save");
+                pos = position + 1;
+                textView.setText("Quiz" + " " + pos + " " + "of" + " " + mQuizOpt.size());
+                String getText=textView.getText().toString();
+                Log.e("getText","daa"+getText);
+                if(pos==mQuizOpt.size()){
+                    Log.e("Visit","here");
+                textView.setText("Save");}
                 textView_lesson_title.setEnabled(true);
                 textView_lesson_description.setEnabled(true);
                 textView_lesson_description_.setEnabled(true);
@@ -457,7 +464,8 @@ public class Quiz_View extends Fragment {
                                 Log.e("answer1", "" + ans1);
 
                                 JSONObject optionobj = new JSONObject();
-                                optionobj.put(("option_id"), mData_options.get(i).getOption_id());
+                                optionobj.put(("option_id"), mQuizOpt.get(k).getmQuiz_option().getOption().get(i).getOption_id());// mData_options.get(i).getOption_id());
+                                Log.e("optionidsgone",""+ mData_options.get(i).getOption_id());
                                 optionobj.put(("quizzes_id"), mQuizOpt.get(k).getQuestion_id());
                                 if (i == 0)
                                     optionobj.put(("quiz_option"), ans1);

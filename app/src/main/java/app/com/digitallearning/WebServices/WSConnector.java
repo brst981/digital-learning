@@ -753,7 +753,7 @@ public class WSConnector {
         Log.e("lessonid",""+lessonid);
         Log.e("quiz_title",""+quiz_title);
         Log.e("quiz_description",""+quiz_description);
-        Log.e("qzdata",""+qzdata);
+        Log.e("qzdatagotoservice",""+qzdata);
         Log.e("last_modified",""+last_modified);
         Log.e("edit_quiz_id",""+edit_quiz_id);
         String result = WSAdapter.postJSONObject(url, pairs);

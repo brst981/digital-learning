@@ -18,7 +18,6 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -45,6 +44,7 @@ public class NavigationForStudent extends AppCompatActivity implements Navigatio
     ImageButton imageButtonZoomIn, imageButtonZoomOut;
     ProgressDialog dlg;
     String curdate,Sch_Mem_id;
+    boolean lessonselected;
     @Override
     protected void onCreate( Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +54,7 @@ public class NavigationForStudent extends AppCompatActivity implements Navigatio
         imageButtonZoomIn=(ImageButton) mToolbar.findViewById(R.id.img_zoom_in);
         imageButtonZoomOut=(ImageButton) mToolbar.findViewById(R.id.img_zoom_out);
         fromClass = getIntent().getBooleanExtra("fromClass", false);
+        lessonselected=getIntent().getBooleanExtra("lessonselected",false);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         preferences = PreferenceManager.getDefaultSharedPreferences(NavigationForStudent.this);
         Sch_Mem_id = preferences.getString("Sch_Mem_id", "");
@@ -109,11 +110,12 @@ public class NavigationForStudent extends AppCompatActivity implements Navigatio
 
         //  headerTitle = (TextView) mToolbar.findViewById(R.id.mytext);
         FragmentManager mFragmentManager = getSupportFragmentManager();
-        Toast.makeText(this, "Menu item selected -> " + position, Toast.LENGTH_SHORT).show();
+
 
 
         switch (position) {
             case 0:
+
 
                 if(fromClass){
 //                    isFromDrawer
@@ -126,6 +128,11 @@ public class NavigationForStudent extends AppCompatActivity implements Navigatio
                     mFragment = StudentLessonFragment.newInstance();
 
                 }
+               /* if(lessonselected==true){
+                    Log.e("lessonselected","lessonselected"+lessonselected);
+                    NavigationDrawerStudent.imageView.setVisibility(View.VISIBLE);
+                    mFragment = StudentLessonFragment.newInstance();
+                }*/
 
 
 

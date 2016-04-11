@@ -65,6 +65,7 @@ public class StudentClass extends  Fragment {
     ImageView logout;
     SharedPreferences preferences;
     SharedPreferences.Editor editor;
+    boolean lessonselected;
     ArrayList<Student_Login_Data> stulogindata=new ArrayList<Student_Login_Data>();
     public static StudentClass newInstance() {
         StudentClass mFragment = new StudentClass();
@@ -169,7 +170,9 @@ public class StudentClass extends  Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(getActivity(), NavigationForStudent.class);
                 defineClass = true;
+                lessonselected=true;
                 intent.putExtra("fromClass", defineClass);
+                intent.putExtra("lessonselected",lessonselected);
                 startActivity(intent);
 
             }
