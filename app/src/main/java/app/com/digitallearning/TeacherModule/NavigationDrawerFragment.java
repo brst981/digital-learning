@@ -320,9 +320,11 @@ android.support.v4.app.Fragment mFragment;
                     String lastName = obj.getString("lastName");
                     String email = obj.getString("email");
                     String photo = obj.getString("photo");
+                    Log.e("photo","dd"+photo);
                     String description = obj.getString("description");
                     String phonenumber = obj.getString("phonenumber");
-                    Picasso.with(getActivity()).load(photo).placeholder(R.drawable.img_loading).into(imageView);
+                    if ((!photo.isEmpty())){
+                        Picasso.with(getActivity()).load(photo).placeholder(R.drawable.img_loading).into(imageView);}
 
                 }
 

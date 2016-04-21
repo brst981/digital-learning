@@ -133,7 +133,7 @@
             android:src="@drawable/img_user_" />
 
         <EditText
-            android:text="komalsharma"
+
             android:id="@+id/edt_username_student"
             android:layout_width="match_parent"
             android:layout_height="40dp"
@@ -168,7 +168,7 @@
             android:src="@drawable/img_pwd" />
 
         <EditText
-            android:text="komal"
+
             android:id="@+id/edt_pwd_student"
             android:layout_width="match_parent"
             android:layout_height="40dp"
