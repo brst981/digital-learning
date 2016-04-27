@@ -30,7 +30,6 @@ public class ClassActivity extends FragmentActivity {
 
         fragmentTransaction.commit();
 
-
     }
 
     @Override

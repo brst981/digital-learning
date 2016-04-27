@@ -13,43 +13,49 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-<RelativeLayout
-    android:id="@+id/relquiz"
-    android:background="#F4F4F4"
-    android:layout_width="match_parent"
-    android:layout_height="100dp">
-    <TextView
 
-        android:id="@+id/textquiz"
-        android:textColor="#000"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:gravity="center"
-        android:layout_marginTop="10dp"
-        android:layout_centerHorizontal="true" />
-    <TextView
+            <RelativeLayout
+                android:id="@+id/relquiz"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:background="#F4F4F4">
 
-        android:id="@+id/description"
-        android:textColor="#000"
-        android:layout_below="@+id/textquiz"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:layout_marginTop="5dp"
+                <TextView
 
-        android:layout_centerHorizontal="true" />
-</RelativeLayout>
+                    android:id="@+id/textquiz"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
+                    android:textColor="#000" />
+
+                <TextView
+                    android:id="@+id/description"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:layout_below="@+id/textquiz"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center"
+
+                    android:textColor="#000" />
+            </RelativeLayout>
+
             <EditText
                 android:id="@+id/questionname"
-                android:textColor="#000"
-                android:padding="10dp"
-                android:gravity="top"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_below="@+id/relquiz"
                 android:layout_margin="5dp"
                 android:background="@drawable/edit_text_selector_round"
-                android:layout_below="@+id/relquiz"
-                android:layout_width="match_parent"
-                android:layout_height="200dp" />
+                android:gravity="top"
+                android:padding="10dp"
+                android:textColor="#000" />
 
-            
+
             <View
 
                 android:id="@+id/view"
@@ -59,140 +65,167 @@
                 android:layout_marginTop="5dp"
                 android:background="@color/color_light_grey" />
 
-            <CheckBox
-                android:id="@+id/check1"
-                android:layout_marginLeft="5dp"
-                android:checkMark="?android:attr/listChoiceIndicatorMultiple"
-                android:layout_marginTop="15dp"
-                android:layout_below="@+id/questionname"
-                android:layout_width="wrap_content"
-                android:layout_height="40dp" />
-            <EditText
-                android:id="@+id/textView_lesson_title"
+            <RelativeLayout
+                android:id="@+id/relative1"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_toRightOf="@+id/check1"
-                android:layout_below="@+id/view"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:background="@null"
-                android:ellipsize="end"
-                android:gravity="left|center"
-                android:maxLines="2"
-                android:paddingLeft="5dp"
-                android:textColor="@android:color/black"
-                android:textSize="14sp" />
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/questionname">
+
+                <CheckBox
+                    android:id="@+id/check1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="15dp"
+                    android:checkMark="?android:attr/listChoiceIndicatorMultiple" />
+
+                <EditText
+                    android:id="@+id/textView_lesson_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_toRightOf="@+id/check1"
+                    android:background="@null"
+                    android:ellipsize="end"
+                    android:gravity="left|center"
+                    android:maxLines="2"
+                    android:paddingLeft="5dp"
+                    android:textColor="@android:color/black"
+                    android:textSize="14sp" />
 
 
-            <View
-                android:id="@+id/view1"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_below="@+id/textView_lesson_title"
-                android:layout_marginTop="5dp"
-                android:background="@color/color_light_grey" />
-            <CheckBox
-                android:layout_marginLeft="5dp"
-                android:id="@+id/check2"
-                android:checkMark="?android:attr/listChoiceIndicatorMultiple"
-                android:layout_marginTop="12dp"
-                android:layout_below="@+id/check1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-            <EditText
-                android:id="@+id/textView_lesson_description"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_toRightOf="@+id/check2"
-                android:layout_below="@+id/view1"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:background="@null"
-                android:ellipsize="end"
-                android:gravity="left|center"
-                android:maxLines="2"
-                android:paddingLeft="5dp"
-                android:textColor="@android:color/black"
-                android:textSize="14sp" />
+                <View
+                    android:id="@+id/view1"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@+id/textView_lesson_title"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/color_light_grey" />
+            </RelativeLayout>
 
-            <View
-                android:id="@+id/view2"
+            <RelativeLayout
+                android:id="@+id/relative2"
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_below="@+id/textView_lesson_description"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/relative1">
 
-                android:background="@color/color_light_grey" />
-            <CheckBox
-                android:id="@+id/check3"
-               android:layout_marginTop="10dp"
-                android:checkMark="?android:attr/listChoiceIndicatorMultiple"
-                android:layout_marginLeft="5dp"
-                android:layout_below="@+id/check2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-            <EditText
-                android:id="@+id/textView_lesson_description_"
+                <CheckBox
+                    android:id="@+id/check2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="12dp"
+                    android:checkMark="?android:attr/listChoiceIndicatorMultiple" />
+
+                <EditText
+                    android:id="@+id/textView_lesson_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_toRightOf="@+id/check2"
+                    android:background="@null"
+                    android:ellipsize="end"
+                    android:gravity="left|center"
+                    android:maxLines="2"
+                    android:paddingLeft="5dp"
+                    android:textColor="@android:color/black"
+                    android:textSize="14sp" />
+
+                <View
+                    android:id="@+id/view2"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@+id/textView_lesson_description"
+
+                    android:background="@color/color_light_grey" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/relative3"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_below="@+id/view2"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:background="@null"
-                android:layout_toRightOf="@id/check3"
-                android:ellipsize="end"
-                android:gravity="left|center"
-                android:maxLines="2"
-                android:paddingLeft="5dp"
-                android:textColor="@android:color/black"
-                android:textSize="14sp" />
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/relative2">
 
-            <View
-                android:id="@+id/view3"
+                <CheckBox
+                    android:id="@+id/check3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="10dp"
+                    android:checkMark="?android:attr/listChoiceIndicatorMultiple" />
+
+                <EditText
+                    android:id="@+id/textView_lesson_description_"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_toRightOf="@id/check3"
+                    android:background="@null"
+                    android:ellipsize="end"
+                    android:gravity="left|center"
+                    android:maxLines="2"
+                    android:paddingLeft="5dp"
+                    android:textColor="@android:color/black"
+                    android:textSize="14sp" />
+
+                <View
+                    android:id="@+id/view3"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@+id/textView_lesson_description_"
+
+                    android:background="@color/color_light_grey" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/relative4"
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_below="@+id/textView_lesson_description_"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/relative3">
 
-                android:background="@color/color_light_grey" />
-            <CheckBox
-                android:id="@+id/check4"
-                android:layout_marginTop="10dp"
-                android:layout_below="@+id/check3"
-                android:layout_width="wrap_content"
-                android:checkMark="?android:attr/listChoiceIndicatorMultiple"
-                android:layout_marginLeft="5dp"
-                android:layout_height="wrap_content" />
-            <EditText
-                android:id="@+id/textView_lesson_description1"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_toRightOf="@+id/check4"
-                android:layout_below="@+id/view3"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:background="@null"
-                android:ellipsize="end"
-                android:gravity="left|center"
-                android:maxLines="2"
-                android:paddingLeft="5dp"
-                android:textColor="@android:color/black"
-                android:textSize="14sp" />
+                <CheckBox
+                    android:id="@+id/check4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="10dp"
+                    android:checkMark="?android:attr/listChoiceIndicatorMultiple" />
 
-            <View
-                android:id="@+id/view4"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_below="@+id/textView_lesson_description1"
+                <EditText
+                    android:id="@+id/textView_lesson_description1"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_toRightOf="@+id/check4"
+                    android:background="@null"
+                    android:ellipsize="end"
+                    android:gravity="left|center"
+                    android:maxLines="2"
+                    android:paddingLeft="5dp"
+                    android:textColor="@android:color/black"
+                    android:textSize="14sp" />
 
-                android:background="@color/color_light_grey" />
+                <View
+                    android:id="@+id/view4"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@+id/textView_lesson_description1"
+
+                    android:background="@color/color_light_grey" />
+            </RelativeLayout>
 
             <TextView
                 android:id="@+id/textView_lesson_description2"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:layout_below="@+id/view4"
+                android:layout_below="@+id/relative4"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
-
                 android:ellipsize="end"
                 android:gravity="left|center"
                 android:maxLines="2"
@@ -224,21 +257,21 @@
             android:id="@+id/img_left_icon"
             android:layout_width="35dp"
             android:layout_height="35dp"
-            android:visibility="gone"
-            android:layout_marginTop="5dp"
-            android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
-            android:src="@drawable/ic_left_arrow"/>
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="5dp"
+            android:src="@drawable/ic_left_arrow"
+            android:visibility="gone" />
 
         <ImageView
             android:id="@+id/img_right_icon"
             android:layout_width="35dp"
             android:layout_height="35dp"
-            android:visibility="gone"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
             android:layout_marginTop="5dp"
             android:src="@drawable/ic_right_arrow"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
+            android:visibility="gone" />
 
     </RelativeLayout>
 </RelativeLayout>

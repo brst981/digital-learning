@@ -38,7 +38,7 @@ public class SplashActivity extends Activity {
                     startActivity(mainIntent);
                     finish();
                 }
-               else if(remembermechecked==1){
+                else if(remembermechecked==1){
                     Intent toclass=new Intent(SplashActivity.this, ClassActivity.class);
                     startActivity(toclass);
                     finish();

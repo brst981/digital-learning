@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:background="@color/colorlima"
-       >
+        >
         <ImageView
             android:id="@+id/logout"
             android:src="@drawable/logout"
@@ -60,51 +60,51 @@
         android:layout_below="@+id/relative_header"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
-
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/swipeRefreshLayout"
-        android:layout_width="match_parent"
-        android:layout_above="@+id/ripple_create"
-        android:layout_height="match_parent">
-
-
-        <ListView
-
-            android:id="@+id/listview_archieved"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </android.support.v4.widget.SwipeRefreshLayout>
-
-    <com.andexert.library.RippleView
-        android:id="@+id/ripple_create"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-
-        android:layout_alignParentBottom="true"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginBottom="10dp"
+    <app.com.digitallearning.TeacherModule.sdlv.SlideAndDragListView
+        android:id="@+id/lv_edit"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:divider="@android:color/black"
+        android:dividerHeight="0.5dip"
+        android:listSelector="@drawable/list_selector"
+        android:paddingLeft="8dip"
+        android:layout_marginBottom="65dp"
         android:layout_marginTop="10dp"
-        app:rv_color="#000"
-        app:rv_rippleDuration="50"
-        app:rv_type="rectangle"
-        app:rv_zoom="true">
+        android:paddingRight="8dip">
+    </app.com.digitallearning.TeacherModule.sdlv.SlideAndDragListView>
+    <com.andexert.library.RippleView
+            android:id="@+id/ripple_create"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+           android:layout_alignParentBottom="true"
 
-        <Button
-            android:id="@+id/button_create"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="@color/colorlima"
-            android:elevation="8dp"
-            android:text="    Create a new class"
-            android:textAllCaps="true"
-            android:gravity="left|center"
-            android:drawableLeft="@drawable/ic_plus"
-            android:drawablePadding="1dp"
-            android:paddingLeft="60dp"
-            android:textColor="@android:color/white"
-            android:textSize="16sp" />
-    </com.andexert.library.RippleView>
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            app:rv_color="#000"
+            app:rv_rippleDuration="50"
+            app:rv_type="rectangle"
+            app:rv_zoom="true">
+
+            <Button
+                android:id="@+id/button_create"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@color/colorlima"
+                android:elevation="8dp"
+                android:text="    Create a new class"
+                android:textAllCaps="true"
+                android:gravity="left|center"
+                android:drawableLeft="@drawable/ic_plus"
+                android:drawablePadding="1dp"
+                android:paddingLeft="60dp"
+                android:textColor="@android:color/white"
+                android:textSize="16sp" />
+
+        </com.andexert.library.RippleView>
+
+
     </RelativeLayout>
+
 </RelativeLayout>

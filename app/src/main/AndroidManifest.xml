@@ -22,6 +22,11 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".TeacherModule.sdlv.DifferentActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+
+        <activity
             android:name=".MainActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />

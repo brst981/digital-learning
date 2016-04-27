@@ -157,6 +157,10 @@ public class Quiz_View extends Fragment {
             View itemView = mLayoutInflater.inflate(R.layout.list_quiz_view, container,
                     false);
 
+            RelativeLayout relativeLayout1 = (RelativeLayout) itemView.findViewById(R.id.relative1);
+            RelativeLayout relativeLayout2 = (RelativeLayout) itemView.findViewById(R.id.relative2);
+            RelativeLayout relativeLayout3 = (RelativeLayout) itemView.findViewById(R.id.relative3);
+            RelativeLayout relativeLayout4 = (RelativeLayout)itemView.findViewById(R.id.relative4);
             Data_Quiz_Info mInfo = mDataViewQuiz.getmDataQuizInfo();
 
             Data_Quiz_Option mOption = mQuizOpt.get(position).getmQuiz_option();
@@ -176,8 +180,10 @@ public class Quiz_View extends Fragment {
             final EditText questionname = (EditText) itemView.findViewById(R.id.questionname);
             questionname.setText(mQuizOpt.get(position).getQuestion_name());
 
-            Log.e("mQuizOpt",""+mQuizOpt);
-            Log.e("mData_options",""+mData_options);  https://youtu.be/42ebdXqke34
+            Log.e("mQuizOpt", "" + mQuizOpt);
+            Log.e("mData_options", "" + mData_options);
+            https:
+//youtu.be/42ebdXqke34
             Log.e("viewpagerpos", "" + position);
 //            final EditText[] mEditDat = new EditText[4];
 //
@@ -199,27 +205,54 @@ public class Quiz_View extends Fragment {
             final EditText textView_lesson_description1 = (EditText) itemView.findViewById(R.id.textView_lesson_description1);
 
             for (int i = 0; i < mData_options.size(); i++) {
+                Log.e("mData_options", "mData_options" + mData_options.size());
+
+
                 if (mQuizOpt.get(position).getQuestion_id().equals(mData_options.get(i).getQuizzes_id())) {
-                    textView_lesson_title.setText(mData_options.get(0).getQuiz_option());
-                    textView_lesson_description.setText(mData_options.get(1).getQuiz_option());
-                    textView_lesson_description_.setText(mData_options.get(2).getQuiz_option());
-                    textView_lesson_description1.setText(mData_options.get(3).getQuiz_option());
+
+                    if(mData_options.size()==1){
+
+                        textView_lesson_title.setText(mData_options.get(0).getQuiz_option());
+                        relativeLayout2.setVisibility(View.GONE);
+                        relativeLayout3.setVisibility(View.GONE);
+                        relativeLayout4.setVisibility(View.GONE);
+                    }
+                    else if(mData_options.size()==2){
+                        relativeLayout3.setVisibility(View.GONE);
+                        relativeLayout4.setVisibility(View.GONE);
+                        textView_lesson_title.setText(mData_options.get(0).getQuiz_option());
+                        textView_lesson_description.setText(mData_options.get(1).getQuiz_option());
+                    }
+                    else if(mData_options.size()==3){
+                        relativeLayout4.setVisibility(View.GONE);
+                        textView_lesson_title.setText(mData_options.get(0).getQuiz_option());
+                        textView_lesson_description.setText(mData_options.get(1).getQuiz_option());
+                        textView_lesson_description_.setText(mData_options.get(2).getQuiz_option());
+                    }
+
+                   else{
+                        textView_lesson_title.setText(mData_options.get(0).getQuiz_option());
+                        textView_lesson_description.setText(mData_options.get(1).getQuiz_option());
+                        textView_lesson_description_.setText(mData_options.get(2).getQuiz_option());
+                        textView_lesson_description1.setText(mData_options.get(3).getQuiz_option());
+                    }
+
                 }
 
             }
 
 
-            //     textView_lesson_description.setText(quizlisting.get(1).getQuiz_option());
-            //    textView_lesson_description_.setText(quizlisting.get(2).getQuiz_option());
-            //   textView_lesson_description1.setText(quizlisting.get(3).getQuiz_option());
+                 /*textView_lesson_description.setText(quizlisting.get(1).getQuiz_option());
+               textView_lesson_description_.setText(quizlisting.get(2).getQuiz_option());
+              textView_lesson_description1.setText(quizlisting.get(3).getQuiz_option());*/
 
-          /*  for(int x=0;x<quizlisting.size();x++){
+          for(int x=0;x<quizlisting.size();x++){
                 Log.e("textname",""+quizlisting.get(x).getQuiz_option());
                 textView_lesson_title.setText(quizlisting.get(0).getQuiz_option());
                 textView_lesson_description.setText(quizlisting.get(1).getQuiz_option());
                 textView_lesson_description_.setText(quizlisting.get(2).getQuiz_option());
                 textView_lesson_description1.setText(quizlisting.get(3).getQuiz_option());
-            }*/
+            }
             //  Log.e("textname",""+quizlisting.get(0).getQuiz_option());
 
             final CheckBox check1 = (CheckBox) itemView.findViewById(R.id.check1);
@@ -245,7 +278,7 @@ public class Quiz_View extends Fragment {
                     } else if (mData_options.get(1).getCorrect_answer().equals("1")) {
                         check2.setChecked(true);
                     }
-                    if (mData_options.get(2).getCorrect_answer().equals("0")) {
+                    /*if (mData_options.get(2).getCorrect_answer().equals("0")) {
                         check3.setChecked(false);
                     } else if (mData_options.get(2).getCorrect_answer().equals("1")) {
                         check3.setChecked(true);
@@ -255,7 +288,7 @@ public class Quiz_View extends Fragment {
                     } else if (mData_options.get(3).getCorrect_answer().equals("1")) {
                         check4.setChecked(true);
                         Log.e("check", "" + mData_options.get(3).getCorrect_answer().equals("1"));
-                    }
+                    }*/
                 }
 
             }
@@ -284,7 +317,7 @@ public class Quiz_View extends Fragment {
                 textView_lesson_description1.setEnabled(false);
                 questionname.setEnabled(false);
                 headerTitle.setText("View Quiz");
-                 pos = position + 1;
+                pos = position + 1;
                 textView.setText("Quiz" + " " + pos + " " + "of" + " " + mQuizOpt.size());
 
 
@@ -390,11 +423,12 @@ public class Quiz_View extends Fragment {
                 Log.e("idvalue", "" + idvalue);
                 pos = position + 1;
                 textView.setText("Quiz" + " " + pos + " " + "of" + " " + mQuizOpt.size());
-                String getText=textView.getText().toString();
-                Log.e("getText","daa"+getText);
-                if(pos==mQuizOpt.size()){
-                    Log.e("Visit","here");
-                textView.setText("Save");}
+                String getText = textView.getText().toString();
+                Log.e("getText", "daa" + getText);
+                if (pos == mQuizOpt.size()) {
+                    Log.e("Visit", "here");
+                    textView.setText("Save");
+                }
                 textView_lesson_title.setEnabled(true);
                 textView_lesson_description.setEnabled(true);
                 textView_lesson_description_.setEnabled(true);
@@ -409,121 +443,120 @@ public class Quiz_View extends Fragment {
                     @Override
                     public void onClick(View v) {
                         int k;
-                        for (k=0; k<_mViewPager.getChildCount(); k++){
+                        for (k = 0; k < _mViewPager.getChildCount(); k++) {
 
-                        View view = _mViewPager.getChildAt(k);
-                        EditText et = (EditText)view.findViewById(R.id.questionname) ;
-                        EditText textView_lesson_title = (EditText) view.findViewById(R.id.textView_lesson_title);
-                        EditText textView_lesson_description = (EditText) view.findViewById(R.id.textView_lesson_description);
-                        EditText textView_lesson_description_ = (EditText) view.findViewById(R.id.textView_lesson_description_);
-                        EditText textView_lesson_description1 = (EditText) view.findViewById(R.id.textView_lesson_description1);
-                        CheckBox check1 = (CheckBox) view.findViewById(R.id.check1);
-                        CheckBox check2 = (CheckBox) view.findViewById(R.id.check2);
-                        CheckBox check3 = (CheckBox) view.findViewById(R.id.check3);
-                        CheckBox check4 = (CheckBox) view.findViewById(R.id.check4);
+                            View view = _mViewPager.getChildAt(k);
+                            EditText et = (EditText) view.findViewById(R.id.questionname);
+                            EditText textView_lesson_title = (EditText) view.findViewById(R.id.textView_lesson_title);
+                            EditText textView_lesson_description = (EditText) view.findViewById(R.id.textView_lesson_description);
+                            EditText textView_lesson_description_ = (EditText) view.findViewById(R.id.textView_lesson_description_);
+                            EditText textView_lesson_description1 = (EditText) view.findViewById(R.id.textView_lesson_description1);
+                            CheckBox check1 = (CheckBox) view.findViewById(R.id.check1);
+                            CheckBox check2 = (CheckBox) view.findViewById(R.id.check2);
+                            CheckBox check3 = (CheckBox) view.findViewById(R.id.check3);
+                            CheckBox check4 = (CheckBox) view.findViewById(R.id.check4);
 
 
+                            Log.e("MyViewData", "" + et.getText().toString());
+                            Log.e("MyViewData1", "" + textView_lesson_description1.getText().toString());
+                            String checked = null;
+                            int flag = 0;
+                            if (check1.isChecked()) {
+                                checked = String.valueOf(1);
 
-                        Log.e("MyViewData",""+et.getText().toString());
-                            Log.e("MyViewData1",""+textView_lesson_description1.getText().toString());
-                        String checked = null;
-                        int flag = 0;
-                        if (check1.isChecked()) {
-                            checked = String.valueOf(1);
+                            } else if (check2.isChecked()) {
+                                checked = String.valueOf(2);
+                            } else if (check3.isChecked()) {
+                                checked = String.valueOf(3);
+                            } else if (check4.isChecked()) {
+                                checked = String.valueOf(4);
+                            }
 
-                        } else if (check2.isChecked()) {
-                            checked = String.valueOf(2);
-                        } else if (check3.isChecked()) {
-                            checked = String.valueOf(3);
-                        } else if (check4.isChecked()) {
-                            checked = String.valueOf(4);
-                        }
+                            Log.e("checked", "" + mQuizOpt.get(k).getQuestion_name());
 
-                        Log.e("checked", "" + mQuizOpt.get(k).getQuestion_name());
+                            JSONArray arr = new JSONArray();
 
-                        JSONArray arr = new JSONArray();
-
-                        JSONObject start = new JSONObject();
+                            JSONObject start = new JSONObject();
 
                             ans1 = textView_lesson_title.getText().toString();
                             ans2 = textView_lesson_description.getText().toString();
                             ans3 = textView_lesson_description_.getText().toString();
                             ans4 = textView_lesson_description1.getText().toString();
                             Log.e("answer1size", "" + mData_options.size());
-                            Log.e("Ans_Type",""+ans1+"--"+ans2+"--"+ans3+"--"+ans4);
+                            Log.e("Ans_Type", "" + ans1 + "--" + ans2 + "--" + ans3 + "--" + ans4);
 
-                        for (int i = 0; i < mData_options.size(); i++) {
-                            JSONObject object1 = new JSONObject();
-                            question = questionname.getText().toString();
-                            try {
-                                object1.put(("question_id"), mQuizOpt.get(k).getQuestion_id());
-                                object1.put(("question_name"), et.getText().toString());
-                                JSONObject jsn = new JSONObject();
-                                JSONArray jsnarr = new JSONArray();
+                            for (int i = 0; i < mData_options.size(); i++) {
+                                JSONObject object1 = new JSONObject();
+                                question = questionname.getText().toString();
+                                try {
+                                    object1.put(("question_id"), mQuizOpt.get(k).getQuestion_id());
+                                    object1.put(("question_name"), et.getText().toString());
+                                    JSONObject jsn = new JSONObject();
+                                    JSONArray jsnarr = new JSONArray();
 
-                                Log.e("answer1", "" + ans1);
+                                    Log.e("answer1", "" + ans1);
 
-                                JSONObject optionobj = new JSONObject();
-                                optionobj.put(("option_id"), mQuizOpt.get(k).getmQuiz_option().getOption().get(i).getOption_id());// mData_options.get(i).getOption_id());
-                                Log.e("optionidsgone",""+ mData_options.get(i).getOption_id());
-                                optionobj.put(("quizzes_id"), mQuizOpt.get(k).getQuestion_id());
-                                if (i == 0)
-                                    optionobj.put(("quiz_option"), ans1);
-                                if (i == 1)
-                                    optionobj.put(("quiz_option"), ans2);
-                                if (i == 2)
-                                    optionobj.put(("quiz_option"), ans3);
-                                if (i == 3)
-                                    optionobj.put(("quiz_option"), ans4);
+                                    JSONObject optionobj = new JSONObject();
+                                    optionobj.put(("option_id"), mQuizOpt.get(k).getmQuiz_option().getOption().get(i).getOption_id());// mData_options.get(i).getOption_id());
+                                    Log.e("optionidsgone", "" + mData_options.get(i).getOption_id());
+                                    optionobj.put(("quizzes_id"), mQuizOpt.get(k).getQuestion_id());
+                                    if (i == 0)
+                                        optionobj.put(("quiz_option"), ans1);
+                                    if (i == 1)
+                                        optionobj.put(("quiz_option"), ans2);
+                                    if (i == 2)
+                                        optionobj.put(("quiz_option"), ans3);
+                                    if (i == 3)
+                                        optionobj.put(("quiz_option"), ans4);
 
 
-                                if (check1.isChecked() && i == 0)
-                                    optionobj.put(("correct_answer"), "1");
-                                else if (i == 0)
-                                    optionobj.put(("correct_answer"), "0");
-                                if (check2.isChecked() && i == 1)
-                                    optionobj.put(("correct_answer"), "1");
-                                else if (i == 1)
-                                    optionobj.put(("correct_answer"), "0");
-                                if (check3.isChecked() && i == 2)
+                                    if (check1.isChecked() && i == 0)
+                                        optionobj.put(("correct_answer"), "1");
+                                    else if (i == 0)
+                                        optionobj.put(("correct_answer"), "0");
+                                    if (check2.isChecked() && i == 1)
+                                        optionobj.put(("correct_answer"), "1");
+                                    else if (i == 1)
+                                        optionobj.put(("correct_answer"), "0");
+                                    if (check3.isChecked() && i == 2)
 
-                                    optionobj.put(("correct_answer"), "1");
-                                else if (i == 2)
-                                    optionobj.put(("correct_answer"), "0");
-                                if (check4.isChecked() && i == 3)
-                                    optionobj.put(("correct_answer"), "1");
-                                else if (i == 3)
-                                    optionobj.put(("correct_answer"), "0");
+                                        optionobj.put(("correct_answer"), "1");
+                                    else if (i == 2)
+                                        optionobj.put(("correct_answer"), "0");
+                                    if (check4.isChecked() && i == 3)
+                                        optionobj.put(("correct_answer"), "1");
+                                    else if (i == 3)
+                                        optionobj.put(("correct_answer"), "0");
 
-                                Log.e("optionobj", "" + optionobj);
-                                jsnarr.put(optionobj);
-                                jsn.put("options", jsnarr);
+                                    Log.e("optionobj", "" + optionobj);
+                                    jsnarr.put(optionobj);
+                                    jsn.put("options", jsnarr);
 
-                                object1.put("quiz_options", jsn);
+                                    object1.put("quiz_options", jsn);
+                                    Log.e("object1", "" + object1);
+                                    firstarr.put(object1);
+                                    jobject.put("quiz_question", firstarr);
+
+
+                                    Log.e("object", "" + jobject);
+                                    quizdata = jobject.toString();
+                                    Log.e("quizdata", "" + quizdata);
+                                    Quiz_Edit.question_name = questionname.getText().toString();
+                                    Log.e("isdone", "" + Quiz_Edit.question_name);
+
+                                    Quiz_Edit.editdataquiz = quizdata;
+
+
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
                                 Log.e("object1", "" + object1);
-                                firstarr.put(object1);
-                                jobject.put("quiz_question", firstarr);
-
-
-                                Log.e("object", "" + jobject);
-                                quizdata = jobject.toString();
-                                Log.e("quizdata", "" + quizdata);
-                                Quiz_Edit.question_name = questionname.getText().toString();
-                                Log.e("isdone", "" + Quiz_Edit.question_name);
-
-                                Quiz_Edit.editdataquiz = quizdata;
-
-
-                            } catch (JSONException e) {
-                                e.printStackTrace();
                             }
-                            Log.e("object1", "" + object1);
-                        }
-                        //Quiz_Edit.dataquiz=quizdata;
+                            //Quiz_Edit.dataquiz=quizdata;
 
 
-                        Log.e("quizdata1", "" + jobject);
-                        //  Log.e("quizdatainglob", "" + Quiz_Edit.dataquiz);
+                            Log.e("quizdata1", "" + jobject);
+                            //  Log.e("quizdatainglob", "" + Quiz_Edit.dataquiz);
 
 //                        if(currentCount < pagerChildCount){
 //                            currentCount++;

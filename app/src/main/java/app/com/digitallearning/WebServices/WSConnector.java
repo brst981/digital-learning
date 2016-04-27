@@ -38,7 +38,7 @@ public class WSConnector {
         pairs.add(new BasicNameValuePair("password", password));
         Log.e("password",""+password);
         pairs.add(new BasicNameValuePair("logid", schoolID));
-        Log.e("schoolID",""+schoolID);
+        Log.e("schoolID","schoolID"+schoolID);
         String result = WSAdapter.postJSONObject(url, pairs);
 
 

@@ -11,18 +11,26 @@
         android:layout_width="match_parent"
         android:layout_above="@+id/ripple_create_lesson"
         android:layout_height="match_parent">
+        <app.com.digitallearning.TeacherModule.sdlv.SlideAndDragListView
+            android:id="@+id/list_drag"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:divider="@android:color/black"
+            android:dividerHeight="0.5dip"
+            android:listSelector="@drawable/list_selector"
+            android:paddingLeft="8dip"
+            android:layout_marginBottom="55dp"
+            android:layout_marginTop="10dp"
+            android:paddingRight="8dip">
+        </app.com.digitallearning.TeacherModule.sdlv.SlideAndDragListView>
 
-        <ListView
-            android:id="@+id/listview_archieved"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+
     </android.support.v4.widget.SwipeRefreshLayout>
 
     <com.andexert.library.RippleView
         android:id="@+id/ripple_create_lesson"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
         android:layout_alignParentBottom="true"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
